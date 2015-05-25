@@ -2,12 +2,6 @@
 
 void VerwerkCommando(int& hoofdstuk, const int commando)
 {
-  
-  Serial.print("VerwerkCommando: commando: ");
-  Serial.print(commando);
-  Serial.print(", hoofdstuk: ");
-  Serial.println(hoofdstuk);
-  
   if (commando < 1) return;
   switch (hoofdstuk)
   {

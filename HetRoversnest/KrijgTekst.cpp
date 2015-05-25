@@ -1,11 +1,10 @@
 #include <Arduino.h>
 
-const char * KrijgTekst1(const int paragraaf)
+const char * KrijgTekst(const int hoofdstuk)
 {
-  //Serial.print("KrijgTekst1 begin, paragraaf: "); Serial.println(paragraaf);
-  switch (paragraaf)
+  switch (hoofdstuk)
   {
-    case 0: 
+    case 1: 
     { 
       const static char tekst[] = 
         "De voettoch naar Zwartzand voert je zo'n vijfenzeventig kilometer "
@@ -25,24 +24,35 @@ const char * KrijgTekst1(const int paragraaf)
         "en instinctief grijp je het gevest van je slagzwaard om jezelf gerust te stellen. "
         "Bij de poort wordt je opgewacht door een lange wachter. Hij draagt een zwarte malienkolder en een ijzeren helm. "
         "Hij treedt naar voren, je de doorgang belemmerend met zijn piek en zegt: 'Wie waagt het onuitgenodigd naar Zwartzand te komen? "
-        "Verklaar wat je hier te zoeken hebt of ga de weg terug die je gekomen bent.'. Wat doen je? "
+        "Verklaar wat je hier te zoeken hebt of ga de weg terug die je gekomen bent.'. "
+        "Wat doen je? "
         "[1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? "
         "[2] Tegen hem zeggen dat je gestolen waar wil verkopen? "
         "[3] Hem snel aanvallen met je zwaard? "
        ;
       return tekst; 
     }
+    case 33: 
+    { 
+      const static char tekst[] = 
+        "33"
+      ;
+      return tekst;
+    }
+    case 49: 
+    { 
+      const static char tekst[] = 
+        "49"
+      ;
+      return tekst;
+    }
+    case 202: 
+    { 
+      const static char tekst[] = 
+        "202"
+      ;
+      return tekst;
+    }
   }
-  return '\0';
-}
-
-const char * KrijgTekst(const int hoofdstuk, const int paragraaf)
-{
-  //Serial.print("KrijgTekst begin, hoofdstuk: "); Serial.print(hoofdstuk); Serial.print(", paragraaf: "); Serial.println(paragraaf);
-
-  switch (hoofdstuk)
-  {
-    case 1: return KrijgTekst1(paragraaf);
-  } 
   return '\0';
 }
