@@ -2,6 +2,7 @@
 #include "KrijgTekst.h"
 
 ///Simpel
+/*
 void PrintHoofdstuk1(const int hoofdstuk)
 {
   Serial.print("Hoofdstuk: ");
@@ -9,12 +10,11 @@ void PrintHoofdstuk1(const int hoofdstuk)
   
   for (int paragraaf = 0; ; ++paragraaf)
   {
-    Serial.print("Paragraaf: ");
-    Serial.println(paragraaf);
-    const String tekst = KrijgTekst(hoofdstuk,paragraaf);
-    if (tekst == "") break; //Klaar
+    //Serial.print("Paragraaf: "); Serial.println(paragraaf); //DEBUG
+    const char * const tekst = KrijgTekst(hoofdstuk,paragraaf);
+    if (tekst == '\0') break; //Klaar
     Serial.println(tekst);
-    delay(100);
+    delay(100000);
   }
   Serial.println("Printhoofdstuk klaar");
 }
@@ -54,11 +54,50 @@ void PrintHoofdstuk2(const int hoofdstuk)
     }
   }
 }
+*/
+
+void PrintHoofdstuk3(const int hoofdstuk)
+{
+  const int n_letters_per_regel = 80;
+  
+  for (int paragraaf = 0; ; ++paragraaf)
+  {
+    //Serial.print("Paragraaf: "); Serial.println(paragraaf); //DEBUG
+    const char * const tekst = KrijgTekst(hoofdstuk,paragraaf);
+    if (tekst == '\0') 
+    {
+      //Serial.print("Paragraaf heeft geen tekst"); //DEBUG
+      return;
+    }
+    //Serial.print("Paragraaf heeft wel tekst"); //DEBUG
+    for (int van=0; van >= 0; ++van)
+    {
+      //Serial.print("Paragraaf: "); Serial.print(paragraaf); Serial.print(", van: "); Serial.println(van); //Debug
+
+      //Lees de regel van 'van' tot 'tot' om de regel op een spatie af te breken
+      for(int tot = van + 1; tot >= 0; ++tot)
+      {
+        //Serial.print("Paragraaf: "); Serial.print(paragraaf); Serial.print(", van: "); Serial.print(van); Serial.print(", tot: "); Serial.println(tot); //Debug
+        if (tekst[tot] == '\0')
+        {
+          //Print alles
+          for (int i=van; i!=tot; ++i) { Serial.print(tekst[i]); delay(10); }
+          Serial.println();
+          
+          //Serial.println("Volgende paragraaf");
+          tot = -2; //-2, omdat ik uit de 'tot' for loop wil breken, maar er wordt ook nog een ++tot gedaan
+          van = -2; 
+          break;
+        }
+      }
+    }
+  }
+}
 
 
 void PrintHoofdstuk(const int hoofdstuk)
 {
-  PrintHoofdstuk1(hoofdstuk);  
+  PrintHoofdstuk3(hoofdstuk);  
 }
 
 
