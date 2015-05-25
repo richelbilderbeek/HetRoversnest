@@ -20,7 +20,7 @@ const char * KrijgTekst1(const int paragraaf)
         "Terwijl je de stoffige weg noordwaards langs de kust naar de stadspoorten volgt,"
         "zie je de eerste angstaanjagende waarschuwingen: "
         "schedels op op houten staken, hongerende mannen in ijzeren kooien "
-        "die aan de stadsmuur hangen en overal zwarte vlaggen"
+        "die aan de stadsmuur hangen en overal zwarte vlaggen. "
         "Als je de stadspoort nadert loopt er een koude rilling over je rug"
         "en instinctief grijp je het gevest van je slagzwaard om jezelf gerust te stellen. "
         "Bij de poort wordt je opgewacht door een lange wachter. Hij draagt een zwarte malienkolder en een ijzeren helm. "

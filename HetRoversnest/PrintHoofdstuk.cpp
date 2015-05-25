@@ -58,7 +58,7 @@ void PrintHoofdstuk2(const int hoofdstuk)
 
 void PrintHoofdstuk3(const int hoofdstuk)
 {
-  const int n_letters_per_regel = 80;
+  const int n_letters_per_regel = 40;
   
   for (int paragraaf = 0; ; ++paragraaf)
   {
@@ -81,7 +81,21 @@ void PrintHoofdstuk3(const int hoofdstuk)
         if (tekst[tot] == '\0')
         {
           //Print alles
-          for (int i=van; i!=tot; ++i) { Serial.print(tekst[i]); delay(10); }
+          int n_achter_elkaar = 0;
+          for (int i=van; i!=tot; ++i) 
+          { 
+            Serial.print(tekst[i]); 
+            delay(10); 
+            
+            //Zorg ervoor dat we naar een volgende regel gaan als we teveel tekens hebben
+            ++n_achter_elkaar;
+            if (n_achter_elkaar > n_letters_per_regel && tekst[i] == ' ')
+            {
+              Serial.println();
+              n_achter_elkaar = 0;
+              
+            }
+          }
           Serial.println();
           
           //Serial.println("Volgende paragraaf");
