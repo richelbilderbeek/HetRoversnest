@@ -1,4 +1,4 @@
-#include "KrijgTekst.h"
+git clone https://github.com/richelbilderbeek/HetRoversnest#include "KrijgTekst.h"
 #include "LaatZien.h"
 #include "VerwerkCommando.h"
 
