@@ -78,7 +78,16 @@ const char * KrijgTekst(const int hoofdstuk)
     { 
       const static char tekst[] = 
       "Je sluipt op je tenen de kamer uit en doet de deur dicht."
-      "Op de gang open je de buidel en vindt er zes zwarte pareia in.  Je krijgt er 2 Gelukspunten bij!  Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78)."
+      "Op de gang open je de buidel en vindt er zes zwarte pareia in.  Je krijgt er 2 Gelukspunten bij!  Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78).";
+  }
+    case 3:  
+    {  
+      const static char tekst[] = 
+        "De wachter is nu werkelijk kwaad en doet een uitval naar je met zijn piek."
+        "                                                                          "
+        "Poortwachter        Behendigheid 8      Conditie 7"
+        "Als je wint en het gevecht duurt 6 gevechtsronden of minder, ga dan naar 212. Als het gevecht langer dan 6 gevechtsronden duurt, ga dan naar 130."   
+        ;
     }
     case 33: 
     { 
