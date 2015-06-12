@@ -54,6 +54,12 @@ const char * KrijgTekst(const int hoofdstuk)
         "huis geen vodden 1e vinden zijn,  en trouwens helemaal geen rommel.  Als je wilt wat ze zegt,  verlaat dan het huis en loop verder noord-  r waarts door de Stalstraat:  ga naar 333 Als je achter de dijnen wilt kijken wie je zo lomp bejegent,  dan naar 88 "
       ;
       return tekst;
+      }
+    case 7: 
+    { 
+      const static char tekst[] = 
+      "Je sluipt op je tenen de kamer uit en doet de deur dicht."
+      "Op de gang open je de buidel en vindt er zes zwarte pareia in.  Je krijgt er 2 Gelukspunten bij!  Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78)."
     }
     case 33: 
     { 
