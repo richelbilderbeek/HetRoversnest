@@ -47,10 +47,20 @@ const char * KrijgTekst(const int hoofdstuk)
       ;
       return tekst;
     }
+    case 3:  
+    {  
+      const static char tekst[] = 
+        "De man houdt met spelen e zegt dat hij je Geluk kan brengen,"
+        "Voor de som van 3 goudstukken zal hij een lied vooor je zingen dat je geluk zal brengen."
+        "[1]Als je de muzikant wilt betalen ga dan naar 37."
+        "[2] Als je hem niet gelooft mag je doorlopen naar de volgende stalletje (ga naar 398)"
+      ;
+      return tekst;
+    }
     case 6: 
     { 
       const static char tekst[] = 
-        "Haar toon wordt onvriendelijk en ze snauwi je toe je weg te scheren omdat er in háár "
+        "Haar toon wordt onvriendelijk en ze snauwt je toe je weg te scheren omdat er in háár "
         "huis geen vodden 1e vinden zijn,  en trouwens helemaal geen rommel.  Als je wilt wat ze zegt,  verlaat dan het huis en loop verder noord-  r waarts door de Stalstraat:  ga naar 333 Als je achter de dijnen wilt kijken wie je zo lomp bejegent,  dan naar 88 "
       ;
       return tekst;
