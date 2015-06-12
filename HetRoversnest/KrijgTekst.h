@@ -71,14 +71,19 @@ const char * KrijgTekst(const int hoofdstuk)
       const static char tekst[] = 
         "Haar toon wordt onvriendelijk en ze snauwt je toe je weg te scheren omdat er in háár "
         "huis geen vodden 1e vinden zijn,  en trouwens helemaal geen rommel.  Als je wilt wat ze zegt,  verlaat dan het huis en loop verder noord-  r waarts door de Stalstraat:  ga naar 333 Als je achter de dijnen wilt kijken wie je zo lomp bejegent,  dan naar 88 "
-      ;
+      ;u
       return tekst;
-      }
-    case 7: 
+    
+    e
+    case 9: 
     { 
       const static char tekst[] = 
-      "Je sluipt op je tenen de kamer uit en doet de deur dicht."
-      "Op de gang open je de buidel en vindt er zes zwarte pareia in.  Je krijgt er 2 Gelukspunten bij!  Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78)."
+        "Je stapt weg van het afschuwelijke lichaam van Zanbar Been, wachtend tot het tot stof uiteen zal vallen."
+        "Maar je hebt de verkeerde keuze gedaan! Hij trekt de pijl uit zijn lichaam en wrijft het poeder uit zijn ogen. Hij ziet je en lacht."
+        "Je bent gehypnotiseerd door zijn kracht en je kunt geen vin verroeren. Hij komt op je af en beroert je gezicht met zijn skeletvingers. Het leven loeit snel uit je weg en weldra zal je ondode bestaan als dienaar van Zanbar Been beginnen."
+        
+      ;
+      return tekst;
     }
     case 33: 
     { 
