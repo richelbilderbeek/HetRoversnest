@@ -101,6 +101,16 @@ const char * KrijgTekst(const int hoofdstuk)
         "Je bent gehypnotiseerd door zijn kracht en je kunt geen vin verroeren. Hij komt op je af en beroert je gezicht met zijn skeletvingers. Het leven loeit snel uit je weg en weldra zal je ondode bestaan als dienaar van Zanbar Been beginnen."
         
       ;
+      return tekst;D
+    }
+     break;
+ 
+    case 11: 
+    { 
+      const static char tekst[] = 
+        "De trollen zien wat je aan het doen bent en rennen naar de boom."
+        "Je bent genoodzaakt je schild achter te laten. je verliest 1 Behendigeidspunt. Nadat je snel in de boom bent geklommen zie je dat je een afstand van twee meter tussen de en de bovenkant van de muur
+      ;
       return tekst;
     }
     break;
