@@ -30,7 +30,7 @@ const char * KrijgTekst(const int hoofdstuk)
         "[1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? "
         "[2] Tegen hem zeggen dat je gestolen waar wil verkopen? "
         "[3] Hem snel aanvallen met je zwaard? "
-       ;"
+       ;
       return tekst; 
     }
     case 2: 
@@ -73,10 +73,11 @@ const char * KrijgTekst(const int hoofdstuk)
         "huis geen vodden 1e vinden zijn,  en trouwens helemaal geen rommel.  Als je wilt wat ze zegt,  verlaat dan het huis en loop verder noord-  r waarts door de Stalstraat:  ga naar 333 Als je achter de dijnen wilt kijken wie je zo lomp bejegent,  dan naar 88 "
       ;
       return tekst;
-      }
+    }
     case 7: 
     { 
       const static char tekst[] = 
+<<<<<<< HEAD
       "Je sluipt op je tenen de kamer uit en doet de deur dicht."
       "Op de gang open je de buidel en vindt er zes zwarte pareia in.  Je krijgt er 2 Gelukspunten bij!  Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78).";
   }
@@ -88,7 +89,36 @@ const char * KrijgTekst(const int hoofdstuk)
         "Poortwachter        Behendigheid 8      Conditie 7"
         "Als je wint en het gevecht duurt 6 gevechtsronden of minder, ga dan naar 212. Als het gevecht langer dan 6 gevechtsronden duurt, ga dan naar 130."   
         ;
+=======
+        "Je sluipt op je tenen de kamer uit en doet de deur dicht."
+        "Op de gang open je de buidel en vindt er zes zwarte pareia in."
+        "Je krijgt er 2 Gelukspunten bij!"  
+        "Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78)."
+      ;
+      return tekst;
     }
+    case 8: 
+    { 
+      const static char tekst[] = 
+      "Het wezen speld de gouden broche op je leren tuniek en jij betaal de gevraagde prijs."
+      "Je hebt een geluksanmulet gekocht-telt2Geluks op bij je totaal."
+      "Tevreden met je aankoop verlaat je het huis en loopt naar het noorden"  
+      ;
+      return tekst;
+    }
+    case 9: 
+    { 
+      const static char tekst[] = 
+        "Je stapt weg van het afschuwelijke lichaam van Zanbar Been, wachtend tot het tot stof uiteen zal vallen."
+        "Maar je hebt de verkeerde keuze gedaan! Hij trekt de pijl uit zijn lichaam en wrijft het poeder uit zijn ogen. Hij ziet je en lacht."
+        "Je bent gehypnotiseerd door zijn kracht en je kunt geen vin verroeren. Hij komt op je af en beroert je gezicht met zijn skeletvingers. Het leven loeit snel uit je weg en weldra zal je ondode bestaan als dienaar van Zanbar Been beginnen."
+        
+      ;
+      return tekst;
+>>>>>>> cf055f19ea6660aafb0a89c47f75193a94ec5e57
+    }
+    break;
+ 
     case 33: 
     { 
       const static char tekst[] = 
