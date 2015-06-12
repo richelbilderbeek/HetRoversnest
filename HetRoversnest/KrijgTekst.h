@@ -30,8 +30,22 @@ const char * KrijgTekst(const int hoofdstuk)
         "[1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? "
         "[2] Tegen hem zeggen dat je gestolen waar wil verkopen? "
         "[3] Hem snel aanvallen met je zwaard? "
-       ;
+       ;"
       return tekst; 
+    }
+    case 2: 
+    { 
+      const static char tekst[] = 
+        "Je haalt de armband van je pols en gooit hem naar het aanstormende monster."
+        "Hij komt terecht op zijn pantser en blijft er tegen aan plakken."
+        "Je kijkt hoe de armband zich dwars door het pantser heenbrandt, het lichaam van de Reuzenduizendpoot in."
+        "Rookt stijgt op uit het precies ronde gat en naarmate de armband zich dieper naar binnen brandt zie je aan de stuipstrekkende bewegingen van de Duizendpoot dat hij zijn doodsstrijd levert."
+        "Tenslotte ligt hij stil en je slaagt erin je tussen zijn lichaam en het dak van de tunnel door te wringen."
+        "Je loopt door de tunnel die ophoudt bij een ijzeren hek waardoorheen het rioolslijk stroomt."
+        "[1]Als je het hek wilt forceren, ga dan door naar 377."
+        "[2]Als je wilt teruglopen naar de ingang ga dan naar 174."  
+      ;
+      return tekst;
     }
     case 33: 
     { 

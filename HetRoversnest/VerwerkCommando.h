@@ -16,6 +16,15 @@ void VerwerkCommando(int& hoofdstuk, const int commando)
       }
     }
     break;
+    case 2:
+    {
+      switch (commando)
+      {
+        case 1: hoofdstuk = 377; return;
+        case 2: hoofdstuk = 174; return;
+      }
+    }
+    break;
   }
 }
 
