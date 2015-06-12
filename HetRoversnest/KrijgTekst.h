@@ -30,7 +30,7 @@ const char * KrijgTekst(const int hoofdstuk)
         "[1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? "
         "[2] Tegen hem zeggen dat je gestolen waar wil verkopen? "
         "[3] Hem snel aanvallen met je zwaard? "
-       ;"
+       ;
       return tekst; 
     }
     case 2: 
@@ -71,10 +71,28 @@ const char * KrijgTekst(const int hoofdstuk)
       const static char tekst[] = 
         "Haar toon wordt onvriendelijk en ze snauwt je toe je weg te scheren omdat er in háár "
         "huis geen vodden 1e vinden zijn,  en trouwens helemaal geen rommel.  Als je wilt wat ze zegt,  verlaat dan het huis en loop verder noord-  r waarts door de Stalstraat:  ga naar 333 Als je achter de dijnen wilt kijken wie je zo lomp bejegent,  dan naar 88 "
-      ;u
+      ;
       return tekst;
-    
-    e
+    }
+    case 7: 
+    { 
+      const static char tekst[] = 
+        "Je sluipt op je tenen de kamer uit en doet de deur dicht."
+        "Op de gang open je de buidel en vindt er zes zwarte pareia in."
+        "Je krijgt er 2 Gelukspunten bij!"  
+        "Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78)."
+      ;
+      return tekst;
+    }
+    case 8: 
+    { 
+      const static char tekst[] = 
+      "Het wezen speld de gouden broche op je leren tuniek en jij betaal de gevraagde prijs."
+      "Je hebt een geluksanmulet gekocht-telt2Geluks op bij je totaal."
+      "Tevreden met je aankoop verlaat je het huis en loopt naar het noorden"  
+      ;
+      return tekst;
+    }
     case 9: 
     { 
       const static char tekst[] = 
@@ -85,6 +103,8 @@ const char * KrijgTekst(const int hoofdstuk)
       ;
       return tekst;
     }
+    break;
+ 
     case 33: 
     { 
       const static char tekst[] = 
