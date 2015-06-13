@@ -77,19 +77,6 @@ const char * KrijgTekst(const int hoofdstuk)
     case 7: 
     { 
       const static char tekst[] = 
-<<<<<<< HEAD
-      "Je sluipt op je tenen de kamer uit en doet de deur dicht."
-      "Op de gang open je de buidel en vindt er zes zwarte pareia in.  Je krijgt er 2 Gelukspunten bij!  Als je dat nog nit hett gedaan mag je de andere deur openen iga naar van boord om je speurtocht door zwartzand voort te zet-  ten,  en wel langs de Havenstraat naar het noorden naar 78).";
-  }
-    case 3:  
-    {  
-      const static char tekst[] = 
-        "De wachter is nu werkelijk kwaad en doet een uitval naar je met zijn piek."
-        "                                                                          "
-        "Poortwachter        Behendigheid 8      Conditie 7"
-        "Als je wint en het gevecht duurt 6 gevechtsronden of minder, ga dan naar 212. Als het gevecht langer dan 6 gevechtsronden duurt, ga dan naar 130."   
-        ;
-=======
         "Je sluipt op je tenen de kamer uit en doet de deur dicht."
         "Op de gang open je de buidel en vindt er zes zwarte pareia in."
         "Je krijgt er 2 Gelukspunten bij!"  
@@ -111,10 +98,9 @@ const char * KrijgTekst(const int hoofdstuk)
       const static char tekst[] = 
         "Je stapt weg van het afschuwelijke lichaam van Zanbar Been, wachtend tot het tot stof uiteen zal vallen."
         "Maar je hebt de verkeerde keuze gedaan! Hij trekt de pijl uit zijn lichaam en wrijft het poeder uit zijn ogen. Hij ziet je en lacht."
-        "Je bent gehypnotiseerd door zijn kracht en je kunt geen vin verroeren. Hij komt op je af en beroert je gezicht met zijn skeletvingers. Het leven loeit snel uit je weg en weldra zal je ondode bestaan als dienaar van Zanbar Been beginnen."
-        
+        "Je bent gehypnotiseerd door zijn kracht en je kunt geen vin verroeren. Hij komt op je af en beroert je gezicht met zijn skeletvingers. Het leven loeit snel uit je weg en weldra zal je ondode bestaan als dienaar van Zanbar Been beginnen." 
       ;
-      return tekst;D
+      return tekst;
     }
      break;
  
@@ -122,14 +108,14 @@ const char * KrijgTekst(const int hoofdstuk)
     { 
       const static char tekst[] = 
         "De trollen zien wat je aan het doen bent en rennen naar de boom."
-        "Je bent genoodzaakt je schild achter te laten. je verliest 1 Behendigeidspunt. Nadat je snel in de boom bent geklommen zie je dat je een afstand van twee meter tussen de en de bovenkant van de muur
+        "Je bent genoodzaakt je schild achter te laten. je verliest 1 Behendigeidspunt. Nadat je snel in de boom bent geklommen zieu je dat je een afstand van twee meter tussen de en de bovenkant van de muur met een sprong moet overbruggen."
+        "Als je een malienkolder draagt zul je die uit moeten trekken om veilig op de muur e springen (Je verliest twee behendigheidspunten). Onder je zie je de twee Trollen om de boom rennen terwijl ze met hun zwaarden naar je zwaaien."
+        "[1]Je hebt geen andere keus dan te springen (ga naar 358)"
       ;
       return tekst;
->>>>>>> cf055f19ea6660aafb0a89c47f75193a94ec5e57
     }
     break;
- 
-    case 33: 
+    case 33:
     { 
       const static char tekst[] = 
         "33"
