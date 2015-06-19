@@ -30,7 +30,7 @@ const char * KrijgTekst(const int hoofdstuk)
         "[1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? "
         "[2] Tegen hem zeggen dat je gestolen waar wil verkopen? "
         "[3] Hem snel aanvallen met je zwaard? "
-       ;"
+       ;
       return tekst; 
     }
     case 2: 
@@ -54,15 +54,6 @@ const char * KrijgTekst(const int hoofdstuk)
         "Voor de som van 3 goudstukken zal hij een lied vooor je zingen dat je geluk zal brengen."
         "[1]Als je de muzikant wilt betalen ga dan naar 37."
         "[2] Als je hem niet gelooft mag je doorlopen naar de volgende stalletje (ga naar 398)"
-      ;
-      return tekst;
-    }
-    case 4: 
-    { 
-      const static char tekst[] = 
-        "Je hoort een bel klingelen aan de andere kant van de deur en even later wordt de deur opengedaan door een magere bleke man met donkere man met donkere holle ogen die een bediendelivrei draagt."
-        "[1]Met kille sissende stem zegt hij:'U wenst?' Als je hem wilt vertellen dat je een verwaalde reiziger bent, gan dan naar 399." 
-        "[2]Als je hem met een zwaard wilt aanvallen, ga dan naar 35"
       ;
       return tekst;
     }
