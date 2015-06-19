@@ -57,15 +57,6 @@ const char * KrijgTekst(const int hoofdstuk)
       ;
       return tekst;
     }
-    case 4: 
-    { 
-      const static char tekst[] = 
-        "Je hoort een bel klingelen aan de andere kant van de deur en even later wordt de deur opengedaan door een magere bleke man met donkere man met donkere holle ogen die een bediendelivrei draagt."
-        "[1]Met kille sissende stem zegt hij:'U wenst?' Als je hem wilt vertellen dat je een verwaalde reiziger bent, gan dan naar 399." 
-        "[2]Als je hem met een zwaard wilt aanvallen, ga dan naar 35"
-      ;
-      return tekst;
-    }
     case 6: 
     { 
       const static char tekst[] = 
@@ -117,7 +108,7 @@ const char * KrijgTekst(const int hoofdstuk)
     break;
     case 33:
     { 
-      const static char tekst[] = 
+      const static char tekst[] =
         "33"
       ;
       return tekst;
@@ -133,7 +124,13 @@ const char * KrijgTekst(const int hoofdstuk)
     case 202: 
     { 
       const static char tekst[] = 
-        "202"
+        "De wachter antwoordt dat hij voor een escorte zal zorgen om je naar Nicodemus te brengen. Hij luidt een kleine bel aan de muur van het wachthuis dire keer."
+        "Onmiddellijk komen er twee andere wachters uit het wachthuis aansnellen."
+        "Tot je verrassing grijpen ze je ieder bij een arm."
+        "De wachter met de piek slaat zijn ogen ten hemel en lacht: \"Dus jou wou Nicodemus spreken? En wat dacht je ervan de binnenkant van een kerker eens te kijken? Wachters, voer die dwaas af, sla hem in de ketenen, en gooi de sleutel weg.\" Wat doe je?"
+        "[1] Laat je je gedwee afvoeren? Ga naar 151" 
+        "[2] Probeer je met geweld tegen de wachters te verzetten? Ga naar 69"
+        "[3] Probeer je de wachters om te kopen?  Ga naar 276"  
       ;
       return tekst;
     }
