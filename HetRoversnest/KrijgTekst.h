@@ -108,11 +108,8 @@ const char * KrijgTekst(const int hoofdstuk)
     break;
     case 33:
     { 
-      const static char tekst[] = 
-        "Je zegt tegen de wachter dat je enige zilveren kelken dieje uit een herberg in zilverstein hebt gestolen wilt verkopen en dat je hem een Goudstuk zult geven als hij je aanraadt waar je moet zijn voor de hoogste prijs.  De wachter kijkt argwanend naar je en zegt:  Laat me die kelken in je rug-  zak eens zien,  voor ik je binnenlaat;Wat doe je?"
-        "[1]zeg je tegen hem dat je weet dat er een vloek op de kelken rust en dat ze alleen onderzocht mogen worden door een tovenaar. Ga naar 381." 
-        "[2]Probeer je langs de wachter te glippen en de Hoofdstraat in te rennen? Ga naar 291."
-        "[3]of val je hem meteen aan met je zwaard? Ga naar 49."
+      const static char tekst[] =
+        "33"
       ;
       return tekst;
     }
@@ -121,16 +118,19 @@ const char * KrijgTekst(const int hoofdstuk)
       const static char tekst[] = 
         "Als je je zwaard trekt, duikt de wachter naar rechts "
         "in een poging een kleine bel aan de muur van het wachthuis te luiden. "
-        "Test je Geluk"
-        "Als je Geluk hebt grijpt hij naast de bel, vloekt en draait zich om om je met zijn fiek te te gaan (ga naar ...)"
-        "Als je geen Geluk hebt slaagt hij erin del te pakken te krijgen en hem met veel kabaal te luiden , voor hij zich omdraait om je met zijn piek aan te vallen(ga naar ...)"
       ;
       return tekst;
     }
     case 202: 
     { 
       const static char tekst[] = 
-        "202"
+        "De wachter antwoordt dat hij voor een escorte zal zorgen om je naar Nicodemus te brengen. Hij luidt een kleine bel aan de muur van het wachthuis dire keer."
+        "Onmiddellijk komen er twee andere wachters uit het wachthuis aansnellen."
+        "Tot je verrassing grijpen ze je ieder bij een arm."
+        "De wachter met de piek slaat zijn ogen ten hemel en lacht: \"Dus jou wou Nicodemus spreken? En wat dacht je ervan de binnenkant van een kerker eens te kijken? Wachters, voer die dwaas af, sla hem in de ketenen, en gooi de sleutel weg.\" Wat doe je?"
+        "[1] Laat je je gedwee afvoeren? Ga naar 151" 
+        "[2] Probeer je met geweld tegen de wachters te verzetten? Ga naar 69"
+        "[3] Probeer je de wachters om te kopen?  Ga naar 276"  
       ;
       return tekst;
     }
