@@ -118,7 +118,10 @@ const char * KrijgTekst(const int hoofdstuk)
     case 33:
     { 
       const static char tekst[] = 
-        "33"
+        "Je zegt tegen de wachter dat je enige zilveren kelken dieje uit een herberg in zilverstein hebt gestolen wilt verkopen en dat je hem een Goudstuk zult geven als hij je aanraadt waar je moet zijn voor de hoogste prijs.  De wachter kijkt argwanend naar je en zegt:  Laat me die kelken in je rug-  zak eens zien,  voor ik je binnenlaat;Wat doe je?"
+        "[1]zeg je tegen hem dat je weet dat er een vloek op de kelken rust en dat ze alleen onderzocht mogen worden door een tovenaar. Ga naar 381." 
+        "[2]Probeer je langs de wachter te glippen en de Hoofdstraat in te rennen? Ga naar 291."
+        "[3]of val je hem meteen aan met je zwaard? Ga naar 49."
       ;
       return tekst;
     }
