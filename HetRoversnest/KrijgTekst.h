@@ -57,15 +57,6 @@ const char * KrijgTekst(const int hoofdstuk)
       ;
       return tekst;
     }
-    case 4: 
-    { 
-      const static char tekst[] = 
-        "Je hoort een bel klingelen aan de andere kant van de deur en even later wordt de deur opengedaan door een magere bleke man met donkere man met donkere holle ogen die een bediendelivrei draagt."
-        "[1]Met kille sissende stem zegt hij:'U wenst?' Als je hem wilt vertellen dat je een verwaalde reiziger bent, gan dan naar 399." 
-        "[2]Als je hem met een zwaard wilt aanvallen, ga dan naar 35"
-      ;
-      return tekst;
-    }
     case 6: 
     { 
       const static char tekst[] = 
