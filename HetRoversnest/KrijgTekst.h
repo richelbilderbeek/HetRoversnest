@@ -142,12 +142,22 @@ const char * KrijgTekst(const int hoofdstuk)
       ;
       return tekst;
     }
-   case 11:
+   case 15:
     { 
       const static char tekst[] =
         "Je springt over de slangen heen en snelt naar de deur."
         "[1]Test je Geluk haal je ongedeerd de deur (ga naar 75)"
         "[2] Als je geen GEluk hebt slaat een van de slangen toe en bijt je in je been (ga naar 298)2"
+      ;
+      return tekst;
+    } 
+     case 17:
+    { 
+      const static char tekst[] =
+        "Terwijl je door een smalle straat loopt zie je eeen man gehuld in haveloze lompen in de goot zitten"
+        "Hij leunt met zijn hoofd op zijn handen en ziter er diep ellendig uit."
+        "[1] Als je wilt stoppen om met hem te praten ga dan naar 331."
+        "[2]Als je liever in oostelijk richting verder gaat( ga dan naar 161)."
       ;
       return tekst;
     } 
