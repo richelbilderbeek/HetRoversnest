@@ -141,7 +141,17 @@ const char * KrijgTekst(const int hoofdstuk)
         
       ;
       return tekst;
+    }
+   case 11:
+    { 
+      const static char tekst[] =
+        "Je springt over de slangen heen en snelt naar de deur."
+        "[1]Test je Geluk haal je ongedeerd de deur (ga naar 75)"
+        "[2] Als je geen GEluk hebt slaat een van de slangen toe en bijt je in je been (ga naar 298)2"
+      ;
+      return tekst;
     } 
+    
     case 33:
     { 
       const static char tekst[] =
