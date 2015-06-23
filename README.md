@@ -29,6 +29,18 @@ Moeilijkst:
  * Issue #7: Inventaris erin
  * Issue #12: Test-Je-Geluk engine
 
+## Wat zijn al die bestanden in de folder `Bestanden`?
+
+De bestanden bevatten het verhaal van Het Roversnest.
+
+## Waarom staan al die bestanden in de folder `Bestanden`?
+
+Dit project is in eerste instantie bedoeld voor Arduino. 
+En een Arduino heeft niet genoeg RAM en FLASH geheugen om een heel boek op te kunnen slaan. 
+Een mini-SD kaart van 2 GB kan met gemak een heel boek opslaan. 
+Daarom is staan er in de folder `Bestanden` bestanden die je op een SD kaart kunt kopieeren. 
+Het programma `HetRoversnest.ino` (in de map `HetRoversnest`) leest deze dan uit.
+
 ## Hoe gebruik ik git en GitHub?
 
 Volg de eerste keer de volgende stappen:

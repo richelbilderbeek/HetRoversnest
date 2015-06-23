@@ -1,5 +1,0 @@
-        "zodra je een van de bloemen plukt hoor je het geluik van ritselende bladeren."
-        "Drie van de diervormige struiken hebben hun wortels uit de grond gerukt en komen op je af."
-        "Heb je een vuurring?"
-        "[1] Zo ja, ga dan naar 237."
-        "[2] Zo nee, ga dan naar 191."

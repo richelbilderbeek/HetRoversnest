@@ -58,8 +58,6 @@ void setup()
 
   ///Het hoofdstuk in het boek
   int hoofdstuk = 1;
-
-  if (KrijgTekst(1) == '\0') Serial.println("ERRROR");
   
   while (1)
   {
@@ -69,8 +67,7 @@ void setup()
 
     //Laat de gewone tekst zien
     {
-      const char * const tekst = KrijgTekst(hoofdstuk);
-      LaatZien(tekst);
+      KrijgTekst(hoofdstuk);
     }
     
     //Kijk of het geluk moet worden getest

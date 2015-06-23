@@ -1,4 +1,0 @@
-"De man houdt met spelen en zegt dat hij je Geluk kan brengen,"
-"Voor de som van 3 goudstukken zal hij een lied vooor je zingen dat je geluk zal brengen."
-"[1]Als je de muzikant wilt betalen ga dan naar 37."
-"[2] Als je hem niet gelooft mag je doorlopen naar de volgende stalletje (ga naar 398)"

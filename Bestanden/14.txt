@@ -1,0 +1,5 @@
+Zodra je een van de bloemen plukt hoor je het geluik van ritselende bladeren.
+Drie van de diervormige struiken hebben hun wortels uit de grond gerukt en komen op je af.
+Heb je een vuurring?
+[1] Ja
+[2] Nee

@@ -5,5 +5,6 @@ Rookt stijgt op uit het precies ronde gat en naarmate de armband zich dieper naa
 zie je aan de stuipstrekkende bewegingen van de Duizendpoot dat hij zijn doodsstrijd levert.
 Tenslotte ligt hij stil en je slaagt erin je tussen zijn lichaam en het dak van de tunnel door te wringen.
 Je loopt door de tunnel die ophoudt bij een ijzeren hek waardoorheen het rioolslijk stroomt.
-[1] Als je het hek wilt forceren, ga dan door naar 377.
-[2] Als je wilt teruglopen naar de ingang ga dan naar 174.  
+Wat doe je?
+[1] Als je het hek wilt forceren
+[2] Als je wilt teruglopen naar de ingang
