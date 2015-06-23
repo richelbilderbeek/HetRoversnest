@@ -13,7 +13,6 @@ bool MoetGelukWordenGetest(const int hoofdstuk)
   //Hoofdstukken waarin het geluk moet worden getest
   static const int array[] = { 49 };
   const int n = sizeof(array) / sizeof(int);
-  Serial.println(n);
   for (int i=0; i!=n; ++i)
   {
     if (array[i] == hoofdstuk) return true;  
