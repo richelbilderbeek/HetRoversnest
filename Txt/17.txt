@@ -1,0 +1,4 @@
+        "Terwijl je door een smalle straat loopt zie je eeen man gehuld in haveloze lompen in de goot zitten"
+        "Hij leunt met zijn hoofd op zijn handen en ziter er diep ellendig uit."
+        "[1] Als je wilt stoppen om met hem te praten ga dan naar 331."
+        "[2]Als je liever in oostelijk richting verder gaat( ga dan naar 161)."
