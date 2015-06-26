@@ -1,0 +1,5 @@
+2
+Als de wachters op het punt staan je weg te voeren probeer je uit alle macht je armen uit hun hun greep te rukken.
+Lukt het?
+@0:Je wordt tegenstribbelend weggevoerd@151
+@1:Het lukt!@355
