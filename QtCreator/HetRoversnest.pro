@@ -51,4 +51,8 @@ CONFIG(release, debug|release) {
   DEFINES += NDEBUG NTRACE_BILDERBIKKEL
 }
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    helper.cpp
+
+HEADERS += \
+    helper.h
