@@ -41,6 +41,69 @@ Een mini-SD kaart van 2 GB kan met gemak een heel boek opslaan.
 Daarom is staan er in de folder `Bestanden` bestanden die je op een SD kaart kunt kopieeren. 
 Het programma `HetRoversnest.ino` (in de map `HetRoversnest`) leest deze dan uit.
 
+# Hoe moet ik de bestanden invoeren?
+
+Dit is afhankelijk van het type bestand.
+
+### 0: Verhaalbestand
+
+Een bestand waarin een tekst wordt getoond en de speler kan kiezen uit meerdere opties:
+
+```
+0
+[tekst]
+@[optie]:[hoodstuk]
+```
+
+ * 0: code van een verhaalbestand
+ * [tekst]: de tekst, inclusief keuzes die de speler kan maken
+ * [optie]: de optie de de speler kiest, bijvoorbeeld `1`
+ * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
+
+Een voorbeeld van een verhaalbestand is [Bestanden/1.txt](1).
+
+### 1: Test-Je-Geluk 
+
+Een bestand waarin een tekst wordt getoond, het geluk wordt getest, 
+en er een tekst is bij pech of geluk en een hoofdstuk erna.
+
+```
+1
+[tekst]
+@0:[tekst bij pech]@[hoodstuk bij pech]
+@1:[tekst bij geluk]@[hoodstuk bij geluk]
+```
+
+ * 1: code van een Test-Je-Geluk
+ * [tekst]: de tekst tot het geluk bepaald wordt
+ * [tekst bij pech]: de tekst die de speler ziet bij pech
+ * [hoodstuk bij pech]: het hoofstuk waar de speler heen gaat bij pech
+ * [tekst bij geluk]: de tekst die de speler ziet bij geluk
+ * [hoodstuk bij geluk]: het hoofstuk waar de speler heen gaat bij geluk
+
+Een voorbeeld van een Test-Je-Geluks is [Bestanden/49.txt](49).
+
+### 1: Test-Je-Behendigheid
+
+Een bestand waarin een tekst wordt getoond, de behendigheid wordt getest, 
+en er een tekst is bij geen behendigheid of wel behendigheid en een hoofdstuk erna.
+
+```
+1
+[tekst]
+@0:[tekst bij geen behendigheid]@[hoodstuk bij geen behendigheid]
+@0:[tekst bij wel behendigheid]@[hoodstuk bij wel behendigheid]
+```
+
+ * 1: code van een Test-Je-Geluk
+ * [tekst]: de tekst tot het geluk bepaald wordt
+ * [tekst bij geen behendigheid]: de tekst die de speler ziet bij pech
+ * [hoodstuk bij pech]: het hoofstuk waar de speler heen gaat bij pech
+ * [tekst bij geluk]: de tekst die de speler ziet bij geluk
+ * [hoodstuk bij geluk]: het hoofstuk waar de speler heen gaat bij geluk
+
+Een voorbeeld van een Test-Je-Geluks is [Bestanden/49.txt](49).
+
 ## Hoe gebruik ik git en GitHub?
 
 Volg de eerste keer de volgende stappen:
