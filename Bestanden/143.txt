@@ -1,0 +1,5 @@
+Als je de wachters de trap hoort afkomen ga je op de grond liggen en begint te kreunen. Ze openen de celdeur en komen binnen. 
+[1]Wil je de bewakers laten overtuigen dat je de pest hebt?
+[2] of ga je liever hun ongewapend te lijf?
+@1:306
+@2:157
