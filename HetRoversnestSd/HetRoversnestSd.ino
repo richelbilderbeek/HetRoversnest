@@ -1,3 +1,4 @@
+#include <SPI.h>
 #include <SD.h>
 
 const int pin_card_select = 10; //Moet 10 zijn van het shield
