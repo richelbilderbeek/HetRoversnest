@@ -16,18 +16,17 @@ Bekijk de 'Issues'. Begin eerst een paar van de gemakkelijke te doen.
 
 Dit zijn de gemakkelijkere:
  * Issue #3: Hoofdstukken toevoegen
- * Issue #11: Hoofdstukken verbinden
 
 Moeilijker
+ * Issue #12: Test-Je-Geluk engine
+ * Issue #4: Vecht engine
  * (Issue #1: Display op LCD)
  * (Issue #2: Input met knoppen)
  * Issue #6: Introverhaal erin
 
 Moeilijkst:
- * Issue #4: Vecht engine
  * Issue #5: Karakter generatie
  * Issue #7: Inventaris erin
- * Issue #12: Test-Je-Geluk engine
 
 ## Wat zijn al die bestanden in de folder `Bestanden`?
 
