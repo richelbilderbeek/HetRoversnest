@@ -60,7 +60,7 @@ Een bestand waarin een tekst wordt getoond en de speler kan kiezen uit meerdere 
  * [optie]: de optie de de speler kiest, bijvoorbeeld `1`
  * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
 
-Een voorbeeld van een verhaalbestand is [Bestanden/1.txt](1).
+Een voorbeeld van een verhaalbestand is [1](Bestanden/1.txt).
 
 ### 1: Test-Je-Geluk 
 
@@ -81,15 +81,15 @@ en er een tekst is bij pech of geluk en een hoofdstuk erna.
  * [tekst bij geluk]: de tekst die de speler ziet bij geluk
  * [hoodstuk bij geluk]: het hoofstuk waar de speler heen gaat bij geluk
 
-Een voorbeeld van een Test-Je-Geluks is [Bestanden/49.txt](49).
+Een voorbeeld van een Test-Je-Geluks is [49](Bestanden/49.txt).
 
-### 1: Test-Je-Behendigheid
+### 2: Test-Je-Behendigheid
 
 Een bestand waarin een tekst wordt getoond, de behendigheid wordt getest, 
 en er een tekst is bij geen behendigheid of wel behendigheid en een hoofdstuk erna.
 
 ```
-1
+2
 [tekst]
 @0:[tekst bij geen behendigheid]@[hoodstuk bij geen behendigheid]
 @0:[tekst bij wel behendigheid]@[hoodstuk bij wel behendigheid]
@@ -102,7 +102,7 @@ en er een tekst is bij geen behendigheid of wel behendigheid en een hoofdstuk er
  * [tekst bij geluk]: de tekst die de speler ziet bij geluk
  * [hoodstuk bij geluk]: het hoofstuk waar de speler heen gaat bij geluk
 
-Een voorbeeld van een Test-Je-Geluks is [Bestanden/49.txt](49).
+Een voorbeeld van een Test-Je-Behendigheid is ...
 
 ## Hoe gebruik ik git en GitHub?
 
