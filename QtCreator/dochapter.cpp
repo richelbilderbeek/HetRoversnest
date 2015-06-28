@@ -18,8 +18,6 @@ void DoChapter(
   const bool auto_play
 )
 {
-  assert(character.GetCondition() > 0);
-
   const std::string filename{"../Bestanden/" + std::to_string(chapter) + ".txt"};
   if (!IsRegularFile(filename))
   {
@@ -60,6 +58,7 @@ void DoChapter(
   switch (chapter_type)
   {
     case '0': DoNormalChapter(s,chapter,auto_play); break;
+    case '1': DoTestYourLuckChapter(s,chapter,character); break;
     default:
     {
       std::stringstream msg;
@@ -98,6 +97,13 @@ void DoNormalChapter(std::stringstream& s, int& chapter, const bool auto_play)
       assert(!s.eof());
       s >> chapter_to_go;
       options.push_back(std::make_pair(option,chapter_to_go));
+      if (chapter == chapter_to_go)
+      {
+        std::stringstream msg;
+        msg << __func__ << ": ERROR: Chapter " << chapter << "\'s option " << option
+          << " brings player to the same chapter";
+        throw std::runtime_error(msg.str());
+      }
     }
   }
   assert(!options.empty());
@@ -138,5 +144,84 @@ void DoNormalChapter(std::stringstream& s, int& chapter, const bool auto_play)
     //std::cerr << "Success." << std::endl;
     chapter = iter->second;
     break;
+  }
+}
+
+void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character)
+{
+  //Parse no luck
+  int no_luck_chapter = -1;
+  std::string no_luck_text;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    char zero;
+    s >> zero;
+    std::cerr << "A:" << zero << std::endl;
+    while (!s.eof() && (zero == '\n' || zero == ' '))
+    {
+      std::cerr << "B:" << zero << std::endl;
+      s >> zero;
+    }
+    std::cerr << "C:" << zero << std::endl;
+    assert(zero == '0');
+    char colon;
+    s >> colon;
+    assert(colon == ':');
+    while (!s.eof())
+    {
+      char c;
+      s >> c;
+      if (c == '@') break;
+      no_luck_text += c;
+    }
+    s >> no_luck_chapter;
+    assert(no_luck_chapter > -1);
+    assert(!no_luck_text.empty());
+  }
+
+  //Parse luck
+  int luck_chapter = -1;
+  std::string luck_text;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    char one;
+    s >> one;
+    assert(one == '1');
+    char colon;
+    s >> colon;
+    assert(colon == ':');
+    while (!s.eof())
+    {
+      char c;
+      s >> c;
+      if (c == '@') break;
+      luck_text += c;
+    }
+    s >> luck_chapter;
+  }
+  assert(luck_chapter > -1);
+  assert(!luck_text.empty());
+  const bool has_luck{character.TestLuck()};
+  if (has_luck)
+  {
+    std::cout << luck_text << std::endl;
+    chapter = luck_chapter;
+  }
+  else
+  {
+    std::cout << no_luck_text << std::endl;
+    chapter = no_luck_chapter;
   }
 }

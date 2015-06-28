@@ -1,5 +1,7 @@
 #include "character.h"
 
+#include <cstdlib>
+
 Character::Character(
   const int dexterity, //NL: Behendigheid
   const int condition, //NL: Conditie
@@ -15,4 +17,10 @@ Character::Character(
     m_luck{luck}
 {
   m_items.push_back(initial_item);
+}
+
+bool Character::TestLuck() noexcept
+{
+  --m_luck;
+  return (std::rand() >> 4) % 2;
 }

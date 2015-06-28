@@ -13,6 +13,7 @@ struct Character
     const Item initial_item
   );
   int GetCondition() const noexcept { return m_condition; }
+  bool TestLuck() noexcept;
 
   private:
   int m_condition; //NL: Conditie
