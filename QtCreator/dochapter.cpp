@@ -11,34 +11,6 @@
 
 #include "character.h"
 #include "helper.h"
-/*
-
- ```
-[tekst]
-@3
-@[wat][plus of min][getal]
-@[volgende hoofdstuk]
-```
-
- * 3: code van een wijziging van je status
- * [tekst]: de tekst die getoond wordt
- * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
-* [plus of min]: is of `+` of `-`
-* [getal]: getal die aangeeft hoeveel de status veranderd
-* [volgende hoofdstuk]: het nummer van het volgende hoofdstuk
-
-Het [wat] gedeelte is wat ingewikkelder. Er kunnen meerdere dingen gebeuren, deze worden gescheiden met een komma. Ook kan er een vraag in gesteld worden ('Bezit je een malienkolder?') met een vraagteken. Ook kunnen er voorwerpen verloren worden
-
-Enkele voorbeelden van [wat]:
-
- * `@D-1`: verlies 1 behendigheid
- * `@D-1,S-1`: verlies 1 behendigheid en een conditie
- * `@I01-`: verlies het schild
- * `@I02+`: verkrijg de malienkolder
- * `@I02?D-2`: heb je een malienkolder, verlies dan twee behendigheidpunten
- * `@I02?I02-`: heb je een malienkolder, verlies dan je malienkolder
- * `@I02?D-2,@I02?I02-`: heb je een malienkolder, verlies dan twee behendigheidpunten en je malienkolder
-*/
 
 void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& character)
 {
@@ -187,13 +159,6 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
   }
   //Parse next chapter
   {
-    //char at;
-    //assert(!s.eof());
-    //s >> at;
-    //assert(!s.eof());
-    //while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    //assert(!s.eof());
-    //assert(at == '@');
     int next_chapter = -1;
     s >> next_chapter;
     assert(next_chapter > -1);
@@ -252,6 +217,7 @@ void DoChapter(
     case '1': DoTestYourLuckChapter(s,chapter,character); break;
     case '2': DoTestYourDexterityChapter(s,chapter,character); break;
     case '3': DoChangeStatusChapter(s,chapter,character); break;
+    case '5': DoGameOver(chapter); break;
     default:
     {
       std::stringstream msg;
@@ -261,6 +227,18 @@ void DoChapter(
       throw std::runtime_error(msg.str());
     }
   }
+}
+
+void DoGameOver(int& chapter)
+{
+  std::cout
+    << "*************\n"
+    << "*           *\n"
+    << "* GAME OVER *\n"
+    << "*           *\n"
+    << "*************\n"
+  ;
+  chapter = 0;
 }
 
 
