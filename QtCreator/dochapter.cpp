@@ -11,6 +11,197 @@
 
 #include "character.h"
 #include "helper.h"
+/*
+
+ ```
+[tekst]
+@3
+@[wat][plus of min][getal]
+@[volgende hoofdstuk]
+```
+
+ * 3: code van een wijziging van je status
+ * [tekst]: de tekst die getoond wordt
+ * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
+* [plus of min]: is of `+` of `-`
+* [getal]: getal die aangeeft hoeveel de status veranderd
+* [volgende hoofdstuk]: het nummer van het volgende hoofdstuk
+
+Het [wat] gedeelte is wat ingewikkelder. Er kunnen meerdere dingen gebeuren, deze worden gescheiden met een komma. Ook kan er een vraag in gesteld worden ('Bezit je een malienkolder?') met een vraagteken. Ook kunnen er voorwerpen verloren worden
+
+Enkele voorbeelden van [wat]:
+
+ * `@D-1`: verlies 1 behendigheid
+ * `@D-1,S-1`: verlies 1 behendigheid en een conditie
+ * `@I01-`: verlies het schild
+ * `@I02+`: verkrijg de malienkolder
+ * `@I02?D-2`: heb je een malienkolder, verlies dan twee behendigheidpunten
+ * `@I02?I02-`: heb je een malienkolder, verlies dan je malienkolder
+ * `@I02?D-2,@I02?I02-`: heb je een malienkolder, verlies dan twee behendigheidpunten en je malienkolder
+*/
+
+void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& character)
+{
+  const bool verbose{false};
+  if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
+  //Parse @ starting what
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+  }
+  while (1)
+  {
+    assert(!s.eof());
+    char status = '*';
+    s >> status;
+    assert(status != '*');
+    if (verbose) { std::clog << "status: " << status << std::endl; }
+    if (status == 'I')
+    {
+      int number = -1;
+      s >> number;
+      assert(number > -1);
+      const Item item = static_cast<Item>(number);
+      char plus_or_minus_or_question_mark = '*';
+      s >> plus_or_minus_or_question_mark;
+      if (plus_or_minus_or_question_mark == '+')
+      {
+        if (verbose) { std::clog << "add item: " << item << std::endl; }
+        character.AddItem(item);
+      }
+      else if (plus_or_minus_or_question_mark == '-')
+      {
+        if (verbose) { std::clog << "remove item: " << item << std::endl; }
+        character.RemoveItem(item);
+      }
+      else if (plus_or_minus_or_question_mark == '?')
+      {
+        char conditional_status = '*';
+        s >> conditional_status;
+        assert(conditional_status != '*');
+        if (verbose) { std::clog << "conditional_status: " << conditional_status << std::endl; }
+        if (conditional_status == 'I')
+        {
+          int conditional_number = -1;
+          s >> conditional_number;
+          assert(conditional_number > -1);
+          const Item conditional_item = static_cast<Item>(conditional_number);
+          char conditional_plus_or_minus_or_question_mark = '*';
+          s >> conditional_plus_or_minus_or_question_mark;
+          if (conditional_plus_or_minus_or_question_mark == '+')
+          {
+            if (character.HasItem(item))
+            {
+              if (verbose) { std::clog << "player has item: " << item << std::endl; }
+              if (verbose) { std::clog << "add conditional_item: " << conditional_item << std::endl; }
+              character.AddItem(conditional_item);
+            }
+            else
+            {
+              if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
+            }
+          }
+          else if (conditional_plus_or_minus_or_question_mark == '-')
+          {
+            if (character.HasItem(item))
+            {
+              if (verbose) { std::clog << "player has item: " << item << std::endl; }
+              if (verbose) { std::clog << "remove conditional_item: " << conditional_item << std::endl; }
+              character.RemoveItem(conditional_item);
+            }
+            else
+            {
+              if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
+            }
+          }
+        }
+        else
+        {
+          int conditional_change = -123;
+          s >> conditional_change;
+          assert(conditional_change != -123);
+          if (character.HasItem(item))
+          {
+            if (verbose) { std::clog << "player has item: " << item << std::endl; }
+            switch (conditional_status)
+            {
+              case 'D':
+                if (verbose) { std::clog << "Change dexterity by " << conditional_change << std::endl; }
+                character.ChangeDexterity(conditional_change);
+              break;
+              case 'S':
+                if (verbose) { std::clog << "Change stamina by " << conditional_change << std::endl; }
+                character.ChangeStamina(conditional_change);
+              break;
+              case 'L':
+                if (verbose) { std::clog << "Change luck by " << conditional_change << std::endl; }
+                character.ChangeLuck(conditional_change);
+              break;
+              default: assert(!"Should not get here");
+            }
+          }
+          else
+          {
+            if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
+          }
+        }
+      }
+      else
+      {
+        assert(!"Should not get here");
+      }
+    }
+    else
+    {
+      //Status is changed
+      int change = -123;
+      s >> change;
+      assert(change != -123);
+      switch (status)
+      {
+        case 'D':
+          if (verbose) { std::clog << "Change dexterity by " << change << std::endl; }
+          character.ChangeDexterity(change);
+        break;
+        case 'S':
+          if (verbose) { std::clog << "Change stamina by " << change << std::endl; }
+          character.ChangeStamina(change);
+        break;
+        case 'L':
+          if (verbose) { std::clog << "Change luck by " << change << std::endl; }
+          character.ChangeLuck(change);
+        break;
+        default: assert(!"Should not get here");
+      }
+    }
+    char comma_or_at = '*';
+    s >> comma_or_at;
+    assert(!s.eof());
+    while (!s.eof() && (comma_or_at == '\n' || comma_or_at == ' ')) { s >> comma_or_at; }
+    if (comma_or_at == '@') break;
+  }
+  //Parse next chapter
+  {
+    //char at;
+    //assert(!s.eof());
+    //s >> at;
+    //assert(!s.eof());
+    //while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    //assert(!s.eof());
+    //assert(at == '@');
+    int next_chapter = -1;
+    s >> next_chapter;
+    assert(next_chapter > -1);
+    chapter = next_chapter;
+  }
+}
+
+
 
 void DoChapter(
   int& chapter,
@@ -60,6 +251,7 @@ void DoChapter(
     case '0': DoNormalChapter(s,chapter,auto_play); break;
     case '1': DoTestYourLuckChapter(s,chapter,character); break;
     case '2': DoTestYourDexterityChapter(s,chapter,character); break;
+    case '3': DoChangeStatusChapter(s,chapter,character); break;
     default:
     {
       std::stringstream msg;
