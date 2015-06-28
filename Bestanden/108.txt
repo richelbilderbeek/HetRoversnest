@@ -1,0 +1,7 @@
+0
+Je laat je langzaam naar beneden zakken. Boven je shcudden de wachters met hun vuisten naar je vanaf de kantelen. Je bent nu buiten Zwartzand. Beschik je over alle benodigheden om de Vorst van de Nacht te verslaan?
+[1] als je alles hebt en getatoeëerd bent.
+[2]Als je er eentje mist.
+
+@1:201
+@2:299
