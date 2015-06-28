@@ -19,6 +19,11 @@ Character::Character(
   m_items.push_back(initial_item);
 }
 
+bool Character::TestDexterity() noexcept
+{
+  return (std::rand() >> 4) % 2;
+}
+
 bool Character::TestLuck() noexcept
 {
   --m_luck;

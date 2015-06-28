@@ -14,8 +14,8 @@ int main()
   #endif
 
   Character character(100,100,100,Item::shield);
-  int chapter = 1;
-  const bool auto_play{true};
+  int chapter = 69;
+  const bool auto_play{false};
 
   while (1)
   {

@@ -59,6 +59,7 @@ void DoChapter(
   {
     case '0': DoNormalChapter(s,chapter,auto_play); break;
     case '1': DoTestYourLuckChapter(s,chapter,character); break;
+    case '2': DoTestYourDexterityChapter(s,chapter,character); break;
     default:
     {
       std::stringstream msg;
@@ -147,6 +148,82 @@ void DoNormalChapter(std::stringstream& s, int& chapter, const bool auto_play)
   }
 }
 
+void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character)
+{
+  //Parse no dexterity
+  int no_dex_chapter = -1;
+  std::string no_dex_text;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    char zero;
+    s >> zero;
+    while (!s.eof() && (zero == '\n' || zero == ' '))
+    {
+      s >> zero;
+    }
+    assert(zero == '0');
+    char colon;
+    s >> colon;
+    assert(colon == ':');
+    while (!s.eof())
+    {
+      char c;
+      s >> c;
+      if (c == '@') break;
+      no_dex_text += c;
+    }
+    s >> no_dex_chapter;
+    assert(no_dex_chapter > -1);
+    assert(!no_dex_text.empty());
+  }
+
+  //Parse dex
+  int dex_chapter = -1;
+  std::string dex_text;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    char one;
+    s >> one;
+    assert(one == '1');
+    char colon;
+    s >> colon;
+    assert(colon == ':');
+    while (!s.eof())
+    {
+      char c;
+      s >> c;
+      if (c == '@') break;
+      dex_text += c;
+    }
+    s >> dex_chapter;
+  }
+  assert(dex_chapter > -1);
+  assert(!dex_text.empty());
+  const bool has_dex{character.TestDexterity()};
+  if (has_dex)
+  {
+    std::cout << dex_text << std::endl;
+    chapter = dex_chapter;
+  }
+  else
+  {
+    std::cout << no_dex_text << std::endl;
+    chapter = no_dex_chapter;
+  }
+}
+
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character)
 {
   //Parse no luck
@@ -162,13 +239,10 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
     assert(at == '@');
     char zero;
     s >> zero;
-    std::cerr << "A:" << zero << std::endl;
     while (!s.eof() && (zero == '\n' || zero == ' '))
     {
-      std::cerr << "B:" << zero << std::endl;
       s >> zero;
     }
-    std::cerr << "C:" << zero << std::endl;
     assert(zero == '0');
     char colon;
     s >> colon;
