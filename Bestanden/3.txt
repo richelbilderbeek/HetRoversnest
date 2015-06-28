@@ -3,3 +3,6 @@ Voor de som van 3 goudstukken zal hij een lied vooor je zingen dat je geluk zal 
 Wat doe je?
 [1] Als je de muzikant wilt betalen
 [2] Als je hem niet gelooft mag je doorlopen naar de volgende stalletje
+@0
+@1:37
+@2:398

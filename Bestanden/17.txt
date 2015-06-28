@@ -3,3 +3,6 @@ Hij leunt met zijn hoofd op zijn handen en ziter er diep ellendig uit.
 Wat doe je?
 [1] Als je wilt stoppen om met hem te praten
 [2] Als je liever in oostelijk richting verder gaat
+@0
+@1:331
+@2:161

@@ -8,3 +8,6 @@ Je loopt door de tunnel die ophoudt bij een ijzeren hek waardoorheen het rioolsl
 Wat doe je?
 [1] Als je het hek wilt forceren
 [2] Als je wilt teruglopen naar de ingang
+@0
+@1:377
+@2:174

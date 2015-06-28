@@ -7,3 +7,7 @@ je rugzak eens zien, voor ik je binnenlaat Wat doe je?
 dat ze alleen onderzocht mogen worden door een tovenaar?
 [2] Probeer je langs de wachter te glippen en de Hoofdstraat in te rennen?
 [3] Of val je hem meteen aan met je zwaard?
+@0
+@1:33
+@2:33
+@3:33

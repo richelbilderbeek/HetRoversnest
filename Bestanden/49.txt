@@ -1,6 +1,5 @@
 Als je je zwaard trekt, duikt de wachter naar rechts
-in een poging een kleine bel aan de muur van het wachthuis te luiden.
-Test je Geluk. Heb je geluk?
-[J] Hij grijpt naast de bel, vloekt en draait zich om om je met zijn fiek te lijf te gaan
-[N] Hij slaagt erin de bel te pakken te krijgen en hem met veel kabaal te luiden, 
-voor hij zich omdraait om je met zijn piek aan te vallen
+in een poging een kleine bel aan de muur van het wachthuis te luiden. Test je geluk!
+@1
+@0:Pecht! Hij slaagt erin de bel te pakken te krijgen en hem met veel kabaal te luiden, voor hij zich omdraait om je met zijn piek aan te vallen@311
+@1:Geluk! Hij grijpt naast de bel, vloekt en draait zich om om je met zijn fiek te lijf te gaan@10

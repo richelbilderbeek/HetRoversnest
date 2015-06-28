@@ -4,3 +4,6 @@ Je kijkt toe terwijl hij de handdoek afdoet en zich langzaam en met een diepe zu
 Wat doe je?
 [1] Als je home wilt verrassen door je zwaard te trekken en luid te kuchen
 [2] Als je liever de kamer uitsluipt, terug naar de gang, terwijl hij zich onderdompelt
+@0
+@1:176
+@2:103
