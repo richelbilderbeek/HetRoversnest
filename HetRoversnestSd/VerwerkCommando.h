@@ -1,4 +1,4 @@
-#ifndef VERWERKCOMMANDO_H
+j#ifndef VERWERKCOMMANDO_H
 #define VERWERKCOMMANDO_H
 
 void VerwerkCommando(int& hoofdstuk, const int commando)
