@@ -218,6 +218,8 @@ void DoChapter(
     case '2': DoTestYourDexterityChapter(s,chapter,character); break;
     case '3': DoChangeStatusChapter(s,chapter,character); break;
     case '5': DoGameOver(chapter); break;
+    case '6': DoHasItemChapter(s,chapter,character); break;
+    case '7': DoFight(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -227,6 +229,34 @@ void DoChapter(
       throw std::runtime_error(msg.str());
     }
   }
+}
+
+void DoFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+{
+  //Name monster
+  std::string name;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    while (1)
+    {
+      char c = '*';
+      s >> c;
+      assert(c != '*');
+      if (c == '@') break;
+      name += c;
+    }
+  }
+  //Skill monster
+  //Condition monster
+
+  //New chapter
+
 }
 
 void DoGameOver(int& chapter)
@@ -239,6 +269,74 @@ void DoGameOver(int& chapter)
     << "*************\n"
   ;
   chapter = 0;
+}
+
+void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
+{
+  const bool verbose{false};
+  if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
+  std::vector<int> item_numbers;
+  //Parse item
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    while (1)
+    {
+      int item_number = -1;
+      s >> item_number;
+      assert(item_number != -1);
+      item_numbers.push_back(item_number);
+      if (verbose) { std::clog << "Needed item: " << static_cast<Item>(item_number) << std::endl; }
+      char comma_or_at = '*';
+      s >> comma_or_at;
+      assert(comma_or_at != '*');
+      if (comma_or_at != ',') break;
+    }
+  }
+  assert(!item_numbers.empty());
+  int chapter_if_not_have = -1;
+  //Parse chapter if not have
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> chapter_if_not_have;
+    if (verbose) { std::clog << "chapter_if_not_have: " << chapter_if_not_have << std::endl; }
+  }
+  assert(chapter_if_not_have != -1);
+  int chapter_if_have = -1;
+  //Parse chapter if have
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> chapter_if_have;
+    if (verbose) { std::clog << "chapter_if_have: " << chapter_if_have << std::endl; }
+  }
+  assert(chapter_if_have != -1);
+  for (const int item_number: item_numbers)
+  {
+    const Item item = static_cast<Item>(item_number);
+    if (!character.HasItem(item))
+    {
+      chapter = chapter_if_not_have;
+      return;
+    }
+  }
+  chapter = chapter_if_have;
 }
 
 

@@ -132,21 +132,33 @@ wordt gegaan
 ```
 [tekst]
 @6
-@[voorwerpnummer(s)]
-@[hoofdstuk bij niet bezitten van voorwerp(en)]
+@[voorwerpnummer]
+@[hoofdstuk bij niet bezitten van voorwerp]
 @[hoofdstuk bij wel bezitten van voorwerp]
 
 ```
 
  * [tekst]: de tekst die getoond wordt
  * 6: code van een 'Heb je een voorwerp?' hoofdstuk
- * [voorwerpnummer(s)]: nummers van het/de voorwerp(en), gescheiden door een komma
+ * [voorwerpnummer]: het nummer van het voorwerp
  * [hoofdstuk bij niet bezitten van voorwerp]: hoofdstuk waar je heen gaat als je het voorwerp niet hebt
  * [hoofdstuk bij wel bezitten van voorwerp]: hoofdstuk waar je heen gaat als je het voorwerp wel hebt
 
 Een voorbeeld van een 'Heb je een voorwerp?' is
 
  * [14](Bestanden/14.txt)
- * [108](Bestanden/108.txt)
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
+
+### 7: Gevecht
+
+```
+[tekst]
+@7
+@[naam monster(s)]
+@[behendigheid monster(s)]
+@[conditie monster(s)]
+@[hoofdstuk erna bij gewonnen]
+```
+
+Een voorbeeld van een Gevecht binnen een paar beurten is [5](Bestanden/5.txt)
