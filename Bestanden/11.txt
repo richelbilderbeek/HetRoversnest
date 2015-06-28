@@ -1,8 +1,11 @@
 De trollen zien wat je aan het doen bent en rennen naar de boom.
 Je bent genoodzaakt je schild achter te laten. je verliest 1 Behendigeidspunt. 
-Nadat je snel in de boom bent geklommen zieu je dat je een afstand van 
+Nadat je snel in de boom bent geklommen zie je dat je een afstand van 
 twee meter tussen de en de bovenkant van de muur met een sprong moet overbruggen.
 Als je een malienkolder draagt zul je die uit moeten trekken om veilig op
 de muur te springen (Je verliest twee behendigheidspunten). 
 Onder je zie je de twee Trollen om de boom rennen terwijl ze met hun zwaarden naar je zwaaien.
 Je hebt geen andere keus dan te springen.
+@3
+@D-1,I01-,I02?D-2,I02?IO2-
+@358

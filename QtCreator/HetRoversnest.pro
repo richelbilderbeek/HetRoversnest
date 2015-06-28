@@ -52,7 +52,9 @@ CONFIG(release, debug|release) {
 }
 
 SOURCES += main.cpp \
-    helper.cpp
+    helper.cpp \
+    dochapter.cpp
 
 HEADERS += \
-    helper.h
+    helper.h \
+    dochapter.h

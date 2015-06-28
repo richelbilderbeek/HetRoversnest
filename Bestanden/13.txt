@@ -5,3 +5,7 @@ Wat doe je nu?
 [1] Je mag als je het nog niet hebt gedaan de gouden schorpioen oppakken
 [2] Als je hem liever laat liggen voor wat hij is mag je de trap oplopen
 [3] Ga je liever het huis verlaten ne in noordelijke richting verder lopen
+@0
+@1:273
+@2:80
+@3:334

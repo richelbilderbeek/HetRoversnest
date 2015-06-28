@@ -4,3 +4,6 @@ Je krijgt er 2 Gelukspunten bij!
 Wat doe je?
 [1] Als je dat nog niet hebt gedaan, mag je de andere deur openen
 [2] Ga van boord om je speurtocht door zwartzand voort te zetten, en wel langs de Havenstraat naar het noorden
+@0
+@1:232
+@2:78

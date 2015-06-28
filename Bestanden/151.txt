@@ -1,6 +1,6 @@
-0
 De twee wachters leiden je het wachthuis in slepen je onmiddellijk mee de trap af naar de cellen in de kelder. Er zijn vier cellen. Ze zijn alle leeg, op één na, waarin een magere oude man met wit haar zit opgesloten. De wachters maken de cel naast die van de oude man open en duwen je naar binnen. ze leggen je zwaard op een tafelin de gang. Het meubilair van cel bestaat uit niet meer dan een brits plus een emmer water. De wachters lopen de trap weer op. Als ze verdwenen zijn komt de oude man overeind van zijn brits en zegt: 'je komt zeker van buiten de stad? Geef maar geen antwoord, dat zie je zo. Wil je dat ik zorg  dat je vrijkomt? Geef me 10 Goudstukken en ik heb jer binnen 5 minuten uit.' De oude man houdt zijn hand op door de tralies van jouw cel.
 [1]Wil je de oude 10 goudstukken geven?
 [2]of hou je ze liever zelf?
+@0
 @1:351
 @2:29

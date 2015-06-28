@@ -1,4 +1,5 @@
 Je springt over de slangen heen en snelt naar de deur.
-Test je Geluk. Heb je geluk?
-[J] Je haalt ongedeerd de deur
-[N] Een van de slangen laat toe en bijt je in je been
+Test je Geluk.
+@1
+@0:Pecht! Een van de slangen laat toe en bijt je in je been@15
+@1:Geluk! Je haalt ongedeerd de deur@75

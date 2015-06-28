@@ -10,3 +10,7 @@ Wat doe je?
 [1] Laat je je gedwee afvoeren?
 [2] Probeer je met geweld tegen de wachters te verzetten?
 [3] Probeer je de wachters om te kopen?
+@0
+@1:151
+@2:69
+@3:276
