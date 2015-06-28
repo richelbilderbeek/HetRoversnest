@@ -33,21 +33,3 @@ std::vector<std::string> StripFirstChar(std::vector<std::string> v)
   v[0] = v[0].substr(1,v[0].size() - 1);
   return v;
 }
-
-void Test()
-{
-  //StripFirstChar
-  {
-    const std::vector<std::string> original = { "AB" };
-    const std::vector<std::string> result = StripFirstChar(original);
-    const std::vector<std::string> expected = { "B" };
-    assert(result == expected);
-  }
-  //StripFirstChar
-  {
-    const std::vector<std::string> original = { "AB", "CDEF" };
-    const std::vector<std::string> result = StripFirstChar(original);
-    const std::vector<std::string> expected = { "B", "CDEF" };
-    assert(result == expected);
-  }
-}
