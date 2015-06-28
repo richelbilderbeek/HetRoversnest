@@ -53,8 +53,15 @@ CONFIG(release, debug|release) {
 
 SOURCES += main.cpp \
     helper.cpp \
-    dochapter.cpp
+    dochapter.cpp \
+    character.cpp \
+    item.cpp \
+    test.cpp \
+    autoplay.cpp
 
 HEADERS += \
     helper.h \
-    dochapter.h
+    dochapter.h \
+    character.h \
+    item.h \
+    autoplay.h
