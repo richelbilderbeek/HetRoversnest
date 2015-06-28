@@ -121,6 +121,7 @@ void DoNormalChapter(std::stringstream& s, int& chapter, const bool auto_play)
   {
     std::string s;
     std::getline(std::cin,s);
+    if (s.empty()) continue;
     assert(!s.empty());
     const char command = s[0];
     //std::cerr << "command: " << command << std::endl;
