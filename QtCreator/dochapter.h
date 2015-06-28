@@ -4,6 +4,6 @@
 #include <string>
 #include <vector>
 
-void DoNormalChapter(const std::vector<std::string>& lines, int& chapter);
+void DoNormalChapter(std::stringstream& s, int& chapter);
 
 #endif // DOCHAPTER_H

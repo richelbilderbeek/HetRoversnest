@@ -9,40 +9,20 @@
 
 #include <boost/lexical_cast.hpp>
 
-void DoNormalChapter(const std::vector<std::string>& lines, int& chapter)
+void DoNormalChapter(std::stringstream& s, int& chapter)
 {
-  std::stringstream s;
-  s << std::noskipws;
-  std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
-
-  //Show text until @
-  {
-    int pos = 0;
-    char prev_c = ' ';
-    while (s)
-    {
-      char c;
-      s >> c;
-      if (c == '@') break; //Now the options must be parsed
-      if (c == '\n') c = ' '; //Convert a newline to space, so input files do not require a space after every line
-      if (c == ' ' && pos == 0) continue; //Een nieuwe regel begint niet met een spatie
-      if (c == ' ' && prev_c == ' ') continue; //Tweede spatie overslaan
-      std::cout << c;
-      prev_c = c;
-      ++pos;
-      if (pos > 60 && c == ' ')
-      {
-        std::cout << '\n';
-        pos = 0;
-      }
-    }
-  }
-  std::cout << std::endl;
   //Parse the options
   std::vector<std::pair<char,int>> options; //input, new chapter
   {
-    while (1)
+    while (!s.eof())
     {
+      char at;
+      assert(!s.eof());
+      s >> at;
+      assert(!s.eof());
+      while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+      if(s.eof()) break;
+      assert(at == '@');
       assert(!s.eof());
       char option;
       assert(!s.eof());
@@ -55,15 +35,6 @@ void DoNormalChapter(const std::vector<std::string>& lines, int& chapter)
       assert(!s.eof());
       s >> chapter_to_go;
       options.push_back(std::make_pair(option,chapter_to_go));
-      if (s.eof()) break;
-      char at;
-      assert(!s.eof());
-      s >> at;
-      assert(!s.eof());
-      while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-      if(s.eof()) break;
-      assert(at == '@');
-      assert(!s.eof());
     }
   }
   assert(!options.empty());
