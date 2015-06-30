@@ -1,0 +1,11 @@
+Walking towards you along Ihe street are two huge 
+guards wearing the black uniform of Lord Azzur. As 
+they get closer you see thai they are Trolls, brutal 
+mercenaries employed by Lord Azzur as Imperial 
+Elite Guards. To your right there is a Iree which 
+reaches almost to the top of the city wall. 
+[1] If you wish to risk walking past the Trolls
+[2] If you wish to climb the tree in order to get over the wall
+@0
+@1:290
+@2:11

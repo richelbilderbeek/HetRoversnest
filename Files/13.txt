@@ -1,0 +1,15 @@
+Inspecting the scorpion you see that it is a brooch. 
+You decide to pin it to your leather tunic. The 
+brooch has magic healing properties: after any bat- 
+tle, the brooch will immediately restore 1 stamina 
+point to your total. 
+What will you do next? 
+[1] You may, if you have not 
+already done so, pick up the golden scorpion
+[2] If you would rather ignore it, you may either 
+climb the stairs
+[3] or leave the house and head north
+@0
+@1:273
+@2:80
+@3:334

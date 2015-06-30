@@ -1,0 +1,7 @@
+You leap over the snakes and run for the door. Test 
+jour Luck, If you are Lucky, you reach the door 
+safely. If you are Unlucky, one of the 
+snakes strikes out and bites vou on the leg
+@1
+@0:No luck!@15
+@1:Luck!@75
