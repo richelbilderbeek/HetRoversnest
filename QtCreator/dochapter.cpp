@@ -217,6 +217,7 @@ void DoChapter(
     case '1': DoTestYourLuckChapter(s,chapter,character); break;
     case '2': DoTestYourDexterityChapter(s,chapter,character); break;
     case '3': DoChangeStatusChapter(s,chapter,character); break;
+    case '4': DoFightWithTime(s,chapter,character,auto_play); break;
     case '5': DoGameOver(chapter); break;
     case '6': DoHasItemChapter(s,chapter,character); break;
     case '7': DoFight(s,chapter,character,auto_play); break;
@@ -253,10 +254,253 @@ void DoFight(std::stringstream& s, int& chapter, Character& character, const boo
     }
   }
   //Skill monster
+  int monster_dexterity = -1;
+  {
+    //char at;
+    //assert(!s.eof());
+    //s >> at;
+    //assert(!s.eof());
+    //while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    //assert(!s.eof());
+    //assert(at == '@');
+    s >> monster_dexterity;
+    assert(monster_dexterity != -1);
+  }
   //Condition monster
-
+  int monster_stamina = -1;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> monster_stamina;
+    assert(monster_stamina != -1);
+  }
   //New chapter
+  int new_chapter = -1;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> new_chapter;
+    assert(new_chapter > -1);
+  }
+  while (1)
+  {
+    if (character.GetStamina() < 1) break;
+    if (monster_stamina < 1) break;
+    const int monster_attack = (std::rand() >> 4) % 6;
+    const int player_attack = (std::rand() >> 4) % 12;
+    if (player_attack > monster_attack)
+    {
+      std::cout << "You hit the monster." << std::endl;
+      if (!auto_play)
+      {
+        std::cout << "Do you want to use luck?" << std::endl;
+        assert(!"TODO");
+      }
+      else
+      {
+        monster_stamina -= 2;
+      }
+    }
+    else if (player_attack < monster_attack)
+    {
+      std::cout << "You were hit by the monster." << std::endl;
+      if (!auto_play)
+      {
+        std::cout << "Do you want to use luck?" << std::endl;
+        assert(!"TODO");
+      }
+      else
+      {
+        character.ChangeStamina(-2);
+      }
+    }
+    else
+    {
+      std::cout << "No damage was dealt." << std::endl;
+    }
+  }
 
+  if (character.GetStamina() == 0)
+  {
+    std::cout
+      << "The monster defeated you.\n"
+      << "\n"
+      << "*************\n"
+      << "*           *\n"
+      << "* GAME OVER *\n"
+      << "*           *\n"
+      << "*************\n"
+    ;
+    chapter = 0;
+  }
+  else
+  {
+    std::cout << "You defeated the monster." << std::endl;
+    chapter = new_chapter;
+  }
+}
+
+void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+{
+  const bool verbose{false};
+  //Name monster
+  std::string name;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    while (1)
+    {
+      char c = '*';
+      s >> c;
+      assert(c != '*');
+      if (c == ' ' || c == '\n') continue;
+      if (c == '@') break;
+      name += c;
+    }
+  }
+  if (verbose) { std::cout << "Monster name: " << name << std::endl; }
+  //Skill monster
+  int monster_dexterity = -1;
+  {
+    //char at;
+    //assert(!s.eof());
+    //s >> at;
+    //assert(!s.eof());
+    //while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    //assert(!s.eof());
+    //assert(at == '@');
+    s >> monster_dexterity;
+    assert(monster_dexterity != -1);
+  }
+  if (verbose) { std::cout << "Monster dexterity: " << monster_dexterity << std::endl; }
+  //Condition monster
+  int monster_stamina = -1;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> monster_stamina;
+    assert(monster_stamina != -1);
+  }
+  if (verbose) { std::cout << "Monster stamina: " << monster_stamina << std::endl; }
+  //Number of rounds
+  int number_of_rounds = -1;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> number_of_rounds;
+    assert(number_of_rounds > -1);
+  }
+  if (verbose) { std::cout << "Number of rounds: " << number_of_rounds << std::endl; }
+  //New chapter after time limit
+  int new_chapter_after_time_limit = -1;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> new_chapter_after_time_limit;
+    assert(new_chapter_after_time_limit > -1);
+  }
+  if (verbose) { std::cout << "New chapter after time limit: " << new_chapter_after_time_limit << std::endl; }
+  //New chapter after time limit
+  int new_chapter_within_time_limit = -1;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> new_chapter_within_time_limit;
+    assert(new_chapter_within_time_limit > -1);
+  }
+  if (verbose) { std::cout << "New chapter within time limit: " << new_chapter_within_time_limit << std::endl; }
+  for (int i=0; i!=number_of_rounds; ++i)
+  {
+    const int monster_attack = (std::rand() >> 4) % 6;
+    const int player_attack = (std::rand() >> 4) % 12;
+    if (player_attack > monster_attack)
+    {
+      std::cout << "You hit the monster." << std::endl;
+      if (!auto_play)
+      {
+        std::cout << "Do you want to use luck?" << std::endl;
+        assert(!"TODO");
+      }
+      else
+      {
+        monster_stamina -= 2;
+      }
+    }
+    else if (player_attack < monster_attack)
+    {
+      std::cout << "You were hit by the monster." << std::endl;
+      if (!auto_play)
+      {
+        std::cout << "Do you want to use luck?" << std::endl;
+        assert(!"TODO");
+      }
+      else
+      {
+        character.ChangeStamina(-2);
+      }
+    }
+    else
+    {
+      std::cout << "No damage was dealt." << std::endl;
+    }
+    if (character.GetStamina() < 1)
+    {
+      std::cout
+        << "The monster defeated you.\n"
+        << "\n"
+        << "*************\n"
+        << "*           *\n"
+        << "* GAME OVER *\n"
+        << "*           *\n"
+        << "*************\n"
+      ;
+      chapter = 0;
+      return;
+    }
+    else if (monster_stamina < 1)
+    {
+      std::cout << "You defeated the monster." << std::endl;
+      chapter = new_chapter_within_time_limit;
+      return;
+    }
+  }
+  std::cout << "You did not make it within the time limit." << std::endl;
+  chapter = new_chapter_after_time_limit;
 }
 
 void DoGameOver(int& chapter)
