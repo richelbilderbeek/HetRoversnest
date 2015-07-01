@@ -171,10 +171,14 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
 void DoChapter(
   int& chapter,
   Character& character,
+  const Language language,
   const bool auto_play
 )
 {
-  const std::string filename{"../Bestanden/" + std::to_string(chapter) + ".txt"};
+  const std::string filename{
+    (language == Language::Dutch ? "../Bestanden/" : "../Files/")
+    + std::to_string(chapter) + ".txt"
+  };
   if (!IsRegularFile(filename))
   {
     std::stringstream msg;

@@ -57,11 +57,13 @@ SOURCES += main.cpp \
     character.cpp \
     item.cpp \
     test.cpp \
-    autoplay.cpp
+    autoplay.cpp \
+    language.cpp
 
 HEADERS += \
     helper.h \
     dochapter.h \
     character.h \
     item.h \
-    autoplay.h
+    autoplay.h \
+    language.h

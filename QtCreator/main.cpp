@@ -14,15 +14,16 @@ int main()
   #endif
 
   Character character(100,100,100,Item::shield);
-  int chapter = 10;
-  const bool auto_play{true};
+  int chapter = 1;
+  const bool auto_play{false};
+  const Language language = Language::English;
 
   while (1)
   {
     std::cout << std::string(60,'-') << '\n';
     std::cout << chapter << '\n';
     std::cout << std::string(60,'-') << '\n';
-    DoChapter(chapter,character,auto_play);
+    DoChapter(chapter,character,language,auto_play);
     if (chapter == 0) break;
   }
 }

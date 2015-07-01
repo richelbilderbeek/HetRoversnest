@@ -25,14 +25,17 @@ void Test()
   Character character(100,100,100,Item::shield);
   for (int i=1; i!=400; ++i)
   {
-    try
+    for (const Language language: { Language::Dutch, Language::English } )
     {
       int chapter = i; //Must use copy, otherwise i is changed
-      DoChapter(chapter,character,true);
-    }
-    catch (std::runtime_error& e)
-    {
-      std::cout << e.what() << std::endl;
+      try
+      {
+        DoChapter(chapter,character,language,true);
+      }
+      catch (std::runtime_error& e)
+      {
+        std::cout << e.what() << std::endl;
+      }
     }
   }
   //Try chapters of different types
