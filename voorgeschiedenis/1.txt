@@ -1,26 +1,12 @@
-0
-De voettoch naar Zwartzand voert je zo'n vijfenzeventig kilometer 
-over vlakten en heuvels naar het Westen; 
-gelukkig zonder onaangename ontmoetingen. 
-Uiteindelijk bereik je de kust en zie je de hoge stadsmuur die zwartzand omgeeft 
-en de dichtopeengebouwde huizenklomp die de zee insteekt als een zwart onheilsteken. 
-Schepen liggen voor anker in de haven en rook stijgt langzaam op uit de schoorstenen. 
-Het ziet er vredig genoeg uit en pas als de wind van richting verandert, 
-ruik je het verval in het briesje 
-en het herinnert je aan de boze aard van dit beruchte oord. 
-Terwijl je de stoffige weg noordwaards langs de kust naar de stadspoorten volgt,
-zie je de eerste angstaanjagende waarschuwingen: 
-schedels op op houten staken, hongerende mannen in ijzeren kooien 
-die aan de stadsmuur hangen en overal zwarte vlaggen. 
-Als je de stadspoort nadert loopt er een koude rilling over je rug
-en instinctief grijp je het gevest van je slagzwaard om jezelf gerust te stellen. 
-Bij de poort wordt je opgewacht door een lange wachter. Hij draagt een zwarte malienkolder en een ijzeren helm. 
-Hij treedt naar voren, je de doorgang belemmerend met zijn piek en zegt: 'Wie waagt het onuitgenodigd naar Zwartzand te komen? 
-Verklaar wat je hier te zoeken hebt of ga de weg terug die je gekomen bent.'. 
-Wat doen je? 
-[1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? 
-[2] Tegen hem zeggen dat je gestolen waar wil verkopen? 
-[3] Hem snel aanvallen met je zwaard? 
-@1:202
-@2:33
-@3:49			
+je bent een aconturier in een wereld vol monsters en tovenaars. je vertrouwt op je tegenwoordigheid van geest en je behendigheid met het zwaard.
+Je verdient je goud als huurkrijger, gewoonlijk in dienst van rijke edelen, die opdrachten uitvoert die te gevaarlijk of te moeilijk zijn voor zijn eigen mannen. 
+Het bevechten van monsters en vreeswekkende gedrochten bij de jacht op de een of andere schat is dagelijkse werk. Als ervaren en geofend zwaardvechter ruim je elk obstakel op je speurtocht uit de weg.
+Je slaagt altijd in je opdrachten en je roem heeft zich over alle windstreken verspreidt het nieuws van je aankomst gaat als een lopend vuurtje onder de burger,  want weinigen van hen hebben ooit een drakendoder gezien.
+
+Op een zekere avond kom je, na een lange voettocht door de omringende landen in Zilverstein, dat op het kruispunt ligt van de belangrijkste handelsroutes in deze streken. Grote houten wagens, voortgetrokken door spanne ossen, ratelen langzaam door de swtad, volgeladen met kruiden,specerijen, zijde, metaalwaren en exotische spijzen uit verre landen. Zilverstein is altijd een welvarend stad geweest, als pleisterplaats van de rijke kooplieden en handelaren, die op weg waren naar verre markten. De rijkdom van de stad blijkt duidelijk uit vele rijdversierde huizen ne weelderig gekleede mensen. Maar als je de stadspoort binnenkomt krijg je de indruk dat er iets aan de hand is. De mensen lijken zenuwachtig en gespannen. Dan valt het je op dat alle ramen van de huizen met dikke ijzeren tralies zijn voorzien en dat ook de deuren versterkt zijn. Hoewel je liever jezelf dan andere tot gezelschap hebt besluit je de nacht in Zilverstein te blijven om er achter te komen wie of wat de ongerustheid van de bewoners veroorzaakt.
+		 
+
+Terwijl je door de hoofdstraat loopt slaat een klok in een hoge toren recht voor je één keer. Dan schreeuwt een man bijna met doodsangst in zijn stem:''t is nacht. 't is nacht! Iedereen naar binnen!' Om je heen zie je de mensen zich haastig uit de voeten maken. Hun gezichten zijn angstig en ze lijken verbaasd je te zien. Aan de overkant zie je een oude herberg, met op het uithangbord de oude pad. Wanneer je de herberg binnenstapt gaat er een gefluister door de gelagkamer als ze je herkennen - sommigen zetten hun kroes neer en staren je aan. Het verbaast je enigszins dat er niemand naar je toekomt om te vragen naar je avonturen. je loopt naar de toog toe en vraagt de oude waard om een kamer en een warm bad, maar hij negeert je, sloft naar de zware eiken buitendeur en schuift zes dikke ijzeren grendels dicht. Pas dan wendt hij  zicht jou en zegt rustig:'Dat is de dan vijf koperstukken voor de kamer en nog één voor het bad. Zoudt u vooruit willen betalen?' je doet een greep in een leren buidel aan je riem en werpt de munten op de toog. Hij overhandigt je een ijzeren sleutel maar net op dat klinkt er een luid gebons op de deur, gevolgd door een stem: 'DOE OPEN! iK Ben Owen Carralif.' De oude waard sloft weer naar de eiken deur en schuift de grendels open.
+Haastig komt een gezette, kalende man, gekleed in een wild scharlakenrood gewaad de herberg binnen. Hij kijkt met verwilderde blik om zich heen. Hij ziet jou en looptsle naar je toe, hijgend, puffend. Het is beslist geen man die aan haast gewend is - bij het zwakke kaarslicht in de gelagkamer zie je grote zweetdruppels op zijn voorhoofd parelen. Als hij vlakbij je is zegt hij dringend: 'Vreemdeling, ik moet met u spreken. Gaat u zitten, alstublieft. Het is van groot belang dat ik met u spreek.'
+
+
