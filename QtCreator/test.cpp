@@ -35,5 +35,6 @@ void Test()
       std::cout << e.what() << std::endl;
     }
   }
+  //Try chapters of different types
 }
 

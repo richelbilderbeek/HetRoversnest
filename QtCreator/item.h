@@ -1,6 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include <iosfwd>
+
 enum class Item
 {
   shield = 1,
@@ -11,5 +13,8 @@ enum class Item
   lotus_flower = 6,
   tattoo = 7
 };
+
+std::string ToStr(const Item item);
+std::ostream& operator<<(std::ostream& os, const Item item);
 
 #endif // ITEM_H

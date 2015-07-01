@@ -7,5 +7,5 @@ de muur te springen (Je verliest twee behendigheidspunten).
 Onder je zie je de twee Trollen om de boom rennen terwijl ze met hun zwaarden naar je zwaaien.
 Je hebt geen andere keus dan te springen.
 @3
-@D-1,I01-,I02?D-2,I02?IO2-
+@D-1,I01-,I02?D-2,I02?I02-
 @358

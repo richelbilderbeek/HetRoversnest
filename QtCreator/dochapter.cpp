@@ -12,6 +12,162 @@
 #include "character.h"
 #include "helper.h"
 
+void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& character)
+{
+  const bool verbose{false};
+  if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
+  //Parse @ starting what
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+  }
+  while (1)
+  {
+    assert(!s.eof());
+    char status = '*';
+    s >> status;
+    assert(status != '*');
+    if (verbose) { std::clog << "status: " << status << std::endl; }
+    if (status == 'I')
+    {
+      int number = -1;
+      s >> number;
+      assert(number > -1);
+      const Item item = static_cast<Item>(number);
+      char plus_or_minus_or_question_mark = '*';
+      s >> plus_or_minus_or_question_mark;
+      if (plus_or_minus_or_question_mark == '+')
+      {
+        if (verbose) { std::clog << "add item: " << item << std::endl; }
+        character.AddItem(item);
+      }
+      else if (plus_or_minus_or_question_mark == '-')
+      {
+        if (verbose) { std::clog << "remove item: " << item << std::endl; }
+        character.RemoveItem(item);
+      }
+      else if (plus_or_minus_or_question_mark == '?')
+      {
+        char conditional_status = '*';
+        s >> conditional_status;
+        assert(conditional_status != '*');
+        if (verbose) { std::clog << "conditional_status: " << conditional_status << std::endl; }
+        if (conditional_status == 'I')
+        {
+          int conditional_number = -1;
+          s >> conditional_number;
+          assert(conditional_number > -1);
+          const Item conditional_item = static_cast<Item>(conditional_number);
+          char conditional_plus_or_minus_or_question_mark = '*';
+          s >> conditional_plus_or_minus_or_question_mark;
+          if (conditional_plus_or_minus_or_question_mark == '+')
+          {
+            if (character.HasItem(item))
+            {
+              if (verbose) { std::clog << "player has item: " << item << std::endl; }
+              if (verbose) { std::clog << "add conditional_item: " << conditional_item << std::endl; }
+              character.AddItem(conditional_item);
+            }
+            else
+            {
+              if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
+            }
+          }
+          else if (conditional_plus_or_minus_or_question_mark == '-')
+          {
+            if (character.HasItem(item))
+            {
+              if (verbose) { std::clog << "player has item: " << item << std::endl; }
+              if (verbose) { std::clog << "remove conditional_item: " << conditional_item << std::endl; }
+              character.RemoveItem(conditional_item);
+            }
+            else
+            {
+              if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
+            }
+          }
+        }
+        else
+        {
+          int conditional_change = -123;
+          s >> conditional_change;
+          assert(conditional_change != -123);
+          if (character.HasItem(item))
+          {
+            if (verbose) { std::clog << "player has item: " << item << std::endl; }
+            switch (conditional_status)
+            {
+              case 'D':
+                if (verbose) { std::clog << "Change dexterity by " << conditional_change << std::endl; }
+                character.ChangeDexterity(conditional_change);
+              break;
+              case 'S':
+                if (verbose) { std::clog << "Change stamina by " << conditional_change << std::endl; }
+                character.ChangeStamina(conditional_change);
+              break;
+              case 'L':
+                if (verbose) { std::clog << "Change luck by " << conditional_change << std::endl; }
+                character.ChangeLuck(conditional_change);
+              break;
+              default: assert(!"Should not get here");
+            }
+          }
+          else
+          {
+            if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
+          }
+        }
+      }
+      else
+      {
+        assert(!"Should not get here");
+      }
+    }
+    else
+    {
+      //Status is changed
+      int change = -123;
+      s >> change;
+      assert(change != -123);
+      switch (status)
+      {
+        case 'D':
+          if (verbose) { std::clog << "Change dexterity by " << change << std::endl; }
+          character.ChangeDexterity(change);
+        break;
+        case 'S':
+          if (verbose) { std::clog << "Change stamina by " << change << std::endl; }
+          character.ChangeStamina(change);
+        break;
+        case 'L':
+          if (verbose) { std::clog << "Change luck by " << change << std::endl; }
+          character.ChangeLuck(change);
+        break;
+        default: assert(!"Should not get here");
+      }
+    }
+    char comma_or_at = '*';
+    s >> comma_or_at;
+    assert(!s.eof());
+    while (!s.eof() && (comma_or_at == '\n' || comma_or_at == ' ')) { s >> comma_or_at; }
+    if (comma_or_at == '@') break;
+  }
+  //Parse next chapter
+  {
+    int next_chapter = -1;
+    s >> next_chapter;
+    assert(next_chapter > -1);
+    chapter = next_chapter;
+  }
+}
+
+
+
 void DoChapter(
   int& chapter,
   Character& character,
@@ -60,6 +216,10 @@ void DoChapter(
     case '0': DoNormalChapter(s,chapter,auto_play); break;
     case '1': DoTestYourLuckChapter(s,chapter,character); break;
     case '2': DoTestYourDexterityChapter(s,chapter,character); break;
+    case '3': DoChangeStatusChapter(s,chapter,character); break;
+    case '5': DoGameOver(chapter); break;
+    case '6': DoHasItemChapter(s,chapter,character); break;
+    case '7': DoFight(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -69,6 +229,114 @@ void DoChapter(
       throw std::runtime_error(msg.str());
     }
   }
+}
+
+void DoFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+{
+  //Name monster
+  std::string name;
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    while (1)
+    {
+      char c = '*';
+      s >> c;
+      assert(c != '*');
+      if (c == '@') break;
+      name += c;
+    }
+  }
+  //Skill monster
+  //Condition monster
+
+  //New chapter
+
+}
+
+void DoGameOver(int& chapter)
+{
+  std::cout
+    << "*************\n"
+    << "*           *\n"
+    << "* GAME OVER *\n"
+    << "*           *\n"
+    << "*************\n"
+  ;
+  chapter = 0;
+}
+
+void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
+{
+  const bool verbose{false};
+  if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
+  std::vector<int> item_numbers;
+  //Parse item
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    while (1)
+    {
+      int item_number = -1;
+      s >> item_number;
+      assert(item_number != -1);
+      item_numbers.push_back(item_number);
+      if (verbose) { std::clog << "Needed item: " << static_cast<Item>(item_number) << std::endl; }
+      char comma_or_at = '*';
+      s >> comma_or_at;
+      assert(comma_or_at != '*');
+      if (comma_or_at != ',') break;
+    }
+  }
+  assert(!item_numbers.empty());
+  int chapter_if_not_have = -1;
+  //Parse chapter if not have
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> chapter_if_not_have;
+    if (verbose) { std::clog << "chapter_if_not_have: " << chapter_if_not_have << std::endl; }
+  }
+  assert(chapter_if_not_have != -1);
+  int chapter_if_have = -1;
+  //Parse chapter if have
+  {
+    char at;
+    assert(!s.eof());
+    s >> at;
+    assert(!s.eof());
+    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+    assert(!s.eof());
+    assert(at == '@');
+    s >> chapter_if_have;
+    if (verbose) { std::clog << "chapter_if_have: " << chapter_if_have << std::endl; }
+  }
+  assert(chapter_if_have != -1);
+  for (const int item_number: item_numbers)
+  {
+    const Item item = static_cast<Item>(item_number);
+    if (!character.HasItem(item))
+    {
+      chapter = chapter_if_not_have;
+      return;
+    }
+  }
+  chapter = chapter_if_have;
 }
 
 

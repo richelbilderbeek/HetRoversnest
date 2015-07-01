@@ -14,7 +14,7 @@ int main()
   #endif
 
   Character character(100,100,100,Item::shield);
-  int chapter = 69;
+  int chapter = 5;
   const bool auto_play{false};
 
   while (1)
@@ -23,5 +23,6 @@ int main()
     std::cout << chapter << '\n';
     std::cout << std::string(60,'-') << '\n';
     DoChapter(chapter,character,auto_play);
+    if (chapter == 0) break;
   }
 }

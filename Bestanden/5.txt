@@ -1,0 +1,9 @@
+Drawing your sword you leap over the counter to 
+attack the Man-Orc, who swiftly grabs his hand- 
+axe. You soon realize that Friedo has used his 
+weapon before. 
+@7
+@Man-Ork
+@6
+@5
+@371
