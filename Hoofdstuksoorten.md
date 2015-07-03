@@ -159,6 +159,50 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorw
 @[behendigheid monster(s)]
 @[conditie monster(s)]
 @[hoofdstuk erna bij gewonnen]
-```
 
 Een voorbeeld van een Gevecht binnen een paar beurten is [5](Bestanden/5.txt)
+
+
+### 8: verhaal wijziging status
+
+```
+[tekst]
+@8
+@[wat][plus of min][getal]
+@[optie volgende hoofdstuk]
+```
+
+ * 8: code van een verhaal wijziging van je status
+ * [tekst]: de tekst die getoond wordt
+ * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
+ * [plus of min]: is of `+` of `-`
+ * [getal]: getal die aangeeft hoeveel de status veranderd
+ * [optie]: de optie de de speler kiest, bijvoorbeeld `1`
+ * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
+
+Het [wat] gedeelte is wat ingewikkelder. Er kunnen meerdere dingen gebeuren, deze worden gescheiden met een komma. Ook kan er een vraag in gesteld worden ('Bezit je een malienkolder?') met een vraagteken. Ook kunnen er voorwerpen verloren worden
+
+Enkele voorbeelden van [wat]:
+
+ * `@D-1`: verlies 1 behendigheid
+ * `@D-1,S-1`: verlies 1 behendigheid en een conditie
+ * `@I01-`: verlies het schild 
+ * `@I02+`: verkrijg de malienkolder
+ * `@I02?D-2`: heb je een malienkolder, verlies dan twee behendigheidpunten
+ * `@I02?I02-`: heb je een malienkolder, verlies dan je malienkolder
+ * `@I02?D-2,@I02?I02-`: heb je een malienkolder, verlies dan twee behendigheidpunten en je malienkolder
+
+Een voorbeeld van een Wijziging van je status is
+
+ * [8](Bestanden/8.txt)
+ * [11](Bestanden/11.txt)
+
+Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
+
+
+```
+
+
+Een voorbeeld van een verhaalbestand is [1](Bestanden/1.txt).
+
+Een voorbeeld van een "verhaal wijziging status is hfst 381"
