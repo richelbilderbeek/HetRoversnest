@@ -1,3 +1,6 @@
 als je omhoog kijkt zie je dat  de trap helemaal tot bove nin de toren doorloopt. Je stopt op de eerste verdieping en loopt over het portaal naar een deur. De deur geeft toegang tot een grote kamer waarin een comfortabel, opgemaakt bed staat.
 [1]Als je de deur op slot doet en een nachtje wilt slapen.
 [2]Wil je liever eerst de rest van de toren verkennen.
+@0
+@1:288
+@2:77
