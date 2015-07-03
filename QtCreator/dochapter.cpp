@@ -33,6 +33,7 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
     s >> status;
     assert(status != '*');
     if (verbose) { std::clog << "status: " << status << std::endl; }
+    if (status == '0') break;
     if (status == 'I')
     {
       int number = -1;
@@ -148,6 +149,7 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
           if (verbose) { std::clog << "Change luck by " << change << std::endl; }
           character.ChangeLuck(change);
         break;
+        case '0': break;
         default: assert(!"Should not get here");
       }
     }

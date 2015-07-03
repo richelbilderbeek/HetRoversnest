@@ -10,8 +10,8 @@ Een bestand waarin een tekst wordt getoond en de speler kan kiezen uit meerdere 
 @[optie]:[hoodstuk]
 ```
 
- * 0: code van een verhaalbestand
- * [tekst]: de tekst, inclusief keuzes die de speler kan maken
+ * [tekst]: de tekst die getoond wordt
+ * `0`: code van een verhaalbestand
  * [optie]: de optie de de speler kiest, bijvoorbeeld `1`
  * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
 
@@ -29,7 +29,8 @@ en er een tekst is bij pech of geluk en een hoofdstuk erna.
 @1:[tekst bij geluk]@[hoodstuk bij geluk]
 ```
 
- * 1: code van een Test-Je-Geluk
+ * [tekst]: de tekst die getoond wordt
+ * `1`: code van een Test-Je-Geluk
  * [tekst]: de tekst tot het geluk bepaald wordt
  * [tekst bij pech]: de tekst die de speler ziet bij pech
  * [hoodstuk bij pech]: het hoofstuk waar de speler heen gaat bij pech
@@ -53,8 +54,8 @@ en er een tekst is bij geen behendigheid of wel behendigheid en een hoofdstuk er
 @0:[tekst bij wel behendigheid]@[hoodstuk bij wel behendigheid]
 ```
 
- * 2: code van een Test-Je-Behendigheid
- * [tekst]: de tekst tot het geluk bepaald wordt
+ * [tekst]: de tekst die getoond wordt
+ * `2`: code van een Test-Je-Behendigheid
  * [tekst bij geen behendigheid]: de tekst die de speler ziet bij pech
  * [hoodstuk bij pech]: het hoofstuk waar de speler heen gaat bij pech
  * [tekst bij geluk]: de tekst die de speler ziet bij geluk
@@ -73,7 +74,8 @@ Een bestand waarin een tekst wordt getoond en een status (conditie, behendigheid
 @[volgende hoofdstuk]
 ```
 
- * 3: code van een wijziging van je status
+ * [tekst]: de tekst die getoond wordt
+ * `3`: code van een wijziging van je status
  * [tekst]: de tekst die getoond wordt
  * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
 * [plus of min]: is of `+` of `-`
@@ -84,6 +86,7 @@ Het [wat] gedeelte is wat ingewikkelder. Er kunnen meerdere dingen gebeuren, dez
 
 Enkele voorbeelden van [wat]:
 
+ * `@0`: geen wijziging
  * `@D-1`: verlies 1 behendigheid
  * `@D-1,S-1`: verlies 1 behendigheid en een conditie
  * `@I01-`: verlies het schild 
@@ -112,7 +115,17 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorw
 @[hoofdstuk bij klaar voor voor onderbreking]
 ```
 
-Een voorbeeld van een Gevecht binnen een paar beurten is [10](Bestanden/10.txt)
+ * [tekst]: de tekst die getoond wordt
+ * `4`: code van dit soort hoofdstuk
+ * [naam monster(s)]: naam of namen van monsters, bijvoorbeeld `Kobold` of `Eerste Kobold, Tweede Kobold`
+ * [behendigheid monster(s): behendigheid monster(s), bijvoorbeeld `7` of `8,9`
+ * [conditie monster(s)]: conditie monster(s), bijvoorbeeld `7` of `8,9`
+ * [aantal rondes voordat je onderbroken wordt]: aantal rondes voordat het gevecht onderbroken wordt, bijvoorbeeld `6`
+ * [hoofdstuk bij onderbreking]: hoofdstuk 
+ * [hoofdstuk bij klaar voor voor onderbreking]
+
+Een voorbeeld van een Gevecht binnen een paar beurten is 
+  * [10](Bestanden/10.txt): een vijand
 
 ### 5: Game over
 
@@ -139,7 +152,7 @@ wordt gegaan
 ```
 
  * [tekst]: de tekst die getoond wordt
- * 6: code van een 'Heb je een voorwerp?' hoofdstuk
+ * `6`: code van een 'Heb je een voorwerp?' hoofdstuk
  * [voorwerpnummer]: het nummer van het voorwerp
  * [hoofdstuk bij niet bezitten van voorwerp]: hoofdstuk waar je heen gaat als je het voorwerp niet hebt
  * [hoofdstuk bij wel bezitten van voorwerp]: hoofdstuk waar je heen gaat als je het voorwerp wel hebt
@@ -159,9 +172,18 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorw
 @[behendigheid monster(s)]
 @[conditie monster(s)]
 @[hoofdstuk erna bij gewonnen]
+```
 
-Een voorbeeld van een Gevecht binnen een paar beurten is [5](Bestanden/5.txt)
+ * [tekst]: de tekst die getoond wordt
+ * `7`: code van dit soort hoofdstuk
+ * [naam monster(s)]: naam of namen van monsters, bijvoorbeeld `Kobold` of `Eerste Kobold, Tweede Kobold`
+ * [behendigheid monster(s): behendigheid monster(s), bijvoorbeeld `7` of `8,9`
+ * [conditie monster(s)]: conditie monster(s), bijvoorbeeld `7` of `8,9`
+ * [hoofdstuk erna bij gewonnen]
 
+Een voorbeeld van een Gevecht is 
+  * [5](Bestanden/5.txt): een vijand
+  * [22](Bestanden/22.txt): twee vijanden
 
 ### 8: verhaal wijziging status
 
@@ -172,7 +194,8 @@ Een voorbeeld van een Gevecht binnen een paar beurten is [5](Bestanden/5.txt)
 @[optie volgende hoofdstuk]
 ```
 
- * 8: code van een verhaal wijziging van je status
+ * [tekst]: de tekst die getoond wordt
+ * `8`: code van een verhaal wijziging van je status
  * [tekst]: de tekst die getoond wordt
  * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
  * [plus of min]: is of `+` of `-`
@@ -199,10 +222,4 @@ Een voorbeeld van een Wijziging van je status is
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
 
-
-```
-
-
-Een voorbeeld van een verhaalbestand is [1](Bestanden/1.txt).
-
-Een voorbeeld van een "verhaal wijziging status is hfst 381"
+Een voorbeeld van een "verhaal wijziging status is [381](Bestanden/381.txt)

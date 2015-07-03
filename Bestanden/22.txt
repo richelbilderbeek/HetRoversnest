@@ -1,0 +1,9 @@
+Als je aan de tafel gaat zitten staken de Kobolden
+hun geruzie en staren je koel aan. Je ziet haat op hun
+bruine wrattige gezichten. Plotseling staan ze op
+en trekken ze hun zwaard. Je moet ze een voor een bevechten.
+@7
+@Eerste kobold,Tweede kobold
+@4,5
+@5,5
+@198
