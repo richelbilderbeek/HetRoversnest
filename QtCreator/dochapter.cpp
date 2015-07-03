@@ -599,7 +599,7 @@ void DoNormalChapter(std::stringstream& s, int& chapter, const bool auto_play)
       assert(!s.eof());
       s >> at;
       assert(!s.eof());
-      while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
+      while (!s.eof() && (at == '\t' || at == '\n' || at == ' ')) { s >> at; }
       if(s.eof()) break;
       assert(at == '@');
       assert(!s.eof());

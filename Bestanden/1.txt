@@ -1,4 +1,3 @@
-0
 De voettoch naar Zwartzand voert je zo'n vijfenzeventig kilometer 
 over vlakten en heuvels naar het Westen; 
 gelukkig zonder onaangename ontmoetingen. 
@@ -21,6 +20,7 @@ Wat doen je?
 [1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? 
 [2] Tegen hem zeggen dat je gestolen waar wil verkopen? 
 [3] Hem snel aanvallen met je zwaard? 
+@0
 @1:202
 @2:33
 @3:49			

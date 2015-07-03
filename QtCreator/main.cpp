@@ -16,7 +16,7 @@ int main()
   Character character(100,100,100,Item::shield);
   int chapter = 1;
   const bool auto_play{false};
-  const Language language = Language::English;
+  const Language language = Language::Dutch;
 
   while (1)
   {
