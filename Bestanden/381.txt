@@ -1,10 +1,4 @@
-Het is op het nippertje, maar je slaagt erin de bovenrand van de muur met je vingertoppen te pakken te krijgen. je trekt je op en klautert op een stenen
-gaanderij bovenlangs de stadsmuur. links en rechts verheffen zich, zo'n hoderd meter uit elkaar, stenen torens boven de kantelen. Er zitten deuren in beide torens. Deze worden plotseling opengeworpen en er stormen wachters naar buiten om je gevangen te nemen. Aan de andere kant van de muur gaapt een diepte van twintig meter. Wat ga je doen?
-[1] Spring je naar beneden
-[2] Als je een touw hebt kan je je laten zakken.
-[3] of je gaat tegen de wachters vechten met je geweer.
-@0
-@1:346
-@2:108
-@3:56
+De wachter fronst zijn wenkbrauwen en zegt: 'Een mooi verhaal, hoor, maar je bent natuurlijk net als de rest in deze stad. Je mag op eigen risico doorlopen. Je kunt ook mijn goede raad voor 3 goudstukken kopen.'
+[1]Als je gewoon wilt doorlopen.
+[2]Als je de goede raad wilt kopen.
 
