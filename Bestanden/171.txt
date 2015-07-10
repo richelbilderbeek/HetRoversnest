@@ -1,0 +1,7 @@
+De straat loopt geleidelijk naar beneneden. De bebouwing houdt op bij een herberg, de Zwarte Kreeft genaamd, en de straat komt uit op een kade. Eeen stenen havenhoofd steekt de zee in .Er ligt een oud galjoen aan afgemeerd. Het voert de doodskopblag in top en is waarschijlijk een van de vele priratenschepen in Zwartzand aandoen om hun buit te ontschepen. De Havenstraat buigt bij het havenhoofd naar rechts af en loopt zover als het oog reikt verder parallel aan de kust naar het noorden.
+[1]Wil je naar het havenhoofd van de haven lopen.
+[2]Als je liever verder naar het noorden loopt.
+@0
+@1:399
+@2:78
+

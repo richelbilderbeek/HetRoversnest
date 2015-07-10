@@ -1,0 +1,4 @@
+De koets rijd gewoon door! Plotseling zijn de paarden, met van angst wijdopengesperde ogen vlak bij je. Je moet opzij springen om nie teverreden te worden. Test je Geluk. 
+@1
+@0:Pech! je komt onder de hoeven terecht@155
+@1:Geluk je belandt ongedeerd in de goot@275

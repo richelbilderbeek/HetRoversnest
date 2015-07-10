@@ -1,0 +1,6 @@
+Je loopt naar het midden van de straat en wacht. Plotseling komt er een voortgalopperend span paarden in zicht; ze trekken een rijk versierde koets. De koetsier ziet je en schreeuwt, knallend met zijn zweep:'Uit de weg voor Heer Azzur!'
+[1]Wil je opzij gaan voor de koets?
+[2]Als je gewoon wilt blijven staan.
+@0
+@1:58 
+@2:252
