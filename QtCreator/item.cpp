@@ -18,6 +18,7 @@ std::string ToStr(const Item item)
     case Item::silver_arrow: return "silver_arrow";
     case Item::mirror: return "mirror";
     case Item::ice_ring: return "ice_ring";
+    case Item::invisibility_ring: return "invisibility_ring";
   }
   assert(!"Unknown item");
 }

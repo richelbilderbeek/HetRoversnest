@@ -229,3 +229,27 @@ Een voorbeeld van een Wijziging van je status is
  * [35](Files/35.txt)
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
+
+### 9: Winkel
+
+De speler kan met genoeg goud meerdere voorwerpen kopen.
+
+```
+[tekst]
+@9
+@I[voorwerpnummer]?[prijs],
+@[volgende hoofdstuk]:[tekst bij verlaten]
+```
+
+ * [tekst]: de tekst die getoond wordt
+ * `9`: code van een winkel hoofdstuk
+ * [voorwerpnummer]: [nummer van het voorwerp](Voorwerpnummers.md)
+ * [prijs]: prijs van het voorwerp in goudstukken
+ * [volgende hoofdstuk]: het hoofstuk waar de speler dan heen gaat als hij/zij de winkel verlaat
+ * [tekst bij verlaten]: de tekst die wordt getoond als de speler de winkel verlaat
+
+Een voorbeeld van winkel is:
+
+ * [36](Files/36.txt)
+
+Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.

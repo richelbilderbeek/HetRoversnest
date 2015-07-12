@@ -1,0 +1,4 @@
+The man leans on the counter. He sells magical rings.
+@9
+@I12?10,I03?8,I11?7
+@196:Bidding the man farewell, you leave the shop to head west.

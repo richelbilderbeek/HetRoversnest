@@ -11,3 +11,4 @@
  * 09: Zilveren pijl
  * 10: Spiegel
  * 11: Ijsring
+ * 12: Onzichtbaarheidsring

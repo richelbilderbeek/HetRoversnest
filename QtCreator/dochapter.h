@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "item.h"
 #include "language.h"
 
 struct Character;
@@ -35,10 +36,26 @@ void DoNormalChapter(
   const bool auto_play
 );
 
+void DoShop(
+  std::vector<std::pair<Item,int>> items,
+  const std::string& exit_text,
+  Character& character,
+  const bool auto_play
+);
+
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character);
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character);
 
 void Parse(std::stringstream& s, const char expected_char);
+
+void ParseShop(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play
+);
+
+
 void ParseChangeStatus(std::stringstream& s, Character& character);
 void ParseChangeStatusAskOption(
   std::stringstream& s,
@@ -54,5 +71,7 @@ void ParseNormalChapter(
   const Character& character,
   const bool auto_play
 );
+
+Item ReadItem(std::stringstream& s);
 
 #endif // DOCHAPTER_H

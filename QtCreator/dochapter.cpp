@@ -89,6 +89,7 @@ void DoChapter(
     case '6': DoHasItemChapter(s,chapter,character); break;
     case '7': ParseFight(s,chapter,character,auto_play); break;
     case '8': ParseChangeStatusAskOption(s,chapter,character,auto_play); break;
+    case '9': ParseShop(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -499,8 +500,90 @@ void DoNormalChapter(
   }
 }
 
+void DoShop(
+  std::vector<std::pair<Item,int>> items,
+  const std::string& exit_text,
+  Character& character,
+  const bool auto_play
+)
+{
+  while (1)
+  {
+    if (items.empty())
+    {
+      std::cout << "There are no more items to buy.\n";
+      break;
+    }
+    std::cout << "[0] Leave shop\n";
+    const int n_items{static_cast<int>(items.size())};
+    bool can_buy{false};
+    for (int i=0; i!=n_items; ++i)
+    {
+      std::cout << '[' << (i+1) << "] Buy "
+        << ToStr(items[i].first) << " for "
+        << items[i].second << " gold pieces\n"
+      ;
+      if (items[i].second <= character.GetGold()) { can_buy = true; }
+    }
+    if (!can_buy)
+    {
+      std::cout << "You do not have enough money to buy anything.\n";
+      break;
+    }
+    if (auto_play)
+    {
+      for (int i=0; i < static_cast<int>(items.size()); ++i)
+      {
+        if (items[i].second <= character.GetGold())
+        {
+          std::cout << "You bough " << ToStr(items[i].first) << std::endl;
+          character.AddItem(items[i].first);
+          character.ChangeGold(items[i].second);
+          std::swap(items[i],items.back());
+          items.pop_back();
+          --i;
+        }
+      }
+      break;
+    }
+    assert(!auto_play);
 
-
+    //Shop
+    std::string s;
+    std::getline(std::cin,s);
+    if (s.empty()) continue;
+    try
+    {
+      boost::lexical_cast<int>(s);
+    }
+    catch (boost::bad_lexical_cast&)
+    {
+      std::cout << "Invalid command\n";
+      continue;
+    }
+    const int command = boost::lexical_cast<int>(s);
+    if (command == 0) break;
+    const int i = command - 1;
+    if (i < 0 || i >= static_cast<int>(items.size()))
+    {
+      std::cout << "Invalid number, choose zero to leave the shop or an item number to buy it.\n";
+      continue;
+    }
+    assert(i >= 0);
+    assert(i < static_cast<int>(items.size()));
+    if (character.GetGold() < items[i].second)
+    {
+      std::cout << "Cannot buy this item: not enough gold\n";
+      continue;
+    }
+    std::cout << "You bough " << ToStr(items[i].first) << std::endl;
+    character.AddItem(items[i].first);
+    character.ChangeGold(items[i].second);
+    std::swap(items[i],items.back());
+    items.pop_back();
+  }
+  std::cout << exit_text << std::endl;
+}
 
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character)
 {
@@ -632,10 +715,7 @@ void ParseChangeStatus(std::stringstream& s, Character& character)
     if (status == '0') return;
     if (status == 'I')
     {
-      int number = -1;
-      s >> number;
-      assert(number > -1);
-      const Item item = static_cast<Item>(number);
+      const Item item = ReadItem(s);
       char plus_or_minus_or_question_mark = '*';
       s >> plus_or_minus_or_question_mark;
       if (plus_or_minus_or_question_mark == '+')
@@ -656,10 +736,7 @@ void ParseChangeStatus(std::stringstream& s, Character& character)
         if (verbose) { std::clog << "conditional_status: " << conditional_status << std::endl; }
         if (conditional_status == 'I')
         {
-          int conditional_number = -1;
-          s >> conditional_number;
-          assert(conditional_number > -1);
-          const Item conditional_item = static_cast<Item>(conditional_number);
+          const Item conditional_item = ReadItem(s);
           char conditional_plus_or_minus_or_question_mark = '*';
           s >> conditional_plus_or_minus_or_question_mark;
           if (conditional_plus_or_minus_or_question_mark == '+')
@@ -797,10 +874,7 @@ void ParseChangeStatusAskOption(
     if (colon_or_question_mark == '?')
     {
       Parse(s,'I');
-      int item_number = -1;
-      s >> item_number;
-      assert(item_number != -1);
-      const Item item{static_cast<Item>(item_number)};
+      const Item item{ReadItem(s)};
       if (!character.HasItem(item)) { can_choose = false; }
       Parse(s,':');
     }
@@ -853,10 +927,7 @@ void ParseNormalChapter(
     if (colon_or_question_mark == '?')
     {
       Parse(s,'I');
-      int item_number = -1;
-      s >> item_number;
-      assert(item_number != -1);
-      const Item item{static_cast<Item>(item_number)};
+      const Item item{ReadItem(s)};
       if (!character.HasItem(item)) { can_choose = false; }
       Parse(s,':');
     }
@@ -877,4 +948,57 @@ void ParseNormalChapter(
   }
   assert(!options.empty());
   DoNormalChapter(options,chapter,auto_play);
+}
+
+void ParseShop(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play)
+{
+  Parse(s,'@');
+
+  //Parse the items
+  std::vector<std::pair<Item,int>> items;
+
+  while (1)
+  {
+    Parse(s,'I');
+    const Item item = ReadItem(s);
+    Parse(s,'?');
+    int price = -1;
+    s >> price;
+    assert(price != -1);
+    items.push_back(std::make_pair(item,price));
+    char comma_or_not = '*';
+    s >> comma_or_not;
+    assert(comma_or_not != '*');
+    if (comma_or_not != ',') break;
+  }
+  Parse(s,'@');
+  int next_chapter = -1;
+  s >> next_chapter;
+  assert(next_chapter != -1);
+  Parse(s,':');
+  std::string exit_text;
+  while (!s.eof())
+  {
+    char c;
+    s >> c;
+    exit_text += c;
+  }
+
+  DoShop(items,exit_text,character,auto_play);
+  chapter = next_chapter;
+}
+
+
+
+Item ReadItem(std::stringstream& s)
+{
+  int number = -1;
+  s >> number;
+  assert(number > -1);
+  const Item item = static_cast<Item>(number);
+  return item;
 }

@@ -15,7 +15,8 @@ enum class Item
   brooche = 8,
   silver_arrow = 9,
   mirror = 10,
-  ice_ring = 11
+  ice_ring = 11,
+  invisibility_ring = 12
 };
 
 std::string ToStr(const Item item);
