@@ -12,3 +12,4 @@
  * 10: Spiegel
  * 11: Ijsring
  * 12: Onzichtbaarheidsring
+ * 13: Insectenarmband

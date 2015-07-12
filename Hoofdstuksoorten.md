@@ -12,13 +12,14 @@ Een bestand waarin een tekst wordt getoond en de speler kan kiezen uit meerdere 
 
  * [tekst]: de tekst die getoond wordt
  * `0`: code van een verhaalbestand
- * [optie]: de optie de de speler kiest, bijvoorbeeld `1`. Ook is het mogelijk om een optie optioneel te maken, bijvoorbeeld `1?I03`. Dit betekend: Heb je voorwerp `03`, dan kun je optie 1 kiezen
+ * [optie]: de optie de de speler kiest, bijvoorbeeld `1`. Ook is het mogelijk om een optie optioneel te maken, bijvoorbeeld `1?I03`. Dit betekend: Heb je voorwerp `03`, dan kun je optie 1 kiezen. Dit kan ook voor goud: bijvoorbeeld `2?G10` zegt: heb je minstens tien goudstukken, dan kun je optie 2 kiezen.
  * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
 
 Voorbeeld van verhaalbestanden zijn:
 
  * [1](Bestanden/1.txt) (simpel)
- * [35](Bestanden/35.txt) (met optie)
+ * [3](Bestanden/3.txt) (goud nodig voor optie)
+ * [35](Bestanden/35.txt) (voorwerp nodig voor optie)
 
 ### 1: Test-Je-Geluk 
 

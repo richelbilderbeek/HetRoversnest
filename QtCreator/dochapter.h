@@ -72,6 +72,8 @@ void ParseNormalChapter(
   const bool auto_play
 );
 
+char ReadChar(std::stringstream& s);
 Item ReadItem(std::stringstream& s);
+int ReadInt(std::stringstream& s);
 
 #endif // DOCHAPTER_H

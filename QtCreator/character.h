@@ -16,6 +16,7 @@ struct Character
   void AddItem(const Item item);
   void ChangeDexterity(const int change);
   void ChangeGold(const int change);
+  void ChangeProvisions(const int change);
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
   int GetGold() const noexcept { return m_gold; }
@@ -34,6 +35,7 @@ struct Character
   const int m_initial_stamina; //NL: Conditie
   std::set<Item> m_items; //NL: Voorwerpen
   int m_luck; //NL: Geluk
+  int m_provisions; //NL: Proviant
   int m_stamina; //NL: Conditie
 };
 

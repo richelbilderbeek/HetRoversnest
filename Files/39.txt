@@ -1,0 +1,11 @@
+You open your backpack and pretend lo search for 
+the silver item. The Serpent Queen starts to fidget 
+and you can see her becoming increasingly impa- 
+tient. You cannot think of a good plan and start to 
+panic. 
+[1] If you wish to run to the front door, turn to 
+[2] If you wish to draw your sword to attack the 
+Serpent Queen
+@0
+@1:32
+@2:249

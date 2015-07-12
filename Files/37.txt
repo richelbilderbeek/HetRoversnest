@@ -1,0 +1,7 @@
+The man strums his lyre and sings a merry song all 
+about you and your good fortune - he does have the 
+power to make you lucky. Add 2 luck points and 
+walk on to the next stall. 
+@3
+@G-03,L+2
+@398

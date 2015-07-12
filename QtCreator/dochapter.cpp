@@ -691,12 +691,7 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
 
 void Parse(std::stringstream& s, const char expected_char)
 {
-  char c;
-  assert(!s.eof());
-  s >> c;
-  assert(!s.eof());
-  while (!s.eof() && (c == '\n' || c == ' ')) { s >> c; }
-  assert(!s.eof());
+  const char c = ReadChar(s);
   assert(c == expected_char);
 }
 
@@ -818,6 +813,10 @@ void ParseChangeStatus(std::stringstream& s, Character& character)
           if (verbose) { std::clog << "Change gold by " << change << std::endl; }
           character.ChangeGold(change);
         break;
+        case 'P':
+          if (verbose) { std::clog << "Change provisions by " << change << std::endl; }
+          character.ChangeProvisions(change);
+        break;
         case 'S':
           if (verbose) { std::clog << "Change stamina by " << change << std::endl; }
           character.ChangeStamina(change);
@@ -926,9 +925,23 @@ void ParseNormalChapter(
     bool can_choose{true};
     if (colon_or_question_mark == '?')
     {
-      Parse(s,'I');
-      const Item item{ReadItem(s)};
-      if (!character.HasItem(item)) { can_choose = false; }
+      const char what = ReadChar(s);
+      assert(what == 'I' || what == 'G');
+      switch (what)
+      {
+        case 'G':
+        {
+          const int price{ReadInt(s)};
+          if (character.GetGold() < price) { can_choose = false; }
+        }
+        break;
+        case 'I':
+        {
+          const Item item{ReadItem(s)};
+          if (!character.HasItem(item)) { can_choose = false; }
+        }
+        break;
+      }
       Parse(s,':');
     }
     int chapter_to_go;
@@ -992,7 +1005,25 @@ void ParseShop(
   chapter = next_chapter;
 }
 
+char ReadChar(std::stringstream& s)
+{
+  char c;
+  assert(!s.eof());
+  s >> c;
+  assert(!s.eof());
+  while (!s.eof() && (c == '\n' || c == ' ')) { s >> c; }
+  assert(!s.eof());
+  return c;
+}
 
+
+int ReadInt(std::stringstream& s)
+{
+  int number = -1;
+  s >> number;
+  assert(number > -1);
+  return number;
+}
 
 Item ReadItem(std::stringstream& s)
 {

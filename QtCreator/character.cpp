@@ -16,6 +16,7 @@ Character::Character(
     m_initial_stamina{condition},
     m_items{},
     m_luck{luck},
+    m_provisions{10},
     m_stamina{condition}
 {
   m_items.insert(initial_item);
@@ -36,6 +37,12 @@ void Character::ChangeGold(const int change)
 {
   m_gold += change;
   assert(m_gold >= 0);
+}
+
+void Character::ChangeProvisions(const int change)
+{
+  m_provisions += change;
+  //Provisions can become less than zero, due to chapter 42
 }
 
 void Character::ChangeStamina(const int change)

@@ -6,5 +6,5 @@ luck.
 [2] If you do not believe him, you may walk to the next 
 stall
 @0
-@1:37
+@1?G03:37
 @2:398
