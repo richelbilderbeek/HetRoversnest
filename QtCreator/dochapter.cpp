@@ -17,147 +17,10 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
 {
   const bool verbose{false};
   if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
-
-  Parse(s,'@');
-  while (1)
-  {
-    assert(!s.eof());
-    char status = '*';
-    s >> status;
-    assert(status != '*');
-    if (verbose) { std::clog << "status: " << status << std::endl; }
-    if (status == '0') break;
-    if (status == 'I')
-    {
-      int number = -1;
-      s >> number;
-      assert(number > -1);
-      const Item item = static_cast<Item>(number);
-      char plus_or_minus_or_question_mark = '*';
-      s >> plus_or_minus_or_question_mark;
-      if (plus_or_minus_or_question_mark == '+')
-      {
-        if (verbose) { std::clog << "add item: " << item << std::endl; }
-        character.AddItem(item);
-      }
-      else if (plus_or_minus_or_question_mark == '-')
-      {
-        if (verbose) { std::clog << "remove item: " << item << std::endl; }
-        character.RemoveItem(item);
-      }
-      else if (plus_or_minus_or_question_mark == '?')
-      {
-        char conditional_status = '*';
-        s >> conditional_status;
-        assert(conditional_status != '*');
-        if (verbose) { std::clog << "conditional_status: " << conditional_status << std::endl; }
-        if (conditional_status == 'I')
-        {
-          int conditional_number = -1;
-          s >> conditional_number;
-          assert(conditional_number > -1);
-          const Item conditional_item = static_cast<Item>(conditional_number);
-          char conditional_plus_or_minus_or_question_mark = '*';
-          s >> conditional_plus_or_minus_or_question_mark;
-          if (conditional_plus_or_minus_or_question_mark == '+')
-          {
-            if (character.HasItem(item))
-            {
-              if (verbose) { std::clog << "player has item: " << item << std::endl; }
-              if (verbose) { std::clog << "add conditional_item: " << conditional_item << std::endl; }
-              character.AddItem(conditional_item);
-            }
-            else
-            {
-              if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
-            }
-          }
-          else if (conditional_plus_or_minus_or_question_mark == '-')
-          {
-            if (character.HasItem(item))
-            {
-              if (verbose) { std::clog << "player has item: " << item << std::endl; }
-              if (verbose) { std::clog << "remove conditional_item: " << conditional_item << std::endl; }
-              character.RemoveItem(conditional_item);
-            }
-            else
-            {
-              if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
-            }
-          }
-        }
-        else
-        {
-          int conditional_change = -123;
-          s >> conditional_change;
-          assert(conditional_change != -123);
-          if (character.HasItem(item))
-          {
-            if (verbose) { std::clog << "player has item: " << item << std::endl; }
-            switch (conditional_status)
-            {
-              case 'D':
-                if (verbose) { std::clog << "Change dexterity by " << conditional_change << std::endl; }
-                character.ChangeDexterity(conditional_change);
-              break;
-              case 'S':
-                if (verbose) { std::clog << "Change stamina by " << conditional_change << std::endl; }
-                character.ChangeStamina(conditional_change);
-              break;
-              case 'L':
-                if (verbose) { std::clog << "Change luck by " << conditional_change << std::endl; }
-                character.ChangeLuck(conditional_change);
-              break;
-              default: assert(!"Should not get here");
-            }
-          }
-          else
-          {
-            if (verbose) { std::clog << "player does not have item: " << item << std::endl; }
-          }
-        }
-      }
-      else
-      {
-        assert(!"Should not get here");
-      }
-    }
-    else
-    {
-      //Status is changed
-      int change = -123;
-      s >> change;
-      assert(change != -123);
-      switch (status)
-      {
-        case 'D':
-          if (verbose) { std::clog << "Change dexterity by " << change << std::endl; }
-          character.ChangeDexterity(change);
-        break;
-        case 'G':
-          if (verbose) { std::clog << "Change gold by " << change << std::endl; }
-          character.ChangeGold(change);
-        break;
-        case 'S':
-          if (verbose) { std::clog << "Change stamina by " << change << std::endl; }
-          character.ChangeStamina(change);
-        break;
-        case 'L':
-          if (verbose) { std::clog << "Change luck by " << change << std::endl; }
-          character.ChangeLuck(change);
-        break;
-        case '0': break;
-        default: assert(!"Should not get here");
-      }
-    }
-    char comma_or_at = '*';
-    s >> comma_or_at;
-    assert(!s.eof());
-    while (!s.eof() && (comma_or_at == '\n' || comma_or_at == ' ')) { s >> comma_or_at; }
-    if (comma_or_at == '@') break;
-  }
+  ParseChangeStatus(s,character);
   //Parse next chapter
   {
+    Parse(s,'@');
     int next_chapter = -1;
     s >> next_chapter;
     assert(next_chapter > -1);
@@ -597,6 +460,12 @@ void DoNormalChapter(
     chapter = options[0].second;
     return;
   }
+  //Only one option
+  if (options.size() == 1)
+  {
+    chapter = options[0].second;
+    return;
+  }
   //Process command
   while (1)
   {
@@ -748,15 +617,10 @@ void Parse(std::stringstream& s, const char expected_char)
   assert(c == expected_char);
 }
 
-void ParseChangeStatusAskOption(
-  std::stringstream& s,
-  int& chapter,
-  Character& character,
-  const bool auto_play)
+void ParseChangeStatus(std::stringstream& s, Character& character)
 {
   const bool verbose{false};
 
-  //Parse change status
   Parse(s,'@');
   while (1)
   {
@@ -764,9 +628,8 @@ void ParseChangeStatusAskOption(
     char status = '*';
     s >> status;
     assert(status != '*');
-    //while (status == '\n' || status == ' ') { s >> status; }
     if (verbose) { std::clog << "status: " << status << std::endl; }
-    assert(status != '0');
+    if (status == '0') return;
     if (status == 'I')
     {
       int number = -1;
@@ -898,7 +761,17 @@ void ParseChangeStatusAskOption(
     while (!s.eof() && (comma_or_at == '\n' || comma_or_at == ' ')) { s >> comma_or_at; }
     if (comma_or_at == '@') { s.putback('@'); break; }
   }
+}
 
+void ParseChangeStatusAskOption(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play)
+{
+
+  //Parse change status
+  ParseChangeStatus(s,character);
 
   //Parse the options
   std::vector<std::pair<char,int>> options; //input, new chapter

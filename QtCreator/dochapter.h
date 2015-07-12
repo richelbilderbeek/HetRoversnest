@@ -39,7 +39,7 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character);
 
 void Parse(std::stringstream& s, const char expected_char);
-
+void ParseChangeStatus(std::stringstream& s, Character& character);
 void ParseChangeStatusAskOption(
   std::stringstream& s,
   int& chapter,
