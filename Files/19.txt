@@ -1,0 +1,8 @@
+The darts are poison-tipped. Lose 4 stamina points 
+and 1 skill point. 
+[1] If you wish to continue picking the lock
+[2] If you rather leave the room and climb the stairs to the floor above
+@3
+@S-4,D-1
+@1:340
+@2:60

@@ -1,6 +1,6 @@
 Je ploft neer op de brits en overweegt wat je nu zult doen. 
 [1]Als je ziekte wilt simuleren en de ijzeren emmer tegen de tralies van de cel wilt gooien om de aandacht van de bewaker te trekken.
-[2]Als je de vel nauwkeurig wilt inspecteren in de hoop een geheime gang te vinden.
+[2]Als je de cel nauwkeurig wilt inspecteren in de hoop een geheime gang te vinden.
 @0
 @1:143
 @2:230

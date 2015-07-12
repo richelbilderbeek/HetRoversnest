@@ -1,4 +1,6 @@
 Je gaat een kleine met kaarsen verlichte kamer zonder ramen binnen. Hij is leeg op een tage le ntwee stoelen na. Er staat een man in een zwart gewaad en met een kapje op in een hoek. Hij glimlacht en nodigt je uit aan tafel te gaan zitten. Hij gaat tegenover je zitten en nadat hij zes witte pillen boven bovenop de zes schedels op de tafel heeft neergelegd kijkt hij je aan en zegt: 'één van deze pillen bevat een dodelijk vergif de andere zijn onschadelijk. Slik er een naar keuze. Als je blijft leven zal ik je 20 goudstukken geven. Als je sterft zijn al je bezittingen voor mij.
-@8
 [1]Wil je dit dodelijke spel wilt spelen 
 [2]Als je liever terug gaat naar de Kaarsenstraat.
+@0
+@1:223
+@2:165

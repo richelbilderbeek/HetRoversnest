@@ -1,5 +1,6 @@
 #include "character.h"
 
+#include <cassert>
 #include <cstdlib>
 
 Character::Character(
@@ -9,6 +10,7 @@ Character::Character(
   const Item initial_item
 )
   : m_dexterity{dexterity},
+    m_gold{30},
     m_initial_dexterity{dexterity},
     m_initial_luck{luck},
     m_initial_stamina{condition},
@@ -28,6 +30,12 @@ void Character::ChangeDexterity(const int change)
 {
   m_dexterity += change;
   m_dexterity = std::min(m_dexterity,m_initial_dexterity);
+}
+
+void Character::ChangeGold(const int change)
+{
+  m_gold += change;
+  assert(m_gold >= 0);
 }
 
 void Character::ChangeStamina(const int change)

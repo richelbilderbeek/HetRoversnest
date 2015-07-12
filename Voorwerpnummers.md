@@ -7,4 +7,4 @@
  * 05: Heksenhaar
  * 06: Lotusbloesem
  * 07: Tatoeage
- * 08: broche
+ * 08: Broche (welke?)

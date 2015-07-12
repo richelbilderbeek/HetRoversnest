@@ -77,7 +77,7 @@ Een bestand waarin een tekst wordt getoond en een status (conditie, behendigheid
  * [tekst]: de tekst die getoond wordt
  * `3`: code van een wijziging van je status
  * [tekst]: de tekst die getoond wordt
- * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
+ * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `G` = Goud ('Gold'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
 * [plus of min]: is of `+` of `-`
 * [getal]: getal die aangeeft hoeveel de status veranderd
 * [volgende hoofdstuk]: het nummer van het volgende hoofdstuk
@@ -88,6 +88,7 @@ Enkele voorbeelden van [wat]:
 
  * `@0`: geen wijziging
  * `@D-1`: verlies 1 behendigheid
+ * `@G+10`: krijg 10 goud
  * `@D-1,S-1`: verlies 1 behendigheid en een conditie
  * `@I01-`: verlies het schild 
  * `@I02+`: verkrijg de malienkolder

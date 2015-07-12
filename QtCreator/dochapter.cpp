@@ -134,6 +134,10 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
           if (verbose) { std::clog << "Change dexterity by " << change << std::endl; }
           character.ChangeDexterity(change);
         break;
+        case 'G':
+          if (verbose) { std::clog << "Change gold by " << change << std::endl; }
+          character.ChangeGold(change);
+        break;
         case 'S':
           if (verbose) { std::clog << "Change stamina by " << change << std::endl; }
           character.ChangeStamina(change);

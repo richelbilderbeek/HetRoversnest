@@ -1,0 +1,16 @@
+You enter a small candlelit room With no windows. 
+It is empty apart from a table and two chairs. A man 
+wearing black robes and a skullcap is standing in a 
+corner. He smiles and asks you to sit down at the 
+table. He sits opposite you and, after placing six 
+white pills on lop of six skulls on the table, looks up 
+to you and says. 'One of the pills before you is 
+deadly poisonous, the others are harmless. Swallow 
+one of your choice. If you live, I will give you 20 
+Gold Pieces. If you die, 1 keep all your possessions.'
+[1] If you wish to play this deadly game
+[2] If vou would rather leave this room and walk back up 
+the alley to Candle Street
+@0
+@1:223
+@2:165

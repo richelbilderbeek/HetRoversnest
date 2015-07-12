@@ -1,0 +1,8 @@
+The man grabs a wooden club from behind a chair 
+ind prepares to fight you. He is strong but not a 
+good fighter. 
+@7
+@Silversmith
+@4
+@8
+@146

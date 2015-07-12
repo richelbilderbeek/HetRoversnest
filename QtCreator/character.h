@@ -15,6 +15,7 @@ struct Character
 
   void AddItem(const Item item);
   void ChangeDexterity(const int change);
+  void ChangeGold(const int change);
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
   bool HasItem(const Item item);
@@ -26,6 +27,7 @@ struct Character
 
   private:
   int m_dexterity; //NL: Behendigheid
+  int m_gold; //NL: Goud
   const int m_initial_dexterity; //NL: Behendigheid
   const int m_initial_luck; //NL: Geluk
   const int m_initial_stamina; //NL: Conditie
