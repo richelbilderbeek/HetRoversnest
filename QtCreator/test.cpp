@@ -23,6 +23,7 @@ void Test()
   }
   //Try all chapters
   Character character(100,100,100,Item::shield);
+  character.AddItem(Item::silver_arrow);
   for (int i=1; i!=400; ++i)
   {
     for (const Language language: { Language::Dutch, Language::English } )

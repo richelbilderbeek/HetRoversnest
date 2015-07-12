@@ -11,7 +11,11 @@ enum class Item
   black_pearls = 4,
   witch_hair = 5,
   lotus_flower = 6,
-  tattoo = 7
+  tattoo = 7,
+  brooche = 8,
+  silver_arrow = 9,
+  mirror = 10,
+  ice_ring = 11
 };
 
 std::string ToStr(const Item item);

@@ -50,7 +50,7 @@ void Character::ChangeLuck(const int change)
   m_luck = std::min(m_luck,m_initial_luck);
 }
 
-bool Character::HasItem(const Item item)
+bool Character::HasItem(const Item item) const
 {
   return m_items.find(item) != std::end(m_items);
 }

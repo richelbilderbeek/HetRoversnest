@@ -12,10 +12,13 @@ Een bestand waarin een tekst wordt getoond en de speler kan kiezen uit meerdere 
 
  * [tekst]: de tekst die getoond wordt
  * `0`: code van een verhaalbestand
- * [optie]: de optie de de speler kiest, bijvoorbeeld `1`
+ * [optie]: de optie de de speler kiest, bijvoorbeeld `1`. Ook is het mogelijk om een optie optioneel te maken, bijvoorbeeld `1?I03`. Dit betekend: Heb je voorwerp `03`, dan kun je optie 1 kiezen
  * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
 
-Een voorbeeld van een verhaalbestand is [1](Bestanden/1.txt).
+Voorbeeld van verhaalbestanden zijn:
+
+ * [1](Bestanden/1.txt) (simpel)
+ * [35](Bestanden/35.txt) (met optie)
 
 ### 1: Test-Je-Geluk 
 
@@ -141,7 +144,10 @@ Een voorbeeld van een 'Game over' is [9](Bestanden/9.txt)
 
 Een bestand waarin een tekst wordt getoond en afhankelijk
 van het bezit van een voorwerp naar een ander hoofdstuk 
-wordt gegaan
+wordt gegaan.
+
+De speler wordt niet om een keuze gevraagd.
+
 
 ```
 [tekst]
@@ -186,7 +192,9 @@ Een voorbeeld van een Gevecht is
   * [5](Bestanden/5.txt): een vijand
   * [22](Bestanden/22.txt): twee vijanden
 
-### 8: verhaal wijziging status
+### 8: Wijziging status en opties
+
+De status van de speler veranderd, dan wordt de speler om een keuze gevraagd.
 
 ```
 [tekst]
@@ -218,9 +226,6 @@ Enkele voorbeelden van [wat]:
 
 Een voorbeeld van een Wijziging van je status is
 
- * [8](Bestanden/8.txt)
- * [11](Bestanden/11.txt)
+ * [35](Files/35.txt)
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
-
-Een voorbeeld van een "verhaal wijziging status is [381](Bestanden/381.txt)

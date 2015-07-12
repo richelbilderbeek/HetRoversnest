@@ -25,16 +25,34 @@ void DoFight(
   const bool auto_play
 );
 
-///Parse a stream
-void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
-
-void Parse(std::stringstream& s, const char expected_char);
-
 void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
 void DoGameOver(int& chapter);
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character);
-void DoNormalChapter(std::stringstream& s, int& chapter, const bool auto_play);
+
+void DoNormalChapter(
+  std::vector<std::pair<char,int>> options,
+  int& chapter,
+  const bool auto_play
+);
+
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character);
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character);
+
+void Parse(std::stringstream& s, const char expected_char);
+
+void ParseChangeStatusAskOption(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play
+);
+
+void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
+void ParseNormalChapter(
+  std::stringstream& s,
+  int& chapter,
+  const Character& character,
+  const bool auto_play
+);
 
 #endif // DOCHAPTER_H

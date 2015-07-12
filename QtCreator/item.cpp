@@ -14,6 +14,10 @@ std::string ToStr(const Item item)
     case Item::witch_hair: return "witch_hair";
     case Item::lotus_flower: return "lotus_flower";
     case Item::tattoo: return "tattoo";
+    case Item::brooche: return "brooch";
+    case Item::silver_arrow: return "silver_arrow";
+    case Item::mirror: return "mirror";
+    case Item::ice_ring: return "ice_ring";
   }
   assert(!"Unknown item");
 }

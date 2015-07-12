@@ -8,3 +8,6 @@
  * 06: Lotusbloesem
  * 07: Tatoeage
  * 08: Broche (welke?)
+ * 09: Zilveren pijl
+ * 10: Spiegel
+ * 11: Ijsring
