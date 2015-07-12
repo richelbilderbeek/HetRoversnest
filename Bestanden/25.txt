@@ -1,6 +1,9 @@
 Je ziet meteen dat je je in een stal annex hoefsmederij bevindt, als je een grote man met een ontbloot bovenlijf, die een groezelig wit schort draagt druk aan het werk ziet bij een open vuur. Met zijn gehandschoende hand haalt hij een roodgloeiende ijzeren staaf uit het vuur en begint die op zijn aambeeld in de vorm van een hoefijzer te hameren. Zweet stroomt van zijn voorhoofd terwijl hij met  zijn hamer beukt. 
 Wat ga je doen?
+[1] Tekst van optie 1
+[2] Tekst van optie 2
+[3] Tekst van optie 3
 @0
-@:169
-@:323
-@:115
+@1:169
+@2:323
+@3:115

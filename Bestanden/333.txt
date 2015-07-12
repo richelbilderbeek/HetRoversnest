@@ -1,3 +1,5 @@
 Je komt even later bij een splitsing. De stalstraat loopt door naar het noorden en links loopt de Torenstraat naar het westen.
+Je besluit je weg naar het noorden te vervolgen.
+@3
 @0
-[1] Je besluit je weg naar het noorden te vervolgen.
+@76

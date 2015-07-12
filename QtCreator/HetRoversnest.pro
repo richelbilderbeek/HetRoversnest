@@ -58,7 +58,8 @@ SOURCES += main.cpp \
     item.cpp \
     test.cpp \
     autoplay.cpp \
-    language.cpp
+    language.cpp \
+    monster.cpp
 
 HEADERS += \
     helper.h \
@@ -66,4 +67,5 @@ HEADERS += \
     character.h \
     item.h \
     autoplay.h \
-    language.h
+    language.h \
+    monster.h

@@ -11,21 +11,14 @@
 
 #include "character.h"
 #include "helper.h"
+#include "monster.h"
 
 void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& character)
 {
   const bool verbose{false};
   if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
   //Parse @ starting what
-  {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
-  }
+  Parse(s,'@');
   while (1)
   {
     assert(!s.eof());
@@ -226,7 +219,7 @@ void DoChapter(
     case '4': DoFightWithTime(s,chapter,character,auto_play); break;
     case '5': DoGameOver(chapter); break;
     case '6': DoHasItemChapter(s,chapter,character); break;
-    case '7': DoFight(s,chapter,character,auto_play); break;
+    case '7': ParseFight(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -238,70 +231,116 @@ void DoChapter(
   }
 }
 
-void DoFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
 {
-  //Name monster
-  std::string name;
+  const bool verbose{false};
+  Parse(s,'@');
+  //Name monsters
+  std::vector<std::string> names;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    std::string name;
     while (1)
     {
       char c = '*';
       s >> c;
       assert(c != '*');
-      if (c == '@') break;
+      if (c == ',') { names.push_back(name); name = ""; continue; }
+      if (c == '@') { names.push_back(name); break; }
       name += c;
     }
   }
-  //Skill monster
-  int monster_dexterity = -1;
+
+  const int n_monsters{static_cast<int>(names.size())};
+
+  if (verbose)
   {
-    //char at;
-    //assert(!s.eof());
-    //s >> at;
-    //assert(!s.eof());
-    //while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    //assert(!s.eof());
-    //assert(at == '@');
-    s >> monster_dexterity;
-    assert(monster_dexterity != -1);
+    std::clog << "# monsters: " << n_monsters << std::endl;
+    std::copy(std::begin(names),std::end(names),std::ostream_iterator<std::string>(std::clog," "));
+    std::clog << std::endl;
   }
+
+
+  //Skill monsters
+  std::vector<int> dexterities;
+
+  for (int i=0; i!=n_monsters; ++i)
+  {
+    int dexterity = -1;
+    s >> dexterity;
+    assert(dexterity != -1);
+    dexterities.push_back(dexterity);
+    if (i < n_monsters - 1)
+    {
+      Parse(s,',');
+    }
+  }
+
+  if (verbose)
+  {
+    std::copy(std::begin(dexterities),std::end(dexterities),std::ostream_iterator<int>(std::clog," "));
+    std::clog << std::endl;
+  }
+
+  //At
+  Parse(s,'@');
   //Condition monster
-  int monster_stamina = -1;
+  std::vector<int> staminas;
+  for (int i=0; i!=n_monsters; ++i)
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
-    s >> monster_stamina;
-    assert(monster_stamina != -1);
+    int stamina = -1;
+    s >> stamina;
+    assert(stamina != -1);
+    staminas.push_back(stamina);
+    if (i < n_monsters - 1)
+    {
+      Parse(s,',');
+    }
   }
+  Parse(s,'@');
   //New chapter
   int new_chapter = -1;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
     s >> new_chapter;
     assert(new_chapter > -1);
   }
+  assert(names.size() == staminas.size());
+  assert(names.size() == dexterities.size());
+  std::vector<Monster> monsters;
+  for (int i=0; i!=n_monsters; ++i)
+  {
+    monsters.push_back(
+      Monster(names[i],dexterities[i],staminas[i])
+    );
+  }
+
+  DoFight(monsters,character,auto_play);
+  assert(chapter != 0); //Game over does not go here
+  chapter = new_chapter;
+}
+
+void DoFight(
+  std::vector<Monster> monsters,
+  Character& character,
+  const bool auto_play
+)
+{
+  for (auto monster: monsters)
+  {
+    DoFight(monster,character,auto_play);
+    if (character.IsDead()) return;
+  }
+}
+
+void DoFight(
+  Monster monster,
+  Character& character,
+  const bool auto_play
+)
+{
   while (1)
   {
-    if (character.GetStamina() < 1) break;
-    if (monster_stamina < 1) break;
+    if (character.IsDead()) break;
+    if (monster.IsDead()) break;
     const int monster_attack = (std::rand() >> 4) % 6;
     const int player_attack = (std::rand() >> 4) % 12;
     if (player_attack > monster_attack)
@@ -314,7 +353,7 @@ void DoFight(std::stringstream& s, int& chapter, Character& character, const boo
       }
       else
       {
-        monster_stamina -= 2;
+        monster.ChangeStamina(-2);
       }
     }
     else if (player_attack < monster_attack)
@@ -336,7 +375,7 @@ void DoFight(std::stringstream& s, int& chapter, Character& character, const boo
     }
   }
 
-  if (character.GetStamina() == 0)
+  if (character.IsDead())
   {
     std::cout
       << "The monster defeated you.\n"
@@ -347,28 +386,21 @@ void DoFight(std::stringstream& s, int& chapter, Character& character, const boo
       << "*           *\n"
       << "*************\n"
     ;
-    chapter = 0;
   }
   else
   {
     std::cout << "You defeated the monster." << std::endl;
-    chapter = new_chapter;
   }
 }
 
 void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
 {
   const bool verbose{false};
+  Parse(s,'@');
+
   //Name monster
   std::string name;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
     while (1)
     {
       char c = '*';
@@ -383,13 +415,6 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   //Skill monster
   int monster_dexterity = -1;
   {
-    //char at;
-    //assert(!s.eof());
-    //s >> at;
-    //assert(!s.eof());
-    //while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    //assert(!s.eof());
-    //assert(at == '@');
     s >> monster_dexterity;
     assert(monster_dexterity != -1);
   }
@@ -397,13 +422,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   //Condition monster
   int monster_stamina = -1;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    Parse(s,'@');
     s >> monster_stamina;
     assert(monster_stamina != -1);
   }
@@ -411,13 +430,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   //Number of rounds
   int number_of_rounds = -1;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    Parse(s,'@');
     s >> number_of_rounds;
     assert(number_of_rounds > -1);
   }
@@ -425,13 +438,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   //New chapter after time limit
   int new_chapter_after_time_limit = -1;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    Parse(s,'@');
     s >> new_chapter_after_time_limit;
     assert(new_chapter_after_time_limit > -1);
   }
@@ -439,13 +446,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   //New chapter after time limit
   int new_chapter_within_time_limit = -1;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    Parse(s,'@');
     s >> new_chapter_within_time_limit;
     assert(new_chapter_within_time_limit > -1);
   }
@@ -552,13 +553,7 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
   int chapter_if_not_have = -1;
   //Parse chapter if not have
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    Parse(s,'@');
     s >> chapter_if_not_have;
     if (verbose) { std::clog << "chapter_if_not_have: " << chapter_if_not_have << std::endl; }
   }
@@ -566,13 +561,7 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
   int chapter_if_have = -1;
   //Parse chapter if have
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
+    Parse(s,'@');
     s >> chapter_if_have;
     if (verbose) { std::clog << "chapter_if_have: " << chapter_if_have << std::endl; }
   }
@@ -673,23 +662,9 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
   int no_dex_chapter = -1;
   std::string no_dex_text;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
-    char zero;
-    s >> zero;
-    while (!s.eof() && (zero == '\n' || zero == ' '))
-    {
-      s >> zero;
-    }
-    assert(zero == '0');
-    char colon;
-    s >> colon;
-    assert(colon == ':');
+    Parse(s,'@');
+    Parse(s,'0');
+    Parse(s,':');
     while (!s.eof())
     {
       char c;
@@ -706,19 +681,9 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
   int dex_chapter = -1;
   std::string dex_text;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
-    char one;
-    s >> one;
-    assert(one == '1');
-    char colon;
-    s >> colon;
-    assert(colon == ':');
+    Parse(s,'@');
+    Parse(s,'1');
+    Parse(s,':');
     while (!s.eof())
     {
       char c;
@@ -749,23 +714,9 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
   int no_luck_chapter = -1;
   std::string no_luck_text;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
-    char zero;
-    s >> zero;
-    while (!s.eof() && (zero == '\n' || zero == ' '))
-    {
-      s >> zero;
-    }
-    assert(zero == '0');
-    char colon;
-    s >> colon;
-    assert(colon == ':');
+    Parse(s,'@');
+    Parse(s,'0');
+    Parse(s,':');
     while (!s.eof())
     {
       char c;
@@ -782,19 +733,9 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
   int luck_chapter = -1;
   std::string luck_text;
   {
-    char at;
-    assert(!s.eof());
-    s >> at;
-    assert(!s.eof());
-    while (!s.eof() && (at == '\n' || at == ' ')) { s >> at; }
-    assert(!s.eof());
-    assert(at == '@');
-    char one;
-    s >> one;
-    assert(one == '1');
-    char colon;
-    s >> colon;
-    assert(colon == ':');
+    Parse(s,'@');
+    Parse(s,'1');
+    Parse(s,':');
     while (!s.eof())
     {
       char c;
@@ -817,4 +758,15 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
     std::cout << no_luck_text << std::endl;
     chapter = no_luck_chapter;
   }
+}
+
+void Parse(std::stringstream& s, const char expected_char)
+{
+  char c;
+  assert(!s.eof());
+  s >> c;
+  assert(!s.eof());
+  while (!s.eof() && (c == '\n' || c == ' ')) { s >> c; }
+  assert(!s.eof());
+  assert(c == expected_char);
 }

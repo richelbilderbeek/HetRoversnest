@@ -2,5 +2,5 @@ Er is nog een winkel aan de linkerkant van de straat. Een ijzeren hek voor het r
 [1] Als je naar binnen wilt.
 [2] Als je verder wilt lopen zonder in de winkel te kijken.
 @0
-@:336
-@:196
+@1:336
+@2:196

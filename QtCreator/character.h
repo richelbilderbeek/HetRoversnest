@@ -18,6 +18,7 @@ struct Character
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
   bool HasItem(const Item item);
+  bool IsDead() const noexcept { return m_stamina <= 0; }
   void RemoveItem(const Item item);
   int GetStamina() const noexcept { return m_stamina; }
   bool TestDexterity() noexcept;
