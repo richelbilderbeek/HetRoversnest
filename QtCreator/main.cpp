@@ -14,8 +14,7 @@ int main()
   #endif
 
   Character character(100,100,100,Item::shield);
-  character.AddItem(Item::silver_arrow);
-  int chapter = 36;
+  int chapter = 1;
   const bool auto_play{false};
   const Language language = Language::English;
 

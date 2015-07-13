@@ -14,8 +14,8 @@ human. Will you:
 [4] Sit down with three men who are sticking daggers quickly between their fingers on the table? 
 [5] Leave the tavern and walk north? 
 @0
-@1:1
-@2:1
+@1:136
+@2:173
 @3:22
-@4:1
+@4:190
 @5:1

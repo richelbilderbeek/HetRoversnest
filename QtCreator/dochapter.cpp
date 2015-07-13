@@ -640,6 +640,9 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
 
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character)
 {
+  //Luck is already known
+  const bool has_luck{character.TestLuck()};
+
   //Parse no luck
   int no_luck_chapter = -1;
   std::string no_luck_text;
@@ -653,6 +656,20 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
       s >> c;
       if (c == '@') break;
       no_luck_text += c;
+    }
+    char status = '*';
+    s >> status;
+    assert(status != '*');
+    if (status == 'S')
+    {
+      const int change = ReadInt(s);
+      if (!has_luck) { character.ChangeStamina(change); }
+      Parse(s,',');
+    }
+    else
+    {
+      std::cout << "Put back: " << status << std::endl;
+      s.putback(status);
     }
     s >> no_luck_chapter;
     assert(no_luck_chapter > -1);
@@ -677,7 +694,6 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
   }
   assert(luck_chapter > -1);
   assert(!luck_text.empty());
-  const bool has_luck{character.TestLuck()};
   if (has_luck)
   {
     std::cout << luck_text << std::endl;
@@ -1020,9 +1036,9 @@ char ReadChar(std::stringstream& s)
 
 int ReadInt(std::stringstream& s)
 {
-  int number = -1;
+  int number = -999;
   s >> number;
-  assert(number > -1);
+  assert(number > -999);
   return number;
 }
 

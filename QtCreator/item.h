@@ -24,7 +24,9 @@ enum class Item
   iron_spike = 17,
   lantern = 18,
   merchant_pass = 19,
-  flowers = 20
+  flowers = 20,
+  key = 21,
+  random = 99 //For chapter 63, where you lose two random items
 };
 
 std::string ToStr(const Item item);

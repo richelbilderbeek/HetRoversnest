@@ -29,22 +29,23 @@ en er een tekst is bij pech of geluk en een hoofdstuk erna.
 ```
 [tekst]
 @1
-@0:[tekst bij pech]@[hoodstuk bij pech]
-@1:[tekst bij geluk]@[hoodstuk bij geluk]
+@0:[tekst bij pech]@[wat bij pech]
+@1:[tekst bij geluk]@[wat bij geluk]
 ```
 
  * [tekst]: de tekst die getoond wordt
  * `1`: code van een Test-Je-Geluk
  * [tekst]: de tekst tot het geluk bepaald wordt
  * [tekst bij pech]: de tekst die de speler ziet bij pech
- * [hoodstuk bij pech]: het hoofstuk waar de speler heen gaat bij pech
+ * [wat bij pech]: wijziging van status en het hoofstuk waar de speler heen gaat bij pech. Bijvoorbeeld `@1` (ga naar hoofdstuk 1) of `@S-1,123` (Stamina min een, ga dan naar hoofdstuk 123)
  * [tekst bij geluk]: de tekst die de speler ziet bij geluk
- * [hoodstuk bij geluk]: het hoofstuk waar de speler heen gaat bij geluk
+ * [wat bij geluk]: het hoofstuk waar de speler heen gaat bij geluk
 
 Voorbeeld van een 'Test-Je-Geluk' hoofdstukken zijn
 
-  * [15](Bestanden/15.txt).
-  * [49](Bestanden/49.txt).
+  * [15](Bestanden/15.txt) (simpel)
+  * [49](Bestanden/49.txt) (simpel)
+  * [64](Bestanden/64.txt) (wijziging status bij pech)
 
 ### 2: Test-Je-Behendigheid
 

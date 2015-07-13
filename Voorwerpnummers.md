@@ -20,3 +20,6 @@
  * 18: Lantaarn
  * 19: Koopliedenpas
  * 20: Bloemen
+ * 21: Loper
+ * 99: Willekeurig voorwerp (voor hoofdstuk 63)
+

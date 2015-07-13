@@ -1,0 +1,15 @@
+On the next floor there are twodoois adjacent to one 
+another on the landing. One is painted white and 
+the other black. Suddenly a voice calls out from 
+nowhere, saying, 'Oh foolish adventurer, why do 
+you even consider it a remote possibility that you 
+can defeat me, the almighty Zanbar Bone. 1 am 
+following vour ever)' move, but you do not know 
+where I am. Ha! Ha! Ha!' Will you: 
+[1] Open the white door?
+[2] Open the black door?
+[3] Carry- on up the stairs? 
+@0
+@1:319
+@2:96
+@3:197

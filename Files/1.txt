@@ -16,14 +16,14 @@ wall and black flags everywhere. As you approach
 the main gate a chill runs down your spine and you 
 instinctively grip the hilt of your broadsword for 
 reassurance. At the gate you are confronted by a tall 
-guard wearing a black chainmail coat and iron hel- 
-met. He steps forward, barring the way wilh his 
+guard wearing a black chainmail coat and iron helmet. 
+He steps forward, barring the way with his 
 pike, saying, "Who would enter Port Blacksand 
 uninvited? State the nature of your business or go 
 back the way you came. 
 [1] Tell him you wish to be taken to Nicodemus?
-[2] Tell him you wish to sell some stolen booty?
-[3] Attack him quickly wilh your sword?
+[2] Tell him you wish to sell some stolen goods?
+[3] Attack him quickly with your sword?
 @0
 @1:202
 @2:33

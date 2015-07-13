@@ -1,0 +1,11 @@
+The Elf leads you into a room lit by purple candles, 
+which give a strange glow, You stand and stare 
+blankly at the candles and drift off into a world of 
+vivid dreams. While you are in this trance, the Elf 
+takes two items and 5 Gold Pieces from your back- 
+pack (if you have them). When you awake, you 
+have no recollection of the theft and leave the shop 
+thanking the Elf for showing you his beautiful candles. Outside you head east again.
+@3
+@I99-,I99-
+@280

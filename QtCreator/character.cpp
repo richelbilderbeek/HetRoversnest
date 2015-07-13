@@ -62,8 +62,18 @@ bool Character::HasItem(const Item item) const
   return m_items.find(item) != std::end(m_items);
 }
 
-void Character::RemoveItem(const Item item)
+void Character::RemoveItem(Item item)
 {
+  if (m_items.empty()) return;
+  if (item == Item::random)
+  {
+    const int n_items{static_cast<int>(m_items.size())};
+    const int item_index{std::rand() % n_items};
+    auto iter = m_items.cbegin();
+    for (int i=0; i!=item_index; ++i) { ++iter; }
+    assert(iter != m_items.cend());
+    item = *iter;
+  }
   m_items.erase(item);
 }
 
