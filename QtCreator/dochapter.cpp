@@ -408,6 +408,7 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
     assert(at == '@');
     while (1)
     {
+      Parse(s,'I');
       int item_number = -1;
       s >> item_number;
       assert(item_number != -1);

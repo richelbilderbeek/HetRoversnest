@@ -153,7 +153,7 @@ De speler wordt niet om een keuze gevraagd.
 ```
 [tekst]
 @6
-@[voorwerpnummer]
+@I[voorwerpnummer]
 @[hoofdstuk bij niet bezitten van voorwerp]
 @[hoofdstuk bij wel bezitten van voorwerp]
 
@@ -161,7 +161,7 @@ De speler wordt niet om een keuze gevraagd.
 
  * [tekst]: de tekst die getoond wordt
  * `6`: code van een 'Heb je een voorwerp?' hoofdstuk
- * [voorwerpnummer]: het nummer van het voorwerp
+ * [voorwerpnummer]: het nummer van het voorwerp. Meerdere voorwerpen is ook mogelijk: `@I01,I02`
  * [hoofdstuk bij niet bezitten van voorwerp]: hoofdstuk waar je heen gaat als je het voorwerp niet hebt
  * [hoofdstuk bij wel bezitten van voorwerp]: hoofdstuk waar je heen gaat als je het voorwerp wel hebt
 

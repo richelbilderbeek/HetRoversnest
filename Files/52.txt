@@ -1,0 +1,6 @@
+Behind the next stall is a young man selling small 
+weapons and items of equipment. The prices of his 
+wares are chalked up on a slate.
+@9
+@I14?4,I15?2,I16?2,I17?1,I18?3
+@200:You then walk north.

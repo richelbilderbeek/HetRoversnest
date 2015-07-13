@@ -1,5 +1,5 @@
 Je laat je langzaam naar beneden zakken. Boven je schudden de wachters met hun vuisten naar je vanaf de kantelen. Je bent nu buiten Zwartzand. Beschik je over alle benodigheden om de Vorst van de Nacht te verslaan? Oftewel, heb je de Zwarte parels, heksenhaar, lotusbloesem en ben je getatoeëerd?
 @6
-@04,05,06,07
+@I04,I05,I06,I07
 @201
 @299

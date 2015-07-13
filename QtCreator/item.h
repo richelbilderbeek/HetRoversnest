@@ -16,7 +16,15 @@ enum class Item
   silver_arrow = 9,
   mirror = 10,
   ice_ring = 11,
-  invisibility_ring = 12
+  invisibility_ring = 12,
+  insect_bracelet = 13,
+  throwing_knife = 14,
+  climbing_rope = 15,
+  meat_hook = 16,
+  iron_spike = 17,
+  lantern = 18,
+  merchant_pass = 19,
+  flowers = 20
 };
 
 std::string ToStr(const Item item);
