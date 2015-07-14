@@ -1,0 +1,14 @@
+The staircase ends at a door. You turn the handle 
+slowly and the door opens, much to your surprise, 
+into open air. You walk outside on to the flat roof of 
+the lower. Suddenly you are aware of movement in 
+the sky and look up to see two large birds in the 
+moonlight with long beaks and talons swooping 
+down on you. There is no time to run for cover, and 
+you must fight the two death hawks. 
+Fight them one at a time.
+@7
+@First death hawk,Second death hawk
+@4,4
+@5,4
+@314

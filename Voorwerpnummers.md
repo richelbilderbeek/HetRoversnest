@@ -21,5 +21,15 @@
  * 19: Koopliedenpas
  * 20: Bloemen
  * 21: Loper
+ * 22: Ijzeren sleutel
+ * 23: Zilveren broche
+ * 24: Ring van het gouden oog ring_of_the_golden_eye
+ * 25: Koperen broche
+ * 26: Glazen bal,
+ * 27: Ivoren schedeltje
+ * 28: Zilveren halsketting
+ * 29: Knoflok
+ * 30: Bikkels
+ * 98: Iets magisch (voor hoofdstuk 187)
  * 99: Willekeurig voorwerp (voor hoofdstuk 63)
 

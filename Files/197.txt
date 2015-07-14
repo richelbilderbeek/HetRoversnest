@@ -1,0 +1,11 @@
+On the next landing there is a door with a black 
+tower carved in ebony attached to it. There is also a 
+black suit of armour standing outside Ihe door. Will 
+you: 
+[1] Inspect the suit of armour? 
+[2] Open the door? 
+[3] Carry on up the stairs? 
+@0
+@1:301
+@2:122
+@3:207

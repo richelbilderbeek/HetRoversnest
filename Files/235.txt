@@ -1,0 +1,7 @@
+You decide not to risk any further possible danger to 
+yourself and crawl out of the room. You stand up, 
+walk over to the staircase and climb up to the next 
+floor. 
+@3
+@0
+@65

@@ -32,6 +32,7 @@ void Test()
       try
       {
         DoChapter(chapter,character,language,true);
+        if (character.GetGold() < 30) { character.ChangeGold(30); }
       }
       catch (std::runtime_error& e)
       {

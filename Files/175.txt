@@ -1,0 +1,7 @@
+Slowly lifting the goblet, you are surprised to see a 
+yellow scorpion underneath. It darts forward and 
+tries to sting you on the hand with its poisonous tail. 
+Test your Luck. 
+@1
+@0:The barb on its tail sinks into your hand@373
+@1:The tail stabs the goblet@204

@@ -1,0 +1,14 @@
+You tell the town guards that you have something 
+special for them if they let the two of you go. They 
+reply that the prisoner is a murderer and that you 
+should not help him, but they insist that you bribe 
+them or else you too will be taken to the jail. They 
+say they are interested in any of the following items: 
+magic armour, magic rings or magic potions. 
+[1] If you 
+wish to give them one of the items they require
+[2] If you do not have any of the items that the 
+guards require
+@0
+@1?I87:260
+@2:341

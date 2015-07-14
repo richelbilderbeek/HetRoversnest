@@ -3,5 +3,5 @@ dash for the front door, picking up your sword as
 you run. The man sees what you are doingand fires 
 another lightning bolt at you. Test your Luck. 
 @1
-@0:The lightning bolt thuds into your back and you cry out in pain@3
+@0:The lightning bolt thuds into your back and you cry out in pain@243
 @1:The lightning bolt misses you, and you manage to open the door and run north up the street@304

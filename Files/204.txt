@@ -1,0 +1,12 @@
+You drop the goblet and pull your hand away. The 
+scorpion scurries a metre across the floor before you 
+step on it with your boot. 
+[1] If you have not done so already, you may lift goblet B
+[2] If you have not done so already, you may lift goblet C
+[3] You may either walk through the archway
+[4] You may climb the stairs
+@0
+@1:209
+@2:43
+@3:107
+@4:60

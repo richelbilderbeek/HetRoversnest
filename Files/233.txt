@@ -1,0 +1,7 @@
+The sparkling water is refreshing but not as medic- 
+inal as the small boy claimed. Add 1 stamina point 
+to your total. You shake your fist at the boy in mock 
+anger, and set off north.
+@3
+@S+1
+@247

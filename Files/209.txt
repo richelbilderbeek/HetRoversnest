@@ -1,0 +1,13 @@
+Underneath the goblet lies a small pile of Gold 
+Pieces. You count 12 in all and put them in your 
+backpack. 
+[1] If you have not done so already, you may lift goblet A
+[2] If you have not done so already, you may lift goblet C
+[3] You may walk through the archway
+[4] you may climb the stairs
+@8
+@G+12
+@1:175
+@2:43
+@3:107
+@4:60

@@ -1,0 +1,14 @@
+Inside the shop you see a tall, thin man with pointed 
+ears and fair hair, pouring hot wax from an iron pan 
+into a mould. The candlemaker is an Elf. As he turns 
+to you to speak, you notice his slanted eyes, which 
+are ice blue- For some reason they appear very cold 
+to you. He tells you that all his coloured candies cost 
+1 Gold Piece each. You may buy as many as you 
+wish. He then asks you if you would like to see one 
+of his magic candles in the back room. 
+[1] If you wish to see one 
+[2] If you would rather leave the shop and head east
+@0
+@1:63
+@2:280

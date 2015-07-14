@@ -1,0 +1,11 @@
+Ahead you hear the noisy clatter of galloping 
+hooves on the cobblestones. You hear the noise of 
+wooden wheels and an urging voice followed by the 
+crack of a whip. Someone is rapidly approaching in 
+a horse-drawn carriage
+[1] If you wish to see who it is
+[2] If you would rather hide out of sight 
+behind a barrel and watch tlte carriage pass by 
+@0
+@1:344
+@2:34

@@ -29,6 +29,16 @@ enum class Item
   iron_key = 22,
   silver_brooch = 23, //Heals one stamina after each battle
   ring_of_the_golden_eye = 24,
+  copper_brooch = 25,
+  glass_ball = 26,
+  ivory_skull = 27,
+  silver_chain = 28,
+  garlic = 29,
+  knucklebones = 30, //NL: bikkels
+
+
+  //Abstract items
+  something_magic = 98, //For chapter 187, where the guards request something magic
   random = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
   fought_ape_man = 100 //Chapter 201

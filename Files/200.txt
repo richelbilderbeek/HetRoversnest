@@ -1,0 +1,8 @@
+In the next stall area Ihere is a small, brightly col- 
+oured tent Attached to it is a small sign which 
+reads, 'Madame Star, Clairvoyant'. 
+[1] If you wish to enter the tent
+[2] If you would rather continue north
+@0
+@1:394
+@2:117

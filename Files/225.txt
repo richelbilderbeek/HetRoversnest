@@ -1,0 +1,8 @@
+Each vagabond boasts that he can kill you 
+singlehanded. They decide to fight you one at a 
+time.
+@7
+@First vagabond,Second vagabond,Third vagabond
+@7,6,5
+@6,7,6
+@397

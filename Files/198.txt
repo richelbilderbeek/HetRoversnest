@@ -1,0 +1,9 @@
+You look around at the rest of the crowd but they 
+remain seated out of respect for your swords- 
+manship. You search through the dirty clothing of 
+the Goblins and find 9 Gold Pieces and a small 
+carved ivory skull on a silver chain. You take your 
+findings and leave the tavern to head north.
+@3
+@G+9,I27+,I28+
+@296

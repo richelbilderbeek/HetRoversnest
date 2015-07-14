@@ -1,0 +1,10 @@
+You draw yoursword to defend yourself against the 
+advancing LEAF BEASTS. They all attack you at 
+once, seemingly trying to crush and smother you. 
+Treat the Leaf Beasls as a single creature. If you win, you run back to the turnstile still clutching the lotus and make your getaway into Stable 
+Street. 
+@7
+@Leaf beasts
+@6
+@6
+@133

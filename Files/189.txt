@@ -1,0 +1,22 @@
+You take aim with your bow and fire the arrow at the 
+Spirit Stalker. The arrow plunges into its chest and 
+the agonized look on the face of the Spirit Stalker 
+tells you that Ihe arrow has pierced its heart. It falls 
+to the floor, and smoke starts to rise from its rotten 
+flesh. Its mouth opens to release a deafening howl 
+that echoes around the hallway and makes you 
+shudder. Finally it is still, and you retrieve your 
+silver arrow. You see that you are in a beautiful 
+marble-floored hallway. On three of the four walls 
+hang portraits of evil-looking men and women, but 
+on the far wall hang two iron shields. The crest on 
+one is a tower, and on the other a unicorn. A spiral 
+staircase leads up from the centre of the hallway to 
+the floor above. Will you: 
+[1] Take the shield with the tower crest?
+[2] Take the shield with the unicorn crest?
+[3] Climb the spiral staircase?
+@0
+@1:125
+@2:374
+@3:21

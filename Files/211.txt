@@ -1,0 +1,6 @@
+The plums are sweet and juicy and taste delicious. 
+Add 1 stamina point. You wipe your mouth with 
+the back of your hand and continue west.
+@3
+@S+1
+@307
