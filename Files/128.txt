@@ -1,0 +1,8 @@
+As you try to turn the lock with a piece of bent wire, 
+you are alarmed by the sound of two clicks. Two 
+tiny panels in the chest flick open to expose two 
+needle darts which shoot out at you. Test your Luck 
+twice, once for each dart. 
+@1
+@0:The first dart flies into your hand@421
+@1:The first dart bounces harmlessly of your armor@420

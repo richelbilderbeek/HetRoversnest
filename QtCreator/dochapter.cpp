@@ -859,6 +859,8 @@ void DoShop(
 
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character)
 {
+  const bool has_dex{character.TestDexterity()};
+
   //Parse no dexterity
   int no_dex_chapter = -1;
   std::string no_dex_text;
@@ -872,6 +874,19 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
       s >> c;
       if (c == '@') break;
       no_dex_text += c;
+    }
+    const char status = ReadChar(s);
+    if (status == 'G')
+    {
+      int change_gold = -123;
+      s >> change_gold;
+      assert(change_gold != -123);
+      if (has_dex) { character.ChangeGold(change_gold); }
+      Parse(s,',');
+    }
+    else
+    {
+      s.putback(status);
     }
     s >> no_dex_chapter;
     assert(no_dex_chapter > -1);
@@ -896,7 +911,7 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
   }
   assert(dex_chapter > -1);
   assert(!dex_text.empty());
-  const bool has_dex{character.TestDexterity()};
+
   if (has_dex)
   {
     std::cout << dex_text << std::endl;

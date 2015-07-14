@@ -42,17 +42,27 @@ enum class Item
   magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1
   silver_goblet = 37, //?Where to find it?
   silver_bracelet = 38, //?Where to find it?
-  helmet = 39,
+  magic_helmet = 39, //Found in chapter 376. add 1 point to attack
   silver_flute = 40, //Obtained at 359
   eye_patch = 41,
+  elven_boots = 42,
   piece_of_chalk = 43,
+  shield_with_uniform_crest = 44, //Found in chapter 374
+  copper_brooch = 45, //Lose 1 luck without knowing
+  carralifs_sword = 46, //Present at start, can lose it at 126
+  ordinary_sword = 47, //Obtain it at 126
+  luck_potion = 48,
+  stamina_potion = 49,
+  dexterity_potion = 50,
   //Abstract items
+  random_item_or_one_gold = 92, //For chapter 148
+  any_item = 93, //For chapter 113, where you give a selected item
   all_silver_items = 94, //For chapter 343
   something_silver = 95, //For chapter 328
   some_piece_of_armor = 96, //For chapter 293, where Miss Pipe request some piece of armor
   two_magic_items = 97, //For chapter 248, where Ben Borryman wants two magic items
   something_magic = 98, //For chapter 187 and 293, where the guards/Miss Pipe request something magic
-  random = 99, //For chapter 63, where you lose two random items
+  random_item = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
   fought_ape_man = 100 //Chapter 201
 };

@@ -1,0 +1,14 @@
+You charge the door several times before it splinters. 
+Unfortunately, you injure your shoulder in the 
+process. Lose 1 skill point. Through the broken 
+door you see a thin, pale-skinned man with dark, 
+hollow eyes, wearing a servant's uniform. In a cold, 
+hissing voice he says. 'Really, do you have to make 
+such a dramatic entry? Could you not have pulled 
+the bell cord like everybody else?'. 
+[1] If you wish to apologize and tell him that you are a lost traveller
+[2] If you wish to attack him with your sword
+@8
+@D-1
+@1:339
+@2:35

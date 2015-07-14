@@ -1,0 +1,13 @@
+Sweat breaks out on your forehead - you choose a 
+pill and swallow it. Roll one die. If you roll any 
+number between 2 and 6, you have chosen a harm- 
+less pill. The man reaches into a pouch on his cord 
+belt and hands you 20 Cold Pieces. He then bids you 
+farewell and tells you to come back soon. You leave 
+the room and walk backup the alley to Candle Street. 
+A roll of 1 means you die quickly from 
+the poisoned pill and your adventure ends here. 
+[TODO:Actually play this game]
+@3
+@0
+@165

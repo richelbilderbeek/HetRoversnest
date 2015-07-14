@@ -1,0 +1,7 @@
+No wonder the vagabonds wanted to rob you:
+they only have 1 Gold Piece between them. 
+With nothing else of interest in their pockets
+decide to set off north along Stable Street.
+@3
+@G+1
+@1

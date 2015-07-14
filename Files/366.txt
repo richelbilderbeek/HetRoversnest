@@ -1,0 +1,15 @@
+You pay for the smoking mixture and leave the 
+shop- Outside you pack your pipe with the smoking 
+mixture and light it. The smoke is dark and tastes 
+awful. You start to cough and your chest is gripped 
+by a terrible pain. Lose 2 stamina points. You 
+are unable to stop coughing, so you sit down on the 
+street and try to calm down. You slump down 
+against a wall between two barrels and gradually 
+the coughing subsides.
+[1] If you want to go back to the herbalist to complain
+[2] If you would rather walk north again
+@8
+@S-2
+@1:101
+@2:93

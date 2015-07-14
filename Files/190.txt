@@ -1,0 +1,19 @@
+Sitting down at the table the men invite you to join 
+in their game of pin-finger. You feel obliged to 
+accept their challenge and take hold of a dagger 
+offered to you. The men tell you that you must stick 
+the point of the dagger back and forth between your 
+fingers into the table top as fast as you can for a 
+minute. If you manage not to stab yourself they will 
+give you a magic item. If you do stab yourself you 
+must give them 5 Gold Pieces. Roll two dice. If the 
+number rolled is less than or equal to your skill 
+score, you succeed. If the number rolled 
+is greater than your skill, you are unable to control 
+the fast movement of the dagger and stab one of 
+your fingers. You toss 5 Gold Pieces on the table and 
+stand up to leave the tavern. Outside you head 
+north again.
+@2
+@0:No skill@G-5,295
+@1:Skill@38

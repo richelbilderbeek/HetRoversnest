@@ -1,0 +1,4 @@
+After beating the pirate, you get hold of your sword again
+@3
+@D+2
+@20

@@ -1,0 +1,8 @@
+The shield was taken from a goodly knight who died 
+at the hand of Zanbar Bone. It was forged with good 
+magic. Add 1 skill point. You walk over to the 
+spiral staircase with your new shield and climb to 
+the floor above.
+@3
+@S+1,I44+
+@21

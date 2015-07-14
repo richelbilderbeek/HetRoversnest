@@ -1,0 +1,13 @@
+Ahead the alleyway is strewn with rubbish and 
+discarded possessions. Suddenly you hear growl- 
+ing and you see movement amongst the rubbish. 
+You draw your sword just in time as two wild 
+dogs, each a metre and a hall long, leap at you. 
+Will you
+[1] Escape just in time by running back up 
+the alleyway and turning west into Harbour Street 
+[2] Fight the dogs
+@0
+@1:180
+@2:427
+

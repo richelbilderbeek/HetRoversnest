@@ -1,0 +1,12 @@
+The snakes are not very tough opponents for a 
+person trained in the art of swordsmanship. Treat 
+them as a single creature. However, each Attack 
+Round that they inflict a wound on you, 4 points 
+must be subtracted from your stamina score because of their poisonous bite [TODO: Implement this]. 
+If you win, you may leave the house by the front 
+door.
+@7
+@Snakes
+@5
+@5
+@75

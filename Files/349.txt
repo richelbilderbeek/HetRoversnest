@@ -1,0 +1,12 @@
+Suddenly you are confronted by a small winged 
+creature, no more than a metre in length, hovering 
+before you. It is red in colour and has two horns 
+protruding from its head and a small tail hanging 
+down from its back. 
+Will you
+[1] Escape by jumping 
+out of the window to the street below (turn to 192). 
+[2] Fight the fire imp
+@0
+@1:192
+@2:428

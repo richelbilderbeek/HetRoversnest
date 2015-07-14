@@ -1,0 +1,9 @@
+During your fight with the Wolf Dogs, Wraggins 
+runs out of the front of the shop, perhaps to fetch 
+help. 
+[1] If you wish to stay and search the shop
+[2] If you would rather hurry out and continue west along Key Street
+@0
+@1:123
+@2:300
+

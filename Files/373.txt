@@ -1,0 +1,13 @@
+You grimace as you feel the poison creep up your 
+arm. Lose 4 stamina points and 1 skill point. If 
+you are still alive, you may:
+[1] (if you have not done so already) lift goblet B
+[2] (if you have not done so already) lift goblet C
+[3] walk through the archway
+[4] climb the stairs
+@8
+@S-4,D-1
+@1:209
+@2:43
+@3:107
+@4:60

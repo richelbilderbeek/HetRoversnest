@@ -1,0 +1,6 @@
+The man sees you drawing your sword and snatches his battle-axe off the wall. He walks around the counter to fight you, but you can still escape. Will you
+[1] Fight him
+[2] Escape by running out of the shop and west along the street
+@0
+@1:424
+@2:196

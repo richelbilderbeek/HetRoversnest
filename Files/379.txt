@@ -1,0 +1,9 @@
+Lose 2 stamina points. Despite the pain in your 
+arm you must act quickly to escape the advancing 
+Suit of Armour. 
+[1] If you wish to open the door in front of you
+[2] If you wish to run back to the staircase to climb up to the next floor
+@8
+@S-2
+@1:122
+@2:207

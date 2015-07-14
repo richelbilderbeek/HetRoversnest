@@ -1,0 +1,6 @@
+You may either
+[1] turn right down Candle Street
+[2] walk back to the junction and go down 
+@0
+@1:139
+@2:1

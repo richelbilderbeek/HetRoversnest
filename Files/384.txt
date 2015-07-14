@@ -1,0 +1,12 @@
+As the cudgel swings through the air above your 
+head, you punch the Dwarf holding it. He lets out a 
+scream and drops the cudgel. Feeling his bleeding 
+nose and seeing the blood on his hand, he screams 
+again and runs off down the alley. The other two 
+Dwarfs holding your legs realize that you are not an 
+easy victim and run off after their fellow robber. 
+[1] If you wish to chase them down the alley
+[2] If you wish to set off west again
+@0
+@1:221
+@2:396

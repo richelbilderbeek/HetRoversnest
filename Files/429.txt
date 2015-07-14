@@ -1,0 +1,12 @@
+You choose the fight the lizardine.
+As well as following the usual rules of battle, throw 
+one die every Attack Round for the Lizardme's 
+fiery breath. On a roll of 1. 2or 3, it burns you for 2 
+point of damage to be subtracted from your stamina. On a roll of 4, 5 or 6 you manage to dodge the 
+blast. You may use your luck against the fire.
+[TODO:Actually implement this]
+@7
+@Lizardine
+@8
+@5
+@186

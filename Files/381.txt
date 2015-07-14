@@ -5,5 +5,5 @@ buy my advice for 3 Gold Pieces'.
 [1] If you wish to head straight into the city
 [2] If you wish to buy the guard's advice
 @0
-@1:74
+@1?G3:74
 @2:261

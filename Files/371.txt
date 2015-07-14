@@ -1,0 +1,7 @@
+In the back room of the shop you find a glass jar on a 
+dusty shelf labelled 'Healing Mixture'.
+[1] If you wish to apply some of it to your wounds (if you suffered any)
+[2] If you would rather continue searching the shop
+@0
+@1:83
+@2:321

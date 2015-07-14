@@ -1,0 +1,8 @@
+You decide to fight the fire imp.
+It will be difficult to defeat as it 
+flies quickly about your head spitting fire at you!
+@7
+@Fire imp
+@9
+@4
+@258

@@ -1,0 +1,6 @@
+The first dart hit you in your hand.
+Now the second dart.
+Test your luck.
+@1
+@0:The second dart also flies into your hand@19
+@1:The second dart bounces harmlessly of your armor@149

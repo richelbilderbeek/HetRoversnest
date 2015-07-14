@@ -1,0 +1,7 @@
+You are fighting a pirate with a wooden stick. 
+Due to this, your attack strength is 2 points less.
+@7
+@Pirate
+@7
+@5
+@423

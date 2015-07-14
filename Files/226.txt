@@ -1,0 +1,9 @@
+You manage to break free from the pirate's grip and 
+draw your sword. You step backwards towards the 
+door as the PIRATES leap from their bunks to grab 
+their cutlasses. You can
+[1] Escape by backing out through the door and fleeing from the ship north up Harbour Street
+[2] Fight the three pirates
+@0
+@1:78
+@2:426

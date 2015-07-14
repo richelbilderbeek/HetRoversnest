@@ -19,6 +19,8 @@ Character::Character(
     m_provisions{10},
     m_stamina{condition}
 {
+  m_items.insert(Item::shield);
+  m_items.insert(Item::carralifs_sword);
   m_items.insert(initial_item);
 }
 
@@ -65,7 +67,7 @@ bool Character::HasItem(const Item item) const
 void Character::RemoveItem(Item item)
 {
   if (m_items.empty()) return;
-  if (item == Item::random)
+  if (item == Item::random_item)
   {
     const int n_items{static_cast<int>(m_items.size())};
     const int item_index{std::rand() % n_items};

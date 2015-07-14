@@ -1,0 +1,6 @@
+The blacksmith was a good man. Lose 4 luck 
+points. Feeling extremely guilty, you have 
+stable and continue north.
+@3
+@L-4
+@115

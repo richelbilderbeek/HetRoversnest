@@ -15,7 +15,7 @@ int main()
   Test();
   #endif
 
-  Character character(100,100,100,Item::shield);
+  Character character(100,100,100,Item::luck_potion);
   int chapter = 1;
   const bool auto_play{true};
   const Language language = Language::English;

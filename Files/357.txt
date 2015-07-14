@@ -1,0 +1,11 @@
+The OGRE is mad with hunger and picks up a large 
+bone off the floor. He raises it above his head and 
+lumbers towards you. You must fight him. 
+[TODO: After the third Attack 
+Round, you may escape by running out of the house 
+and heading north (turn to 28.)]
+@7
+@Ogre
+@8
+@9
+@71
