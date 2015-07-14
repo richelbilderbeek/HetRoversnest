@@ -73,6 +73,7 @@ void ParseChangeStatusAskOption(
 );
 
 void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
+void ParseFightWithRandomMonster(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
 void ParseFightWithTwoMonsters(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
 void ParseNormalChapter(
   std::stringstream& s,

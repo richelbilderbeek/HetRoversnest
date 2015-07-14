@@ -1,0 +1,8 @@
+Fortunately, the contents of the jar are as the label 
+reads, although the strength of the mixture is unpredictable. 
+[1] If you wish to continue searching the shop
+[2] If you would rather leave the shop to head north
+@8
+@S999
+@1:322
+@2:93

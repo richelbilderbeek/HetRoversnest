@@ -1,0 +1,7 @@
+Back at the entrance hole you may either:
+[1] climb up the ladder to the street in order to continue east 
+[2] (if you have not done so already) you 
+may walk north along the sewer
+@0
+@1:205
+@2:356

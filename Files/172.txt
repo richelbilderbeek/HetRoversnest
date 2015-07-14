@@ -1,0 +1,8 @@
+You take the bunch of flowers out of your backpack 
+and hand it to the Serpent Queen. She thanks you 
+and hands you 2 Gold Pieces before showing 
+vou to the front door. Outside you set off north 
+along Stable Street.
+@3
+@G+2,I20-
+@333

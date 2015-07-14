@@ -1,0 +1,6 @@
+You soon arrive at a junction. 
+[1] If you wish to turn north into Tower Street
+[2] If you wish to continue east into Stable Street
+@0
+@1:127
+@2:246

@@ -1,0 +1,10 @@
+You walk over to the bar and order a drink. The old 
+innkeeper scowls and tells you that he doesn't serve 
+people from out of town. He pulls a dagger from his 
+belt and, stabbing it in the bar top, tells you to leave. 
+[1] If you want to fight the innkeeper
+[2] If you 
+want to leave the tavern and head north
+@0
+@1:270
+@2:296

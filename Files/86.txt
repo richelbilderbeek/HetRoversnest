@@ -1,0 +1,10 @@
+A leather pouch hanging round the neck of the man 
+containsa small glass ball containing what looks like 
+swirling smoke. Will you: 
+[1] Smash the ball on the ground?
+[2] Put the ball in your backpack? 
+[3] Leave the ball behind and continue east?
+@0
+@1:45
+@2:194
+@3:161

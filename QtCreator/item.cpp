@@ -28,7 +28,11 @@ std::string ToStr(const Item item)
     case Item::merchant_pass: return "merchant pass";
     case Item::flowers: return "flowers";
     case Item::skeleton_key: return "skeleton key";
+    case Item::iron_key: return "iron key";
+    case Item::silver_brooch: return "silver brooch";
+    case Item::ring_of_the_golden_eye: return "ring of the golden eye";
     case Item::random: return "random";
+    case Item::fought_ape_man: return "fought_ape_man";
   }
   assert(!"Unknown item");
 }

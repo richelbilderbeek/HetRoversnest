@@ -1,0 +1,7 @@
+You pass a beggar in the street. He is sitting in 
+the gutter and holds an empty tin in his hand. 
+[1] If you wish to toss a Gold Piece into his tin
+[2] If you would rather walk past him
+@0
+@1:332
+@2:124

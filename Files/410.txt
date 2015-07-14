@@ -1,0 +1,4 @@
+You successfully defeated the ape man.
+@3
+@I100+
+@138

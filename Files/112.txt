@@ -1,0 +1,11 @@
+While most of the houses in the street arc small, 
+cramped and dark, you see one ahead that stands 
+alone and is painted bright red. The door has a 
+'Welcome' sign hanging from it. 
+[1] If you wish to enter 
+the house
+[2] It you prefer to keep walking 
+north
+@0
+@1:154
+@2:334

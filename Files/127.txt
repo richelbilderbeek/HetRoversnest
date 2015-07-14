@@ -1,0 +1,8 @@
+Just ahead of you, three menare involved in a fight - 
+the two younger men appear to be attacking an 
+older man with iron bars. 
+[1] If you wish to help the old man
+[2] If you would rather avoid the brawling men and continue north
+@0
+@1:177
+@2:345

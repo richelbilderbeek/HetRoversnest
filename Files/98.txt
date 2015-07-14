@@ -1,0 +1,8 @@
+You uncork the bottle with your teeth and take a 
+long gulp of the liquid. Fortunately the liquid is 
+what the man claims it to be. Add 3 stamina points 
+and 1 luck point. Well-refreshed, you set off east 
+again, bidding the old man farewell (turn to 363). 
+@3
+@L+1,S+3
+@363

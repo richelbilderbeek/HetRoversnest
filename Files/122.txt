@@ -1,0 +1,11 @@
+The room you enteris full of debris and rotting food. 
+Standing in the middle of all the mess are two men 
+wearing tattered clothing. They have hollow eyes 
+and vacant expressions. On seeing you, they pick 
+up wooden sticks and advance towards you. 
+[1] If you 
+wish to back out of the room and shut them in
+[2] If you wish to attack them
+@0
+@1:277
+@2:361

@@ -92,6 +92,7 @@ void DoChapter(
     case 9: ParseShop(s,chapter,character,auto_play); break;
     case 10: ParseFightWithTwoMonsters(s,chapter,character,auto_play); break;
     case 11: DoGameWon(); break;
+    case 12: ParseFightWithRandomMonster(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -188,6 +189,30 @@ void ParseFight(std::stringstream& s, int& chapter, Character& character, const 
   DoFight(monsters,character,auto_play);
   assert(chapter != 0); //Game over does not go here
   chapter = new_chapter;
+}
+
+void ParseFightWithRandomMonster(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+{
+  //const bool verbose{false};
+  Parse(s,'@');
+  const int chapter_non_apeman{ReadInt(s)};
+  Parse(s,'@');
+  const int chapter_apeman{ReadInt(s)};
+
+  const int which_monster = 1 + (std::rand() % 6);
+  Monster * monster = nullptr;
+  switch (which_monster)
+  {
+    case 1: monster = new Monster("Orc",3,3); break;
+    case 2: monster = new Monster("Giant snake",4,6); break;
+    case 3: monster = new Monster("Wolf",5,5); break;
+    case 4: monster = new Monster("Pygmy",4,4); break;
+    case 5: monster = new Monster("Ape man",7,6); break;
+    case 6: monster = new Monster("Cave troll",8,7); break;
+  }
+  DoFight(*monster,character,auto_play);
+  delete monster;
+  chapter = which_monster == 5 ? chapter_apeman : chapter_non_apeman;
 }
 
 void ParseFightWithTwoMonsters(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
@@ -973,6 +998,8 @@ void ParseChangeStatus(std::stringstream& s, Character& character)
       int change = -123;
       s >> change;
       assert(change != -123);
+      if (change == 997) { change = 3 * (1 + std::rand() % 6); }
+      if (change == 999) { change = 1 + std::rand() % 6; }
       switch (status)
       {
         case 'D':
@@ -980,6 +1007,7 @@ void ParseChangeStatus(std::stringstream& s, Character& character)
           character.ChangeDexterity(change);
         break;
         case 'G':
+          if (change == 998) { change = -character.GetGold(); }
           if (verbose) { std::clog << "Change gold by " << change << std::endl; }
           character.ChangeGold(change);
         break;

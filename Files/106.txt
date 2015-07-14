@@ -1,0 +1,9 @@
+The Lantern breaks on impact with the Mummy and 
+covers it with burning oil. Flames spread quickly 
+along the dry bandages and the mummy is soon 
+consumed by fire. 
+[1] If you wish to inspect the open sarcophagus
+[2] If you wish to leave the room immediately
+@0
+@1:163
+@2:231

@@ -1,0 +1,5 @@
+A narrow alleyway runs south off the street between two houses. [1] If you wish to walk down the  alleyway
+[2] If you would rather continue along Harbour Street
+@0
+@1:326
+@2:180

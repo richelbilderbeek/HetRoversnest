@@ -1,0 +1,13 @@
+At the end of the market, a street named Bridge 
+Street runs north out of the square. You decide to 
+walk down it in the hope of finding the elusive 
+Nicodemus. It starts to rain and the tumbledown 
+houses huddled together on either side of the street 
+look as if they need shelter themselves. Most have 
+their windows boarded up and are empty. The door 
+to one flaps noisily in the wind- 
+[1] If you wish to take refuge in the derelict house until the rain stops
+[2] If you would rather press on ahead
+@0
+@1:188
+@2:31

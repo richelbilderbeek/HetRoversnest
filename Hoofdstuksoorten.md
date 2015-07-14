@@ -169,6 +169,7 @@ De speler wordt niet om een keuze gevraagd.
 Een voorbeeld van een 'Heb je een voorwerp?' is
 
  * [14](Bestanden/14.txt)
+ * [108](Files/108.txt) (alle voorwerpen om Zanbar Been te verslaan?)
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
 
@@ -210,7 +211,10 @@ De status van de speler veranderd, dan wordt de speler om een keuze gevraagd.
  * [tekst]: de tekst die getoond wordt
  * [wat]: de status die gewijzigd wordt: `D` = Behendigheid ('Dexterity'), `S` = Conditie ('Stamina'), `L` = Geluk ('Luck'), `I` = Voorwerp ('Item')
  * [plus of min]: is of `+` of `-`
- * [getal]: getal die aangeeft hoeveel de status veranderd
+ * [getal]: getal die aangeeft hoeveel de status veranderd. 
+    * Het getal `997` betekent '3x een willekeurig getal van 1 tot en met 6 (oftewel een getal van 3 tot met 18)'
+    * Het getal `998` betekent 'alles'
+    * Het getal `999` betekent 'een willekeurig getal van 1 tot en met 6'
  * [optie]: de optie de de speler kiest, bijvoorbeeld `1`
  * [hoofdstuk]: het hoofstuk waar de speler dan heen gaat
 
@@ -229,6 +233,7 @@ Enkele voorbeelden van [wat]:
 Een voorbeeld van een Wijziging van je status is
 
  * [35](Files/35.txt)
+ * [83](Files/83.txt): Conditie gaat omhoog met 1-6 punten
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
 
@@ -276,3 +281,29 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorw
 
 Een voorbeeld van een Gevecht tegen twee monsters tegelijk
   * [405](Files/405.txt): twee stadswachten
+
+### 11: Game over
+
+```
+[tekst]
+@11
+```
+
+Een voorbeeld van een 'Game won' is [400](Files/400.txt)
+
+### 12: Gevecht met willekeurig monster
+
+```
+[tekst]
+@12
+@[hoofdstuk erna bij gewonnen]
+@[hoofdstuk erna bij gewonnen van sterkste monster]
+```
+
+ * [tekst]: de tekst die getoond wordt
+ * `12`: code van dit soort hoofdstuk
+ * [hoofdstuk erna bij gewonnen]
+ * [hoofdstuk erna bij gewonnen van aapmens]
+
+Een voorbeeld van een Gevecht is 
+  * [201](Files/201.txt): een vijand

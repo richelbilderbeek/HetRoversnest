@@ -1,0 +1,8 @@
+Inside a box on a wooden shelf you find 3 Gold 
+Pieces and an iron key. On examining it you realize 
+that it is a very special key. It is a skeleton key that 
+will open just about any lock you care to try. Add 1 
+luck point and leave the shop to head west.
+@3
+@G+3,L+1,I21+
+@300

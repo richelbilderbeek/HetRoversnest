@@ -1,0 +1,10 @@
+You cut the pouch from round the pirate's neck and 
+open it. Inside you And six black pearls. Add 2 luck 
+points. You leave the room with your valuable 
+treasure. Outside in the corridor you may either
+[1] open the other door if you have not done so already 
+[2] leave the ship and continue your search of Port Blacksand, walking north up Harbour Street
+@8
+@L+2,I4+
+@1:232
+@2:78

@@ -1,0 +1,13 @@
+You open the door and enter a room which is 
+adorned with macabre objects and paintings. A 
+black cat is sitting in front of a table coveted in black 
+cloth. Two black candles are burning on either side 
+of a mirror on the far wall. On the table lies an open 
+chest containing a golden skull. Will you: 
+[1] Walk over to the chest?
+[2] Close the door and open the white door (if you have not done so already)?
+[3] Close the door and walk back to the staircase lo climb up to the next floor?
+@0
+@1:257
+@2:319
+@3:197

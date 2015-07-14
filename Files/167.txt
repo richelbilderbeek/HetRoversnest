@@ -1,0 +1,11 @@
+When you have paid the Man-Ore the 4 Gold Pieces, 
+he explains that placing the herbs on a wound will 
+help to heal it. Unfortunately the strength of the 
+mixture varies. When required, roll 1 die. The num- 
+ber rolled is the number of stamina points that will 
+be restored. Somewhat surprised at your good for- 
+tune you leave the shop and walk north. Add 1 
+luck point.
+@3
+@G-4,S+999,L+1
+@93

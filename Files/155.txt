@@ -1,0 +1,8 @@
+Lose 3 stamina points. If you are still alive, you 
+stand up and brush yourself down. The carriage 
+races out of view and you set off west again, hoping 
+that you will have another opportunity to meet the 
+infamous Lord Azzur.
+@3
+@S-3
+@171

@@ -1,0 +1,10 @@
+You swing your sword with all your strength and 
+bring it down on the heavy chain. Much to your 
+surprise il bounces off. Before you have time to try 
+again, you are surrounded by four town guards 
+who are pointing their pikes at you. Will you: 
+[1] Tell them vou have caught the escaped prisoner for them?
+[2] Offer them a bribe to let you and the prisoner go free?
+@0
+@1:199
+@2:187

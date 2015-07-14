@@ -1,0 +1,12 @@
+Standing on eitherside of you, the Trolls march you 
+along Mill Street until you reach the city's North 
+Gate at the junction with Goose Street. They tell the 
+two guards on duty not lo let you back into Port 
+Blacksand. They give you a forceful boot up the 
+backside and you land sprawling on the dusty road 
+outside. Do you have all the items required to slay 
+the Night Prince?
+@6
+@I04,I05,I06,I07
+@0:201
+@1:299

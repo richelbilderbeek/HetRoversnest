@@ -1,0 +1,6 @@
+There are three bejewelled rings under the counter 
+and 53 Gold Pieces in a drawer. Take what you will 
+and leave the shop to continue west (turn to 196). 
+@3
+@G+53,I3+,I11+,I12+
+@196
