@@ -12,8 +12,15 @@ struct Monster;
 void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& character);
 void DoChapter(int& chapter, Character& character, const Language language, const bool auto_play = false);
 
-///Fight multiple monsters
+///Fight multiple monsters after each other
 void DoFight(
+  std::vector<Monster> monsters,
+  Character& character,
+  const bool auto_play
+);
+
+///Fight multiple monsters at the same time
+void DoFightTwoMonsters(
   std::vector<Monster> monsters,
   Character& character,
   const bool auto_play
@@ -27,7 +34,7 @@ void DoFight(
 );
 
 void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
-void DoGameOver(int& chapter);
+void DoGameOver();
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character);
 
 void DoNormalChapter(
@@ -65,6 +72,7 @@ void ParseChangeStatusAskOption(
 );
 
 void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
+void ParseFightWithTwoMonsters(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
 void ParseNormalChapter(
   std::stringstream& s,
   int& chapter,

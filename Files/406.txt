@@ -1,0 +1,9 @@
+The two guards are relaxing 
+over a game of cards. You wave your sword in the 
+air and charge at them. They grab their swords to 
+defend themselves and fight you one at a time.
+@10
+@City guard,City guard
+@6,6
+@7,5
+@54

@@ -1,0 +1,5 @@
+Outside the rain has stopped and you set off north 
+again.
+@3
+@0
+@31

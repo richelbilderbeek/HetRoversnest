@@ -1,0 +1,6 @@
+You must now fight the other two city guards as a pair.
+@10
+@City guard,City guard
+@6,7
+@6,5
+@405

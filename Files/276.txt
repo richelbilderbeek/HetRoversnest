@@ -1,0 +1,10 @@
+You tell the guards that you will make it worth their 
+while if they release you and allow you entry into 
+the city. How much will you offer them? 
+[1] Five Gold Pieces?
+[2] Ten Gold Pieces?
+[3] Fifteen Gold Pieces?
+@0
+@1:109
+@2:267
+@3:41

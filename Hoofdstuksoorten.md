@@ -255,3 +255,24 @@ Een voorbeeld van winkel is:
  * [36](Files/36.txt)
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
+
+### 10: Gevecht tegen twee monsters tegelijk
+
+```
+[tekst]
+@10
+@[naam monster(s)]
+@[behendigheid monsters]
+@[conditie monsters]
+@[hoofdstuk erna bij gewonnen]
+```
+
+ * [tekst]: de tekst die getoond wordt
+ * `10`: code van dit soort hoofdstuk
+ * [naam monster(s)]: naam of namen van monsters, bijvoorbeeld `Kobold` of `Eerste Kobold, Tweede Kobold`
+ * [behendigheid monster(s): behendigheid monster(s), bijvoorbeeld `7` of `8,9`
+ * [conditie monster(s)]: conditie monster(s), bijvoorbeeld `7` of `8,9`
+ * [hoofdstuk erna bij gewonnen]
+
+Een voorbeeld van een Gevecht tegen twee monsters tegelijk
+  * [405](Files/405.txt): twee stadswachten

@@ -1,0 +1,6 @@
+You are relieved that the noise of your fight did not 
+attract any more guards, but not wishing to tempt 
+providence you dash into the city.
+@3
+@0
+@74

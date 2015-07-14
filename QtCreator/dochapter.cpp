@@ -76,20 +76,21 @@ void DoChapter(
     }
   }
   std::cout << std::endl;
-  char chapter_type = '?';
+  int chapter_type = -1;
   s >> chapter_type;
   switch (chapter_type)
   {
-    case '0': ParseNormalChapter(s,chapter,character,auto_play); break;
-    case '1': DoTestYourLuckChapter(s,chapter,character); break;
-    case '2': DoTestYourDexterityChapter(s,chapter,character); break;
-    case '3': DoChangeStatusChapter(s,chapter,character); break;
-    case '4': DoFightWithTime(s,chapter,character,auto_play); break;
-    case '5': DoGameOver(chapter); break;
-    case '6': DoHasItemChapter(s,chapter,character); break;
-    case '7': ParseFight(s,chapter,character,auto_play); break;
-    case '8': ParseChangeStatusAskOption(s,chapter,character,auto_play); break;
-    case '9': ParseShop(s,chapter,character,auto_play); break;
+    case 0: ParseNormalChapter(s,chapter,character,auto_play); break;
+    case 1: DoTestYourLuckChapter(s,chapter,character); break;
+    case 2: DoTestYourDexterityChapter(s,chapter,character); break;
+    case 3: DoChangeStatusChapter(s,chapter,character); break;
+    case 4: DoFightWithTime(s,chapter,character,auto_play); break;
+    case 5: DoGameOver(); break;
+    case 6: DoHasItemChapter(s,chapter,character); break;
+    case 7: ParseFight(s,chapter,character,auto_play); break;
+    case 8: ParseChangeStatusAskOption(s,chapter,character,auto_play); break;
+    case 9: ParseShop(s,chapter,character,auto_play); break;
+    case 10: ParseFightWithTwoMonsters(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -188,6 +189,93 @@ void ParseFight(std::stringstream& s, int& chapter, Character& character, const 
   chapter = new_chapter;
 }
 
+void ParseFightWithTwoMonsters(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+{
+  const bool verbose{false};
+  Parse(s,'@');
+  //Name monsters
+  std::vector<std::string> names;
+  {
+    std::string name;
+    while (1)
+    {
+      char c = '*';
+      s >> c;
+      assert(c != '*');
+      if (c == ',') { names.push_back(name); name = ""; continue; }
+      if (c == '@') { names.push_back(name); break; }
+      name += c;
+    }
+  }
+
+  const int n_monsters{static_cast<int>(names.size())};
+
+  if (verbose)
+  {
+    std::clog << "# monsters: " << n_monsters << std::endl;
+    std::copy(std::begin(names),std::end(names),std::ostream_iterator<std::string>(std::clog," "));
+    std::clog << std::endl;
+  }
+
+
+  //Skill monsters
+  std::vector<int> dexterities;
+
+  for (int i=0; i!=n_monsters; ++i)
+  {
+    int dexterity = -1;
+    s >> dexterity;
+    assert(dexterity != -1);
+    dexterities.push_back(dexterity);
+    if (i < n_monsters - 1)
+    {
+      Parse(s,',');
+    }
+  }
+
+  if (verbose)
+  {
+    std::copy(std::begin(dexterities),std::end(dexterities),std::ostream_iterator<int>(std::clog," "));
+    std::clog << std::endl;
+  }
+
+  //At
+  Parse(s,'@');
+  //Condition monster
+  std::vector<int> staminas;
+  for (int i=0; i!=n_monsters; ++i)
+  {
+    int stamina = -1;
+    s >> stamina;
+    assert(stamina != -1);
+    staminas.push_back(stamina);
+    if (i < n_monsters - 1)
+    {
+      Parse(s,',');
+    }
+  }
+  Parse(s,'@');
+  //New chapter
+  int new_chapter = -1;
+  {
+    s >> new_chapter;
+    assert(new_chapter > -1);
+  }
+  assert(names.size() == staminas.size());
+  assert(names.size() == dexterities.size());
+  std::vector<Monster> monsters;
+  for (int i=0; i!=n_monsters; ++i)
+  {
+    monsters.push_back(
+      Monster(names[i],dexterities[i],staminas[i])
+    );
+  }
+
+  DoFightTwoMonsters(monsters,character,auto_play);
+  assert(chapter != 0); //Game over does not go here
+  chapter = new_chapter;
+}
+
 void DoFight(
   std::vector<Monster> monsters,
   Character& character,
@@ -200,6 +288,68 @@ void DoFight(
     if (character.IsDead()) return;
   }
 }
+
+void DoFightTwoMonsters(
+  std::vector<Monster> monsters,
+  Character& character,
+  const bool auto_play
+)
+{
+  const bool verbose{false};
+  for (int i=0; ; ++i)
+  {
+    if (verbose) { std::clog << "Fight round " << i << std::endl; }
+    if (character.IsDead())
+    {
+      if (verbose) { std::clog << "You got killed" << std::endl; }
+      return;
+    }
+    if (monsters[0].IsDead())
+    {
+      if (verbose) { std::clog << "First monster killed" << std::endl; }
+      break;
+    }
+    const int monster_attack = (std::rand() >> 4) % 6;
+    const int player_attack = (std::rand() >> 4) % 12;
+    if (player_attack > monster_attack)
+    {
+      std::cout << "You hit the monster." << std::endl;
+      if (!auto_play)
+      {
+        std::cout << "Do you want to use luck?" << std::endl;
+        assert(!"TODO");
+      }
+      else
+      {
+        monsters[0].ChangeStamina(-2);
+      }
+    }
+    else if (player_attack < monster_attack)
+    {
+      std::cout << "You were hit by the monster." << std::endl;
+      if (!auto_play)
+      {
+        std::cout << "Do you want to use luck?" << std::endl;
+        assert(!"TODO");
+      }
+      else
+      {
+        character.ChangeStamina(-2);
+      }
+    }
+    else
+    {
+      std::cout << "No damage was dealt." << std::endl;
+    }
+  }
+
+  std::cout << "You defeated the monster." << std::endl;
+
+  //Fight the remaining monster normally
+  DoFight(monsters[1],character,auto_play);
+  if (character.IsDead()) return;
+}
+
 
 void DoFight(
   Monster monster,
@@ -247,15 +397,7 @@ void DoFight(
 
   if (character.IsDead())
   {
-    std::cout
-      << "The monster defeated you.\n"
-      << "\n"
-      << "*************\n"
-      << "*           *\n"
-      << "* GAME OVER *\n"
-      << "*           *\n"
-      << "*************\n"
-    ;
+    std::cout << "The monster defeated you.\n";
   }
   else
   {
@@ -357,16 +499,10 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
     }
     if (character.GetStamina() < 1)
     {
+
       std::cout
         << "The monster defeated you.\n"
-        << "\n"
-        << "*************\n"
-        << "*           *\n"
-        << "* GAME OVER *\n"
-        << "*           *\n"
-        << "*************\n"
-      ;
-      chapter = 0;
+        << "\n";
       return;
     }
     else if (monster_stamina < 1)
@@ -380,7 +516,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   chapter = new_chapter_after_time_limit;
 }
 
-void DoGameOver(int& chapter)
+void DoGameOver()
 {
   std::cout
     << "*************\n"
@@ -389,7 +525,6 @@ void DoGameOver(int& chapter)
     << "*           *\n"
     << "*************\n"
   ;
-  chapter = 0;
 }
 
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
@@ -640,6 +775,8 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
 
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character)
 {
+  const bool verbose{false};
+
   //Luck is already known
   const bool has_luck{character.TestLuck()};
 
@@ -668,7 +805,7 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
     }
     else
     {
-      std::cout << "Put back: " << status << std::endl;
+      if (verbose) { std::cout << "Put back: " << status << std::endl; }
       s.putback(status);
     }
     s >> no_luck_chapter;
@@ -862,6 +999,7 @@ void ParseChangeStatusAskOption(
   Character& character,
   const bool auto_play)
 {
+  //const bool verbose{true};
 
   //Parse change status
   ParseChangeStatus(s,character);

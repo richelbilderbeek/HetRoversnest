@@ -1,7 +1,6 @@
 Walking along the narrow street you see a man 
 wearing [altered rags silting in the gutter. His head 
-rests on his hands and he looks thoroughly miser- 
-able. 
+rests on his hands and he looks thoroughly miserable. 
 [1] If you wish to stop to talk to him
 [2] If you would rather continue walking east
 @0

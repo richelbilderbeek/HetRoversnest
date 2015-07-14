@@ -1,0 +1,11 @@
+You draw your sword and stand ready to light the 
+Trolls. They seem pleased that you are going to give 
+them a chance to practise their beloved sport of 
+killing humans, and advance towards you swinging 
+their battle-axes. Sourbelly snarls and says, 'Stand 
+back, Fatnose - let me deal with this dog alone.' 
+@7
+@Sourbelly
+@10
+@9
+@401

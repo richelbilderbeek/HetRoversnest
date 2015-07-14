@@ -1,0 +1,8 @@
+You walk quietly back to the staircase and climb up 
+to the second floor. Again there is a door at the end 
+of the landing. 
+[1] If you wish to open the door
+[2] If you wish to climb up to the third floor
+@0
+@1:292
+@2:310

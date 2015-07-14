@@ -1,0 +1,7 @@
+You may 
+[1] Escape by throwing your shield (you will lose
+1 skill point) at Fatnose and run off west along Mill Street
+[2] Fight Fatnose
+@0
+@1:402
+@2:403
