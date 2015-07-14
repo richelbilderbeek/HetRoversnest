@@ -12,7 +12,7 @@ enum class Item
   witch_hair = 5,
   lotus_flower = 6,
   tattoo = 7,
-  brooche = 8, //Unknown which
+  golden_brooch = 8, //Gives 2 luck, chapter 8
   silver_arrow = 9,
   mirror = 10,
   ice_ring = 11,
@@ -24,21 +24,34 @@ enum class Item
   iron_spike = 17,
   lantern = 18,
   merchant_pass = 19,
-  flowers = 20,
+  flowers = 20, //The Gold Flower
   skeleton_key = 21,
   iron_key = 22,
   silver_brooch = 23, //Heals one stamina after each battle
   ring_of_the_golden_eye = 24,
-  copper_brooch = 25,
   glass_ball = 26,
   ivory_skull = 27,
   silver_chain = 28,
   garlic = 29,
   knucklebones = 30, //NL: bikkels
-
-
+  golden_owl = 31,
+  potion_of_mind_control = 32, //Obtained at 359
+  set_of_keys = 33,
+  stale_bread = 34,
+  two_gems = 35,
+  magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1
+  silver_goblet = 37, //?Where to find it?
+  silver_bracelet = 38, //?Where to find it?
+  helmet = 39,
+  silver_flute = 40, //Obtained at 359
+  eye_patch = 41,
+  piece_of_chalk = 43,
   //Abstract items
-  something_magic = 98, //For chapter 187, where the guards request something magic
+  all_silver_items = 94, //For chapter 343
+  something_silver = 95, //For chapter 328
+  some_piece_of_armor = 96, //For chapter 293, where Miss Pipe request some piece of armor
+  two_magic_items = 97, //For chapter 248, where Ben Borryman wants two magic items
+  something_magic = 98, //For chapter 187 and 293, where the guards/Miss Pipe request something magic
   random = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
   fought_ape_man = 100 //Chapter 201

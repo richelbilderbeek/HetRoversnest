@@ -1,0 +1,17 @@
+She explains that she has just picked one of her 
+golden flowers. There are ten golden petals on the 
+flower, and you are told that if dipped in dog's 
+blood, each petal, plucked and thrown on the 
+ground, will change into a gold piece. Mrs Pipe asks 
+for any magic item, piece of armour or two provisions 
+in exchange for the golden flower.
+[1] Buy the flowers for a magic item?
+[2] Buy the flowers for a piece of armor?
+[3] Buy the flowers for two provisions?
+[4] Leave the shop 
+and head west (turn to 24). 
+@0
+@1?I98:414
+@2?I96:415
+@3?P2:416
+@4:24

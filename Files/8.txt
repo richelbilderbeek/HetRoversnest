@@ -4,5 +4,5 @@ bought a lucky charm - add 2 luck points to your
 total. Pleased with your purchase you leave the 
 house and head north. 
 @3
-@L+2
+@L+2,I8+
 @334

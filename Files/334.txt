@@ -1,0 +1,7 @@
+Walking towards you down the street are two toivn 
+guards. They stop in front of you and demand to see 
+your papers. Do you have a merchant's pass?
+@6
+@I03
+@0:99
+@1:255

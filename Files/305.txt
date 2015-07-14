@@ -1,0 +1,10 @@
+You point the mirror at the Spirit Stalker, but it does 
+not stop him advancing. Again he manages to touch 
+your flesh and burn you. Lose 2 stamina points. If 
+you are still alive, 
+[1] you may fire your silver arrow at him 
+[2] fire your Ring of Ice at him
+@8
+@S-2
+@1:189
+@2?I11:382

@@ -1,0 +1,12 @@
+Once more yon poke the wire inside the lock and 
+finally it turns. Add 1 luck point. Raising the lid of 
+the chest you see, to your delight, 25 Gold Pieces 
+and a magnificent shield. If you use this shield in 
+battle, it will increase your Attack Strength by 1 
+during each Attack Round. 
+[1] You may climb the stairs to the floor above (turn to 60) 
+[2] You may leave the house to head north (turn to 304). 
+@8
+@I36+,G+25,L+1
+@1:60
+@2:304

@@ -1,0 +1,7 @@
+Further along the street on the left is another shop. 
+A sign outside reads 'Ben Borryman, Silversmith'. 
+[1] If you wish to enter the shop
+[2] If you would rather keep going east
+@0
+@1:213
+@2:100

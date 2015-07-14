@@ -20,6 +20,7 @@ struct Character
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
   int GetGold() const noexcept { return m_gold; }
+  int GetProvisions() const noexcept { return m_provisions; }
   int GetStamina() const noexcept { return m_stamina; }
   bool HasItem(const Item item) const;
   bool IsDead() const noexcept { return m_stamina <= 0; }

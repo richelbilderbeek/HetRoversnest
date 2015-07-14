@@ -1,0 +1,9 @@
+You open your backpack and pretend to search for 
+the flowers. The Serpent Queen starts to fidget and 
+you can see her becoming increasingly impatient. 
+You cannot think of a good planand start to panic. 
+[1] If you wish to run to the front door
+[2] If you wish to draw your sword to attack the Serpent Queen
+@0
+@1:32
+@2:249

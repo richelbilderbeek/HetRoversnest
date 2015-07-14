@@ -1,0 +1,8 @@
+One of the shops to your left is a candle-maker's.
+There are many different coloured candles burning 
+brightly in the window.
+[1] If you wish to enter the shop
+[2] If you wish to continue east
+@0
+@1:241
+@2:280

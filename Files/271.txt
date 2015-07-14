@@ -1,0 +1,13 @@
+Asleep in their bunks are three pirates. Their room 
+is small and contains only clothing and a few per- 
+sonal possessions. It looks as if the pirates have 
+been drinking and gambling - there is an uncorked 
+bottle of nim, a mug and a pack of cards on top of a 
+barrel in the centre of the room. You see that one of 
+the pirates is wearing a small leather pouch around 
+his neck.
+[1] If you wish to creep up and try to cut it loose
+[2] If you would rather close the door again, and not take any risks 
+@0
+@1:162
+@2:284

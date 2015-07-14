@@ -1,0 +1,8 @@
+The Serpent Queen's head darts about you very 
+quickly as she tries to bite you with her poisonous 
+fangs. She will be difficult to defeat.
+@7
+@Serpent queen
+@9
+@7
+@295

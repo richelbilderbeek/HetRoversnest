@@ -1,0 +1,7 @@
+There is nothing of use to you in the room. The smell 
+of the zombies and the debris is terrible, so you 
+decide to leave immediately. You walk back to the 
+staircase to climb up to the next floor.
+@3
+@0
+@207

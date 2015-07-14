@@ -1,0 +1,10 @@
+Ahead you hear the sound of squealing and frantic 
+splashing. Long shadows are cast by moving objects coming towards you. Then you see the sleek, 
+glistening shapes of three giant rats only a 
+few metres away from you. You draw your sword 
+hastily and fight each of the Rats in turn. 
+@7
+@First rat,Second rat,Third rat
+@4,5,5
+@4,4,5
+@28

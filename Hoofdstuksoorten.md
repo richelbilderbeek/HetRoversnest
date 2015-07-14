@@ -237,7 +237,7 @@ Een voorbeeld van een Wijziging van je status is
 
 Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.
 
-### 9: Winkel
+### 9: Winkel om spullen te kopen
 
 De speler kan met genoeg goud meerdere voorwerpen kopen.
 
@@ -307,3 +307,28 @@ Een voorbeeld van een 'Game won' is [400](Files/400.txt)
 
 Een voorbeeld van een Gevecht is 
   * [201](Files/201.txt): een vijand
+
+
+### 13: Winkel om spullen te verkopen
+
+De speler kan met genoeg goud meerdere voorwerpen kopen.
+
+```
+[tekst]
+@9
+@I[voorwerpnummer]?[prijs],
+@[volgende hoofdstuk]:[tekst bij verlaten]
+```
+
+ * [tekst]: de tekst die getoond wordt
+ * `13`: code van een winkel hoofdstuk
+ * [voorwerpnummer]: [nummer van het voorwerp](Voorwerpnummers.md)
+ * [prijs]: prijs van het voorwerp in goudstukken
+ * [volgende hoofdstuk]: het hoofstuk waar de speler dan heen gaat als hij/zij de winkel verlaat
+ * [tekst bij verlaten]: de tekst die wordt getoond als de speler de winkel verlaat
+
+Een voorbeeld van winkel is:
+
+ * [354](Files/354.txt)
+
+Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorwerpen.

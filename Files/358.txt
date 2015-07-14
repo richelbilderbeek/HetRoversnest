@@ -9,12 +9,10 @@ as more guards run oul to capture you. There is a
 twenty-metre drop on the other side of the wall. 
 Will you: 
 [1] Jump to freedom?
-[2] Fix a Climbing Rope (if you have one) 
-to the wall and climb down the 
-other side?
+[2] Fix a Climbing Rope (if you have one) to the wall and climb down the other side?
 [3] Face the oncoming guards?
 @0
 @1:346
-@2:108
+@2?I15:108
 @3:56
 

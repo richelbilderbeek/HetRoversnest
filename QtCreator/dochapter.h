@@ -51,10 +51,26 @@ void DoShop(
   const bool auto_play
 );
 
+void DoPawnShop(
+  std::vector<std::pair<Item,int>> items,
+  const std::string& exit_text,
+  Character& character,
+  const bool auto_play
+);
+
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character);
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character);
 
 void Parse(std::stringstream& s, const char expected_char);
+
+std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s);
+
+void ParsePawnShop(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play
+);
 
 void ParseShop(
   std::stringstream& s,

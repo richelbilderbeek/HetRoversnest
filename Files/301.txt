@@ -1,0 +1,7 @@
+There is a battle-axe held in the iron-plated glove of 
+the armour. 
+[1] If you wish to take the battle-axe
+[2] If you wish to push the suit of armour on to the floor to make sure it is not a booby-trap
+@0
+@1:214
+@2:185

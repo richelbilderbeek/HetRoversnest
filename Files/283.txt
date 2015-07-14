@@ -1,0 +1,5 @@
+There is nothing useful to be found on the dead 
+creature, so you decide to press on northwards.
+@3
+@0
+@217

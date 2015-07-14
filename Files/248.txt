@@ -1,0 +1,11 @@
+You ask Ben Borryman if he has any silver arrows 
+for sale. He replies that he does not, but will make 
+one for you at a cost of 10 Gold Pieces or two magic 
+items.
+[1] If you want to pay in gold
+[1] If you want to pay with two magic items
+[3] If you cannot afford to pay the price
+@0
+@1?G10:85
+@2?I97:85
+@3:42

@@ -1,0 +1,7 @@
+Despite the light from the burning lanterns on the 
+landing, you are unable to see anything inside the 
+room; it is completely black. Do you have a golden owl?
+@6
+@I31
+@0:281
+@1:153

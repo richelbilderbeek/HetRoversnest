@@ -1,0 +1,7 @@
+You bend over the motionless body of the dead Hag 
+and you cut off a tuft of her hair with your sword. 
+You put the hair safely in your backpack and walk 
+back down the tunnel to the entrance hole.
+@3
+@I5+
+@104

@@ -1,0 +1,12 @@
+Inspecting the scorpion you see that it is a brooch. 
+You decide to pin it to your leather runic. It is a lucky 
+charm. Add 2 luck points to your total. What will 
+you do next? 
+[1] You may, if you have not already done so, pick up the silver scorpion
+[2] If you would rather ignore it, you may either climb the stairs
+[3] or leave the house and head north 
+@8
+@I8+,L+2
+@1:13
+@2:80
+@3:334

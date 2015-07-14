@@ -1,0 +1,14 @@
+The silk curtains in front of the archway are pulled 
+aside and a strange creature steps into the room. It 
+has a snake's head, which sits oddly on the shoulders of a young woman wearing a lavish gown. Its 
+mouth opens and a forked tongue darts in and out 
+as the Serpent Queen starts to accuse you, shouting, 
+'I ordered no flowers from Mrs Pipe, and she certainly would not send any as a gift. What trickery is 
+this, rogue?'. You start to panic, deciding what to do 
+next. 
+[1] If you wish to run to the front door
+[2] If you wish to draw your sword to attack the Serpent 
+Queen
+@0
+@1:32
+@2:249

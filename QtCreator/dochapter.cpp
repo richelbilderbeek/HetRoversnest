@@ -93,6 +93,7 @@ void DoChapter(
     case 10: ParseFightWithTwoMonsters(s,chapter,character,auto_play); break;
     case 11: DoGameWon(); break;
     case 12: ParseFightWithRandomMonster(s,chapter,character,auto_play); break;
+    case 13: ParsePawnShop(s,chapter,character,auto_play); break;
     default:
     {
       std::stringstream msg;
@@ -566,9 +567,10 @@ void DoGameWon()
 
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
 {
-  const bool verbose{false};
+  const bool verbose{true};
   if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
   std::vector<int> item_numbers;
+  int gold_pieces = 0;
   //Parse item
   {
     char at;
@@ -580,19 +582,31 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
     assert(at == '@');
     while (1)
     {
-      Parse(s,'I');
-      int item_number = -1;
-      s >> item_number;
-      assert(item_number != -1);
-      item_numbers.push_back(item_number);
-      if (verbose) { std::clog << "Needed item: " << static_cast<Item>(item_number) << std::endl; }
+      const char what{ReadChar(s)};
+      assert(what == 'G' || what == 'I');
+      switch (what)
+      {
+        case 'G':
+        {
+          gold_pieces = ReadInt(s);
+          if (verbose) { std::clog << "Needed gold: " << static_cast<Item>(gold_pieces) << std::endl; }
+        }
+        break;
+        case 'I':
+        {
+          const int item_number{ReadInt(s)};
+          item_numbers.push_back(item_number);
+          if (verbose) { std::clog << "Needed item: " << static_cast<Item>(item_number) << std::endl; }
+        }
+        break;
+      }
       char comma_or_at = '*';
       s >> comma_or_at;
       assert(comma_or_at != '*');
       if (comma_or_at != ',') break;
     }
   }
-  assert(!item_numbers.empty());
+
   int chapter_if_not_have = -1;
   //Parse chapter if not have
   {
@@ -613,6 +627,7 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
     if (verbose) { std::clog << "chapter_if_have: " << chapter_if_have << std::endl; }
   }
   assert(chapter_if_have != -1);
+  //Has the items needed?
   for (const int item_number: item_numbers)
   {
     const Item item = static_cast<Item>(item_number);
@@ -622,6 +637,13 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
       return;
     }
   }
+  //Has the gold needed?
+  if (character.GetGold() < gold_pieces)
+  {
+    chapter = chapter_if_not_have;
+    return;
+  }
+  //Has everything needed
   chapter = chapter_if_have;
 }
 
@@ -677,6 +699,79 @@ void DoNormalChapter(
   }
 }
 
+void DoPawnShop(
+  std::vector<std::pair<Item,int>> items,
+  const std::string& exit_text,
+  Character& character,
+  const bool auto_play
+)
+{
+  while (1)
+  {
+    if (items.empty())
+    {
+      std::cout << "There are no more items to sell.\n";
+      break;
+    }
+    std::cout << "[0] Leave shop\n";
+    const int n_items{static_cast<int>(items.size())};
+    for (int i=0; i!=n_items; ++i)
+    {
+      std::cout << '[' << (i+1) << "] Sell "
+        << ToStr(items[i].first) << " for "
+        << items[i].second << " gold pieces\n"
+      ;
+    }
+    if (auto_play)
+    {
+      for (int i=0; i < static_cast<int>(items.size()); ++i)
+      {
+        if (items[i].second <= character.GetGold())
+        {
+          std::cout << "You sold " << ToStr(items[i].first) << std::endl;
+          character.AddItem(items[i].first);
+          character.ChangeGold(items[i].second);
+          std::swap(items[i],items.back());
+          items.pop_back();
+          --i;
+        }
+      }
+      break;
+    }
+    assert(!auto_play);
+
+    //Shop
+    std::string s;
+    std::getline(std::cin,s);
+    if (s.empty()) continue;
+    try
+    {
+      boost::lexical_cast<int>(s);
+    }
+    catch (boost::bad_lexical_cast&)
+    {
+      std::cout << "Invalid command\n";
+      continue;
+    }
+    const int command = boost::lexical_cast<int>(s);
+    if (command == 0) break;
+    const int i = command - 1;
+    if (i < 0 || i >= static_cast<int>(items.size()))
+    {
+      std::cout << "Invalid number, choose zero to leave the shop or an item number to buy it.\n";
+      continue;
+    }
+    assert(i >= 0);
+    assert(i < static_cast<int>(items.size()));
+    std::cout << "You sold " << ToStr(items[i].first) << std::endl;
+    character.RemoveItem(items[i].first);
+    character.ChangeGold(items[i].second);
+    std::swap(items[i],items.back());
+    items.pop_back();
+  }
+  std::cout << exit_text << std::endl;
+}
+
 void DoShop(
   std::vector<std::pair<Item,int>> items,
   const std::string& exit_text,
@@ -715,7 +810,7 @@ void DoShop(
         {
           std::cout << "You bough " << ToStr(items[i].first) << std::endl;
           character.AddItem(items[i].first);
-          character.ChangeGold(items[i].second);
+          character.ChangeGold(-items[i].second);
           std::swap(items[i],items.back());
           items.pop_back();
           --i;
@@ -755,7 +850,7 @@ void DoShop(
     }
     std::cout << "You bough " << ToStr(items[i].first) << std::endl;
     character.AddItem(items[i].first);
-    character.ChangeGold(items[i].second);
+    character.ChangeGold(-items[i].second);
     std::swap(items[i],items.back());
     items.pop_back();
   }
@@ -1095,6 +1190,27 @@ void ParseChangeStatusAskOption(
   DoNormalChapter(options,chapter,auto_play);
 }
 
+std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s)
+{
+  std::vector<std::pair<Item,int>> items;
+
+  while (1)
+  {
+    Parse(s,'I');
+    const Item item = ReadItem(s);
+    Parse(s,'?');
+    int price = -1;
+    s >> price;
+    assert(price != -1);
+    items.push_back(std::make_pair(item,price));
+    char comma_or_not = '*';
+    s >> comma_or_not;
+    assert(comma_or_not != '*');
+    if (comma_or_not != ',') break;
+  }
+  return items;
+}
+
 void ParseNormalChapter(
   std::stringstream& s,
   int& chapter,
@@ -1125,7 +1241,7 @@ void ParseNormalChapter(
     if (colon_or_question_mark == '?')
     {
       const char what = ReadChar(s);
-      assert(what == 'I' || what == 'G');
+      assert(what == 'I' || what == 'G' || what == 'P');
       switch (what)
       {
         case 'G':
@@ -1138,6 +1254,12 @@ void ParseNormalChapter(
         {
           const Item item{ReadItem(s)};
           if (!character.HasItem(item)) { can_choose = false; }
+        }
+        break;
+        case 'P':
+        {
+          const int n_provisions{ReadInt(s)};
+          if (character.GetProvisions() < n_provisions) { can_choose = false; }
         }
         break;
       }
@@ -1162,7 +1284,7 @@ void ParseNormalChapter(
   DoNormalChapter(options,chapter,auto_play);
 }
 
-void ParseShop(
+void ParsePawnShop(
   std::stringstream& s,
   int& chapter,
   Character& character,
@@ -1170,6 +1292,11 @@ void ParseShop(
 {
   Parse(s,'@');
 
+  const std::vector<std::pair<Item,int>> items{
+    ParseItemWithPrices(s)
+  };
+
+  /*
   //Parse the items
   std::vector<std::pair<Item,int>> items;
 
@@ -1187,6 +1314,7 @@ void ParseShop(
     assert(comma_or_not != '*');
     if (comma_or_not != ',') break;
   }
+  */
   Parse(s,'@');
   int next_chapter = -1;
   s >> next_chapter;
@@ -1199,7 +1327,53 @@ void ParseShop(
     s >> c;
     exit_text += c;
   }
+  DoPawnShop(items,exit_text,character,auto_play);
+  chapter = next_chapter;
+}
 
+void ParseShop(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play)
+{
+  Parse(s,'@');
+
+  const std::vector<std::pair<Item,int>> items{
+    ParseItemWithPrices(s)
+  };
+
+  /*
+  //Parse the items
+  std::vector<std::pair<Item,int>> items;
+
+  while (1)
+  {
+    Parse(s,'I');
+    const Item item = ReadItem(s);
+    Parse(s,'?');
+    int price = -1;
+    s >> price;
+    assert(price != -1);
+    items.push_back(std::make_pair(item,price));
+    char comma_or_not = '*';
+    s >> comma_or_not;
+    assert(comma_or_not != '*');
+    if (comma_or_not != ',') break;
+  }
+  */
+  Parse(s,'@');
+  int next_chapter = -1;
+  s >> next_chapter;
+  assert(next_chapter != -1);
+  Parse(s,':');
+  std::string exit_text;
+  while (!s.eof())
+  {
+    char c;
+    s >> c;
+    exit_text += c;
+  }
   DoShop(items,exit_text,character,auto_play);
   chapter = next_chapter;
 }

@@ -14,7 +14,6 @@ std::string ToStr(const Item item)
     case Item::witch_hair: return "witch hair";
     case Item::lotus_flower: return "lotus flower";
     case Item::tattoo: return "tattoo";
-    case Item::brooche: return "brooch";
     case Item::silver_arrow: return "silver arrow";
     case Item::mirror: return "mirror";
     case Item::ice_ring: return "ice ring";
@@ -31,13 +30,29 @@ std::string ToStr(const Item item)
     case Item::iron_key: return "iron key";
     case Item::silver_brooch: return "silver brooch";
     case Item::ring_of_the_golden_eye: return "ring of the golden eye";
-    case Item::copper_brooch: return "copper brooch";
+    case Item::golden_brooch: return "golden brooch";
     case Item::glass_ball: return "glass ball";
     case Item::ivory_skull: return "ivory skull";
     case Item::silver_chain: return "silver chain";
     case Item::garlic: return "garlic";
     case Item::knucklebones: return "knucklebones";
+    case Item::golden_owl: return "golden owl";
+    case Item::potion_of_mind_control: return "potion of mind control";
+    case Item::set_of_keys: return "set of keys";
+    case Item::stale_bread: return "stale bread";
+    case Item::two_gems: return "two gems";
+    case Item::magnificent_shield: return "magnificent shield";
+    case Item::silver_goblet: return "silver_goblet";
+    case Item::silver_bracelet: return "silver_bracelet";
+    case Item::helmet: return "helmet";
+    case Item::silver_flute: return "silver_flute";
+    case Item::eye_patch: return "eye_patch";
+    case Item::piece_of_chalk: return "piece_of_chalk";
+    case Item::all_silver_items: return "all_silver_items";
+    case Item::something_silver: return "something silver";
+    case Item::some_piece_of_armor: return "some piece of armor";
     case Item::random: return "random";
+    case Item::two_magic_items: return "two magic items";
     case Item::something_magic: return "something magic";
     case Item::fought_ape_man: return "fought_ape_man";
   }

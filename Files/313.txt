@@ -1,0 +1,6 @@
+You retrieve your sword from the dead man's chest 
+and hurry out of the house. Relieved to be in the 
+open air again you set off north.
+@3
+@0
+@304

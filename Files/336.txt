@@ -1,0 +1,18 @@
+Once inside the shop you realize why the windows 
+are barred - it is a jeweller's shop. Standing behind 
+the glass counter is a huge bald-headed man with an 
+eye-patch covering his left eye- He gives you a 
+welcoming smile but the sight of his ugly mouth 
+with its few black-stained teeth does not inspire 
+confidence. A large battle-axe hangs conveniently 
+behind the man to deter any would-be robbers. 
+On display are several ornate rings inset with 
+diamonds, emeralds and rubies. The man asks 
+whether you are buying or selling. Will you: 
+[1] Ask the price of the rings?
+[2] Offer to sell him geins (if you have them)?
+[3] Attack him with your sword? 
+@0
+@1:36
+@2?I35:302
+@3:170

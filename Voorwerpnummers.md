@@ -30,6 +30,7 @@
  * 28: Zilveren halsketting
  * 29: Knoflok
  * 30: Bikkels
+ * 97: Twee magische voorwerpen (voor hoofdstuk 248)
  * 98: Iets magisch (voor hoofdstuk 187)
  * 99: Willekeurig voorwerp (voor hoofdstuk 63)
 

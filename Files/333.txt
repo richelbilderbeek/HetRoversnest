@@ -1,0 +1,6 @@
+You soon reach a junction in the street. Stable Street 
+continues north and to your left you see lower 
+Street leading west.
+@3
+@0
+@76

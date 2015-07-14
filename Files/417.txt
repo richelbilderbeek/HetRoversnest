@@ -1,0 +1,5 @@
+Do you have enough gold to buy a tattoo from Ben? If no, you'll come back later.
+@6
+@G20
+@0:1
+@1:316

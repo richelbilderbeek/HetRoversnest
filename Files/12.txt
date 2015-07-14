@@ -3,11 +3,8 @@ down the corridor, The door opensand a man walks
 into the room wearing nothing buta lowel round his 
 fat stomach. You watch as he drops the towel and 
 lowers himself gently into the tub with a loud sigh. 
-[1] If you wish to surprise htm by drawing your sword 
-and uttering a loud 'Ahem!'
-[2] If 
-you would rather creep out of the room back 
-into the corridor while he submerges himself
+[1] If you wish to surprise htm by drawing your sword and uttering a loud 'Ahem!'
+[2] If you would rather creep out of the room back into the corridor while he submerges himself
 @0
 @1:176
 @2:103

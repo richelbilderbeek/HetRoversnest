@@ -1,0 +1,8 @@
+You take the silver item out of your backpack and 
+hand it to the Serpent Queen. She is delighted and 
+thanks you for delivering it to her. She shows you to 
+the front door and tips you 2 Gold Pieces. Outside 
+you set off north along Stable Street.
+@3
+@G+2,I95-
+@333

@@ -1,0 +1,6 @@
+You make a rapid search through the guards' possessions and find 7 Gold Pieces, a set of keys and a 
+piece of stale bread. Make a note of what you wish to 
+keep and set off north again.
+@3
+@G+7,I33+,I34+
+@227

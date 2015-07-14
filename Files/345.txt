@@ -1,0 +1,11 @@
+The man frowns and thumps his fist down on top of 
+the counter, shouting 'This is not a bazaar! If you do 
+not like my prices, take your custom elsewhere. 
+Now get out of my shop before I slice you in two.'. Will you: 
+[1] Calm him down and accept his offer? Turn to 240 
+[2] Walk out of the shop and head west? Turn to 196 
+[3] Attack him with your sword? Turn to 170 
+@0
+@1:240
+@2:196
+@3:170

@@ -1,0 +1,4 @@
+You pay Miss Pipe with two provisions to buy the gold flower. Then you leave the shop and head west.
+@3
+@P-2,I20+
+@24

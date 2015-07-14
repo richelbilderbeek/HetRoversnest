@@ -1,0 +1,4 @@
+You eat the food. Your stamina is increased by 2 points. 
+@3
+@G-1,S+2
+@413

@@ -1,0 +1,7 @@
+You climb up to the third floor and see another door 
+at the end of the landing. 
+[1] If you wish to open the door
+[2] If you wish to climb to the next floor
+@0
+@1:263
+@2:65

@@ -1,0 +1,10 @@
+The box shatters and you see two gems, 15 gold 
+pieces and a while silk glove lying amidst the 
+broken pieces of wood. 
+[1] If you wish to try on the glove
+[2] If you wish to leave the house, taking only the gems and the gold, and continue 
+north
+@8
+@G+15,I35+
+@1:89
+@2:282

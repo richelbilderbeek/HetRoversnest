@@ -1,0 +1,8 @@
+You walk back into the shop; behind the counter 
+you find a small wooden money box. Inside it are 11 
+Cold Pieces, which you put into your backpack. You 
+decide that it is time to leave the shop and head 
+north. 
+@3
+@G+11
+@93

@@ -1,0 +1,5 @@
+[1] If you have not done so already, you may either open the other door
+[2] Leave the ship to continue your search of Port Blacksand, walking north up Harbour Street.
+@0
+@1:232
+@2:78

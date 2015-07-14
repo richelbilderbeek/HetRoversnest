@@ -1,0 +1,18 @@
+The tattooist looks at you with a bored expression 
+on his face and says, 'Well, you don't expect me to 
+do it for free, do you? If you've got anything worth 
+selling, go next door. My step-brother lives there 
+and he's a pawnbroker. Tell him 1 sent you and 
+maybe he'll give you a good price.' You walk outside and knock on the wooden door of the next 
+house. A squint-eyed man opens the door and you 
+tell him that you want to sell some items so that you 
+can afford to have a tattoo. The man asks you to 
+come into his house and you enler a room piled high 
+with all kinds of objects, furniture, armour, curiosities 
+and pottery. He explains that he has a stall in the 
+market which he rents once a week. He then tells 
+you what he is currently interested in buying, and 
+the prices he is offering. You may sell the pawnbroker any of your possessions. 
+@13
+@I37?8,I21?15,I8?10,I23?10,I3?15,I11?15,I12?15,I38?5,I39?10,I40?5,I41?5,I30?1,I10?1
+@417:You bid him farewell and walk outside.

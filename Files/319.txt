@@ -1,0 +1,9 @@
+You enter a room which is dark and very cold. The 
+wails and floor are made of rough stone and the 
+room is empty except for a decorated sarcophagus. 
+There is a strong musty smell in the air. 
+[1] If you want to open the sarcophagus
+[2] If you wish to walk outside again
+@0
+@1:352
+@2:231

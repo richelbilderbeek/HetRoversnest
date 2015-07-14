@@ -1,7 +1,7 @@
 You turn on the two guards who were holding you 
 and, before they realize what is happening, you 
-smash their heads together, knocking them uncon- 
-scious. You dash into the city.
+smash their heads together, knocking them unconscious. 
+You dash into the city.
 @3
 @0
 @74

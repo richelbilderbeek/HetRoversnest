@@ -1,0 +1,11 @@
+Tower Street makes a sharp turn to the right, going 
+cast between tall buildings. An iron bridge crosses 
+overhead between two of the buildings and you see 
+movement on il. Small cloaked people are carrying 
+laden sacks between the buildings, apparently in a 
+great hurry. 
+[1] If you wish to call out to them
+[2] If you wish to walk under the bridge and continue east 
+@0
+@1:251
+@2:30

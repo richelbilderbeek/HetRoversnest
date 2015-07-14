@@ -1,0 +1,6 @@
+Vou have just swallowed a Potion of Misfortune. 
+Reduce your luck by 3 points. Hoping for better 
+luck ahead you set off north again. 
+@3
+@L-3
+@105

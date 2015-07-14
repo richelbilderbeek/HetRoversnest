@@ -1,0 +1,17 @@
+All the Bays on your side rush over to you and 
+slap your hands with theirs. They are overjoyed at 
+their victory. Supporters run over and start handing 
+you gifts. Eventually you manage to wriggle free 
+from your admirers and find a place to sit down to 
+inspect your gifts. You have been given 8 Gold 
+Pieces, a bottle containing a clear liquid labelled 
+'Potion of Mind Control', a silver flute, a bunch of 
+bananas, a piece of chalk and an eye-patch. You eal 
+the bananas (add 2 stamina points) and place the 
+rest of the items in your backpack. You climb back 
+over the wall before the Bays start another game, 
+walk back to the junction and head west along 
+Harbour Street.
+@3
+@G+8,S+2,I32+,I40+,I43+,I41+
+@91
