@@ -35,6 +35,7 @@ void DoFight(
 
 void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
 void DoGameOver();
+void DoGameWon();
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character);
 
 void DoNormalChapter(

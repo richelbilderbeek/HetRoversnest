@@ -91,6 +91,7 @@ void DoChapter(
     case 8: ParseChangeStatusAskOption(s,chapter,character,auto_play); break;
     case 9: ParseShop(s,chapter,character,auto_play); break;
     case 10: ParseFightWithTwoMonsters(s,chapter,character,auto_play); break;
+    case 11: DoGameWon(); break;
     default:
     {
       std::stringstream msg;
@@ -527,6 +528,17 @@ void DoGameOver()
   ;
 }
 
+void DoGameWon()
+{
+  std::cout
+    << "*************\n"
+    << "*           *\n"
+    << "* GAME WON! *\n"
+    << "*           *\n"
+    << "*************\n"
+  ;
+}
+
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
 {
   const bool verbose{false};
@@ -560,6 +572,8 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
   //Parse chapter if not have
   {
     Parse(s,'@');
+    Parse(s,'0');
+    Parse(s,':');
     s >> chapter_if_not_have;
     if (verbose) { std::clog << "chapter_if_not_have: " << chapter_if_not_have << std::endl; }
   }
@@ -568,6 +582,8 @@ void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
   //Parse chapter if have
   {
     Parse(s,'@');
+    Parse(s,'1');
+    Parse(s,':');
     s >> chapter_if_have;
     if (verbose) { std::clog << "chapter_if_have: " << chapter_if_have << std::endl; }
   }

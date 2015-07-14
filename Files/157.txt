@@ -1,0 +1,7 @@
+You leap up and punch the first guard. He staggers 
+back and draws his sword. You fight them one at a 
+time in the small cell. Because you are bare-handed,
+you'll have three dexterity less.
+@3
+@D-3
+@408

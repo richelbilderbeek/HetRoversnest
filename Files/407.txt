@@ -1,0 +1,11 @@
+You call out to the guards, telling them that you 
+think they are stupid and that you have seen more 
+life on a Troll's breakfast plate than in them. Quickly 
+provoked, the guards rush down the stairs and 
+are surprised to see you wailing for them, sword 
+drawn. You fight them one at a time. 
+@7
+@City guard,City guard
+@6,6
+@7,5
+@54

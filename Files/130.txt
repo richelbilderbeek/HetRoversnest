@@ -1,0 +1,10 @@
+The guard slumps to the ground, two more 
+armed men appear from a stone guardhouse by the 
+gate, obviously attracted by the noise of your battle.
+There is no time to run so you must fight them one at 
+a time. 
+@7
+@City guard,City guard
+@6,6
+@7,5
+@74

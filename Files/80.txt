@@ -1,0 +1,11 @@
+The stairs lead into a small room, again painted red. 
+Sitting at a table is a strange creature with a long 
+snout and deep red, scaly skin. From its jaw pro- 
+trude rows of sharp leeth and a long pink tongue 
+darts quickly in and out between them. The creature 
+looks up and stares at you. Are you wearing a 
+scorpion brooch?
+@6
+@I08
+@0:215
+@1:395

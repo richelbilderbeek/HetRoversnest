@@ -1,0 +1,9 @@
+Your question produces a suspicious look on the 
+face of the Dwarf and he raises one eyebrow. Then 
+he says, '1 know Nicodemus but what do you want 
+of him?' You may reply by 
+[1] telling him either that you are on a mission from Silverton and need the help of Nicodemus
+[2] telling him that you want to kill Nicodemus
+@0
+@1:57
+@2:218

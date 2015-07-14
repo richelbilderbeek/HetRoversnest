@@ -1,0 +1,8 @@
+A search through the leather bags of the thieves 
+produces 16 Gold Pieces and a glass vial containing a green liquid. 
+[1] If you wish to drink the liquid
+[2] If you would rather just take the gold and press on northwards
+@8
+@G16
+@1:338
+@2:105

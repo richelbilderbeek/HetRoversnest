@@ -31,5 +31,6 @@ int main()
       DoGameOver();
       break;
     }
+    if (chapter == 400) { break; }
   }
 }

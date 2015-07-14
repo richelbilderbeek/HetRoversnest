@@ -1,0 +1,8 @@
+On the left side of the street you see a large iron key 
+hanging over the doorway of a small shop. A sign in 
+the window reads 'J. B. Wraggins, Locksmith'. 
+[1] If you want to enter the shop
+[2] If you would rather continue walking west
+@0
+@1:224
+@2:300

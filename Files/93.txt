@@ -1,0 +1,7 @@
+On the right-hand side of the street you see a tavern 
+called the Spotted Dog. 
+[1] If you wish to enter the tavern
+[2] If you would rather continue north
+@0
+@1:62
+@2:296

@@ -155,8 +155,8 @@ De speler wordt niet om een keuze gevraagd.
 [tekst]
 @6
 @I[voorwerpnummer]
-@[hoofdstuk bij niet bezitten van voorwerp]
-@[hoofdstuk bij wel bezitten van voorwerp]
+@0:[hoofdstuk bij niet bezitten van voorwerp]
+@1:[hoofdstuk bij wel bezitten van voorwerp]
 
 ```
 

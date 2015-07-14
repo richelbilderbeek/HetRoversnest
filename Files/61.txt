@@ -9,5 +9,5 @@ Queen asks to see the flowers sent to her by Lord
 Azzur. Do you have a bunch of flowers?
 @6
 @I20
-@172
-@350
+@0:172
+@1:350

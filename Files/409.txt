@@ -1,0 +1,5 @@
+You leave the cell and climb the stairs, picking up your 
+sword off the table.
+@3
+@D+3
+@54
