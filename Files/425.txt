@@ -1,7 +1,5 @@
 Lacking a ring of fire, you take
 on the mummy with your sword.
 @7
-@Mummy
-@7
-@12
-@163
+Monster Mummy 7 12 2
+Next_chapter 163

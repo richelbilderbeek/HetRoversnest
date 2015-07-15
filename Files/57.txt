@@ -7,7 +7,6 @@ mouths. Wraggins points a finger at you, shouting
 you, barking wildly. You must fight them for your 
 life, one at a time.
 @7
-@First wolf dog,Second wolf dog
-@7,7
-@7,5
-@360
+Monster First_wolf_dog 7 7 2
+Monster Second_wolf_dog 7 5 2
+Next_chapter 360

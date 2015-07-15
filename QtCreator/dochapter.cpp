@@ -107,7 +107,38 @@ void DoChapter(
 
 void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
 {
-  const bool verbose{false};
+  const bool verbose{true};
+  s << std::skipws; //Obligatory
+  int next_chapter = 0;
+  std::vector<Monster> monsters;
+  while (1)
+  {
+    const std::string str{ReadString(s)};
+    if (str == "Monster")
+    {
+      const std::string name{ReadString(s)};
+      const int dexterity{ReadInt(s)};
+      assert(dexterity > 0);
+      const int condition{ReadInt(s)};
+      assert(condition > 0);
+      const int attack_strength{ReadInt(s)};
+      assert(attack_strength > 0);
+      const Monster monster(name,dexterity,condition,attack_strength);
+      if (verbose) { std::clog << "Parsed monster: " << monster << std::endl; }
+      monsters.push_back(monster);
+    }
+    else if (str == "Next_chapter")
+    {
+      next_chapter = ReadInt(s);
+      if (verbose) { std::clog << "Parsed next_chapter: " << next_chapter << std::endl; }
+    }
+    else
+    {
+      break;
+    }
+
+  }
+  /*
   Parse(s,'@');
   //Name monsters
   std::vector<std::string> names;
@@ -170,13 +201,20 @@ void ParseFight(std::stringstream& s, int& chapter, Character& character, const 
       Parse(s,',');
     }
   }
-  Parse(s,'@');
+  */
+  //s << std::noskipws;
+  //const std::string at{ReadString(s)};
+  //Parse(s,'@');
+  //assert(at == "@");
   //New chapter
+  /*
   int new_chapter = -1;
   {
     s >> new_chapter;
     assert(new_chapter > -1);
   }
+  */
+  /*
   assert(names.size() == staminas.size());
   assert(names.size() == dexterities.size());
   std::vector<Monster> monsters;
@@ -186,10 +224,20 @@ void ParseFight(std::stringstream& s, int& chapter, Character& character, const 
       Monster(names[i],dexterities[i],staminas[i])
     );
   }
-
+  */
+  if (monsters.empty())
+  {
+    std::cerr << "No monsters in chapter " << chapter << std::endl;
+  }
+  if (!next_chapter)
+  {
+    std::cerr << "No Next_chapter in chapter " << chapter << std::endl;
+  }
+  assert(!monsters.empty());
+  assert(next_chapter != 0);
   DoFight(monsters,character,auto_play);
-  assert(chapter != 0); //Game over does not go here
-  chapter = new_chapter;
+  //assert(chapter != 0); //Game over does not go here
+  chapter = next_chapter;
 }
 
 void ParseFightWithRandomMonster(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
@@ -996,7 +1044,7 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
 
 void Parse(std::stringstream& s, const char expected_char)
 {
-  const char c = ReadChar(s);
+  char c = ReadChar(s);
   assert(c == expected_char);
 }
 
@@ -1399,7 +1447,7 @@ char ReadChar(std::stringstream& s)
   assert(!s.eof());
   s >> c;
   assert(!s.eof());
-  while (!s.eof() && (c == '\n' || c == ' ')) { s >> c; }
+  while (!s.eof() && (c == '\n' || c == ' ' || c == '\0')) { s >> c; }
   assert(!s.eof());
   return c;
 }
@@ -1407,9 +1455,9 @@ char ReadChar(std::stringstream& s)
 
 int ReadInt(std::stringstream& s)
 {
-  int number = -999;
+  int number = -9999;
   s >> number;
-  assert(number > -999);
+  assert(number > -9999);
   return number;
 }
 
@@ -1420,4 +1468,11 @@ Item ReadItem(std::stringstream& s)
   assert(number > -1);
   const Item item = static_cast<Item>(number);
   return item;
+}
+
+std::string ReadString(std::stringstream& s)
+{
+  std::string str = "";
+  s >> str;
+  return str;
 }

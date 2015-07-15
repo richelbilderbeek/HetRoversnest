@@ -3,7 +3,6 @@ He is lying on the ground and the other two men are
 beating him and trying to take his leather bag. You 
 call out and they turn and attack you. 
 @7
-@First robber,Second robber
-@7,8
-@8,6
-@51
+Monster First_robber 7 8 2
+Monster Second_robber 8 6 2
+Next_chapter 51

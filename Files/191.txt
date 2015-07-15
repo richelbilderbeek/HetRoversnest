@@ -4,7 +4,5 @@ once, seemingly trying to crush and smother you.
 Treat the Leaf Beasls as a single creature. If you win, you run back to the turnstile still clutching the lotus and make your getaway into Stable 
 Street. 
 @7
-@Leaf beasts
-@6
-@6
-@133
+Monster Leaf_beasts 6 6 2
+Next_chapter 133

@@ -2,7 +2,5 @@ The pirate seems pleased that you wish to attack
 him and grins, revealing a toothless grin
 that unnerves you a little. 
 @7
-@Pirate
-@7
-@7
-@20
+Monster Pirate 7 7 2
+Next_chapter 20

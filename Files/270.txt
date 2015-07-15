@@ -9,7 +9,5 @@ swinging his club in the air. All the tavern's customers start to chant, 'Fight!
 to form a ring round you and the Troll. You are 
 forced to fight. 
 @7
-@Troll
-@8
-@8
-@26
+Monster Troll 8 8 2
+Next_chapter 26

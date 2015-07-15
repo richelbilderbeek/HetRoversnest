@@ -1,4 +1,4 @@
-je haald 10 Goudstukken uit je rugzak en legt ze in de handpalm van de uitgestoken hand. 
+Je haalt 10 Goudstukken uit je rugzak en legt ze in de handpalm van de uitgestoken hand. 
 De oude man taste diep onder zijn kleren en haalt een ijzeren sleutel te voorschijn.
 Hij zegt dat je daarmee je cel kunt openen.
 Ongelovig pak je de sleutel aan en steekt hem in het slot. 
@@ -8,11 +8,7 @@ Hij glimlacht, schudt zijn hoofdt en zegt dat hij het hier best naar zijn zin he
 je stapt de cel uit, pakt je zwaart en beklimt de trap naar de begane grond.
 De twee wachters verrmaken zich met een spelletje kaart, je zwaait met je zwaard en zet de aanval in.
 Ze grijpen hun zwaard om zich te verdedigen en bevechtenje een voor een.
-
-druk op [1], [2] of [3] als je het gelezen hebt
-
 @7
-@ Eerste stadswachter, Tweedestadswachter
-@6,7
-@6,5
-@54
+Monster Eerste_stadswachter 6 6 2
+Monster Tweede_stadswachter 7 5 2
+Next_chapter 54

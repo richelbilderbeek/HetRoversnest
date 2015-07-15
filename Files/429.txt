@@ -6,7 +6,5 @@ point of damage to be subtracted from your stamina. On a roll of 4, 5 or 6 you m
 blast. You may use your luck against the fire.
 [TODO:Actually implement this]
 @7
-@Lizardine
-@8
-@5
-@186
+Monster Lizardine 8 5 2
+Next_chapter 186

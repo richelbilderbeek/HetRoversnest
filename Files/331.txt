@@ -4,7 +4,5 @@ dagger from his ragged clothing and leaps ai you.
 His wild eyes belong to a man insane or possessed 
 and you must fight him.
 @7
-@Madman
-@5
-@5
-@86
+Monster Madman 5 5 2
+Next_chapter 86

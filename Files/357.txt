@@ -5,7 +5,5 @@ lumbers towards you. You must fight him.
 Round, you may escape by running out of the house 
 and heading north (turn to 28.)]
 @7
-@Ogre
-@8
-@9
-@71
+Monster Ogre 8 9 2
+Next_chapter 71

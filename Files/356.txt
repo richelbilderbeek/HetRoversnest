@@ -4,7 +4,7 @@ glistening shapes of three giant rats only a
 few metres away from you. You draw your sword 
 hastily and fight each of the Rats in turn. 
 @7
-@First rat,Second rat,Third rat
-@4,5,5
-@4,4,5
-@28
+Monster First_rat 4 4 2
+Monster Second_rat 5 4 2
+Monster Third_rat 5 5 2
+Next_chapter 28

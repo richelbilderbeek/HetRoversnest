@@ -3,7 +3,6 @@ Blacksandand the guards draw their swords, telling
 you that you are under arrest. You draw your sword 
 and fight them one at a time. 
 @7
-@First city guard,Second city guard
-@7,6
-@4,6
-@285
+Monster First_city_guard 7 4 2
+Monster Second_city_guard 6 6 2
+Next_chapter 285

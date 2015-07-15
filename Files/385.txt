@@ -10,7 +10,7 @@ The globes explode in puffs of smoke and out of them
 step three skeletons armed with swords. Fight them one
 at a time.
 @7
-@First skeleton,Second skeleton,Third skeleton
-@7,7,7
-@7,7,7
-@203
+Monster First_skeleton 7 7 2
+Monster Second_skeleton 7 7 2
+Monster Third_skeleton 7 7 2
+Next_chapter 203

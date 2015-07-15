@@ -2,7 +2,5 @@ De man pakt een houten knuppel achter een stoel vandaan
 en maakt aanstalten je aan te vallen. Hij is sterk, maar geen
 goed vechter
 @7
-@zilversmid
-@4
-@8
-@146
+Monster zilversmid 4 6 2
+Next_chapter 146

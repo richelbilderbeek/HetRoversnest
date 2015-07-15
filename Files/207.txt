@@ -8,7 +8,6 @@ down on you. There is no time to run for cover, and
 you must fight the two death hawks. 
 Fight them one at a time.
 @7
-@First death hawk,Second death hawk
-@4,4
-@5,4
-@314
+Monster First_death_hawk 4 5 2
+Monster Second_death_hawk 5 4 2
+Next_chapter 314

@@ -1,7 +1,5 @@
 You fight the serpent queen.
 TODO: You may Escape after three Attack Rounds by running out of the house and north along Stable Street (turn to 333)
 @7
-@Serpent queen
-@9
-@7
-@295
+Monster Serpent_queen 9 7 2
+Next_chapter 295

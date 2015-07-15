@@ -1,6 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <vector>
 #include <set>
 #include "item.h"
 
@@ -19,16 +20,19 @@ struct Character
   void ChangeProvisions(const int change);
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
+  int GetCurrentChapter() const noexcept { return m_chapters.back(); }
   int GetGold() const noexcept { return m_gold; }
   int GetProvisions() const noexcept { return m_provisions; }
   int GetStamina() const noexcept { return m_stamina; }
   bool HasItem(const Item item) const;
   bool IsDead() const noexcept { return m_stamina <= 0; }
   void RemoveItem(const Item item);
+  void SetChapter(const int chapter);
   bool TestDexterity() noexcept;
   bool TestLuck() noexcept;
 
   private:
+  std::vector<int> m_chapters;
   int m_dexterity; //NL: Behendigheid
   int m_gold; //NL: Goud
   const int m_initial_dexterity; //NL: Behendigheid

@@ -101,5 +101,6 @@ void ParseNormalChapter(
 char ReadChar(std::stringstream& s);
 Item ReadItem(std::stringstream& s);
 int ReadInt(std::stringstream& s);
+std::string ReadString(std::stringstream& s);
 
 #endif // DOCHAPTER_H

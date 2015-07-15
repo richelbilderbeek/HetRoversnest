@@ -9,7 +9,8 @@ Character::Character(
   const int luck, //NL: Geluk
   const Item initial_item
 )
-  : m_dexterity{dexterity},
+  : m_chapters{std::vector<int>(1,1)},
+    m_dexterity{dexterity},
     m_gold{30},
     m_initial_dexterity{dexterity},
     m_initial_luck{luck},
@@ -77,6 +78,11 @@ void Character::RemoveItem(Item item)
     item = *iter;
   }
   m_items.erase(item);
+}
+
+void Character::SetChapter(const int chapter)
+{
+  m_chapters.push_back(chapter);
 }
 
 bool Character::TestDexterity() noexcept

@@ -6,7 +6,6 @@ thieves hoping to rob you of your possessions
 and you must defend yourself. Fight them one at a 
 time. 
 @7
-@First thief,Second thief
-@7,7
-@8,6
-@147
+Monster First_thief 7 8 2
+Monster Second_thief 7 6 2
+Next_chapter 147

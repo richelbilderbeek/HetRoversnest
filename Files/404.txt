@@ -1,6 +1,4 @@
 You draw your sword to defend yourself.
 @7
-@Serpent queen
-@9
-@7
-@295
+Monster Serpent_queen 9 7 2
+Next_chapter 295

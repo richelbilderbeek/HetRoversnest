@@ -2,7 +2,5 @@ You decide to fight the fire imp.
 It will be difficult to defeat as it 
 flies quickly about your head spitting fire at you!
 @7
-@Fire imp
-@9
-@4
-@258
+Monster Fire_imp 9 4 2
+Next_chapter 258

@@ -175,20 +175,20 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorw
 
 ### 7: Gevecht
 
+Per monster is er een `Monster` regel.
+
 ```
 [tekst]
 @7
-@[naam monster(s)]
-@[behendigheid monster(s)]
-@[conditie monster(s)]
-@[hoofdstuk erna bij gewonnen]
+Monster [naam monster] [behendigheid monster] [conditie monster]
+Next_chapter [hoofdstuk erna bij gewonnen]
 ```
 
  * [tekst]: de tekst die getoond wordt
  * `7`: code van dit soort hoofdstuk
- * [naam monster(s)]: naam of namen van monsters, bijvoorbeeld `Kobold` of `Eerste Kobold, Tweede Kobold`
- * [behendigheid monster(s): behendigheid monster(s), bijvoorbeeld `7` of `8,9`
- * [conditie monster(s)]: conditie monster(s), bijvoorbeeld `7` of `8,9`
+ * [naam monster]: naam van monster zonder spaties, bijvoorbeeld `Eerste_kobold`
+ * [behendigheid monster]: behendigheid monster, bijvoorbeeld `7`
+ * [conditie monster]: conditie monster, bijvoorbeeld `7`
  * [hoofdstuk erna bij gewonnen]
 
 Een voorbeeld van een Gevecht is 
