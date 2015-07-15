@@ -448,32 +448,52 @@ void DoFight(
   {
     if (character.IsDead()) break;
     if (monster.IsDead()) break;
+
+    std::cout
+      << "You " << character.GetDexterity() << " "
+      << character.GetStamina() << "/"
+      << character.GetInitialStamina()
+      << std::endl
+      << monster.GetName() << " "
+      << monster.GetDexterity() << " "
+      << monster.GetStamina() << "/"
+      << monster.GetInitialStamina()
+      << std::endl;
+    ;
+
     const int monster_attack = (std::rand() >> 4) % 6;
     const int player_attack = (std::rand() >> 4) % 12;
     if (player_attack > monster_attack)
     {
       std::cout << "You hit the monster." << std::endl;
+      const int damage = 2;
       if (!auto_play)
       {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
+        //std::cout
+        //  << "Do you want to use luck? [1] Yes [2] No\n"
+        //  << std::endl
+        //;
+        //assert(!"TODO");
+        monster.ChangeStamina(-damage);
       }
       else
       {
-        monster.ChangeStamina(-2);
+        monster.ChangeStamina(-damage);
       }
     }
     else if (player_attack < monster_attack)
     {
       std::cout << "You were hit by the monster." << std::endl;
+      const int damage{monster.GetAttackStrength()};
       if (!auto_play)
       {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
+        //std::cout << "Do you want to use luck?" << std::endl;
+        //assert(!"TODO");
+        character.ChangeStamina(-damage);
       }
       else
       {
-        character.ChangeStamina(-2);
+        character.ChangeStamina(-damage);
       }
     }
     else

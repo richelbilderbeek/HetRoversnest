@@ -82,6 +82,7 @@ void Test()
     assert(chapter.GetAddItems().count(Item::golden_brooch));
     assert(chapter.GetChangeLuck() == 2);
   }
+  //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times
 

@@ -21,7 +21,9 @@ struct Character
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
   int GetCurrentChapter() const noexcept { return m_chapters.back(); }
+  int GetDexterity() const noexcept { return m_dexterity; }
   int GetGold() const noexcept { return m_gold; }
+  int GetInitialStamina() const noexcept { return m_initial_stamina; }
   int GetProvisions() const noexcept { return m_provisions; }
   int GetStamina() const noexcept { return m_stamina; }
   bool HasItem(const Item item) const;

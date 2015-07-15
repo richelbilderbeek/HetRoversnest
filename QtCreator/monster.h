@@ -15,6 +15,7 @@ struct Monster
   void ChangeStamina(const int delta_stamina) noexcept;
   int GetAttackStrength() const noexcept { return m_attack_strength; }
   int GetDexterity() const noexcept { return m_dexterity; }
+  int GetInitialStamina() const noexcept { return m_initial_stamina; }
   std::string GetName() const noexcept { return m_name; }
   int GetStamina() const noexcept { return m_stamina; }
   bool IsDead() const noexcept { return m_stamina < 1; }
