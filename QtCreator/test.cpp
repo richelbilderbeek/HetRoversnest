@@ -22,31 +22,95 @@ void Test()
     const std::vector<std::string> expected = { "B", "CDEF" };
     assert(result == expected);
   }
-  {
-    Chapter chapter("../Files/1323.txt");
-    assert(chapter.GetMonsters().size() == 1);
-    //std::cout << chapter << std::endl;
-  }
   //New fighting engine
+  //Sequential fight
   {
+    const Chapter chapter("../Files/5.txt");
+    assert(chapter.DoFightSequentially());
+    assert(chapter.GetMonsters().size() == 1);
+    assert(chapter.GetMonsters()[0].GetAttackStrength() == 2);
     Character character(100,100,100,Item::shield);
-    character.AddItem(Item::silver_arrow);
-    int chapter = 5;
-    DoChapter(chapter,character,Language::English,true);
+    chapter.Do(character,true);
+  }
+  {
+    const Chapter chapter("../Files/10.txt");
+    assert(chapter.DoFightSequentially());
+    assert(chapter.GetMonsters().size() == 1);
+    assert(chapter.GetMonsters()[0].GetAttackStrength() == 2);
+    Character character(100,100,100,Item::shield);
+    chapter.Do(character,true);
+  }
+  //Chapter 326: Simulateous fight
+  {
+    const Chapter chapter("../Files/326.txt");
+    assert(!chapter.DoFightSequentially());
+    assert(chapter.GetMonsters().size() == 2);
+    assert(chapter.GetMonsters()[0].GetAttackStrength() == 2);
+    Character character(100,100,100,Item::shield);
+    chapter.Do(character,true);
   }
   //Chapter 323: blacksmith must attack with attack strength 3
-  if (1==2)
   {
-    Character character(1,3,1,Item::luck_potion);
-    character.SetChapter(323);
-    int chapter = 323;
-    DoChapter(chapter,character,Language::English,true);
-    assert(character.GetStamina() == 0);
+    const Chapter chapter("../Files/323.txt");
+    assert(chapter.GetMonsters()[0].GetAttackStrength() == 3);
+    //std::cout << chapter << std::endl;
   }
   //Chapter 253: snakes must bite with attack strength 4
+  {
+    const Chapter chapter("../Files/253.txt");
+    assert(chapter.GetMonsters()[0].GetAttackStrength() == 4);
+  }
+  //Chapter 140: can escape after 3 rounds
+  {
+    const Chapter chapter("../Files/140.txt");
+    assert(chapter.GetRoundsToEscape() == 3);
+    assert(chapter.GetEscapeToChapter() == 282);
+  }
+  //Chapter 9: Game over
+  {
+    const Chapter chapter("../Files/9.txt");
+    assert(chapter.IsGameOver());
+  }
+  //Chapter 400: Game won
+  {
+    const Chapter chapter("../Files/400.txt");
+    assert(chapter.IsGameWon());
+  }
+  //Chapter 8: change status
+  {
+    const Chapter chapter("../Files/8.txt");
+    assert(chapter.GetAddItems().count(Item::golden_brooch));
+    assert(chapter.GetChangeLuck() == 2);
+  }
+
+  //Chapter 43,175,209: cannot lift a globlet multiple times
+
   //Chapter 429: lizardine has extra attack
 
+  //All chapters with monster must have a valid next_chapter
 
+  //Parse chapters using Chapter
+  for (int i=1; i!=450; ++i)
+  {
+    try
+    {
+      const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
+      if (!chapter.GetMonsters().empty())
+      {
+        std::cerr << "ERROR: chapter " << i << " has incorrect Next_chapter" << std::endl;
+        assert(chapter.GetNextChapter() > 0);
+      }
+      std::cout << i << ": OK" << std::endl;
+    }
+    catch (std::logic_error& e)
+    {
+      std::cout << i << ": FAIL" << std::endl;
+    }
+    catch (std::runtime_error& e)
+    {
+      std::cout << i << ": not present" << std::endl;
+    }
+  }
   //Try all chapters
   Character character(100,100,100,Item::shield);
   character.AddItem(Item::silver_arrow);

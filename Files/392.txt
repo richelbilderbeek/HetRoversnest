@@ -4,11 +4,15 @@ curling up from its nostrils.
 Suddenly a blast of fire shoots from its jaw and it 
 moves towards you with outstretched claws. The 
 blast misses you.
-Will you
-[1] Escape by running back down the stairs 
-out of the house to head north
-[2] Fight the lizardine
-@0
-@1:334
-@2:429
-
+As well as following the usual rules of battle, throw 
+one die every Attack Round for the Lizardme's 
+fiery breath. On a roll of 1. 2or 3, it burns you for 2 
+point of damage to be subtracted from your stamina. On a roll of 4, 5 or 6 you manage to dodge the 
+blast. You may use your luck against the fire.
+[TODO:Actually implement this]
+You may also escape by running back down the stairs 
+out of the house to head north.
+@7
+Escape 0 334
+Monster Lizardine 8 5 2
+Next_chapter 186

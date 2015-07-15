@@ -1,0 +1,14 @@
+You cry out in pain as the goblet changes into a 
+burning coal in your hand. You are badly burnt. 
+Lose 2 skill and 2 luck points. 
+Will you
+[1] Lift goblet A (if you have not done so already)
+[2] Lift goblet B (if you have not done so already)
+[3] Walk through the archway
+[4] Climb the stairs
+@8
+@S-2,L-2
+@1:175
+@2:209
+@3:107
+@4:60

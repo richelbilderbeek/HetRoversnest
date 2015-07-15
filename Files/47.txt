@@ -1,0 +1,5 @@
+The lightning bolt slams into your chest and knocks 
+you to the floor. Lose 3 stamina points.
+@3
+@S-3
+@430

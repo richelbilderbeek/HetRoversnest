@@ -1,7 +1,0 @@
-The room is cramped and you fight 
-the three pirates one at a time. 
-@7
-Monster First_pirate 6 6 2
-Monster Second_pirate 5 4 2
-Monster Third_pirate 7 4 2
-Next_chapter 112

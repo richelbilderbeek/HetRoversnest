@@ -1,4 +1,6 @@
 De wachter fronst zijn wenkbrauwen en zegt: 'Een mooi verhaal, hoor, maar je bent natuurlijk net als de rest in deze stad. Je mag op eigen risico doorlopen. Je kunt ook mijn goede raad voor 3 goudstukken kopen.'
 [1]Als je gewoon wilt doorlopen.
 [2]Als je de goede raad wilt kopen.
-
+@0
+@1?G3:74
+@2:261

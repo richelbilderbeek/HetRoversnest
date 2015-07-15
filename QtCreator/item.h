@@ -6,7 +6,7 @@
 enum class Item
 {
   shield = 1,
-  chain_mail = 2,
+  chainmail_coat = 2,
   fire_ring = 3,
   black_pearls = 4,
   witch_hair = 5,
@@ -68,6 +68,7 @@ enum class Item
 };
 
 std::string ToStr(const Item item);
+Item ToItem(const std::string& item_name);
 std::ostream& operator<<(std::ostream& os, const Item item);
 
 #endif // ITEM_H

@@ -1,6 +1,6 @@
 You must now fight the other two city guards as a pair.
 @10
-@City guard,City guard
-@6,7
-@6,5
-@405
+Fight_both
+Monster First_city_guard 6 6 2
+Monster Second_city_guard 7 5 2
+Next_chapter 405

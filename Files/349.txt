@@ -2,11 +2,9 @@ Suddenly you are confronted by a small winged
 creature, no more than a metre in length, hovering 
 before you. It is red in colour and has two horns 
 protruding from its head and a small tail hanging 
-down from its back. 
-Will you
-[1] Escape by jumping 
-out of the window to the street below (turn to 192). 
-[2] Fight the fire imp
-@0
-@1:192
-@2:428
+down from its back. It will be difficult to defeat as it flies quickly about your head spitting fire at you!
+You can escape by jumping out of the window to the street below.
+@7
+Escape 0 192
+Monster Fire_imp 9 4 2
+Next_chapter 258

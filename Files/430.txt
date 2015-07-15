@@ -1,0 +1,7 @@
+If you are still alive you see the fat man roaring with laughter. 
+Perhaps he is off his guard? You decide to throw 
+your sword at him from your prone position. 
+Test your skill.
+@2
+@0:The sword flies past him and clatters on to the marble floor@81
+@1:The sword pierces the chest of the man and kills him@313

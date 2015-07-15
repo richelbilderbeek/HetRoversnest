@@ -11,8 +11,15 @@
 #include "helper.h"
 
 Chapter::Chapter(const std::string& filename)
-  : m_monsters{},
-    m_next_chapter{0},
+  : m_add_items{},
+    m_change_luck{0},
+    m_escape_chapter{-1},
+    m_fight_sequentially{true},
+    m_is_game_over{false},
+    m_is_game_won{false},
+    m_monsters{},
+    m_next_chapter{-1},
+    m_rounds_to_escape{1000},
     m_text{}
 {
   if (!IsRegularFile(filename))
@@ -58,15 +65,38 @@ Chapter::Chapter(const std::string& filename)
 
   Parse(s,'@');
   const int chapter_type = ReadInt(s);
-  assert(chapter_type == 999);
-
+  if (!(
+       chapter_type == 5
+    || chapter_type == 7
+    || chapter_type == 10
+    || chapter_type == 11
+    || chapter_type == 999
+  ))
+  {
+    throw std::logic_error("Chapter type not yet supported");
+  }
   s << std::skipws; //Now strings will be read
+
+  if (chapter_type == 5)
+  {
+    m_is_game_over = true;
+    return;
+  }
+  if (chapter_type == 11)
+  {
+    m_is_game_won = true;
+    return;
+  }
 
   while (!s.eof())
   {
     const std::string str{ReadString(s)};
     if (str.empty()) break;
-    if (str == "Monster")
+    if (str == "Fight_both")
+    {
+      m_fight_sequentially = false;
+    }
+    else if (str == "Monster")
     {
       const std::string name{ReadString(s)};
       const int dexterity{ReadInt(s)};
@@ -79,9 +109,50 @@ Chapter::Chapter(const std::string& filename)
     {
       m_next_chapter = ReadInt(s);
     }
+    else if (str == "Escape")
+    {
+      m_rounds_to_escape = ReadInt(s);
+      assert(m_rounds_to_escape >= 0);
+      m_escape_chapter = ReadInt(s);
+      assert(m_escape_chapter > 0);
+    }
+    else if (str == "Change")
+    {
+      const std::string what{ReadString(s)};
+      if (what == "luck")
+      {
+        const int change_luck{ReadInt(s)};
+        m_change_luck = change_luck;
+      }
+      else if (what == "add")
+      {
+        const std::string item_name{ReadString(s)};
+        const Item item{ToItem(item_name)};
+        m_add_items.insert(item);
+      }
+    }
     else
     {
+      std::cerr << "Chapter cannot parse " << filename << std::endl;
       assert(!"Should not get here");
+    }
+  }
+}
+
+void Chapter::Do(Character& character,const bool auto_play) const
+{
+  std::cout << m_text << std::endl;
+  if (!m_monsters.empty())
+  {
+    if (m_fight_sequentially)
+    {
+      DoFight(m_monsters,character,auto_play);
+      assert(m_next_chapter > 0);
+      character.SetChapter(m_next_chapter);
+    }
+    else
+    {
+      DoFightTwoMonsters(m_monsters,character,auto_play);
     }
   }
 }

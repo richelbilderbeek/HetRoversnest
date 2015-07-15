@@ -1,4 +1,0 @@
-You decide to fight the jeweller.
-@7
-Monster Jeweller 9 8 2
-Next_chapter 114

@@ -28,6 +28,7 @@ struct Character
   bool IsDead() const noexcept { return m_stamina <= 0; }
   void RemoveItem(const Item item);
   void SetChapter(const int chapter);
+  void SetIsDead() noexcept { m_stamina = 0; }
   bool TestDexterity() noexcept;
   bool TestLuck() noexcept;
 

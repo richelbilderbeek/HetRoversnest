@@ -1,9 +1,4 @@
-The guard is really annoyed and charges at you 
-with his pike. 
-@4
-@City guard
-@8
+The guard is really annoyed and charges at you with his pike. 
 @7
-@6
-@130
-@212
+Monster City_guard 8 7 2
+Next_chapter 212

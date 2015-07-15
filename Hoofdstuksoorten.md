@@ -181,6 +181,7 @@ Per monster is er een `Monster` regel.
 [tekst]
 @7
 Monster [naam monster] [behendigheid monster] [conditie monster]
+Escape [aantal ronden voor je mag ontsnappen] [hoofdstuk bij vluchten]
 Next_chapter [hoofdstuk erna bij gewonnen]
 ```
 
@@ -266,23 +267,24 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md) voor de nummers van de voorw
 ```
 [tekst]
 @10
-@[naam monster(s)]
-@[behendigheid monsters]
-@[conditie monsters]
-@[hoofdstuk erna bij gewonnen]
+Fight_both
+Monster [naam monster 1] [behendigheid monster 1] [conditie monster 1] [aanvalskracht monster 1]
+Monster [naam monster 2] [behendigheid monster 2] [conditie monster 2] [aanvalskracht monster 2]
+Next_chapter [hoofdstuk erna bij gewonnen]
 ```
 
  * [tekst]: de tekst die getoond wordt
  * `10`: code van dit soort hoofdstuk
- * [naam monster(s)]: naam of namen van monsters, bijvoorbeeld `Kobold` of `Eerste Kobold, Tweede Kobold`
- * [behendigheid monster(s): behendigheid monster(s), bijvoorbeeld `7` of `8,9`
- * [conditie monster(s)]: conditie monster(s), bijvoorbeeld `7` of `8,9`
+ * [naam monster]: naam van monsters, bijvoorbeeld `Eerste_kobold`
+ * [behendigheid monster]: behendigheid monster(s), bijvoorbeeld `7`
+ * [conditie monster]: conditie monster, bijvoorbeeld `7`
+ * [aanvalskracht monster]: aanvalskracht monster(s), standaard `2`
  * [hoofdstuk erna bij gewonnen]
 
 Een voorbeeld van een Gevecht tegen twee monsters tegelijk
   * [405](Files/405.txt): twee stadswachten
 
-### 11: Game over
+### 11: Game won
 
 ```
 [tekst]

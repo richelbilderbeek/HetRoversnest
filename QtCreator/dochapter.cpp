@@ -9,6 +9,7 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include "chapter.h"
 #include "character.h"
 #include "helper.h"
 #include "monster.h"
@@ -31,7 +32,7 @@ void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& charac
 
 
 void DoChapter(
-  int& chapter,
+  int& chapter_number,
   Character& character,
   const Language language,
   const bool auto_play
@@ -39,13 +40,24 @@ void DoChapter(
 {
   const std::string filename{
     (language == Language::Dutch ? "../Bestanden/" : "../Files/")
-    + std::to_string(chapter) + ".txt"
+    + std::to_string(chapter_number) + ".txt"
   };
   if (!IsRegularFile(filename))
   {
     std::stringstream msg;
     msg << __func__ << ": ERROR: File " << filename << " does not exist";
     throw std::runtime_error(msg.str());
+  }
+  try
+  {
+    const Chapter chapter(filename);
+    chapter.Do(character,auto_play);
+    chapter_number = character.GetCurrentChapter();
+    return;
+  }
+  catch (...)
+  {
+    //No problem, use old interface
   }
   const std::vector<std::string> lines = FileToVector(filename);
   std::stringstream s;
@@ -80,24 +92,24 @@ void DoChapter(
   s >> chapter_type;
   switch (chapter_type)
   {
-    case 0: ParseNormalChapter(s,chapter,character,auto_play); break;
-    case 1: DoTestYourLuckChapter(s,chapter,character); break;
-    case 2: DoTestYourDexterityChapter(s,chapter,character); break;
-    case 3: DoChangeStatusChapter(s,chapter,character); break;
-    case 4: DoFightWithTime(s,chapter,character,auto_play); break;
-    case 5: DoGameOver(); break;
-    case 6: DoHasItemChapter(s,chapter,character); break;
-    case 7: ParseFight(s,chapter,character,auto_play); break;
-    case 8: ParseChangeStatusAskOption(s,chapter,character,auto_play); break;
-    case 9: ParseShop(s,chapter,character,auto_play); break;
-    case 10: ParseFightWithTwoMonsters(s,chapter,character,auto_play); break;
+    case 0: ParseNormalChapter(s,chapter_number,character,auto_play); break;
+    case 1: DoTestYourLuckChapter(s,chapter_number,character); break;
+    case 2: DoTestYourDexterityChapter(s,chapter_number,character); break;
+    case 3: DoChangeStatusChapter(s,chapter_number,character); break;
+    case 4: DoFightWithTime(s,chapter_number,character,auto_play); break;
+    case 5: character.SetIsDead(); break;
+    case 6: DoHasItemChapter(s,chapter_number,character); break;
+    case 7: ParseFight(s,chapter_number,character,auto_play); break;
+    case 8: ParseChangeStatusAskOption(s,chapter_number,character,auto_play); break;
+    case 9: ParseShop(s,chapter_number,character,auto_play); break;
+    case 10: ParseFightWithTwoMonsters(s,chapter_number,character,auto_play); break;
     case 11: DoGameWon(); break;
-    case 12: ParseFightWithRandomMonster(s,chapter,character,auto_play); break;
-    case 13: ParsePawnShop(s,chapter,character,auto_play); break;
+    case 12: ParseFightWithRandomMonster(s,chapter_number,character,auto_play); break;
+    case 13: ParsePawnShop(s,chapter_number,character,auto_play); break;
     default:
     {
       std::stringstream msg;
-      msg << __func__ << ": ERROR: Chapter " << chapter << " does not have a (supported) code, "
+      msg << __func__ << ": ERROR: Chapter " << chapter_number << " does not have a (supported) code, "
         << "chapter_type: " << chapter_type
         << std::endl; return;
       throw std::runtime_error(msg.str());
