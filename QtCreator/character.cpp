@@ -30,6 +30,14 @@ void Character::AddItem(const Item item)
   m_items.insert(item);
 }
 
+int Character::CalcAttackStrength() const noexcept
+{
+  return m_dexterity
+    + ((std::rand() >> 4) % 6)
+    + ((std::rand() >> 4) % 6)
+  ;
+}
+
 void Character::ChangeDexterity(const int change)
 {
   m_dexterity += change;

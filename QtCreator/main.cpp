@@ -16,7 +16,7 @@ int main()
   #endif
 
   Character character(100,100,100,Item::luck_potion);
-  int chapter = 1;
+  int chapter = 5;
   const bool auto_play{false};
   const Language language = Language::English;
 

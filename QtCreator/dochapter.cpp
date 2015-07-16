@@ -383,54 +383,95 @@ void DoFightTwoMonsters(
 )
 {
   const bool verbose{false};
-  for (int i=0; ; ++i)
+
+  //Fight both
+  assert(monsters.size() == 2);
+  for (int round=0; ; ++round)
   {
-    if (verbose) { std::clog << "Fight round " << i << std::endl; }
-    if (character.IsDead())
+    if (verbose) { std::clog << "Fight round " << round << std::endl; }
+    if (character.IsDead()) { return; }
+    if (monsters[0].IsDead()) { break; }
+
+    std::cout
+      << "You " << character.GetDexterity() << " "
+      << character.GetStamina() << "/"
+      << character.GetInitialStamina() << '\n'
+      << monsters[0].GetName() << " "
+      << monsters[0].GetDexterity() << " "
+      << monsters[0].GetStamina() << "/"
+      << monsters[0].GetInitialStamina() << '\n'
+      << monsters[1].GetName() << " "
+      << monsters[1].GetDexterity() << " "
+      << monsters[1].GetStamina() << "/"
+      << monsters[1].GetInitialStamina() << '\n'
+      << "Fight round #" << round
+      << std::endl
+    ;
     {
-      if (verbose) { std::clog << "You got killed" << std::endl; }
-      return;
-    }
-    if (monsters[0].IsDead())
-    {
-      if (verbose) { std::clog << "First monster killed" << std::endl; }
-      break;
-    }
-    const int monster_attack = (std::rand() >> 4) % 6;
-    const int player_attack = (std::rand() >> 4) % 12;
-    if (player_attack > monster_attack)
-    {
-      std::cout << "You hit the monster." << std::endl;
-      if (!auto_play)
+      const int monster_attack{monsters[0].CalcAttackStrength()};
+      const int player_attack{character.CalcAttackStrength()};
+      if (player_attack > monster_attack)
       {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
+        const int damage{2};
+        std::cout << "You hit the " << monsters[0].GetName() << "." << std::endl;
+        if (!auto_play)
+        {
+          //std::cout << "Do you want to use luck?" << std::endl;
+          //assert(!"TODO");
+          monsters[0].ChangeStamina(-damage);
+        }
+        else
+        {
+          monsters[0].ChangeStamina(-damage);
+        }
+      }
+      else if (player_attack < monster_attack)
+      {
+        const int damage{monsters[0].GetAttackDamage()};
+        std::cout << "You were hit by the " << monsters[0].GetName() << "." << std::endl;
+        if (!auto_play)
+        {
+          //std::cout << "Do you want to use luck?" << std::endl;
+          //assert(!"TODO");
+          character.ChangeStamina(-damage);
+        }
+        else
+        {
+          character.ChangeStamina(-damage);
+        }
       }
       else
       {
-        monsters[0].ChangeStamina(-2);
+        std::cout << "No damage was dealt." << std::endl;
       }
     }
-    else if (player_attack < monster_attack)
+    //Second monster
     {
-      std::cout << "You were hit by the monster." << std::endl;
-      if (!auto_play)
+      const int monster_attack{monsters[1].CalcAttackStrength()};
+      const int player_attack{character.CalcAttackStrength()};
+      if (player_attack >= monster_attack)
       {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
+        std::cout << "You resisted the " << monsters[1].GetName() << "." << std::endl;
       }
-      else
+      else if (player_attack < monster_attack)
       {
-        character.ChangeStamina(-2);
+        const int damage{monsters[1].GetAttackDamage()};
+        std::cout << "You were hit by the " << monsters[1].GetName() << "." << std::endl;
+        if (!auto_play)
+        {
+          //std::cout << "Do you want to use luck?" << std::endl;
+          //assert(!"TODO");
+          character.ChangeStamina(-damage);
+        }
+        else
+        {
+          character.ChangeStamina(-damage);
+        }
       }
-    }
-    else
-    {
-      std::cout << "No damage was dealt." << std::endl;
     }
   }
 
-  std::cout << "You defeated the monster." << std::endl;
+  std::cout << "You defeated the " << monsters[0].GetName() << "!" << std::endl;
 
   //Fight the remaining monster normally
   DoFight(monsters[1],character,auto_play);
@@ -444,28 +485,30 @@ void DoFight(
   const bool auto_play
 )
 {
-  while (1)
+  for (int round = 1; ; ++round)
   {
     if (character.IsDead()) break;
     if (monster.IsDead()) break;
 
     std::cout
+      << std::endl
+      << "Fight round #" << round
       << "You " << character.GetDexterity() << " "
       << character.GetStamina() << "/"
-      << character.GetInitialStamina()
-      << std::endl
+      << character.GetInitialStamina() << '\n'
       << monster.GetName() << " "
       << monster.GetDexterity() << " "
       << monster.GetStamina() << "/"
-      << monster.GetInitialStamina()
-      << std::endl;
+      << monster.GetInitialStamina() << '\n'
+      << std::endl
     ;
 
-    const int monster_attack = (std::rand() >> 4) % 6;
-    const int player_attack = (std::rand() >> 4) % 12;
+
+    const int monster_attack{monster.CalcAttackStrength()};
+    const int player_attack{character.CalcAttackStrength()};
     if (player_attack > monster_attack)
     {
-      std::cout << "You hit the monster." << std::endl;
+      std::cout << "You hit the " << monster.GetName() << "." << std::endl;
       const int damage = 2;
       if (!auto_play)
       {
@@ -483,8 +526,8 @@ void DoFight(
     }
     else if (player_attack < monster_attack)
     {
-      std::cout << "You were hit by the monster." << std::endl;
-      const int damage{monster.GetAttackStrength()};
+      std::cout << "You were hit by the " << monster.GetName() << "." << std::endl;
+      const int damage{monster.GetAttackDamage()};
       if (!auto_play)
       {
         //std::cout << "Do you want to use luck?" << std::endl;
@@ -504,11 +547,11 @@ void DoFight(
 
   if (character.IsDead())
   {
-    std::cout << "The monster defeated you.\n";
+    std::cout << "The " << monster.GetName() << " defeated you.\n";
   }
   else
   {
-    std::cout << "You defeated the monster." << std::endl;
+    std::cout << "You defeated the " << monster.GetName() << "!" << std::endl;
   }
 }
 

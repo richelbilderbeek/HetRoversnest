@@ -7,4 +7,4 @@ Gold Pieces.
 [2] If you would rather walk on
 @0
 @1:378
-@2:1
+@2:52

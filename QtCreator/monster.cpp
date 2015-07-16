@@ -6,9 +6,9 @@ Monster::Monster(
   const std::string& name,
   const int dexterity,
   const int stamina,
-  const int attack_strength
+  const int attack_damage
 )
-  : m_attack_strength{attack_strength},
+  : m_attack_damage{attack_damage},
     m_dexterity{dexterity},
     m_initial_stamina{stamina},
     m_name{name},
@@ -26,12 +26,20 @@ void Monster::ChangeStamina(const int delta_stamina) noexcept
   m_stamina += delta_stamina;
 }
 
+int Monster::CalcAttackStrength() const noexcept
+{
+  return m_dexterity
+    + ((std::rand() >> 4) % 6)
+    + ((std::rand() >> 4) % 6)
+  ;
+}
+
 std::ostream& operator<<(std::ostream& os, const Monster& monster)
 {
   os << monster.GetName() << " "
      << monster.GetDexterity() << " "
      << monster.GetStamina() << " "
-     << monster.GetAttackStrength()
+     << monster.GetAttackDamage()
   ;
   return os;
 }

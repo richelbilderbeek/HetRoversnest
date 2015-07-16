@@ -15,6 +15,10 @@ struct Character
   );
 
   void AddItem(const Item item);
+
+  ///In a fight, produce a random attack strength
+  int CalcAttackStrength() const noexcept;
+
   void ChangeDexterity(const int change);
   void ChangeGold(const int change);
   void ChangeProvisions(const int change);

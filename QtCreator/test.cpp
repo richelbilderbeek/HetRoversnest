@@ -28,7 +28,7 @@ void Test()
     const Chapter chapter("../Files/5.txt");
     assert(chapter.DoFightSequentially());
     assert(chapter.GetMonsters().size() == 1);
-    assert(chapter.GetMonsters()[0].GetAttackStrength() == 2);
+    assert(chapter.GetMonsters()[0].GetAttackDamage() == 2);
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
@@ -36,7 +36,6 @@ void Test()
     const Chapter chapter("../Files/10.txt");
     assert(chapter.DoFightSequentially());
     assert(chapter.GetMonsters().size() == 1);
-    assert(chapter.GetMonsters()[0].GetAttackStrength() == 2);
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
@@ -45,20 +44,19 @@ void Test()
     const Chapter chapter("../Files/326.txt");
     assert(!chapter.DoFightSequentially());
     assert(chapter.GetMonsters().size() == 2);
-    assert(chapter.GetMonsters()[0].GetAttackStrength() == 2);
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
   //Chapter 323: blacksmith must attack with attack strength 3
   {
     const Chapter chapter("../Files/323.txt");
-    assert(chapter.GetMonsters()[0].GetAttackStrength() == 3);
+    assert(chapter.GetMonsters()[0].GetAttackDamage() == 3);
     //std::cout << chapter << std::endl;
   }
   //Chapter 253: snakes must bite with attack strength 4
   {
     const Chapter chapter("../Files/253.txt");
-    assert(chapter.GetMonsters()[0].GetAttackStrength() == 4);
+    assert(chapter.GetMonsters()[0].GetAttackDamage() == 4);
   }
   //Chapter 140: can escape after 3 rounds
   {
