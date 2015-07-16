@@ -3,5 +3,5 @@ suddenly rolls over and you see the flashing blade of
 a dagger before your eyes. The boy is in fact a 
 gobin thief and you must fight him for your life.
 @7
-Monster Goblin_thief 5 4 2
-Next_chapter 208
+monster Goblin_thief 5 4 2
+goto 208

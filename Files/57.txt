@@ -6,7 +6,7 @@ mouths. Wraggins points a finger at you, shouting
 "Kill the friend of Nicodemus!' and the dogs leap at 
 you, barking wildly. You must fight them for your 
 life, one at a time.
-@7
-Monster First_wolf_dog 7 7 2
-Monster Second_wolf_dog 7 5 2
-Next_chapter 360
+@999
+monster First_wolf_dog 7 7 2
+monster Second_wolf_dog 7 5 2
+goto 360

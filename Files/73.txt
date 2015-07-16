@@ -3,7 +3,7 @@ Trolls. They seem pleased that you are going to give
 them a chance to practise their beloved sport of 
 killing humans, and advance towards you swinging 
 their battle-axes. Sourbelly snarls and says, 'Stand 
-back, Fatnose - let me deal with this dog alone.' 
+back, Fatnose. Let me deal with this dog alone.' 
 @7
-Monster Sourbelly 10 9 2
-Next_chapter 401
+monster Sourbelly 10 9 2
+goto 401

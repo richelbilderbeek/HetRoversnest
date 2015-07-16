@@ -5,6 +5,7 @@ to you and says, 'You have to hide everything in this
 place. You can't trust anybody.' The coat fits perfectly and its workmanship is excellent. Add 2 skill 
 points. You leave the stables with your new armour 
 and continue north {turn lo 115). 
-@3
-@S+2,I2+
-@115
+@999
+change dexterity 2
+change add chainmail_coat
+goto 115

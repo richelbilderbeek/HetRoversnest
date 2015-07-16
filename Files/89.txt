@@ -7,6 +7,6 @@ cools down, but a thin white film remains on your
 hand, making it difficult to open and close. Lose 2 
 skill points. You curse and leave the house to head 
 north.
-@3
-@D-2
-@282
+@999
+change dexterity -2
+goto 282

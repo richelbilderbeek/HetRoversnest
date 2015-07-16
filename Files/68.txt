@@ -1,6 +1,4 @@
 The soup tastes absolutely disgusting. 
-[1] If you wish to swallow it
-[2] If you wish to spit it out
-@0
-@1:380
-@2:262
+@999
+option If you wish to swallow it@ goto 380
+option If you wish to spit it out@ goto 262

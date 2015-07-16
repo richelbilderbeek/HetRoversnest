@@ -31,7 +31,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::iron_spike,"iron_spike"));
   m.insert(Pair(Item::lantern,"lantern"));
   m.insert(Pair(Item::merchant_pass,"merchant_pass"));
-  m.insert(Pair(Item::flowers,"flowers"));
+  m.insert(Pair(Item::gold_flower,"gold_flower"));
   m.insert(Pair(Item::skeleton_key,"skeleton_key"));
   m.insert(Pair(Item::iron_key,"iron_key"));
   m.insert(Pair(Item::silver_brooch,"silver_brooch"));

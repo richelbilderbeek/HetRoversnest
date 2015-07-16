@@ -2,5 +2,5 @@ You walk over to the old man and help him to his
 feet. He is very grateful and offers to buy you a drink 
 at a nearby tavern. 
 @999
-Option If you wish to go for a drink@ goto 325
-Option If you would rather continue your quest@ goto 348
+option If you wish to go for a drink@ goto 325
+option If you would rather continue your quest@ goto 348

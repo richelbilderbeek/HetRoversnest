@@ -24,7 +24,7 @@ enum class Item
   iron_spike = 17,
   lantern = 18,
   merchant_pass = 19,
-  flowers = 20, //The Gold Flower
+  gold_flower = 20, //The Gold Flower
   skeleton_key = 21,
   iron_key = 22,
   silver_brooch = 23, //Heals one stamina after each battle

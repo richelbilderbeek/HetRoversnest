@@ -5,9 +5,10 @@ and you are stunned to see, not the young woman's
 face you are expecting, but a large snake's head. It 
 extends out from the shoulders and bites you on the 
 neck. You are caught somewhat off-balance by the 
-SERPENT QUEEN and suffer the loss of 4 stamina 
+serpent queen and suffer the loss of 4 stamina 
 points and 1 skill point before you can draw your 
 sword to defend yourself. 
-@3
-@S-1,D-1
-@418
+@999
+change dexterity -1
+change stamina -1
+goto 418

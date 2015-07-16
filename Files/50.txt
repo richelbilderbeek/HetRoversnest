@@ -5,5 +5,5 @@ and listen at the doors. From the door on your left
 you hear loud snoring. From the door on your right 
 you hear nothing. 
 @999
-Option If you wish to open the door on the left@ goto 271
-Option If you wish to open the door on the right@ goto 232
+option If you wish to open the door on the left@ goto 271
+option If you wish to open the door on the right@ goto 232

@@ -1,7 +1,5 @@
 The street runs north along the quayside for a few 
 hundred metres before arriving at a junction. 
-[1] If you wish to continue north up Harbour Street
-[2] If you wish to walk east along Clog Street
-@0
-@1:256
-@2:216
+@999
+option If you wish to continue north up Harbour Street@ goto 256
+option If you wish to walk east along Clog Street@ goto 216
