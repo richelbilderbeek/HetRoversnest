@@ -26,6 +26,14 @@ std::vector<Option> OptionsChapter::GetValidOptions(const Character& character) 
     [character](const Option& option)
     {
       if (option.GetGoldNeeded() > character.GetGold()) return false;
+      for (const auto item_needed: option.GetItemsNeeded())
+      {
+        if (!character.HasItem(item_needed)) return false;
+      }
+      for (const auto item_not_needed: option.GetItemsNotNeeded())
+      {
+        if (character.HasItem(item_not_needed)) return false;
+      }
       return true;
     }
   );

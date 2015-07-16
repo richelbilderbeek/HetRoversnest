@@ -15,7 +15,7 @@ boost::bimap<Item,std::string> CreateBimap()
   typedef boost::bimap<Item,std::string>::value_type Pair;
   m.insert(Pair(Item::shield,"shield"));
   m.insert(Pair(Item::chainmail_coat,"chainmail_coat"));
-  m.insert(Pair(Item::fire_ring,"fire_ring"));
+  m.insert(Pair(Item::ring_of_fire,"ring_of_fire"));
   m.insert(Pair(Item::black_pearls,"black_pearls"));
   m.insert(Pair(Item::witch_hair,"witch_hair"));
   m.insert(Pair(Item::lotus_flower,"lotus_flower"));
@@ -74,24 +74,16 @@ boost::bimap<Item,std::string> CreateBimap()
   return m;
 }
 
-/*
-static const boost::bimap<Item,std::string> m = CreateBimap();
-
-  assert(m.left.find( 0) == m.left.end());
-  assert(m.left.find( 4) != m.left.end());
-  assert(m.left.find( 5) != m.left.end());
-  assert(m.left.find(16) == m.left.end());
-  assert(m.right.find( 0) == m.right.end());
-  assert(m.right.find( 4) != m.right.end());
-  assert(m.right.find( 5) == m.right.end());
-  assert(m.right.find(16) != m.right.end());
-*/
+bool IsItem(const std::string& item_name)
+{
+  const auto m = CreateBimap();
+  return m.right.find(item_name) != m.right.end();
+}
 
 Item ToItem(const std::string& item_name)
 {
   const auto m = CreateBimap();
-  assert(m.right.find(item_name) != m.right.end());
-  //return boost::get<0>(m.right.find(item_name));
+  assert(IsItem(item_name));
   return m.right.find(item_name)->second;
 }
 
@@ -100,70 +92,6 @@ std::string ToStr(const Item item)
   const auto m = CreateBimap();
   assert(m.left.find(item) != m.left.end());
   return m.left.find(item)->second;
-  /*
-  switch (item)
-  {
-    case Item::shield: return "shield";
-    case Item::chainmail_coat: return "chainmail_coat";
-    case Item::fire_ring: return "fire_ring";
-    case Item::black_pearls: return "black_pearls";
-    case Item::witch_hair: return "witch_hair";
-    case Item::lotus_flower: return "lotus_flower";
-    case Item::tattoo: return "tattoo";
-    case Item::silver_arrow: return "silver_arrow";
-    case Item::mirror: return "mirror";
-    case Item::ice_ring: return "ice_ring";
-    case Item::invisibility_ring: return "invisibility_ring";
-    case Item::insect_bracelet: return "insect_bracelet";
-    case Item::throwing_knife: return "throwing_knife";
-    case Item::climbing_rope: return "climbing_rope";
-    case Item::meat_hook: return "meat_hook";
-    case Item::iron_spike: return "iron_spike";
-    case Item::lantern: return "lantern";
-    case Item::merchant_pass: return "merchant_pass";
-    case Item::flowers: return "flowers";
-    case Item::skeleton_key: return "skeleton_key";
-    case Item::iron_key: return "iron_key";
-    case Item::silver_brooch: return "silver_brooch";
-    case Item::ring_of_the_golden_eye: return "ring_of_the_golden_eye";
-    case Item::golden_brooch: return "golden_brooch";
-    case Item::glass_ball: return "glass_ball";
-    case Item::ivory_skull: return "ivory_skull";
-    case Item::silver_chain: return "silver_chain";
-    case Item::garlic: return "garlic";
-    case Item::knucklebones: return "knucklebones";
-    case Item::golden_owl: return "golden_owl";
-    case Item::potion_of_mind_control: return "potion_of_mind_control";
-    case Item::set_of_keys: return "set_of_keys";
-    case Item::stale_bread: return "stale_bread";
-    case Item::two_gems: return "two_gems";
-    case Item::magnificent_shield: return "magnificent_shield";
-    case Item::silver_goblet: return "silver_goblet";
-    case Item::silver_bracelet: return "silver_bracelet";
-    case Item::magic_helmet: return "magic_helmet";
-    case Item::silver_flute: return "silver_flute";
-    case Item::eye_patch: return "eye_patch";
-    case Item::elven_boots: return "elven_boots";
-    case Item::piece_of_chalk: return "piece_of_chalk";
-    case Item::shield_with_uniform_crest: return "shield_with_uniform_crest";
-    case Item::copper_brooch: return "copper_brooch";
-    case Item::carralifs_sword: return "Carralif's_sword";
-    case Item::ordinary_sword: return "ordinary_sword";
-    case Item::luck_potion: return "luck_potion";
-    case Item::stamina_potion: return "stamina_potion";
-    case Item::dexterity_potion: return "dexterity_potion";
-    case Item::random_item_or_one_gold: return "random_item_or_one_gold";
-    case Item::any_item: return "any_item";
-    case Item::all_silver_items: return "all_silver_items";
-    case Item::something_silver: return "something silver";
-    case Item::some_piece_of_armor: return "some piece of armor";
-    case Item::random_item: return "random_item";
-    case Item::two_magic_items: return "two magic items";
-    case Item::something_magic: return "something magic";
-    case Item::fought_ape_man: return "fought_ape_man";
-  }
-  assert(!"Unknown item");
-  */
 }
 
 std::ostream& operator<<(std::ostream& os, const Item item)

@@ -7,7 +7,7 @@ enum class Item
 {
   shield = 1,
   chainmail_coat = 2,
-  fire_ring = 3,
+  ring_of_fire = 3,
   black_pearls = 4,
   witch_hair = 5,
   lotus_flower = 6,
@@ -69,6 +69,7 @@ enum class Item
 
 std::string ToStr(const Item item);
 Item ToItem(const std::string& item_name);
+bool IsItem(const std::string& item_name);
 std::ostream& operator<<(std::ostream& os, const Item item);
 
 #endif // ITEM_H

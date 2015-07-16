@@ -144,6 +144,20 @@ void Test()
     assert(character.GetLuck() > 0);
     assert(character.HasItem(Item::black_pearls));
   }
+
+
+  //Chapter 14: must respond to ring of fire
+  {
+    const Chapter chapter("../Files/14.txt");
+    assert(chapter.GetOptions().GetOptions().size() == 2);
+    Character character(1,1,1,Item::shield);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 237);
+    character.AddItem(Item::ring_of_fire);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 191);
+  }
+
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times

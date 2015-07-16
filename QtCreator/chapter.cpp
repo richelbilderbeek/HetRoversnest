@@ -170,6 +170,34 @@ Chapter::Chapter(const std::string& filename)
           option.SetGoldNeeded(gold_amount);
           GetOptions().AddOption(option);
         }
+        else if (IsItem(what))
+        {
+          const Item item_needed{ToItem(what)};
+          const std::string u{ReadString(s)};
+          assert(u == "goto");
+          const int option_next_chapter{ReadInt(s)};
+          Option option(option_text,option_next_chapter);
+          option.AddItemNeeded(item_needed);
+          GetOptions().AddOption(option);
+        }
+        else
+        {
+          assert(!"Should not get here");
+        }
+      }
+      else if (t == "ifnot")
+      {
+        const std::string what{ReadString(s)};
+        if (IsItem(what))
+        {
+          const Item item_not_needed{ToItem(what)};
+          const std::string u{ReadString(s)};
+          assert(u == "goto");
+          const int option_next_chapter{ReadInt(s)};
+          Option option(option_text,option_next_chapter);
+          option.AddItemNotNeeded(item_not_needed);
+          GetOptions().AddOption(option);
+        }
         else
         {
           assert(!"Should not get here");

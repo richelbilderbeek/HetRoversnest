@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "item.h"
+
 struct Character;
 
 ///An option the player may or may not choose
@@ -18,17 +20,31 @@ struct Option
     const int next_chapter
   );
 
+  void AddItemNeeded(const Item item);
+
+  ///Must not have this item
+  void AddItemNotNeeded(const Item item);
+
   bool CanChoose(const Character& character);
 
   void DoChoose(Character& character) const;
 
   int GetGoldNeeded() const noexcept { return m_gold_needed; }
+
+  const std::vector<Item>& GetItemsNeeded() const noexcept { return m_items_needed; }
+  const std::vector<Item>& GetItemsNotNeeded() const noexcept { return m_items_not_needed;; }
+
+
+  int GetNextChapter() const noexcept { return m_next_chapter; }
+
   const std::string& GetText() const noexcept { return m_text; }
 
   void SetGoldNeeded(const int amount);
 
   private:
   int m_gold_needed;
+  std::vector<Item> m_items_needed;
+  std::vector<Item> m_items_not_needed;
   int m_next_chapter;
   std::string m_text;
 };
