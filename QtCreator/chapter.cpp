@@ -141,9 +141,12 @@ Chapter::Chapter(const std::string& filename)
 
 void Chapter::Do(Character& character,const bool auto_play) const
 {
-  std::cout << m_text << std::endl;
+  //Display the text line by line
+  ShowText(m_text,auto_play);
+
   if (!m_monsters.empty())
   {
+    std::cout << std::endl;
     if (m_fight_sequentially)
     {
       DoFight(m_monsters,character,auto_play);

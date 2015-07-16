@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <boost/timer.hpp>
+
 std::vector<std::string> FileToVector(const std::string& filename)
 {
   assert(IsRegularFile(filename));
@@ -26,10 +28,29 @@ bool IsRegularFile(const std::string& filename)
   return f.is_open();
 }
 
+void ShowText(const std::string& text, const bool auto_play)
+{
+  for (const char c: text)
+  {
+    std::cout << c;
+    if (!auto_play)
+    {
+      std::cout.flush();
+      Wait(0.01);
+    }
+  }
+}
+
 std::vector<std::string> StripFirstChar(std::vector<std::string> v)
 {
   assert(!v.empty());
   assert(!v[0].empty());
   v[0] = v[0].substr(1,v[0].size() - 1);
   return v;
+}
+
+void Wait(const double n_secs) noexcept
+{
+  boost::timer t;
+  while (t.elapsed() < n_secs) {}
 }

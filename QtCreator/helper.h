@@ -15,6 +15,11 @@ bool IsRegularFile(const std::string& filename);
 ///Strip only the first character of the first line
 std::vector<std::string> StripFirstChar(std::vector<std::string> v);
 
+///Shows the text slowly
+void ShowText(const std::string& text, const bool auto_play);
+
 void Test();
+
+void Wait(const double n_secs) noexcept;
 
 #endif // HELPER_H

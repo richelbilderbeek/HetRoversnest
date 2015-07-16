@@ -1,6 +1,7 @@
 #include "helper.h"
 
 #include <cassert>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include "chapter.h"
@@ -89,25 +90,28 @@ void Test()
   //All chapters with monster must have a valid next_chapter
 
   //Parse chapters using Chapter
+  std::ofstream f("TODO.txt");
   for (int i=1; i!=450; ++i)
   {
     try
     {
       const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
-      if (!chapter.GetMonsters().empty())
+      if (chapter.GetNextChapter() == 1)
       {
-        std::cerr << "ERROR: chapter " << i << " has incorrect Next_chapter" << std::endl;
-        assert(chapter.GetNextChapter() > 0);
+        f << i << "ERROR: incorrect Next_chapter" << std::endl;
       }
-      std::cout << i << ": OK" << std::endl;
+      else
+      {
+        f << i << ": OK" << std::endl;
+      }
     }
     catch (std::logic_error& e)
     {
-      std::cout << i << ": FAIL" << std::endl;
+      f << i << ": FAIL" << std::endl;
     }
     catch (std::runtime_error& e)
     {
-      std::cout << i << ": not present" << std::endl;
+      f << i << ": not present" << std::endl;
     }
   }
   //Try all chapters

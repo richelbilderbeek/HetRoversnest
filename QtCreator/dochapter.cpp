@@ -150,93 +150,6 @@ void ParseFight(std::stringstream& s, int& chapter, Character& character, const 
     }
 
   }
-  /*
-  Parse(s,'@');
-  //Name monsters
-  std::vector<std::string> names;
-  {
-    std::string name;
-    while (1)
-    {
-      char c = '*';
-      s >> c;
-      assert(c != '*');
-      if (c == ',') { names.push_back(name); name = ""; continue; }
-      if (c == '@') { names.push_back(name); break; }
-      name += c;
-    }
-  }
-
-  const int n_monsters{static_cast<int>(names.size())};
-
-  if (verbose)
-  {
-    std::clog << "# monsters: " << n_monsters << std::endl;
-    std::copy(std::begin(names),std::end(names),std::ostream_iterator<std::string>(std::clog," "));
-    std::clog << std::endl;
-  }
-
-
-  //Skill monsters
-  std::vector<int> dexterities;
-
-  for (int i=0; i!=n_monsters; ++i)
-  {
-    int dexterity = -1;
-    s >> dexterity;
-    assert(dexterity != -1);
-    dexterities.push_back(dexterity);
-    if (i < n_monsters - 1)
-    {
-      Parse(s,',');
-    }
-  }
-
-  if (verbose)
-  {
-    std::copy(std::begin(dexterities),std::end(dexterities),std::ostream_iterator<int>(std::clog," "));
-    std::clog << std::endl;
-  }
-
-  //At
-  Parse(s,'@');
-  //Condition monster
-  std::vector<int> staminas;
-  for (int i=0; i!=n_monsters; ++i)
-  {
-    int stamina = -1;
-    s >> stamina;
-    assert(stamina != -1);
-    staminas.push_back(stamina);
-    if (i < n_monsters - 1)
-    {
-      Parse(s,',');
-    }
-  }
-  */
-  //s << std::noskipws;
-  //const std::string at{ReadString(s)};
-  //Parse(s,'@');
-  //assert(at == "@");
-  //New chapter
-  /*
-  int new_chapter = -1;
-  {
-    s >> new_chapter;
-    assert(new_chapter > -1);
-  }
-  */
-  /*
-  assert(names.size() == staminas.size());
-  assert(names.size() == dexterities.size());
-  std::vector<Monster> monsters;
-  for (int i=0; i!=n_monsters; ++i)
-  {
-    monsters.push_back(
-      Monster(names[i],dexterities[i],staminas[i])
-    );
-  }
-  */
   if (monsters.empty())
   {
     std::cerr << "No monsters in chapter " << chapter << std::endl;
@@ -382,38 +295,47 @@ void DoFightTwoMonsters(
   const bool auto_play
 )
 {
-  const bool verbose{false};
-
   //Fight both
   assert(monsters.size() == 2);
   for (int round=0; ; ++round)
   {
-    if (verbose) { std::clog << "Fight round " << round << std::endl; }
+
     if (character.IsDead()) { return; }
     if (monsters[0].IsDead()) { break; }
 
-    std::cout
-      << "You " << character.GetDexterity() << " "
-      << character.GetStamina() << "/"
-      << character.GetInitialStamina() << '\n'
-      << monsters[0].GetName() << " "
-      << monsters[0].GetDexterity() << " "
-      << monsters[0].GetStamina() << "/"
-      << monsters[0].GetInitialStamina() << '\n'
-      << monsters[1].GetName() << " "
-      << monsters[1].GetDexterity() << " "
-      << monsters[1].GetStamina() << "/"
-      << monsters[1].GetInitialStamina() << '\n'
-      << "Fight round #" << round
-      << std::endl
-    ;
+    {
+      std::stringstream s;
+      s
+        << '\n'
+        << "Fight round #" << round << '\n'
+        << "You " << character.GetDexterity() << " "
+        << character.GetStamina() << "/"
+        << character.GetInitialStamina() << '\n'
+        << monsters[0].GetName() << " "
+        << monsters[0].GetDexterity() << " "
+        << monsters[0].GetStamina() << "/"
+        << monsters[0].GetInitialStamina() << '\n'
+        << monsters[1].GetName() << " "
+        << monsters[1].GetDexterity() << " "
+        << monsters[1].GetStamina() << "/"
+        << monsters[1].GetInitialStamina() << '\n'
+        << "Fight round #" << round
+        << '\n'
+      ;
+      ShowText(s.str(),auto_play);
+    }
+
     {
       const int monster_attack{monsters[0].CalcAttackStrength()};
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack > monster_attack)
       {
         const int damage{2};
-        std::cout << "You hit the " << monsters[0].GetName() << "." << std::endl;
+        {
+          std::stringstream s;
+          s << "You hit the " << monsters[0].GetName() << ".\n";
+          ShowText(s.str(),auto_play);
+        }
         if (!auto_play)
         {
           //std::cout << "Do you want to use luck?" << std::endl;
@@ -428,7 +350,11 @@ void DoFightTwoMonsters(
       else if (player_attack < monster_attack)
       {
         const int damage{monsters[0].GetAttackDamage()};
-        std::cout << "You were hit by the " << monsters[0].GetName() << "." << std::endl;
+        {
+          std::stringstream s;
+          s << "You were hit by the " << monsters[0].GetName() << "\n.";
+          ShowText(s.str(),auto_play);
+        }
         if (!auto_play)
         {
           //std::cout << "Do you want to use luck?" << std::endl;
@@ -442,7 +368,9 @@ void DoFightTwoMonsters(
       }
       else
       {
-        std::cout << "No damage was dealt." << std::endl;
+        std::stringstream s;
+        s << "No damage was dealt.\n";
+        ShowText(s.str(),auto_play);
       }
     }
     //Second monster
@@ -451,12 +379,18 @@ void DoFightTwoMonsters(
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack >= monster_attack)
       {
-        std::cout << "You resisted the " << monsters[1].GetName() << "." << std::endl;
+        std::stringstream s;
+        s << "You resisted the " << monsters[1].GetName() << ".\n";
+        ShowText(s.str(),auto_play);
       }
       else if (player_attack < monster_attack)
       {
         const int damage{monsters[1].GetAttackDamage()};
-        std::cout << "You were hit by the " << monsters[1].GetName() << "." << std::endl;
+        {
+          std::stringstream s;
+          s<< "You were hit by the " << monsters[1].GetName() << "\n.";
+          ShowText(s.str(),auto_play);
+        }
         if (!auto_play)
         {
           //std::cout << "Do you want to use luck?" << std::endl;
@@ -469,6 +403,7 @@ void DoFightTwoMonsters(
         }
       }
     }
+    if (!auto_play) { Wait(1.0); }
   }
 
   std::cout << "You defeated the " << monsters[0].GetName() << "!" << std::endl;
@@ -490,25 +425,41 @@ void DoFight(
     if (character.IsDead()) break;
     if (monster.IsDead()) break;
 
-    std::cout
-      << std::endl
-      << "Fight round #" << round
-      << "You " << character.GetDexterity() << " "
-      << character.GetStamina() << "/"
-      << character.GetInitialStamina() << '\n'
-      << monster.GetName() << " "
-      << monster.GetDexterity() << " "
-      << monster.GetStamina() << "/"
-      << monster.GetInitialStamina() << '\n'
-      << std::endl
-    ;
-
+    {
+      std::stringstream s;
+      s
+        << '\n'
+        << "Fight round #" << round << '\n'
+        << "You " << character.GetDexterity() << " "
+        << character.GetStamina() << "/"
+        << character.GetInitialStamina() << '\n'
+        << monster.GetName() << " "
+        << monster.GetDexterity() << " "
+        << monster.GetStamina() << "/"
+        << monster.GetInitialStamina() << '\n'
+      ;
+      ShowText(s.str(),auto_play);
+    }
 
     const int monster_attack{monster.CalcAttackStrength()};
     const int player_attack{character.CalcAttackStrength()};
+
+    {
+      std::stringstream s;
+      s
+        << "You attack with strength " << player_attack << '\n'
+        << monster.GetName() << " attacks with strength " << monster_attack << '\n'
+      ;
+      ShowText(s.str(),auto_play);
+    }
+
     if (player_attack > monster_attack)
     {
-      std::cout << "You hit the " << monster.GetName() << "." << std::endl;
+      {
+        std::stringstream s;
+        s << "You hit the " << monster.GetName() << "." << '\n';
+        ShowText(s.str(),auto_play);
+      }
       const int damage = 2;
       if (!auto_play)
       {
@@ -526,7 +477,11 @@ void DoFight(
     }
     else if (player_attack < monster_attack)
     {
-      std::cout << "You were hit by the " << monster.GetName() << "." << std::endl;
+      {
+        std::stringstream s;
+        s << "You were hit by the " << monster.GetName() << "." << '\n';
+        ShowText(s.str(),auto_play);
+      }
       const int damage{monster.GetAttackDamage()};
       if (!auto_play)
       {
@@ -541,17 +496,22 @@ void DoFight(
     }
     else
     {
-      std::cout << "No damage was dealt." << std::endl;
+      std::stringstream s;
+      s << "No damage was dealt.\n";
+      ShowText(s.str(),auto_play);
     }
+    if (!auto_play) { Wait(1.0); }
   }
 
   if (character.IsDead())
   {
-    std::cout << "The " << monster.GetName() << " defeated you.\n";
+    std::cout << "\nThe " << monster.GetName() << " defeated you.\n";
+    if (!auto_play) { Wait(1.0); }
   }
   else
   {
-    std::cout << "You defeated the " << monster.GetName() << "!" << std::endl;
+    std::cout << "\nYou defeated the " << monster.GetName() << "!" << std::endl;
+    if (!auto_play) { Wait(1.0); }
   }
 }
 
