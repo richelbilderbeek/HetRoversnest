@@ -15,12 +15,15 @@
 Chapter::Chapter(const std::string& filename)
   : m_add_items{},
     m_bye_text{},
+    m_change_dex{0},
     m_change_gold{0},
     m_change_luck{0},
+    m_change_sta{0},
     m_chapter_type{ChapterType::normal},
     m_fighting_chapter{},
     m_next_chapter{-1},
     m_options_chapter{},
+    m_remove_items{},
     m_text{}
 {
   if (!IsRegularFile(filename))
@@ -222,10 +225,20 @@ Chapter::Chapter(const std::string& filename)
         const int change_gold{ReadInt(s)};
         m_change_gold = change_gold;
       }
+      else if (what == "dexterity" || what == "dex")
+      {
+        const int change_dex{ReadInt(s)};
+        m_change_dex = change_dex;
+      }
       else if (what == "luck")
       {
         const int change_luck{ReadInt(s)};
         m_change_luck = change_luck;
+      }
+      else if (what == "stamina" || what == "sta")
+      {
+        const int change_sta{ReadInt(s)};
+        m_change_sta = change_sta;
       }
       else if (what == "add")
       {
@@ -233,10 +246,24 @@ Chapter::Chapter(const std::string& filename)
         const Item item{ToItem(item_name)};
         m_add_items.insert(item);
       }
+      else if (what == "remove")
+      {
+        const std::string item_name{ReadString(s)};
+        const Item item{ToItem(item_name)};
+        m_remove_items.insert(item);
+      }
+      else
+      {
+        std::cerr << "Unknown what: " << what << std::endl;
+        assert(!"Should not get here");
+      }
     }
     else
     {
-      std::cerr << "Chapter cannot parse " << filename << std::endl;
+      std::cerr
+        << "Chapter cannot parse " << filename  << '\n'
+        << "Unknown string: " << str << '\n'
+      ;
       assert(!"Should not get here");
     }
   }
@@ -249,9 +276,9 @@ void Chapter::Do(Character& character,const bool auto_play) const
 
   std::cout << std::endl;
 
-  //Always change luck, can be zero
+  character.ChangeDexterity(this->GetChangeDexterity());
   character.ChangeLuck(this->GetChangeLuck());
-  //Always change luck, can be none
+  character.ChangeStamina(this->GetChangeStamina());
   for (const auto item: this->GetAddItems())
   {
     character.AddItem(item);

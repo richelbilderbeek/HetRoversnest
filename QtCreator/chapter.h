@@ -23,11 +23,17 @@ struct Chapter
   ///The text displayed at the end of the chapter
   const std::string& GetByeText() const noexcept { return m_bye_text; }
 
+  ///How will the dexterity of the character change in this chapter?
+  int GetChangeDexterity() const noexcept { return m_change_dex; }
+
   ///How will the gold of the character change in this chapter?
   int GetChangeGold() const noexcept { return m_change_gold; }
 
   ///How will the luck of the character change in this chapter?
   int GetChangeLuck() const noexcept { return m_change_luck; }
+
+  ///How will the stamina of the character change in this chapter?
+  int GetChangeStamina() const noexcept { return m_change_sta; }
 
   int GetNextChapter() const noexcept { return m_next_chapter; }
 
@@ -48,11 +54,17 @@ struct Chapter
   ///The text displayed at the end of the chapter
   std::string m_bye_text;
 
+  ///How much will the dexterity of the character change?
+  int m_change_dex;
+
   ///How much will the gold of the character change?
   int m_change_gold;
 
   ///How much will the luck of the character change?
   int m_change_luck;
+
+  ///How much will the stamina of the character change?
+  int m_change_sta;
 
   ChapterType m_chapter_type;
 
@@ -62,6 +74,9 @@ struct Chapter
   int m_next_chapter; //When there is no choice
 
   OptionsChapter m_options_chapter;
+
+  ///Which items are removed to the player's inventory?
+  std::set<Item> m_remove_items;
 
   std::string m_text;
 };

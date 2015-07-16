@@ -144,8 +144,6 @@ void Test()
     assert(character.GetLuck() > 0);
     assert(character.HasItem(Item::black_pearls));
   }
-
-
   //Chapter 14: must respond to ring of fire
   {
     const Chapter chapter("../Files/14.txt");
@@ -156,6 +154,43 @@ void Test()
     character.AddItem(Item::ring_of_fire);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 191);
+  }
+
+  //Chapter 11: must always lose 1 skill point and shield
+  if (1 == 2)
+  {
+    const Chapter chapter("../Files/11.txt");
+    const int dex = 123;
+    Character character(dex,10,10,Item::shield);
+    assert(character.GetDexterity() == dex);
+    assert(character.HasItem(Item::shield));
+    chapter.Do(character,true);
+    assert(character.GetDexterity() == dex - 1);
+    assert(!character.HasItem(Item::shield));
+  }
+  //Chapter 11: must lose 2 skill points and chain mail when having a chain mail
+  if (1 == 2)
+  {
+    const Chapter chapter("../Files/11.txt");
+    const int dex = 123;
+    Character character(dex,10,10,Item::shield);
+    character.AddItem(Item::chainmail_coat);
+    assert(character.GetDexterity() == dex);
+    assert(character.HasItem(Item::shield));
+    assert(character.HasItem(Item::chainmail_coat));
+    chapter.Do(character,true);
+    assert(character.GetDexterity() == dex - 3);
+    assert(!character.HasItem(Item::shield));
+    assert(!character.HasItem(Item::chainmail_coat));
+  }
+  //Chapter 19: 2 options and status change
+  {
+    const Chapter chapter("../Files/19.txt");
+    assert(chapter.GetOptions().GetOptions().size() == 2);
+    Character character(10,10,10,Item::shield);
+    chapter.Do(character,true);
+    assert(character.GetDexterity() == 9);
+    assert(character.GetStamina() == 6);
   }
 
   //Chapters 13 and 273: should not be able to take both brooches
