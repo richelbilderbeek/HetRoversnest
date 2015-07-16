@@ -629,6 +629,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
 void DoGameOver()
 {
   std::cout
+    << '\n'
     << "*************\n"
     << "*           *\n"
     << "* GAME OVER *\n"
@@ -640,6 +641,7 @@ void DoGameOver()
 void DoGameWon()
 {
   std::cout
+    << '\n'
     << "*************\n"
     << "*           *\n"
     << "* GAME WON! *\n"

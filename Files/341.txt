@@ -11,5 +11,5 @@ climbing out of the barrel. You look up and down
 Stable Street and all is clear. Once more you set off 
 north.
 @3
-@G-5
+@G5?G-5
 @222

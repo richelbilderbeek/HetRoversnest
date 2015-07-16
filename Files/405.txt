@@ -1,6 +1,7 @@
 You must now fight the other two city guards as a pair.
+[TODO: guessed the next chapter, but it may not be the correct one]
 @10
 Fight_both
 Monster First_city_guard 6 6 2
 Monster Second_city_guard 7 5 2
-Next_chapter 405
+Next_chapter 212

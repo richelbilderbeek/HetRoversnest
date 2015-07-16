@@ -156,8 +156,12 @@ void Chapter::Do(Character& character,const bool auto_play) const
     else
     {
       DoFightTwoMonsters(m_monsters,character,auto_play);
+      assert(m_next_chapter > 0);
+      character.SetChapter(m_next_chapter);
     }
   }
+
+  if (m_is_game_over) { character.SetIsDead(); }
 }
 
 std::ostream& operator<<(std::ostream& os, const Chapter& chapter)

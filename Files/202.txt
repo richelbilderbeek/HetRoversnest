@@ -11,8 +11,8 @@ cell instead? Guards, take this fool away to be
 shackled, and throw away the key.' Will you: 
 [1] Allow yourself to be taken away?
 [2] Attempt to fight the guards?
-[3] Try to bribe the guards?
+[3] Try to bribe the guards (for 5,10 or 15 gold)?
 @0
 @1:151
 @2:69
-@3:276
+@3?G5:276

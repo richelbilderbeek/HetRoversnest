@@ -1,6 +1,20 @@
 #include "monster.h"
+
+#include <algorithm>
 #include <cassert>
 #include <iostream>
+
+std::string ToPretty(std::string s)
+{
+  assert(!s.empty());
+  std::replace(
+    std::begin(s),
+    std::end(s),
+    '_',' '
+  );
+  s[0] = std::tolower(s[0]);
+  return s;
+}
 
 Monster::Monster(
   const std::string& name,
@@ -11,7 +25,7 @@ Monster::Monster(
   : m_attack_damage{attack_damage},
     m_dexterity{dexterity},
     m_initial_stamina{stamina},
-    m_name{name},
+    m_name{ToPretty(name)},
     m_stamina{stamina}
 {
   assert(!name.empty());
