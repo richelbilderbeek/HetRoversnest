@@ -58,6 +58,9 @@ void DoPawnShop(
   const bool auto_play
 );
 
+void DoPlayDice(Character& character, const bool auto_play); //Chapter 206
+void DoPlayPill(Character& character, const bool auto_play); //Chapter 223
+
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character);
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character);
 

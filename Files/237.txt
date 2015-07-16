@@ -2,8 +2,6 @@ You rub the jewel in the ring and point it at the Leaf
 Beasts. A blast of fire shoots out of the ring and 
 burns a large hole in the nearest Leaf Beast. It makes 
 a whistling cry and backs axvay. You seize your 
-opportunity and dash through their broken defence. You run to the turnstile clutching the lotus 
-and make your escape into Stable Street
-@3
-@0
-@1
+opportunity and dash through their broken defence. You run to the turnstile clutching the lotus and make your escape into Stable Street
+@999
+Next_chapter 133

@@ -1,5 +1,4 @@
 Back at the junction you turn left into Clog Street 
 and walk eastwards.
-@3
-@0
-@216
+@999
+Next_chapter 216

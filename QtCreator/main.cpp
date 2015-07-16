@@ -18,8 +18,8 @@ int main()
   std::srand(28);
 
   Character character(100,100,100,Item::luck_potion);
-  int chapter = 1;
-  const bool auto_play{true};
+  int chapter = 206;
+  const bool auto_play{false};
   const Language language = Language::English;
 
   while (1)

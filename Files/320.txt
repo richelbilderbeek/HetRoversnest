@@ -6,6 +6,5 @@ that Hags have been seen disappearing down sewers to catch rats for their stew-p
 has never seen a hag herself. You decide to leave 
 the ladies. You then walk back to the junction and 
 turn left into Clog Street.
-@3
-@0
-@216
+@999
+Next_chapter 216

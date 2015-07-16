@@ -1,5 +1,4 @@
 Quickly over to the staircase and climb up 
 to the next floor.
-@3
-@0
-@207
+@999
+Next_chapter 207

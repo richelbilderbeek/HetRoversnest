@@ -3,6 +3,5 @@ street leading west is called Key Street and the street
 leading east is called Clock Street. Ahead you see 
 that Market Street continues north and a crowd of 
 people are walking up it cheering loudly and waving their arms in the air. You decide to follow them.
-@3
-@0
-@148
+@999
+Next_chapter 148

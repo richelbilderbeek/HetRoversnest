@@ -6,6 +6,5 @@ puff of smoke. You stand up and walk back down
 the stairs to the floor where there are two doors 
 adjacent to each other on the landing. You breathe 
 in deeply and turn the handle of the black door.
-@3
-@0
-@96
+@999
+Next_chapter 96

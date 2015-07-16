@@ -97,7 +97,7 @@ void DoChapter(
     case 2: DoTestYourDexterityChapter(s,chapter_number,character); break;
     case 3: DoChangeStatusChapter(s,chapter_number,character); break;
     case 4: DoFightWithTime(s,chapter_number,character,auto_play); break;
-    case 5: character.SetIsDead(); break;
+    case 5: assert(!"Obsolete"); character.SetIsDead(); break;
     case 6: DoHasItemChapter(s,chapter_number,character); break;
     case 7: ParseFight(s,chapter_number,character,auto_play); break;
     case 8: ParseChangeStatusAskOption(s,chapter_number,character,auto_play); break;
@@ -106,6 +106,7 @@ void DoChapter(
     case 11: DoGameWon(); break;
     case 12: ParseFightWithRandomMonster(s,chapter_number,character,auto_play); break;
     case 13: ParsePawnShop(s,chapter_number,character,auto_play); break;
+    case 14: assert(!"Obsolete"); break;
     default:
     {
       std::stringstream msg;
@@ -114,6 +115,191 @@ void DoChapter(
         << std::endl; return;
       throw std::runtime_error(msg.str());
     }
+  }
+}
+
+void DoPlayDice(Character& character, const bool auto_play)
+{
+  /*
+
+The stakes are 2 gold
+pieces. Each person will stake 2 gold pieces and roll
+two dice. The person rolling the highest number
+collects the 8 gold pieces. To play, roll two dice
+three limes for the three Dwarfs and make a note of
+each total. Next, roll two dice for yourself. If your
+own total is higher than each of the other three
+totals, you win 6 gold pieces from the Dwarfs. If the
+total is' less than any of the other three totals, you
+lose 2 Gold Pieces. You may play four times if you
+wish to
+
+  */
+  if (character.GetGold() < 2)
+  {
+    std::stringstream s;
+    s << "You cannot afford to play this game.";
+    ShowText(s.str(),auto_play);
+    return;
+  }
+
+  while (1)
+  {
+    {
+      std::stringstream s;
+      s
+        << "Do you want to play?\n"
+        << "[1] Yes\n"
+        << "[2] No\n"
+      ;
+      ShowText(s.str(),auto_play);
+    }
+    std::string s;
+    if (!auto_play)
+    {
+      std::getline(std::cin,s);
+    }
+    else
+    {
+      switch ((std::rand() >> 4) % 3)
+      {
+        case 0: s = "1"; break;
+        case 1: s = "2"; break;
+        case 2: s = "x"; break;
+      }
+    }
+    if (s == "2") { return; }
+    if (s == "1") { break; }
+    {
+      std::stringstream s;
+      s
+        << "Please enter either '1' or '2'.\n"
+      ;
+      ShowText(s.str(),auto_play);
+    }
+  }
+
+
+  const int n_rounds{4};
+  for (int round = 0; round != 4; ++round)
+  {
+
+    {
+      std::stringstream s;
+      s << "Round #" << (round + 1) << "/" << n_rounds << '\n';
+      ShowText(s.str(),auto_play);
+    }
+    //You
+    const int dice_you = 1 + ((std::rand() >> 4) % 6);
+    const int dice_1 = 1 + ((std::rand() >> 4) % 6);
+    const int dice_2 = 1 + ((std::rand() >> 4) % 6);
+    const int dice_3 = 1 + ((std::rand() >> 4) % 6);
+    {
+      std::stringstream s;
+      s << "You throw: " << dice_you << '\n';
+      ShowText(s.str(),auto_play);
+      if (!auto_play) { Wait(0.5); }
+    }
+    {
+      std::stringstream s;
+      s << "Dwarf 1 throws: " << dice_1 << '\n';
+      ShowText(s.str(),auto_play);
+      if (!auto_play) { Wait(0.5); }
+    }
+    {
+      std::stringstream s;
+      s << "Dwarf 2 throws: " << dice_2 << '\n';
+      ShowText(s.str(),auto_play);
+      if (!auto_play) { Wait(0.5); }
+    }
+    {
+      std::stringstream s;
+      s << "Dwarf 3 throws: " << dice_3 << '\n';
+      ShowText(s.str(),auto_play);
+      if (!auto_play) { Wait(0.5); }
+    }
+    if (dice_you > dice_1 && dice_you > dice_2 && dice_you > dice_3)
+    {
+      std::stringstream s;
+      s << "You won! You collect your 6 gold pieces from the three dwarves.\n";
+      ShowText(s.str(),auto_play);
+      character.ChangeGold(6);
+      if (!auto_play) { Wait(0.5); }
+    }
+    else if (dice_you < dice_1 || dice_you < dice_2 || dice_you < dice_3)
+    {
+      std::stringstream s;
+      s << "You Lost! You lose 2 gold pieces to the three dwarves.\n";
+      ShowText(s.str(),auto_play);
+      character.ChangeGold(-2);
+      if (!auto_play) { Wait(0.5); }
+    }
+    else
+    {
+      std::stringstream s;
+      s << "A draw. You keep your gold\n";
+      ShowText(s.str(),auto_play);
+      if (!auto_play) { Wait(0.5); }
+    }
+
+    if (character.GetGold() < 2)
+    {
+      std::stringstream s;
+      s << "You cannot afford to play another round.";
+      ShowText(s.str(),auto_play);
+      break;
+    }
+
+    if (round == 3) break;
+
+    //Play again?
+    while (1)
+    {
+      {
+        std::stringstream s;
+        s
+          << "Do you want to play another round?\n"
+          << "[1] Yes\n"
+          << "[2] No\n"
+        ;
+        ShowText(s.str(),auto_play);
+      }
+      std::string s;
+      if (!auto_play)
+      {
+        std::getline(std::cin,s);
+      }
+      else
+      {
+        switch ((std::rand() >> 4) % 3)
+        {
+          case 0: s = "1"; break;
+          case 1: s = "2"; break;
+          case 2: s = "x"; break;
+        }
+      }
+      if (s == "2") { return; }
+      if (s == "1") { break; }
+      {
+        std::stringstream s;
+        s
+          << "Please enter either '1' or '2'.\n"
+        ;
+        ShowText(s.str(),auto_play);
+      }
+    }
+  }
+}
+
+void DoPlayPill(Character& character, const bool auto_play)
+{
+  const int dice{1 + ((std::rand() >> 4) % 6)};
+  if (dice == 1)
+  {
+    std::stringstream s;
+    s << "You die quickly from the poisoned pill and your adventure ends here.\n";
+    ShowText(s.str(),auto_play);
+    character.IsDead();
   }
 }
 
@@ -1108,7 +1294,11 @@ void ParseChangeStatus(std::stringstream& s, Character& character)
     s >> status;
     assert(status != '*');
     if (verbose) { std::clog << "status: " << status << std::endl; }
-    if (status == '0') return;
+    if (status == '0')
+    {
+      assert(!"Should not get here");
+      return;
+    }
     if (status == 'I')
     {
       const Item item = ReadItem(s);

@@ -4,6 +4,5 @@ risk letting you in Port Blacksand for the sake of 5
 Gold Pieces? If Lord Azzur found out that we let you 
 in without a pass, we would be dead men. Lef s hear 
 no more about bribes, it's the dungeon for you.'
-@3
-@0
-@161
+@999
+Next_chapter 161

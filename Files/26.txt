@@ -18,6 +18,5 @@ magic to keep even the toughest away from his
 door.' You tell the innkeeper not to be so discour- 
 teous to strangers next time, and leave the tavern to 
 head north.
-@3
-@0
-@296
+@999
+Next_chapter 296

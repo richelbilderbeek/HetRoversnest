@@ -68,12 +68,12 @@ void Test()
   //Chapter 9: Game over
   {
     const Chapter chapter("../Files/9.txt");
-    assert(chapter.IsGameOver());
+    assert(chapter.GetType() == ChapterType::game_lost);
   }
   //Chapter 400: Game won
   {
     const Chapter chapter("../Files/400.txt");
-    assert(chapter.IsGameWon());
+    assert(chapter.GetType() == ChapterType::game_won);
   }
   //Chapter 8: change status
   {
@@ -81,6 +81,31 @@ void Test()
     assert(chapter.GetAddItems().count(Item::golden_brooch));
     assert(chapter.GetChangeLuck() == 2);
   }
+  //Chapter 26: no change of status
+  {
+    const Chapter chapter("../Files/26.txt");
+    assert(chapter.GetNextChapter() == 296);
+  }
+  //Chapter 206: dice game
+  {
+    const Chapter chapter("../Files/206.txt");
+    assert(chapter.GetType() == ChapterType::play_dice);
+    assert(chapter.GetNextChapter() == 296);
+    assert(!chapter.GetByeText().empty());
+    Character character(100,100,100,Item::shield);
+    chapter.Do(character,true);
+  }
+  //Chapter 223: pill game
+  {
+    const Chapter chapter("../Files/223.txt");
+    assert(chapter.GetType() == ChapterType::play_pill);
+    assert(chapter.GetNextChapter() == 165);
+    assert(chapter.GetChangeGold() == 20);
+    assert(!chapter.GetByeText().empty());
+    Character character(100,100,100,Item::shield);
+    chapter.Do(character,true);
+  }
+
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times

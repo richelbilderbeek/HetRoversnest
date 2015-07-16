@@ -4,6 +4,5 @@ outside a house and you slump down on top of
 them. Slowly and painfully you pull the arrows 
 from your body. After bandaging your wounds you 
 rise to your feet and continue north.
-@3
-@0
-@112
+@999
+Next_chapter 112

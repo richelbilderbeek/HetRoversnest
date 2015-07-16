@@ -3,6 +3,5 @@ glass cupboard. It clicks open and you are able to
 take any of the items you wish. You find nothing 
 else of interest in the shop, so you walk outside and 
 continue east.
-@3
-@0
-@100
+@999
+Next_chapter 100

@@ -5,6 +5,5 @@ conversation they pick up their dead friend and
 carry him off down a narrow alleyway to your right. 
 You walk quickly north before they have time to 
 reappear with more of their gang. 
-@3
-@0
-@372
+@999
+Next_chapter 372

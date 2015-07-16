@@ -1,5 +1,4 @@
 There is nothing to be found in the alleyway so you 
 return to Harbour Street and lurn left.
-@3
-@0
-@180
+@999
+Next_chapter 180

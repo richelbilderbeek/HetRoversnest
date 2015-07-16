@@ -2,6 +2,5 @@ Wiping the foul-tasting soup from your lips with the
 back of your hand, you storm out of the house, 
 leaving the crazy ladies to their argument. Once 
 outside you set off east again.
-@3
-@0
-@375
+@999
+Next_chapter 375

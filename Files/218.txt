@@ -5,9 +5,8 @@ that the wizard lives alone in a small hut under
 Singing Bridge, which crosses Catfish River to the 
 old parlof the city and harbour. He explains that the 
 bridge is in the middle of the city and that most 
-streets lead to it- You thank the Dwarf for his 
+streets lead to it. You thank the Dwarf for his 
 information and leave his shop to continue west 
 along Key Street.
-@3
-@0
-@300
+@999
+Next_chapter 300

@@ -4,6 +4,5 @@ Sourbelly. But one sly-looking character sloped off
 with the obvious intention of finding more guards. 
 It is dangerous to stay here any longer, so you run 
 off west along Mill Street.
-@3
-@0
-@239
+@999
+Next_chapter 239

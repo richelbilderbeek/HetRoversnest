@@ -12,11 +12,12 @@
 
 Chapter::Chapter(const std::string& filename)
   : m_add_items{},
+    m_bye_text{},
+    m_change_gold{0},
     m_change_luck{0},
+    m_chapter_type{ChapterType::normal},
     m_escape_chapter{-1},
     m_fight_sequentially{true},
-    m_is_game_over{false},
-    m_is_game_won{false},
     m_monsters{},
     m_next_chapter{-1},
     m_rounds_to_escape{1000},
@@ -70,6 +71,8 @@ Chapter::Chapter(const std::string& filename)
     || chapter_type == 7
     || chapter_type == 10
     || chapter_type == 11
+    || chapter_type == 14 //dice game
+    || chapter_type == 15 //pill game
     || chapter_type == 999
   ))
   {
@@ -79,13 +82,21 @@ Chapter::Chapter(const std::string& filename)
 
   if (chapter_type == 5)
   {
-    m_is_game_over = true;
+    m_chapter_type = ChapterType::game_lost;
     return;
   }
   if (chapter_type == 11)
   {
-    m_is_game_won = true;
+    m_chapter_type = ChapterType::game_won;
     return;
+  }
+  if (chapter_type == 14)
+  {
+    m_chapter_type = ChapterType::play_dice;
+  }
+  if (chapter_type == 15)
+  {
+    m_chapter_type = ChapterType::play_pill;
   }
 
   while (!s.eof())
@@ -95,6 +106,15 @@ Chapter::Chapter(const std::string& filename)
     if (str == "Fight_both")
     {
       m_fight_sequentially = false;
+    }
+    else if (str == "Bye")
+    {
+      while (1)
+      {
+        const char c{ReadChar(s)};
+        if (c == '@') break;
+        m_bye_text += c;
+      }
     }
     else if (str == "Monster")
     {
@@ -119,7 +139,12 @@ Chapter::Chapter(const std::string& filename)
     else if (str == "Change")
     {
       const std::string what{ReadString(s)};
-      if (what == "luck")
+      if (what == "gold")
+      {
+        const int change_gold{ReadInt(s)};
+        m_change_gold = change_gold;
+      }
+      else if (what == "luck")
       {
         const int change_luck{ReadInt(s)};
         m_change_luck = change_luck;
@@ -151,18 +176,22 @@ void Chapter::Do(Character& character,const bool auto_play) const
     if (m_fight_sequentially)
     {
       DoFight(m_monsters,character,auto_play);
-      assert(m_next_chapter > 0);
-      character.SetChapter(m_next_chapter);
     }
     else
     {
       DoFightTwoMonsters(m_monsters,character,auto_play);
-      assert(m_next_chapter > 0);
-      character.SetChapter(m_next_chapter);
     }
+    assert(m_next_chapter > 0);
+    character.SetChapter(m_next_chapter);
   }
 
-  if (m_is_game_over) { character.SetIsDead(); }
+  if (GetType() == ChapterType::game_lost) { character.SetIsDead(); }
+  if (GetType() == ChapterType::play_dice)
+  {
+    DoPlayDice(character,auto_play);
+    ShowText(m_bye_text,auto_play);
+    character.SetChapter(m_next_chapter);
+  }
 }
 
 std::ostream& operator<<(std::ostream& os, const Chapter& chapter)

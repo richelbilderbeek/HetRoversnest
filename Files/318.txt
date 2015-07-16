@@ -3,6 +3,5 @@ power of the lightning bolt, leaving you unharmed.
 The fat man is angry but powerless and you are able 
 to leave the house by the front door. Once outside 
 you set off north again.
-@3
-@0
-@304
+@999
+Next_chapter 304

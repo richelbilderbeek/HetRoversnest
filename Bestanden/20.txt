@@ -1,4 +1,3 @@
 In de zakken van de piraat zit niets, op een homp oud brood na. Je laat hem liggen en begin de houten kisten en tonnen op het dek aan een onderzoek te onderwerpen.
-@3
-@0
-@84
+@999
+Next_chapter 84

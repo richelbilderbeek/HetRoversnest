@@ -1,4 +1,4 @@
-Looking into a crystal ball, she seems to go inlo a 
+Looking into a crystal ball, she seems to go into a 
 trance. She tells you that you are searching for a 
 man, a wise man with magical powers. She pauses 
 for a moment and then draws in a deep breath 
@@ -8,6 +8,5 @@ north. She warns you to be careful when approaching
 the man, for he docs not welcome strangers. Then she looks away from the crystal ball and 
 asks you to leave. Her face seems to be hiding 
 something. Has she seen some dreadful fate awaiting you? You decide to leave the tent and head north.
-@3
-@0
-@117
+@999
+Next_chapter 117
