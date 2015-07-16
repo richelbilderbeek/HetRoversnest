@@ -6,5 +6,5 @@ Gold Pieces.
 [1] If you wish to take him on
 [2] If you would rather walk on
 @0
-@1:378
+@1?G5:378
 @2:52

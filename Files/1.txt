@@ -1,8 +1,7 @@
 The walk to Port Blacksand takes you west some 
-fifty miles across plains and over hills; fortunately 
+fifty miles across plains and over hills, fortunately 
 without any harmful encounters. Eventually you 
-reach the coast and see the high city wall surround- 
-ing Port Blacksand and the cluster of buildings 
+reach the coast and see the high city wall surrounding Port Blacksand and the cluster of buildings 
 projecting into the sea like an ugly black mark. Ships 
 lie anchored in the harbour and smoke rises gently 
 from chimneys. It looks peaceful enough and it is 
@@ -10,7 +9,7 @@ only when the wind changes that you smell the
 decay in the breeze to remind you of the evil nature 
 of this notorious place. Following the dusty road 
 north along the coast to the city gates, you begin to 
-notice fearful warnings - skulls on wooden spikes, 
+notice fearful warnings: skulls on wooden spikes, 
 starving men in iron cages suspended from the city 
 wall and black flags everywhere. As you approach 
 the main gate a chill runs down your spine and you 
@@ -21,10 +20,7 @@ He steps forward, barring the way with his
 pike, saying, "Who would enter Port Blacksand 
 uninvited? State the nature of your business or go 
 back the way you came. 
-[1] Tell him you wish to be taken to Nicodemus?
-[2] Tell him you wish to sell some stolen goods?
-[3] Attack him quickly with your sword?
-@0
-@1:202
-@2:33
-@3:49
+@999
+Option Tell him you wish to be taken to Nicodemus?@ goto 202
+Option Tell him you wish to sell some stolen goods?@ goto 33
+Option Attack him quickly with your sword?@ goto 49

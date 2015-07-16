@@ -4,8 +4,6 @@ to two closed doors. You walk along the corridor
 and listen at the doors. From the door on your left 
 you hear loud snoring. From the door on your right 
 you hear nothing. 
-[1] If you wish to open the door on the left
-[2] If you wish to open the door on the right
-@0
-@1:271
-@2:232
+@999
+Option If you wish to open the door on the left@ goto 271
+Option If you wish to open the door on the right@ goto 232

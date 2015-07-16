@@ -2,7 +2,7 @@ Yon remove the bracelet from your wrist and toss it
 at the oncoming monster. It lands on its armour-like 
 shell and sticks to it like glue. You then watch as the 
 bracelet starts to burn its way through the shell into 
-the body of the Giant Centipede. Smoke rises from 
+the body of the giant centipede. Smoke rises from 
 the neat round hole and as the bracelet bums deeper 
 you can see from the frantic movements of the 
 Centipede that it is in its death throes. Finally it is 
@@ -10,8 +10,7 @@ Still and you manage to squeeze yourself between
 its body and the roof of the tunnel. You walk 
 further down the tunnel, which ends at an iron grill 
 through which the sewage runs. 
-[1] If you wish to remove the grill
-[2] If you wish to walk back to the entrance hole
-@0
-@1:377
-@2:174
+@999
+Option If you wish to remove the grill@ goto 377
+Option If you wish to walk back to the entrance hole@ goto 174
+

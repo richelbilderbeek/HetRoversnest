@@ -7,10 +7,15 @@
 #include "chaptertype.h"
 #include "character.h"
 #include "monster.h"
+#include "fightingchapter.h"
+#include "optionschapter.h"
 
 struct Chapter
 {
   Chapter(const std::string& filename);
+
+  ///Let the player do this chapter
+  void Do(Character& character, const bool auto_play) const;
 
   ///Which items are added to the player's inventory?
   std::set<Item> GetAddItems() const noexcept { return m_add_items; }
@@ -24,26 +29,17 @@ struct Chapter
   ///How will the luck of the character change in this chapter?
   int GetChangeLuck() const noexcept { return m_change_luck; }
 
-  void Do(Character& character, const bool auto_play) const;
-
-  ///Battle the monsters one by one
-  bool DoFightSequentially() const noexcept { return m_fight_sequentially; }
-
   int GetNextChapter() const noexcept { return m_next_chapter; }
-  const std::vector<Monster>& GetMonsters() const noexcept { return m_monsters; }
 
-  ///At which round can the player escape? 1000 if player cannot
-  int GetRoundsToEscape() const noexcept { return m_rounds_to_escape; }
+  const FightingChapter& GetFighting() const noexcept { return m_fighting_chapter; }
+  FightingChapter& GetFighting() noexcept { return m_fighting_chapter; }
 
-  ///If the player escapes, which chapter will he/she go to? -1 if player cannot escape
-  int GetEscapeToChapter() const noexcept { return m_escape_chapter; }
+  const OptionsChapter& GetOptions() const noexcept { return m_options_chapter; }
+  OptionsChapter& GetOptions() noexcept { return m_options_chapter; }
 
   std::string GetText() const noexcept { return m_text; }
 
   ChapterType GetType() const noexcept { return m_chapter_type; }
-
-  //bool IsGameOver() const noexcept { return m_is_game_over; }
-  //bool IsGameWon() const noexcept { return m_is_game_won; }
 
   private:
   ///Which items are added to the player's inventory?
@@ -60,15 +56,13 @@ struct Chapter
 
   ChapterType m_chapter_type;
 
-  ///If the player escapes a monster fight, to which chapter?
-  int m_escape_chapter;
+  FightingChapter m_fighting_chapter;
 
-  ///Is the fight sequentially (one after one) or are the monster fought both at the same time?
-  bool m_fight_sequentially;
 
-  std::vector<Monster> m_monsters;
   int m_next_chapter; //When there is no choice
-  int m_rounds_to_escape;
+
+  OptionsChapter m_options_chapter;
+
   std::string m_text;
 };
 

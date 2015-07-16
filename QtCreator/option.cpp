@@ -4,13 +4,18 @@
 #include "character.h"
 
 Option::Option(
-  const std::vector<std::string>& conditionals,
-  const std::vector<std::string>& consequences,
-  const std::string& text
+  const std::string& text,
+  const int next_chapter
 )
-  : m_conditionals{conditionals},
-    m_consequences{consequences},
+  : m_next_chapter{next_chapter},
     m_text{text}
 {
   assert(!text.empty());
+  assert(next_chapter > 1);
+}
+
+
+void Option::DoChoose(Character& character) const
+{
+  character.SetChapter(m_next_chapter);
 }

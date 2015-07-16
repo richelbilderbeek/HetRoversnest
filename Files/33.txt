@@ -5,10 +5,7 @@ to where to go for the best price. The guard looks at
 you suspiciously, saying, 'Let me look at these 
 chalices in your backpack before I admit you'. Will 
 you: 
-[1] Tell him that you know the chalices are cursed and should  only be examined by a mage? 
-[2] Try to run past the guard into the main street? 
-[3] Attack him quickly with your sword? 
-@0
-@1:381
-@2:291
-@3:49
+@999
+Option Tell him that you know the chalices are cursed and should only be examined by a mage? @ goto 381
+Option Try to run past the guard into the main street? @ goto 291
+Option Attack him quickly with your sword?@ goto 49

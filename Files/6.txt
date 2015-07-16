@@ -1,12 +1,7 @@
-Her tone. becomes unpleasant and she tells you to 
+Her tone becomes unpleasant and she tells you to 
 get out of her house because there are certainly no 
 rags in it, nor any other kind of jumble for that 
-matter. 
-[1] If you wish to obey her, leave the house and 
-head further north along Stable Street
-[2] If 
-you wish to go through the curtains and see who is 
-being so rude to you
-@0
-@1:333
-@2:88
+matter.
+@999
+Option If you wish to obey her, leave the house and head further north along Stable Street@ goto 33 
+Option If you wish to go through the curtains and see who is being so rude to you@ goto 88

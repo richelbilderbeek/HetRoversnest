@@ -1,9 +1,6 @@
-While you were fighting the Giant Rats, you 
+While you were fighting the giant rats, you 
 thought you saw someone or something skulking 
 in the shadows ahead. 
-[1] If you wish to continue further north along the tunnel
-[2] If you would rather turn round and walk back to the 
-entrance hole
-@0
-@1:265
-@2:104
+@999
+Option If you wish to continue further north along the tunnel@ goto 265
+Option If you would rather turn round and walk back to the entrance hole@ goto 104

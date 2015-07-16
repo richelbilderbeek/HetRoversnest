@@ -90,6 +90,7 @@ void DoChapter(
   std::cout << std::endl;
   int chapter_type = -1;
   s >> chapter_type;
+
   switch (chapter_type)
   {
     case 0: ParseNormalChapter(s,chapter_number,character,auto_play); break;
@@ -99,14 +100,16 @@ void DoChapter(
     case 4: DoFightWithTime(s,chapter_number,character,auto_play); break;
     case 5: assert(!"Obsolete"); character.SetIsDead(); break;
     case 6: DoHasItemChapter(s,chapter_number,character); break;
-    case 7: ParseFight(s,chapter_number,character,auto_play); break;
+    case 7: assert(!"Obsolete"); ParseFight(s,chapter_number,character,auto_play); break;
     case 8: ParseChangeStatusAskOption(s,chapter_number,character,auto_play); break;
     case 9: ParseShop(s,chapter_number,character,auto_play); break;
-    case 10: ParseFightWithTwoMonsters(s,chapter_number,character,auto_play); break;
-    case 11: DoGameWon(); break;
+    case 10: assert(!"Obsolete"); ParseFightWithTwoMonsters(s,chapter_number,character,auto_play); break;
+    case 11: assert(!"Obsolete"); DoGameWon(); break;
     case 12: ParseFightWithRandomMonster(s,chapter_number,character,auto_play); break;
     case 13: ParsePawnShop(s,chapter_number,character,auto_play); break;
     case 14: assert(!"Obsolete"); break;
+    case 15: assert(!"Obsolete");  break;
+    case 16: assert(!"Obsolete");  break;
     default:
     {
       std::stringstream msg;
@@ -115,6 +118,68 @@ void DoChapter(
         << std::endl; return;
       throw std::runtime_error(msg.str());
     }
+  }
+}
+
+void DoPlayBall(Character& character, const bool auto_play)
+{
+  /*
+Roll one die alternately for yourself and for the
+bare-chested man, to represent the cannon-fcuH pas-
+sing between you. Repeat this process until a 1 is
+thrown, in which case the cannon-tall has
+been dropped and the loser must pay the winner 5
+Gold Pieces.
+  */
+
+  {
+    std::stringstream s;
+    s << "The bare-chested man throws the ball to you.\n";
+    ShowText(s.str(),auto_play);
+  }
+  if (!auto_play) { Wait(0.5); }
+
+  while (1)
+  {
+    const int dice_you{1 + ((std::rand() >> 4) % 6)};
+    if (dice_you == 1)
+    {
+      std::stringstream s;
+      s << "You drop the ball and pay the bare-chested man 5 gold pieces.\n";
+      ShowText(s.str(),auto_play);
+      if (character.GetGold() >= 5)
+      {
+        character.ChangeGold(-5);
+      }
+      else
+      {
+        //std::clog << "ERROR: should not have got here, due to lack of gold\n";
+        //character.ChangeGold(-character.GetGold());
+        assert(1==2);
+      }
+      return;
+    }
+    {
+      std::stringstream s;
+      s << "You catch the ball and throw it to the bare-chested man.\n";
+      ShowText(s.str(),auto_play);
+    }
+    if (!auto_play) { Wait(0.5); }
+    const int dice_man{1 + ((std::rand() >> 4) % 6)};
+    if (dice_man == 1)
+    {
+      std::stringstream s;
+      s << "The bare-chested man drops the ball and gives you 5 gold pieces.\n";
+      ShowText(s.str(),auto_play);
+      character.ChangeGold(5);
+      return;
+    }
+    {
+      std::stringstream s;
+      s << "The bare-chested man catched the ball and throws it back to you.\n";
+      ShowText(s.str(),auto_play);
+    }
+    if (!auto_play) { Wait(0.5); }
   }
 }
 
@@ -299,7 +364,7 @@ void DoPlayPill(Character& character, const bool auto_play)
     std::stringstream s;
     s << "You die quickly from the poisoned pill and your adventure ends here.\n";
     ShowText(s.str(),auto_play);
-    character.IsDead();
+    character.SetIsDead();
   }
 }
 

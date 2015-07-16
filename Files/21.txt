@@ -3,8 +3,6 @@ way up to the top of the tower. You stop off at the
 first floor and walk along the landing to a door- The 
 door opens into a large room which contains a
 comfortable, made-up bed. 
-[1] If you wish to lock the door and go to sleep for the night. 
-[2] If you wish to explore the tower further
-@0
-@1:288
-@2:77
+@999
+Option If you wish to lock the door and go to sleep for the night@ goto 288
+Option If you wish to explore the tower further@ goto 77

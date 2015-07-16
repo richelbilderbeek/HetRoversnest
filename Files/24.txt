@@ -2,8 +2,6 @@ There is another shop on ihe left side of the street.
 An iron grill over Ihe window prevents you seeing 
 what kind of shop it is. You try the handle on the 
 door and it turns. 
-[1] If you want to enter the shop
-[2] If you wish to continue west, without looking into the shop
-@0
-@1:336
-@2:196
+@999
+Option If you want to enter the shop@ goto 336
+Option If you wish to continue west, without looking into the shop@ goto 196

@@ -27,43 +27,43 @@ void Test()
   //Sequential fight
   {
     const Chapter chapter("../Files/5.txt");
-    assert(chapter.DoFightSequentially());
-    assert(chapter.GetMonsters().size() == 1);
-    assert(chapter.GetMonsters()[0].GetAttackDamage() == 2);
+    assert(chapter.GetFighting().DoFightSequentially());
+    assert(chapter.GetFighting().GetMonsters().size() == 1);
+    assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 2);
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
   {
     const Chapter chapter("../Files/10.txt");
-    assert(chapter.DoFightSequentially());
-    assert(chapter.GetMonsters().size() == 1);
+    assert(chapter.GetFighting().DoFightSequentially());
+    assert(chapter.GetFighting().GetMonsters().size() == 1);
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
   //Chapter 326: Simulateous fight
   {
     const Chapter chapter("../Files/326.txt");
-    assert(!chapter.DoFightSequentially());
-    assert(chapter.GetMonsters().size() == 2);
+    assert(!chapter.GetFighting().DoFightSequentially());
+    assert(chapter.GetFighting().GetMonsters().size() == 2);
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
   //Chapter 323: blacksmith must attack with attack strength 3
   {
     const Chapter chapter("../Files/323.txt");
-    assert(chapter.GetMonsters()[0].GetAttackDamage() == 3);
+    assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 3);
     //std::cout << chapter << std::endl;
   }
   //Chapter 253: snakes must bite with attack strength 4
   {
     const Chapter chapter("../Files/253.txt");
-    assert(chapter.GetMonsters()[0].GetAttackDamage() == 4);
+    assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 4);
   }
   //Chapter 140: can escape after 3 rounds
   {
     const Chapter chapter("../Files/140.txt");
-    assert(chapter.GetRoundsToEscape() == 3);
-    assert(chapter.GetEscapeToChapter() == 282);
+    assert(chapter.GetFighting().GetRoundsToEscape() == 3);
+    assert(chapter.GetFighting().GetEscapeToChapter() == 282);
   }
   //Chapter 9: Game over
   {
@@ -105,7 +105,35 @@ void Test()
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
   }
-
+  //Chapter 378: ball game
+  {
+    const Chapter chapter("../Files/378.txt");
+    assert(chapter.GetType() == ChapterType::play_ball);
+    assert(chapter.GetNextChapter() == 52);
+    assert(!chapter.GetByeText().empty());
+    Character character(100,100,100,Item::shield);
+    chapter.Do(character,true);
+  }
+  //Chapter 1: options
+  {
+    const Chapter chapter("../Files/1.txt");
+    assert(chapter.GetType() == ChapterType::normal);
+    assert(chapter.GetOptions().GetOptions().size() == 3);
+    Character character(100,100,100,Item::shield);
+    chapter.Do(character,true);
+  }
+  //Chapter 3: options
+  if (1==2)
+  {
+    const Chapter chapter("../Files/3.txt");
+    assert(chapter.GetType() == ChapterType::normal);
+    assert(chapter.GetOptions().GetOptions().size() == 2);
+    Character character_poor(1,1,1,Item::shield);
+    assert(chapter.GetOptions().GetValidOptions(character_poor).size() == 1);
+    Character character_rich(1,1,1,Item::shield);
+    assert(chapter.GetOptions().GetValidOptions(character_rich).size() == 2);
+    //chapter.Do(character,true);
+  }
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times

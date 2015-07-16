@@ -62,7 +62,9 @@ SOURCES += main.cpp \
     monster.cpp \
     chapter.cpp \
     option.cpp \
-    chaptertype.cpp
+    chaptertype.cpp \
+    fightingchapter.cpp \
+    optionschapter.cpp
 
 HEADERS += \
     helper.h \
@@ -74,4 +76,6 @@ HEADERS += \
     monster.h \
     chapter.h \
     option.h \
-    chaptertype.h
+    chaptertype.h \
+    fightingchapter.h \
+    optionschapter.h

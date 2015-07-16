@@ -4,8 +4,6 @@ golden colour and begins to take the shape of a
 winged helmet. The helmet solidifies and rests on 
 the street, sparkling in the sunlight. It is the most 
 magnificent helmet you have ever seen. 
-[1] If you wish to place it on your head
-[2] If you would rather leave it alone and set off east again
-@0
-@1:376
-@2:161
+@999
+Option If you wish to place it on your head@ goto 376
+Option If you would rather leave it alone and set off east again@ goto 161

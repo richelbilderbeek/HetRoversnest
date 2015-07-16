@@ -7,26 +7,26 @@
 struct Character;
 
 ///An option the player may or may not choose
-///Option If [conditionals] Then [consequences] [text] @
+///Option [text]@ goto [chapter]@
+///Option [text]@ if [conditionals] goto [chapter]@
+///Option [text]@ then [consequences] goto [chapter]@
+///Option [text]@ if [conditionals] then [consequences] goto [chapter]@
 struct Option
 {
   Option(
-    const std::vector<std::string>& conditionals,
-    const std::vector<std::string>& consequences,
-    const std::string& text
+    const std::string& text,
+    const int next_chapter
   );
 
   bool CanChoose(const Character& character);
-  bool DoChoose(Character& character);
 
-  const std::vector<std::string>& GetConditionals() const noexcept { return m_conditionals; }
-  const std::vector<std::string>& GetConsequences() const noexcept { return m_consequences; }
+  void DoChoose(Character& character) const;
+
   const std::string& GetText() const noexcept { return m_text; }
 
   private:
-  const std::vector<std::string> m_conditionals;
-  const std::vector<std::string> m_consequences;
-  const std::string m_text;
+  int m_next_chapter;
+  std::string m_text;
 };
 
 #endif // OPTION_H
