@@ -144,6 +144,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
   //Display the text line by line
   ShowText(m_text,auto_play);
 
+  //Fight
   if (!m_monsters.empty())
   {
     std::cout << std::endl;

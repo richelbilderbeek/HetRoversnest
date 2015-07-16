@@ -10,5 +10,5 @@ his head, saying that he is happy where he is. You
 leave the cell and, picking up your sword, climb the 
 stairs to the floor above.
 @3
-@G-2
+@G10?G-10
 @406

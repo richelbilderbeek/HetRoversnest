@@ -115,12 +115,13 @@ void Test()
     }
   }
   //Try all chapters
-  Character character(100,100,100,Item::shield);
-  character.AddItem(Item::silver_arrow);
-  for (int i=1; i!=450; ++i)
+  for (const Language language: { Language::Dutch, Language::English } )
   {
-    for (const Language language: { Language::Dutch, Language::English } )
+    for (int i=1; i!=450; ++i)
     {
+      std::cout << "CHAPTER " << i << std::endl;
+      Character character(100,100,100,Item::shield);
+      character.AddItem(Item::silver_arrow);
       int chapter = i; //Must use copy, otherwise i is changed
       try
       {

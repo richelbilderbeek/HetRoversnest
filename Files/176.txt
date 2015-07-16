@@ -13,11 +13,8 @@ Making a mental note of the information you leave
 the shivering captain alone in his room, locking the 
 door behind you. Outside in the corridor you may 
 either 
-[1] open the other door if you have not done so 
-already
-[2] or leave the ship and continue 
-your search of Port Blacksand by walking north up 
-Harbour Street
+[1] open the other door if you have not done so already
+[2] or leave the ship and continue your search of Port Blacksand by walking north up Harbour Street
 @0
 @1:271
-@2:1
+@2:78

@@ -6,5 +6,5 @@ arrows that will hit you and each will cause you to
 lose 3 stamina points. If you are still alive, lose 2 
 luck points and turn to 327. 
 @3
-@L-2,S-997
+@L-2,S997
 @327

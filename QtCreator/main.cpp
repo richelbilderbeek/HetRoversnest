@@ -10,13 +10,15 @@
 
 int main()
 {
-  std::srand(std::time(0));
   #ifndef NDEBUG
   Test();
   #endif
 
+  //std::srand(std::time(0));
+  std::srand(28);
+
   Character character(100,100,100,Item::luck_potion);
-  int chapter = 311;
+  int chapter = 1;
   const bool auto_play{true};
   const Language language = Language::English;
 
@@ -33,4 +35,8 @@ int main()
     }
     if (chapter == 400) { break; }
   }
+
+  std::ofstream f("Solution.txt");
+  const auto v = character.GetChapters();
+  std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
 }

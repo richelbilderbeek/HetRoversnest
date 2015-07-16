@@ -94,7 +94,7 @@ void ParseFightWithTwoMonsters(std::stringstream& s, int& chapter, Character& ch
 void ParseNormalChapter(
   std::stringstream& s,
   int& chapter,
-  const Character& character,
+  Character& character,
   const bool auto_play
 );
 

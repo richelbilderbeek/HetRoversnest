@@ -60,7 +60,8 @@ SOURCES += main.cpp \
     autoplay.cpp \
     language.cpp \
     monster.cpp \
-    chapter.cpp
+    chapter.cpp \
+    option.cpp
 
 HEADERS += \
     helper.h \
@@ -70,4 +71,5 @@ HEADERS += \
     autoplay.h \
     language.h \
     monster.h \
-    chapter.h
+    chapter.h \
+    option.h

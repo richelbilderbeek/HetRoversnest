@@ -963,10 +963,21 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
     const char status = ReadChar(s);
     if (status == 'G')
     {
-      int change_gold = -123;
-      s >> change_gold;
-      assert(change_gold != -123);
-      if (has_dex) { character.ChangeGold(change_gold); }
+      const int change_gold = ReadInt(s);
+      if (has_dex)
+      {
+        //Allow for having no money
+        if (character.GetGold() + change_gold < 0)
+        {
+          std::clog << "Warning: character could not afford this" << std::endl;
+          character.ChangeGold(-character.GetGold());
+          assert(character.GetGold() == 0);
+        }
+        else
+        {
+          character.ChangeGold(change_gold);
+        }
+      }
       Parse(s,',');
     }
     else
@@ -1288,6 +1299,7 @@ void ParseChangeStatusAskOption(
   }
   assert(!options.empty());
   DoNormalChapter(options,chapter,auto_play);
+  character.SetChapter(chapter);
 }
 
 std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s)
@@ -1314,7 +1326,7 @@ std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s)
 void ParseNormalChapter(
   std::stringstream& s,
   int& chapter,
-  const Character& character,
+  Character& character,
   const bool auto_play)
 {
   //Parse the options
@@ -1382,6 +1394,7 @@ void ParseNormalChapter(
   }
   assert(!options.empty());
   DoNormalChapter(options,chapter,auto_play);
+  character.SetChapter(chapter);
 }
 
 void ParsePawnShop(

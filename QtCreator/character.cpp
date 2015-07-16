@@ -1,7 +1,11 @@
 #include "character.h"
 
+#include <algorithm>
 #include <cassert>
 #include <cstdlib>
+#include <iostream>
+#include <iterator>
+#include <fstream>
 
 Character::Character(
   const int dexterity, //NL: Behendigheid
@@ -90,6 +94,16 @@ void Character::RemoveItem(Item item)
 
 void Character::SetChapter(const int chapter)
 {
+  if (
+    std::find(std::begin(m_chapters),std::end(m_chapters),chapter) != std::end(m_chapters)
+  )
+  {
+    std::cerr << "ERROR: entering same chapter twice!" << std::endl;
+    std::ofstream f("Path.txt");
+    const auto v = GetChapters();
+    std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
+  }
+  //assert(std::find(std::begin(m_chapters),std::end(m_chapters),chapter) == std::end(m_chapters));
   m_chapters.push_back(chapter);
 }
 
