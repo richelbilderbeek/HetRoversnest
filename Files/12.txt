@@ -4,5 +4,5 @@ into the room wearing nothing buta lowel round his
 fat stomach. You watch as he drops the towel and 
 lowers himself gently into the tub with a loud sigh.
 @999
-Option If you wish to surprise him by drawing your sword and uttering a loud 'Ahem!'@ goto 176
-Option If you would rather creep out of the room back into the corridor while he submerges himself@ goto 103
+option If you wish to surprise him by drawing your sword and uttering a loud 'Ahem!'@ goto 176
+option If you would rather creep out of the room back into the corridor while he submerges himself@ goto 103

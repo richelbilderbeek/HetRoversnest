@@ -4,5 +4,5 @@ pale-skinned man with dark, hollow eyes, who is
 wearing a servant's uniform. In a cold, hissing voice 
 he says, 'Yes?' 
 @999
-Option If you wish to tell him you are a lost traveller@ goto 339
-Option If you wish to attack him with your sword@ goto 35
+option If you wish to tell him you are a lost traveller@ goto 339
+option If you wish to attack him with your sword@ goto 35

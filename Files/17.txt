@@ -2,5 +2,5 @@ Walking along the narrow street you see a man
 wearing [altered rags silting in the gutter. His head 
 rests on his hands and he looks thoroughly miserable. 
 @999
-Option If you wish to stop to talk to him@ goto 331
-Option If you would rather continue walking east@ goto 161
+option If you wish to stop to talk to him@ goto 331
+option If you would rather continue walking east@ goto 161

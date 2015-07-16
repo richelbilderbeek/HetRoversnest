@@ -3,5 +3,5 @@ get out of her house because there are certainly no
 rags in it, nor any other kind of jumble for that 
 matter.
 @999
-Option If you wish to obey her, leave the house and head further north along Stable Street@ goto 33 
-Option If you wish to go through the curtains and see who is being so rude to you@ goto 88
+option If you wish to obey her, leave the house and head further north along Stable Street@ goto 33 
+option If you wish to go through the curtains and see who is being so rude to you@ goto 88

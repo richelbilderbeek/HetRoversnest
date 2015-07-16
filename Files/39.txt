@@ -3,5 +3,5 @@ the silver item. The serpent queen starts to fidget
 and you can see her becoming increasingly impatient. 
 You cannot think of a good plan and start to panic. 
 @999
-Option If you wish to run to the front door@ goto 32
-Option If you wish to draw your sword to attack the serpent queen@ goto 249
+option If you wish to run to the front door@ goto 32
+option If you wish to draw your sword to attack the serpent queen@ goto 249

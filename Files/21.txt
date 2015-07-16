@@ -4,5 +4,5 @@ first floor and walk along the landing to a door- The
 door opens into a large room which contains a
 comfortable, made-up bed. 
 @999
-Option If you wish to lock the door and go to sleep for the night@ goto 288
-Option If you wish to explore the tower further@ goto 77
+option If you wish to lock the door and go to sleep for the night@ goto 288
+option If you wish to explore the tower further@ goto 77

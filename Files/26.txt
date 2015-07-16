@@ -1,22 +1,21 @@
 You sheathe your sword and look round at the 
-circle of spectators. Having witnessed your excel- 
-lent swordsmanship each goes quietly back to his 
+circle of spectators. Having witnessed your excellent swordsmanship each goes quietly back to his 
 table, not wishing to anger you any further. The 
-innkeeper apologue* for his unfriendliness and 
+innkeeper apologues for his unfriendliness and 
 invites you to sit at the bar and enjoy a drink at his 
-etpense. You ask him if he knows the whereabouts 
+expense. You ask him if he knows the whereabouts 
 of Nicodemus. The innkeeper frowns and looks at 
 you inquiringly. Then he says. 'I don't know what 
-vou want from that wily old wizard He keeps 
-himself to hrnisell and lives alone in a small hul 
+vou want from that wily old wizard. He keeps 
+himself to himself and lives alone in a small hut 
 under Singing Bridge. Keep walking north along 
-Market Street, through the market-place, and you'll 
-come toa bridge that crosses Catfish River and leads 
-tn the old pari of the city and the harbour. Nico- 
-demus won't talk to you and he knows enough 
+Market Street, through the marketplace, and you'll 
+come to a bridge that crosses Catfish River and leads 
+to the old part of the city and the harbour. 
+Nicodemus won't talk to you and he knows enough 
 magic to keep even the toughest away from his 
-door.' You tell the innkeeper not to be so discour- 
-teous to strangers next time, and leave the tavern to 
+door.' You tell the innkeeper not to be so 
+discourteous to strangers next time, and leave the tavern to 
 head north.
 @999
-Next_chapter 296
+goto 296

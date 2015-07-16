@@ -2,5 +2,5 @@ The man grabs a wooden club from behind a chair
 and prepares to fight you. He is strong but not a 
 good fighter. 
 @999
-Monster Silversmith 4 8 2
-Next_chapter 146
+monster Silversmith 4 8 2
+goto 146

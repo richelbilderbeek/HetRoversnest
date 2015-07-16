@@ -3,5 +3,5 @@ attack the Man-Orc, who swiftly grabs his handaxe.
 You soon realize that this Man-Orc has used his 
 weapon before. 
 @999
-Monster Man-Orc 6 5 2
-Next_chapter 371
+monster Man-Orc 6 5 2
+goto 371

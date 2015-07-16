@@ -6,6 +6,6 @@ hand and starts to hammer it into the shape of a
 horseshoe on his anvil. Sweat pours from his brow 
 as he toils with the hammer. Will you:
 @999
-Option Make conversation with the blacksmith?@ goto 169
-Option Attack him with your sword?@ goto 323
-Option Leave him to his labours and continue north?@ goto 115
+option Make conversation with the blacksmith?@ goto 169
+option Attack him with your sword?@ goto 323
+option Leave him to his labours and continue north?@ goto 115

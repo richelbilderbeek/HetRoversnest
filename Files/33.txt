@@ -6,6 +6,6 @@ you suspiciously, saying, 'Let me look at these
 chalices in your backpack before I admit you'. Will 
 you: 
 @999
-Option Tell him that you know the chalices are cursed and should only be examined by a mage? @ goto 381
-Option Try to run past the guard into the main street? @ goto 291
-Option Attack him quickly with your sword?@ goto 49
+option Tell him that you know the chalices are cursed and should only be examined by a mage? @ goto 381
+option Try to run past the guard into the main street? @ goto 291
+option Attack him quickly with your sword?@ goto 49

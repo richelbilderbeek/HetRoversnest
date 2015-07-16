@@ -11,6 +11,6 @@ its body and the roof of the tunnel. You walk
 further down the tunnel, which ends at an iron grill 
 through which the sewage runs. 
 @999
-Option If you wish to remove the grill@ goto 377
-Option If you wish to walk back to the entrance hole@ goto 174
+option If you wish to remove the grill@ goto 377
+option If you wish to walk back to the entrance hole@ goto 174
 

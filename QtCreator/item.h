@@ -17,7 +17,7 @@ enum class Item
   mirror = 10,
   ice_ring = 11,
   invisibility_ring = 12,
-  insect_bracelet = 13,
+  silver_insect_bracelet = 13,
   throwing_knife = 14,
   climbing_rope = 15,
   meat_hook = 16,
@@ -41,7 +41,6 @@ enum class Item
   two_gems = 35,
   magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1
   silver_goblet = 37, //?Where to find it?
-  silver_bracelet = 38, //?Where to find it?
   magic_helmet = 39, //Found in chapter 376. add 1 point to attack
   silver_flute = 40, //Obtained at 359
   eye_patch = 41,

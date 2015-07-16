@@ -4,6 +4,6 @@ bought a lucky charm. Add 2 luck points to your
 total. Pleased with your purchase you leave the 
 house and head north. 
 @999
-Change luck 2
-Change add golden_brooch
-Next_chapter 334
+change luck 2
+change add golden_brooch
+goto 334

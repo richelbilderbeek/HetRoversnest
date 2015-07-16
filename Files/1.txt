@@ -21,6 +21,6 @@ pike, saying, "Who would enter Port Blacksand
 uninvited? State the nature of your business or go 
 back the way you came. 
 @999
-Option Tell him you wish to be taken to Nicodemus?@ goto 202
-Option Tell him you wish to sell some stolen goods?@ goto 33
-Option Attack him quickly with your sword?@ goto 49
+option Tell him you wish to be taken to Nicodemus?@ goto 202
+option Tell him you wish to sell some stolen goods?@ goto 33
+option Attack him quickly with your sword?@ goto 49

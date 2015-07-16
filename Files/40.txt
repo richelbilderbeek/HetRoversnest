@@ -7,5 +7,5 @@ who has his foot on a cloth bag. You realize that
 these creatures are Bays playing their favourite 
 game. Bays' Ball. 
 @999
-Option If you wish to ask to join in their game@ goto 169
-Option If you would rather climb back down the wall, return to the junction and head west down Harbour Street@ goto 91
+option If you wish to ask to join in their game@ goto 169
+option If you would rather climb back down the wall, return to the junction and head west down Harbour Street@ goto 91

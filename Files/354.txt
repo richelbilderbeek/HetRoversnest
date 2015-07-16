@@ -14,5 +14,5 @@ market which he rents once a week. He then tells
 you what he is currently interested in buying, and 
 the prices he is offering. You may sell the pawnbroker any of your possessions. 
 @13
-@I37?8,I21?15,I8?10,I23?10,I3?15,I11?15,I12?15,I38?5,I39?10,I40?5,I41?5,I30?1,I10?1
+@I37?8,I21?15,I8?10,I23?10,I3?15,I11?15,I12?15,I13?5,I39?10,I40?5,I41?5,I30?1,I10?1
 @417:You bid him farewell and walk outside.

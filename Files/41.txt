@@ -7,6 +7,6 @@ the city without a pass, you are as good as dead. I'd
 get one if I were you. And as for Nicodemus, find 
 him yourself.' Repressing an urge to draw your 
 sword you turn and walk into the city.
-@3
-@G-15
-@74
+@999
+change gold -15
+goto 74

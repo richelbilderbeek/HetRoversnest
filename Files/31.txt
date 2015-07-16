@@ -11,5 +11,5 @@ from view is a small flight of steps going down
 underneath the bridge from where you are standing. A one-legged man carrying a sack is crossing 
 the bridge from the northern bank.
 @999
-Option If you wish to climb down the steps@ goto 329
-Option If you wish to wait to talk to the man@ goto 364
+option If you wish to climb down the steps@ goto 329
+option If you wish to wait to talk to the man@ goto 364

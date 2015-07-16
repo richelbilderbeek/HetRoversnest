@@ -1,7 +1,8 @@
 The man strums his lyre and sings a merry song all 
-about you and your good fortune - he does have the 
+about you and your good fortune. He does have the 
 power to make you lucky. Add 2 luck points and 
 walk on to the next stall. 
-@3
-@G-03,L+2
-@398
+@999
+change gold -3
+change luck 2
+goto 398

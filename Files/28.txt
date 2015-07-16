@@ -2,5 +2,5 @@ While you were fighting the giant rats, you
 thought you saw someone or something skulking 
 in the shadows ahead. 
 @999
-Option If you wish to continue further north along the tunnel@ goto 265
-Option If you would rather turn round and walk back to the entrance hole@ goto 104
+option If you wish to continue further north along the tunnel@ goto 265
+option If you would rather turn round and walk back to the entrance hole@ goto 104

@@ -24,7 +24,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::mirror,"mirror"));
   m.insert(Pair(Item::ice_ring,"ice_ring"));
   m.insert(Pair(Item::invisibility_ring,"invisibility_ring"));
-  m.insert(Pair(Item::insect_bracelet,"insect_bracelet"));
+  m.insert(Pair(Item::silver_insect_bracelet,"silver_insect_bracelet"));
   m.insert(Pair(Item::throwing_knife,"throwing_knife"));
   m.insert(Pair(Item::climbing_rope,"climbing_rope"));
   m.insert(Pair(Item::meat_hook,"meat_hook"));
@@ -49,7 +49,6 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::two_gems,"two_gems"));
   m.insert(Pair(Item::magnificent_shield,"magnificent_shield"));
   m.insert(Pair(Item::silver_goblet,"silver_goblet"));
-  m.insert(Pair(Item::silver_bracelet,"silver_bracelet"));
   m.insert(Pair(Item::magic_helmet,"magic_helmet"));
   m.insert(Pair(Item::silver_flute,"silver_flute"));
   m.insert(Pair(Item::eye_patch,"eye_patch"));

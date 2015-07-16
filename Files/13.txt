@@ -4,6 +4,6 @@ brooch has magic healing properties: after any battle, the brooch will immediate
 point to your total. 
 What will you do next? 
 @999
-Option If you have not already done so, pick up the golden scorpion@ goto 273
-Option Climb the stairs@ goto 80
-Option Leave the house and head north@ goto 334
+option If you have not already done so, pick up the golden scorpion@ goto 273
+option Climb the stairs@ goto 80
+option Leave the house and head north@ goto 334

@@ -9,5 +9,5 @@ deadly poisonous, the others are harmless. Swallow
 one of your choice. If you live, I will give you 20 
 gold pieces. If you die, I keep all your possessions.'
 @999
-Option If you wish to play this deadly game@ goto 223
-Option If you would rather leave this room and walk back up the alley to Candle Street@ goto 165
+option If you wish to play this deadly game@ goto 223
+option If you would rather leave this room and walk back up the alley to Candle Street@ goto 165
