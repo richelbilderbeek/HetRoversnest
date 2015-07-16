@@ -125,7 +125,7 @@ Chapter::Chapter(const std::string& filename)
       }
       s << std::skipws; //Obligatory
     }
-    else if (str == "Monster")
+    else if (str == "Monster" || str == "monster")
     {
       const std::string name{ReadString(s)};
       const int dexterity{ReadInt(s)};
@@ -134,16 +134,16 @@ Chapter::Chapter(const std::string& filename)
       const Monster monster(name,dexterity,condition,attack_strength);
       GetFighting().AddMonster(monster);
     }
-    else if (str == "Next_chapter")
+    else if (str == "Next_chapter" || str == "goto")
     {
       m_next_chapter = ReadInt(s);
     }
-    else if (str == "Escape")
+    else if (str == "Escape" || str == "escape")
     {
       GetFighting().SetRoundsToEscape(ReadInt(s));
       GetFighting().SetEscapeToChapter(ReadInt(s));
     }
-    else if (str == "Option")
+    else if (str == "Option" || str == "option")
     {
       std::string option_text;
       s << std::noskipws; //Obligatory
@@ -157,7 +157,25 @@ Chapter::Chapter(const std::string& filename)
       }
       s << std::skipws; //Obligatory
       const std::string t{ReadString(s)};
-      if (t == "goto")
+      if (t == "if")
+      {
+        const std::string what{ReadString(s)};
+        if (what == "gold")
+        {
+          const int gold_amount{ReadInt(s)};
+          const std::string u{ReadString(s)};
+          assert(u == "goto");
+          const int option_next_chapter{ReadInt(s)};
+          Option option(option_text,option_next_chapter);
+          option.SetGoldNeeded(gold_amount);
+          GetOptions().AddOption(option);
+        }
+        else
+        {
+          assert(!"Should not get here");
+        }
+      }
+      else if (t == "goto")
       {
         const int option_next_chapter{ReadInt(s)};
         const Option option(option_text,option_next_chapter);
@@ -168,7 +186,7 @@ Chapter::Chapter(const std::string& filename)
         assert(!"Should not get here");
       }
     }
-    else if (str == "Change")
+    else if (str == "Change" || str == "change")
     {
       const std::string what{ReadString(s)};
       if (what == "gold")
@@ -202,6 +220,14 @@ void Chapter::Do(Character& character,const bool auto_play) const
   ShowText(m_text,auto_play);
 
   std::cout << std::endl;
+
+  //Always change luck, can be zero
+  character.ChangeLuck(this->GetChangeLuck());
+  //Always change luck, can be none
+  for (const auto item: this->GetAddItems())
+  {
+    character.AddItem(item);
+  }
 
   //Options
   if (!GetOptions().GetOptions().empty())

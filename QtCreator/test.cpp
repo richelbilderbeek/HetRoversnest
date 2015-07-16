@@ -123,16 +123,26 @@ void Test()
     chapter.Do(character,true);
   }
   //Chapter 3: options
-  if (1==2)
   {
     const Chapter chapter("../Files/3.txt");
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 2);
-    Character character_poor(1,1,1,Item::shield);
-    assert(chapter.GetOptions().GetValidOptions(character_poor).size() == 1);
-    Character character_rich(1,1,1,Item::shield);
-    assert(chapter.GetOptions().GetValidOptions(character_rich).size() == 2);
-    //chapter.Do(character,true);
+    Character character(1,1,1,Item::shield);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 2);
+    character.ChangeGold(-character.GetGold()); //Make player bankrupt
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+  }
+  //Chapter 7: 2 options and status change
+  {
+    const Chapter chapter("../Files/7.txt");
+    assert(chapter.GetOptions().GetOptions().size() == 2);
+    Character character(10,10,10,Item::shield);
+    character.ChangeLuck(-character.GetLuck()); //Make player unlucky
+    assert(character.GetLuck() == 0);
+    assert(!character.HasItem(Item::black_pearls));
+    chapter.Do(character,true);
+    assert(character.GetLuck() > 0);
+    assert(character.HasItem(Item::black_pearls));
   }
   //Chapters 13 and 273: should not be able to take both brooches
 

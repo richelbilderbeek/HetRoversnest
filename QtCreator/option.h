@@ -22,9 +22,13 @@ struct Option
 
   void DoChoose(Character& character) const;
 
+  int GetGoldNeeded() const noexcept { return m_gold_needed; }
   const std::string& GetText() const noexcept { return m_text; }
 
+  void SetGoldNeeded(const int amount);
+
   private:
+  int m_gold_needed;
   int m_next_chapter;
   std::string m_text;
 };

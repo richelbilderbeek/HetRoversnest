@@ -7,7 +7,8 @@ Option::Option(
   const std::string& text,
   const int next_chapter
 )
-  : m_next_chapter{next_chapter},
+  : m_gold_needed{0},
+    m_next_chapter{next_chapter},
     m_text{text}
 {
   assert(!text.empty());
@@ -18,4 +19,10 @@ Option::Option(
 void Option::DoChoose(Character& character) const
 {
   character.SetChapter(m_next_chapter);
+}
+
+void Option::SetGoldNeeded(const int gold_needed)
+{
+  assert(gold_needed > 0);
+  m_gold_needed = gold_needed;
 }

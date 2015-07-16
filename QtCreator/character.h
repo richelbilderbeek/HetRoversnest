@@ -29,6 +29,7 @@ struct Character
   int GetDexterity() const noexcept { return m_dexterity; }
   int GetGold() const noexcept { return m_gold; }
   int GetInitialStamina() const noexcept { return m_initial_stamina; }
+  int GetLuck() const noexcept { return m_luck; }
   int GetProvisions() const noexcept { return m_provisions; }
   int GetStamina() const noexcept { return m_stamina; }
   bool HasItem(const Item item) const;

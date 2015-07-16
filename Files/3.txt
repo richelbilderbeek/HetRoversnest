@@ -1,10 +1,6 @@
 The man stops playing and tells you that he can 
-bring you good fortune. For the sum of 3 Gold 
-Pieces he will sing you a song that will bring you 
-luck. 
-[1] If you wish to pay the musician
-[2] If you do not believe him, you may walk to the next 
-stall
-@0
-@1?G03:37
-@2:398
+bring you good fortune. For the sum of 3 gold 
+pieces he will sing you a song that will bring you luck. 
+@999
+Option If you wish to pay the musician@ if gold 3 goto 37
+Option If you do not believe him, you may walk to the next stall@ goto 398
