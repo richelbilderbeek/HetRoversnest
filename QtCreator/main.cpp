@@ -24,7 +24,7 @@ int main()
 
   //int chapter = 223; std::srand(0); //Pill game and die
   //int chapter = 223; std::srand(2); //Pill game and live
-  const bool auto_play{false};
+  const bool auto_play{true};
   const Language language = Language::English;
 
   while (1)
