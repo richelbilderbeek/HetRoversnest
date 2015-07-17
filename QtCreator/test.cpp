@@ -228,7 +228,14 @@ void Test()
     chapter.Do(character,true);
     assert(character.GetCurrentChapter() > -1);
   }
-
+  //Chapter 42: Must loose all provisions
+  {
+    const Chapter chapter("../Files/42.txt");
+    Character character(10,10,10,Item::shield);
+    assert(character.GetProvisions() > 0);
+    chapter.Do(character,true);
+    assert(character.GetProvisions() == 0);
+  }
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times
