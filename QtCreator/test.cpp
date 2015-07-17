@@ -213,6 +213,21 @@ void Test()
     chapter.Do(character,true);
     assert(character.GetCurrentChapter() > -1);
   }
+  //Chapter 18: Skill chapter must be parsed correctly
+  {
+    const Chapter chapter("../Files/18.txt");
+    assert(!chapter.GetSkill().GetSkillText().empty());
+    assert(!chapter.GetSkill().GetNoSkillText().empty());
+    assert(chapter.GetSkill().GetSkillChapter() > 1);
+    assert(chapter.GetSkill().GetNoSkillChapter() > 1);
+  }
+  //Chapter 18: Skill chapter must be parsed correctly
+  {
+    const Chapter chapter("../Files/18.txt");
+    Character character(10,10,10,Item::shield);
+    chapter.Do(character,true);
+    assert(character.GetCurrentChapter() > -1);
+  }
 
   //Chapters 13 and 273: should not be able to take both brooches
 

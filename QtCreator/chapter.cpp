@@ -21,6 +21,7 @@ Chapter::Chapter(const std::string& filename)
     m_luck_chapter{},
     m_next_chapter{-1},
     m_options_chapter{},
+    m_skill_chapter{},
     m_text{}
 {
   if (!IsRegularFile(filename))
@@ -146,6 +147,27 @@ Chapter::Chapter(const std::string& filename)
       assert(luck_chapter > 1);
       GetLuck().SetLuckChapter(luck_chapter);
     }
+    else if (str == "Skill" || str == "skill")
+    {
+      s << std::noskipws; //Obligatory
+      //Parse(s,' '); //You expect a space after a word
+      std::string skill_text;
+      while (1)
+      {
+        char c = '*';
+        s >> c;
+        if (c == '@') break;
+        skill_text += c;
+      }
+      s << std::skipws; //Obligatory
+      assert(!skill_text.empty());
+      GetSkill().SetSkillText(skill_text);
+      const std::string goto_str{ReadString(s)};
+      assert(goto_str == "goto");
+      const int skill_chapter{ReadInt(s)};
+      assert(skill_chapter > 1);
+      GetSkill().SetSkillChapter(skill_chapter);
+    }
     else if (str == "Monster" || str == "monster")
     {
       const std::string name{ReadString(s)};
@@ -179,6 +201,27 @@ Chapter::Chapter(const std::string& filename)
       const int no_luck_chapter{ReadInt(s)};
       assert(no_luck_chapter > 1);
       GetLuck().SetNoLuckChapter(no_luck_chapter);
+    }
+    else if (str == "No_skill" || str == "no_skill")
+    {
+      s << std::noskipws; //Obligatory
+      //Parse(s,' '); //You expect a space after a word
+      std::string no_skill_text;
+      while (1)
+      {
+        char c = '*';
+        s >> c;
+        if (c == '@') break;
+        no_skill_text += c;
+      }
+      s << std::skipws; //Obligatory
+      assert(!no_skill_text.empty());
+      GetSkill().SetNoSkillText(no_skill_text);
+      const std::string goto_str{ReadString(s)};
+      assert(goto_str == "goto");
+      const int no_skill_chapter{ReadInt(s)};
+      assert(no_skill_chapter > 1);
+      GetSkill().SetNoSkillChapter(no_skill_chapter);
     }
     else if (str == "Escape" || str == "escape")
     {
@@ -426,6 +469,10 @@ void Chapter::Do(Character& character,const bool auto_play) const
   else if (!GetLuck().GetLuckText().empty())
   {
     GetLuck().Do(character,auto_play);
+  }
+  else if (!GetSkill().GetSkillText().empty())
+  {
+    GetSkill().Do(character,auto_play);
   }
   else if (GetType() == ChapterType::game_lost)
   {

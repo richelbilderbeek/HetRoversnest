@@ -9,6 +9,7 @@
 #include "fightingchapter.h"
 #include "luckchapter.h"
 #include "optionschapter.h"
+#include "skillchapter.h"
 #include "consequence.h"
 
 struct Chapter
@@ -35,6 +36,9 @@ struct Chapter
   const OptionsChapter& GetOptions() const noexcept { return m_options_chapter; }
   OptionsChapter& GetOptions() noexcept { return m_options_chapter; }
 
+  const SkillChapter& GetSkill() const noexcept { return m_skill_chapter; }
+  SkillChapter& GetSkill() noexcept { return m_skill_chapter; }
+
   std::string GetText() const noexcept { return m_text; }
 
   ChapterType GetType() const noexcept { return m_chapter_type; }
@@ -55,6 +59,7 @@ struct Chapter
 
   OptionsChapter m_options_chapter;
 
+  SkillChapter m_skill_chapter;
 
   std::string m_text;
 };
