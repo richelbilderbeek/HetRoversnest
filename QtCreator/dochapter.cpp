@@ -125,7 +125,12 @@ void DoInventory(Character& character, const bool auto_play)
 {
   std::stringstream s;
   s
-    << "Dexterity: " << character.GetDexterity() << "/" << character.GetInitialDexterity() << '\n'
+    << "Dexterity:\n"
+    << " * Base: " << character.GetDexterityBase() << "/" << character.GetInitialDexterity() << '\n'
+  ;
+  if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
+  if (character.HasItem(Item::chainmail_coat)) { s << " * " << ToStr(Item::chainmail_coat) << ": +2\n"; }
+  s
     << "Stamina: " << character.GetStamina() << "/" << character.GetInitialStamina() << '\n'
     << "Luck: " << character.GetLuck() << "/" << character.GetInitialLuck() << '\n'
     << "Gold pieces: " << character.GetGold() << '\n'

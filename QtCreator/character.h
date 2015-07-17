@@ -28,7 +28,8 @@ struct Character
   void ChangeLuck(const int change);
   const std::vector<int>& GetChapters() const noexcept { return m_chapters; }
   int GetCurrentChapter() const noexcept { return m_chapters.back(); }
-  int GetDexterity() const noexcept { return m_dexterity; }
+  int GetDexterity() const noexcept;
+  int GetDexterityBase() const noexcept;
   int GetGold() const noexcept { return m_gold; }
   const Items& GetItems() const noexcept { return m_items; }
   int GetInitialDexterity() const noexcept { return m_initial_dexterity; }

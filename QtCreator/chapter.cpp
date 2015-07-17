@@ -18,6 +18,7 @@ Chapter::Chapter(const std::string& filename)
     m_consequence{},
     m_chapter_type{ChapterType::normal},
     m_fighting_chapter{},
+    m_luck_chapter{},
     m_next_chapter{-1},
     m_options_chapter{},
     m_text{}
@@ -124,6 +125,27 @@ Chapter::Chapter(const std::string& filename)
       }
       s << std::skipws; //Obligatory
     }
+    else if (str == "Luck" || str == "luck")
+    {
+      s << std::noskipws; //Obligatory
+      //Parse(s,' '); //You expect a space after a word
+      std::string luck_text;
+      while (1)
+      {
+        char c = '*';
+        s >> c;
+        if (c == '@') break;
+        luck_text += c;
+      }
+      s << std::skipws; //Obligatory
+      assert(!luck_text.empty());
+      GetLuck().SetLuckText(luck_text);
+      const std::string goto_str{ReadString(s)};
+      assert(goto_str == "goto");
+      const int luck_chapter{ReadInt(s)};
+      assert(luck_chapter > 1);
+      GetLuck().SetLuckChapter(luck_chapter);
+    }
     else if (str == "Monster" || str == "monster")
     {
       const std::string name{ReadString(s)};
@@ -136,6 +158,27 @@ Chapter::Chapter(const std::string& filename)
     else if (str == "Next_chapter" || str == "goto")
     {
       m_next_chapter = ReadInt(s);
+    }
+    else if (str == "No_luck" || str == "no_luck")
+    {
+      s << std::noskipws; //Obligatory
+      //Parse(s,' '); //You expect a space after a word
+      std::string no_luck_text;
+      while (1)
+      {
+        char c = '*';
+        s >> c;
+        if (c == '@') break;
+        no_luck_text += c;
+      }
+      s << std::skipws; //Obligatory
+      assert(!no_luck_text.empty());
+      GetLuck().SetNoLuckText(no_luck_text);
+      const std::string goto_str{ReadString(s)};
+      assert(goto_str == "goto");
+      const int no_luck_chapter{ReadInt(s)};
+      assert(no_luck_chapter > 1);
+      GetLuck().SetNoLuckChapter(no_luck_chapter);
     }
     else if (str == "Escape" || str == "escape")
     {

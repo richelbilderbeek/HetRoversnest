@@ -8,6 +8,7 @@ have to take it off in order to jump safely across to
 the wall (lose 2 skill points). Below, you see the 
 two Trolls running round the tree waving their 
 swords at you. There is no alternative but to jump.
-@3
-@D-1,I01-,I02?D-2,I02?I02-
-@358
+@999
+change remove shield
+change remove chainmail_coat
+goto 358

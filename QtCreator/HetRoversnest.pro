@@ -66,7 +66,8 @@ SOURCES += main.cpp \
     fightingchapter.cpp \
     optionschapter.cpp \
     condition.cpp \
-    consequence.cpp
+    consequence.cpp \
+    luckchapter.cpp
 
 HEADERS += \
     helper.h \
@@ -82,4 +83,5 @@ HEADERS += \
     fightingchapter.h \
     optionschapter.h \
     condition.h \
-    consequence.h
+    consequence.h \
+    luckchapter.h

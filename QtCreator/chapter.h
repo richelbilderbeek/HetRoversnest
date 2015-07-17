@@ -6,8 +6,8 @@
 
 #include "chaptertype.h"
 #include "character.h"
-//#include "monster.h"
 #include "fightingchapter.h"
+#include "luckchapter.h"
 #include "optionschapter.h"
 #include "consequence.h"
 
@@ -29,6 +29,9 @@ struct Chapter
   const FightingChapter& GetFighting() const noexcept { return m_fighting_chapter; }
   FightingChapter& GetFighting() noexcept { return m_fighting_chapter; }
 
+  const LuckChapter& GetLuck() const noexcept { return m_luck_chapter; }
+  LuckChapter& GetLuck() noexcept { return m_luck_chapter; }
+
   const OptionsChapter& GetOptions() const noexcept { return m_options_chapter; }
   OptionsChapter& GetOptions() noexcept { return m_options_chapter; }
 
@@ -46,6 +49,7 @@ struct Chapter
 
   FightingChapter m_fighting_chapter;
 
+  LuckChapter m_luck_chapter;
 
   int m_next_chapter; //When there is no choice
 

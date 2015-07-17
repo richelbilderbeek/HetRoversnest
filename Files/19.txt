@@ -1,5 +1,4 @@
-The darts are poison-tipped. Lose 4 stamina points 
-and 1 skill point.
+The darts are poison-tipped. Lose 4 stamina points and 1 skill point.
 @999
 change stamina -4
 change dexterity -1

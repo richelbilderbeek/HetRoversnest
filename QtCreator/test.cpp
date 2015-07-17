@@ -160,51 +160,51 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 191);
   }
 
-  //Chapter 11: must always lose 1 skill point and shield
-  if (1==2)
+  //Chapter 11: lose 1 skill point and shield
   {
-    const Chapter chapter("../Files/11_new.txt");
-    const int dex = 123;
-    Character character(dex,10,10,Item::shield);
-    assert(character.GetDexterity() == dex);
+    const Chapter chapter("../Files/11.txt");
+    Character character(10,10,10,Item::luck_potion);
     assert(character.HasItem(Item::shield));
+    const int dex_before{character.GetDexterity()};
     chapter.Do(character,true);
-    assert(character.GetDexterity() == dex - 1);
+    const int dex_after{character.GetDexterity()};
+    assert(dex_after == dex_before - 1); //Due to losing shield
     assert(!character.HasItem(Item::shield));
   }
-  //Chapter 11: must lose 2 skill points and chain mail when having a chain mail
-  if (1==2)
+  //Chapter 11: must lose 3 skill points and shield and chain mail
   {
-    const Chapter chapter("../Files/11_new.txt");
-    const int dex = 123;
-    Character character(dex,10,10,Item::shield);
+    const Chapter chapter("../Files/11.txt");
+    Character character(10,10,10,Item::shield);
     character.AddItem(Item::chainmail_coat);
-    assert(character.GetDexterity() == dex);
+    const int dex_before{character.GetDexterity()};
     assert(character.HasItem(Item::shield));
     assert(character.HasItem(Item::chainmail_coat));
     chapter.Do(character,true);
-    assert(character.GetDexterity() == dex - 3);
     assert(!character.HasItem(Item::shield));
     assert(!character.HasItem(Item::chainmail_coat));
+    const int dex_after{character.GetDexterity()};
+    assert(dex_after == dex_before - 3); //Due to losing shield and chainmail
   }
   //Chapter 19: 2 options and status change
   {
     const Chapter chapter("../Files/19.txt");
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(10,10,10,Item::shield);
+    const int dex_before{character.GetDexterity()};
+    const int sta_before{character.GetStamina()};
     chapter.Do(character,true);
-    assert(character.GetDexterity() == 9);
-    assert(character.GetStamina() == 6);
+    const int dex_after{character.GetDexterity()};
+    const int sta_after{character.GetStamina()};
+    assert(dex_after == dex_before - 1);
+    assert(sta_after == sta_before - 4);
   }
   //Chapter 15: Luck chapter
-  if (1==2)
   {
-    const Chapter chapter("../Files/15_new.txt");
-
-    Character character(10,10,10,Item::shield);
-    chapter.Do(character,true);
-    assert(character.GetDexterity() == 9);
-    assert(character.GetStamina() == 6);
+    const Chapter chapter("../Files/15.txt");
+    assert(!chapter.GetLuck().GetLuckText().empty());
+    assert(!chapter.GetLuck().GetNoLuckText().empty());
+    assert(chapter.GetLuck().GetLuckChapter() > 1);
+    assert(chapter.GetLuck().GetNoLuckChapter() > 1);
   }
 
   //Chapters 13 and 273: should not be able to take both brooches

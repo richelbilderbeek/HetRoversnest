@@ -72,6 +72,21 @@ void Character::ChangeLuck(const int change)
   m_luck = std::min(m_luck,m_initial_luck);
 }
 
+
+int Character::GetDexterity() const noexcept
+{
+  return
+    GetDexterityBase()
+    + (this->HasItem(Item::shield) ? 1 : 0)
+    + (this->HasItem(Item::chainmail_coat) ? 2 : 0)
+  ;
+}
+
+int Character::GetDexterityBase() const noexcept
+{
+  return m_dexterity;
+}
+
 bool Character::HasItem(const Item item) const
 {
   return m_items.find(item) != std::end(m_items);
