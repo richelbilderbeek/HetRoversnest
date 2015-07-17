@@ -10,11 +10,8 @@ a Spirit Stalker, one of the faithful servants of Zanbar Bone.
 As he advances towards you again with 
 his arms outstretched, you try to remember what 
 you must do. Will you: 
-[1] Fire the silver arrow at him?
-[2] Reflect his stare in your mirror (if you have one)?
-[3] Fire your Ring of Ice at him (if you have one)?
-@8
-@S-2
-@1?I09:189
-@2?I10:305
-@3?I11:382
+@999
+change stamina -2
+option Fire the silver arrow at him?@ if has silver_arrow goto 189
+option Reflect his stare in your mirror (if you have one)?@ if has mirror goto 305
+option Fire your Ring of Ice at him (if you have one)?@ if has ring_of_ice goto 382

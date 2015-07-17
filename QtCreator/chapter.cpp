@@ -111,7 +111,7 @@ Chapter::Chapter(const std::string& filename)
     {
       GetFighting().SetFightSequentially(false);
     }
-    else if (str == "Bye")
+    else if (str == "Bye" || str == "bye")
     {
       s << std::noskipws; //Obligatory
       //Parse(s,' '); //You expect a space after a word
@@ -166,13 +166,36 @@ Chapter::Chapter(const std::string& filename)
           const int gold_amount{ReadInt(s)};
           condition.SetGoldNeeded(gold_amount);
         }
-        else if (IsItem(what))
+        else if (what == "has")
+        {
+          const std::string item = ReadString(s);
+          if (!IsItem(item))
+          {
+            std::cerr << "Unknown item " << item << " in " << filename << std::endl;
+            assert(!"Should not get here");
+          }
+          const Item item_needed{ToItem(item)};
+          condition.AddItemNeeded(item_needed);
+        }
+        else if (what == "has_not")
+        {
+          const std::string item = ReadString(s);
+          if (!IsItem(item))
+          {
+            std::cerr << "Unknown item " << item << " in " << filename << std::endl;
+            assert(!"Should not get here");
+          }
+          const Item item_not_needed{ToItem(item)};
+          condition.AddItemNotNeeded(item_not_needed);
+        }
+        else if (IsItem(what)) //assumes item is needed, 'has' before it can be omitted
         {
           const Item item_needed{ToItem(what)};
           condition.AddItemNeeded(item_needed);
         }
         else
         {
+          std::cerr << "Unknown option after if in " << filename << std::endl;
           assert(!"Should not get here");
         }
         const std::string str_goto{ReadString(s)};
@@ -240,12 +263,22 @@ Chapter::Chapter(const std::string& filename)
       else if (what == "add")
       {
         const std::string item_name{ReadString(s)};
+        if (!IsItem(item_name))
+        {
+          std::cerr << "Unknown item: " << item_name << std::endl;
+          assert(!"Should not get here");
+        }
         const Item item{ToItem(item_name)};
         m_consequence.AddItemToAdd(item);
       }
       else if (what == "remove")
       {
         const std::string item_name{ReadString(s)};
+        if (!IsItem(item_name))
+        {
+          std::cerr << "Unknown item: " << item_name << std::endl;
+          assert(!"Should not get here");
+        }
         const Item item{ToItem(item_name)};
         m_consequence.AddItemToRemove(item);
       }

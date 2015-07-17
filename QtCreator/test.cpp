@@ -196,6 +196,16 @@ void Test()
     assert(character.GetDexterity() == 9);
     assert(character.GetStamina() == 6);
   }
+  //Chapter 15: Luck chapter
+  if (1==2)
+  {
+    const Chapter chapter("../Files/15_new.txt");
+
+    Character character(10,10,10,Item::shield);
+    chapter.Do(character,true);
+    assert(character.GetDexterity() == 9);
+    assert(character.GetStamina() == 6);
+  }
 
   //Chapters 13 and 273: should not be able to take both brooches
 

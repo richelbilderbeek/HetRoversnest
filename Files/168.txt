@@ -1,15 +1,4 @@
-The Bays have difficulty in explaining themselves, 
-but you manage to understand that one of the other 
-team is going to throw the ball at you. You are 
-handed the wooden stick and told that if you hit the 
-ball over the wall, you will win the game for them.
-Test your skill. 
-Roll two dice. If the number rolled is equal to or less 
-than your skill score, you hit the ball powerfully in 
-the middle of the bat and watch it soar over the wall. If the number rolled is greater than 
-your skill score, the ball goes whistling by your 
-midriff as you swing, and a voice behind you calls, 
-'You're out!'.
+The bays have difficulty in explaining themselves, but you manage to understand that one of the other team is going to throw the ball at you. You are handed the wooden stick and told that if you hit the ball over the wall, you will win the game for them. Test your skill. 
 @2
-@0:No skill@266
-@1:Skill@359
+@0:the ball goes whistling by your midriff as you swing, and a voice behind you calls, 'You're out!'@266
+@1:You hit the ball powerfully in the middle of the bat and watch it soar over the wall@359

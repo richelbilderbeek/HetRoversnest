@@ -1,8 +1,8 @@
 You are unable to explain why you are in Port 
-Blacksandand the guards draw their swords, telling 
+Blacksand and the guards draw their swords, telling 
 you that you are under arrest. You draw your sword 
 and fight them one at a time. 
-@7
-Monster First_city_guard 7 4 2
-Monster Second_city_guard 6 6 2
-Next_chapter 285
+@999
+monster First_city_guard 7 4 2
+monster Second_city_guard 6 6 2
+goto 285

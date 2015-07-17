@@ -2,8 +2,6 @@ Most of the houses in the street are joined in a long
 terrace, but you see one on the left side that stands 
 alone and is set back. There appears to be a large 
 wooden kennel outside the heavy oak front door. 
-[1] If you wish to approach the front door
-[2] If you wish to keep walking north
-@0
-@1:64
-@2:304
+@999
+option If you wish to approach the front door@ goto 64
+option If you wish to keep walking north@ goto 304

@@ -1,8 +1,9 @@
 You uncork the bottle with your teeth and take a 
-long gulp of the liquid. Fortunately the liquid is 
+long gulp of the liquid. Fortunately, the liquid is 
 what the man claims it to be. Add 3 stamina points 
 and 1 luck point. Well-refreshed, you set off east 
-again, bidding the old man farewell (turn to 363). 
-@3
-@L+1,S+3
-@363
+again, bidding the old man farewell. 
+@999
+change luck 1
+change stamina 3
+goto 363

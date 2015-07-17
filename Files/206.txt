@@ -12,6 +12,6 @@ lose 2 Gold Pieces. You may play four times if you
 wish to before the Dwarfs get bored and leave the 
 tavern. 
 @14
-Next_chapter 296
-Bye At the end of the game you leave the tavern 
+goto 296
+bye At the end of the game you leave the tavern 
 yourself to head north.@

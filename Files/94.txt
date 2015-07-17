@@ -5,8 +5,8 @@ clothes, a feeling of strength surges through your
 body. Add 6 stamina points. He then tells you that 
 as he is feeling particularly grateful he will grant you 
 another wish. With your strength returned you feel 
-you can now deal wilh Zanbar Bone and ask the 
+you can now deal with Zanbar Bone and ask the 
 little man of his whereabouts.
-@3
-@S+6
-@234
+@999
+change stamina 6
+goto 234

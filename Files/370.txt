@@ -1,23 +1,6 @@
-You place the coin in the slot and walk through the 
-turnstile. Although the flowers and shrubs are not 
-outstanding, you arc nevertheless surprised that 
-such a place exists in Port Blacksand. The gardens 
-are not very large, extending back some sixty metres 
-to where some houses back on to them. There are 
-two paths to follow, one of which runs around the 
-edge of the gardens and one that leads directly into 
-the centre, where there is some lopiary - each shrub 
-has been cut into the shape of an animal - and you 
-decide to take a closer look. The path leads into a 
-small paved area surrounded by many animal-shaped 
-shrubs. In the middle there is a stone plinth upon 
-which sits a large earthen bowl containing lotus 
-flowers! There is a painted sign which reads 'Do Not 
-Pick the Flowers'. The gardener is nowhere to be 
-seen and there is nobody else about. 
-[1] If yow wish to risk picking one of the flowers
-[2] If you would rather leave the gardens and continue north
-@8
-@G-1
-@1:14
-@2:133
+You place the coin in the slot and walk through the turnstile. Although the flowers and shrubs are not outstanding, you arc nevertheless surprised that such a place exists in Port Blacksand. The gardens are not very large, extending back some sixty metres to where some houses back on to them. There are two paths to follow, one of which runs around the edge of the gardens and one that leads directly into the centre, where there is some topiary. Each shrub has been cut into the shape of an animal. You decide to take a closer look. The path leads into a small paved area surrounded by many animal-shaped shrubs. In the middle there is a stone plinth upon which sits a large earthen bowl containing lotus flowers! There is a painted sign which reads 'Do Not Pick the Flowers'. The gardener is nowhere to be seen and there is nobody else about. 
+@999
+change gold -1
+option If you wish to risk picking one of the flowers@ goto 14
+option If you would rather leave the gardens and continue north@ goto 133
+

@@ -6,4 +6,4 @@ carry him off down a narrow alleyway to your right.
 You walk quickly north before they have time to 
 reappear with more of their gang. 
 @999
-Next_chapter 372
+goto 372

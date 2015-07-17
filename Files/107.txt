@@ -1,8 +1,4 @@
-The back room is as lavishly furnished as the front 
-room. In the far corner you see a wooden chest
-bolted to the floor. It is securely locked. 
-[1] If you wish to try to pick the lock
-[2] If you wish to leave the room and climb the stairs to the floor above
-@0
-@1:128
-@2:60
+The back room is as lavishly furnished as the front room. In the far corner you see a wooden chest bolted to the floor. It is securely locked. 
+@999
+option If you wish to try to pick the lock@ goto 128
+option If you wish to leave the room and climb the stairs to the floor above@ goto 60

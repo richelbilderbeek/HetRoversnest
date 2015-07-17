@@ -17,12 +17,12 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::chainmail_coat,"chainmail_coat"));
   m.insert(Pair(Item::ring_of_fire,"ring_of_fire"));
   m.insert(Pair(Item::black_pearls,"black_pearls"));
-  m.insert(Pair(Item::witch_hair,"witch_hair"));
+  m.insert(Pair(Item::hags_hair,"hags_hair"));
   m.insert(Pair(Item::lotus_flower,"lotus_flower"));
   m.insert(Pair(Item::tattoo,"tattoo"));
   m.insert(Pair(Item::silver_arrow,"silver_arrow"));
   m.insert(Pair(Item::mirror,"mirror"));
-  m.insert(Pair(Item::ice_ring,"ice_ring"));
+  m.insert(Pair(Item::ring_of_ice,"ring_of_ice"));
   m.insert(Pair(Item::invisibility_ring,"invisibility_ring"));
   m.insert(Pair(Item::silver_insect_bracelet,"silver_insect_bracelet"));
   m.insert(Pair(Item::throwing_knife,"throwing_knife"));

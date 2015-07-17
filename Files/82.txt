@@ -11,5 +11,5 @@ rats she had killed. Despite your repulsion you are
 excited about having gained one of the items necessary to defeat the Night Prince. You throw the Hag 
 into the sewer and walk back to the entrance hole.
 @999
-change add witch_hair
+change add hags_hair
 goto 104

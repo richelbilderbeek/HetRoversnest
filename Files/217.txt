@@ -11,7 +11,7 @@ arched wooden entrance door. Suddenly you hear a
 shrill howl and swing round to see two pairs of eyes 
 staring at you. They belong to two moon dogs, Zanbar Bone's trained killer hounds. Fight them one at a 
 time. 
-@7
-Monster First_moon_dog 9 9 2
-Monster Second_moon_dog 11 7 2
-Next_chapter 371
+@999
+monster First_moon_dog 9 9 2
+monster Second_moon_dog 11 7 2
+goto 371
