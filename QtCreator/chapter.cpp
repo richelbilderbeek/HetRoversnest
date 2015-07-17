@@ -162,49 +162,49 @@ Chapter::Chapter(const std::string& filename)
       const std::string t{ReadString(s)};
       if (t == "if")
       {
+        Condition condition;
         const std::string what{ReadString(s)};
+
         if (what == "gold")
         {
           const int gold_amount{ReadInt(s)};
-          const std::string u{ReadString(s)};
-          assert(u == "goto");
-          const int option_next_chapter{ReadInt(s)};
-          Option option(option_text,option_next_chapter);
-          option.SetGoldNeeded(gold_amount);
-          GetOptions().AddOption(option);
+          condition.SetGoldNeeded(gold_amount);
         }
         else if (IsItem(what))
         {
           const Item item_needed{ToItem(what)};
-          const std::string u{ReadString(s)};
-          assert(u == "goto");
-          const int option_next_chapter{ReadInt(s)};
-          Option option(option_text,option_next_chapter);
-          option.AddItemNeeded(item_needed);
-          GetOptions().AddOption(option);
+          condition.AddItemNeeded(item_needed);
         }
         else
         {
           assert(!"Should not get here");
         }
+        const std::string str_goto{ReadString(s)};
+        assert(str_goto == "goto");
+        const int option_next_chapter{ReadInt(s)};
+        Option option(option_text,option_next_chapter);
+        option.AddCondition(condition);
+        GetOptions().AddOption(option);
       }
       else if (t == "ifnot")
       {
+        Condition condition;
         const std::string what{ReadString(s)};
         if (IsItem(what))
         {
           const Item item_not_needed{ToItem(what)};
-          const std::string u{ReadString(s)};
-          assert(u == "goto");
-          const int option_next_chapter{ReadInt(s)};
-          Option option(option_text,option_next_chapter);
-          option.AddItemNotNeeded(item_not_needed);
-          GetOptions().AddOption(option);
+          condition.AddItemNotNeeded(item_not_needed);
         }
         else
         {
           assert(!"Should not get here");
         }
+        const std::string str_goto{ReadString(s)};
+        assert(str_goto == "goto");
+        const int option_next_chapter{ReadInt(s)};
+        Option option(option_text,option_next_chapter);
+        option.AddCondition(condition);
+        GetOptions().AddOption(option);
       }
       else if (t == "goto")
       {

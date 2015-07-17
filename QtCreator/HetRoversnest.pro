@@ -64,7 +64,8 @@ SOURCES += main.cpp \
     option.cpp \
     chaptertype.cpp \
     fightingchapter.cpp \
-    optionschapter.cpp
+    optionschapter.cpp \
+    condition.cpp
 
 HEADERS += \
     helper.h \
@@ -78,4 +79,5 @@ HEADERS += \
     option.h \
     chaptertype.h \
     fightingchapter.h \
-    optionschapter.h
+    optionschapter.h \
+    condition.h

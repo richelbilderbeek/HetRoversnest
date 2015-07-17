@@ -157,9 +157,9 @@ void Test()
   }
 
   //Chapter 11: must always lose 1 skill point and shield
-  if (1 == 2)
+  if (1==2)
   {
-    const Chapter chapter("../Files/11.txt");
+    const Chapter chapter("../Files/11_new.txt");
     const int dex = 123;
     Character character(dex,10,10,Item::shield);
     assert(character.GetDexterity() == dex);
@@ -169,9 +169,9 @@ void Test()
     assert(!character.HasItem(Item::shield));
   }
   //Chapter 11: must lose 2 skill points and chain mail when having a chain mail
-  if (1 == 2)
+  if (1==2)
   {
-    const Chapter chapter("../Files/11.txt");
+    const Chapter chapter("../Files/11_new.txt");
     const int dex = 123;
     Character character(dex,10,10,Item::shield);
     character.AddItem(Item::chainmail_coat);
