@@ -4,17 +4,7 @@
 #include <cassert>
 #include <iostream>
 
-std::string ToPretty(std::string s)
-{
-  assert(!s.empty());
-  std::replace(
-    std::begin(s),
-    std::end(s),
-    '_',' '
-  );
-  s[0] = std::tolower(s[0]);
-  return s;
-}
+#include "helper.h"
 
 Monster::Monster(
   const std::string& name,

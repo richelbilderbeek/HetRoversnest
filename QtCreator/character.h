@@ -7,6 +7,8 @@
 
 struct Character
 {
+  using Items = std::set<Item>;
+
   Character(
     const int dexterity, //NL: Behendigheid
     const int condition, //NL: Conditie
@@ -28,6 +30,9 @@ struct Character
   int GetCurrentChapter() const noexcept { return m_chapters.back(); }
   int GetDexterity() const noexcept { return m_dexterity; }
   int GetGold() const noexcept { return m_gold; }
+  const Items& GetItems() const noexcept { return m_items; }
+  int GetInitialDexterity() const noexcept { return m_initial_dexterity; }
+  int GetInitialLuck() const noexcept { return m_initial_luck; }
   int GetInitialStamina() const noexcept { return m_initial_stamina; }
   int GetLuck() const noexcept { return m_luck; }
   int GetProvisions() const noexcept { return m_provisions; }
@@ -47,7 +52,7 @@ struct Character
   const int m_initial_dexterity; //NL: Behendigheid
   const int m_initial_luck; //NL: Geluk
   const int m_initial_stamina; //NL: Conditie
-  std::set<Item> m_items; //NL: Voorwerpen
+  Items m_items; //NL: Voorwerpen
   int m_luck; //NL: Geluk
   int m_provisions; //NL: Proviant
   int m_stamina; //NL: Conditie

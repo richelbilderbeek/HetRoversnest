@@ -121,6 +121,24 @@ void DoChapter(
   }
 }
 
+void DoInventory(Character& character, const bool auto_play)
+{
+  std::stringstream s;
+  s
+    << "Dexterity: " << character.GetDexterity() << "/" << character.GetInitialDexterity() << '\n'
+    << "Stamina: " << character.GetStamina() << "/" << character.GetInitialStamina() << '\n'
+    << "Luck: " << character.GetLuck() << "/" << character.GetInitialLuck() << '\n'
+    << "Gold pieces: " << character.GetGold() << '\n'
+    << "Provisions: " << character.GetProvisions() << '\n'
+    << '\n'
+  ;
+  for (const Item item: character.GetItems())
+  {
+    s << ToStr(item) << '\n';
+  }
+  ShowText(s.str(),auto_play);
+}
+
 void DoPlayBall(Character& character, const bool auto_play)
 {
   /*

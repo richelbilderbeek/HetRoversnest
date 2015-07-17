@@ -1,5 +1,6 @@
 #include "helper.h"
 
+#include <algorithm>
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -47,6 +48,18 @@ std::vector<std::string> StripFirstChar(std::vector<std::string> v)
   assert(!v[0].empty());
   v[0] = v[0].substr(1,v[0].size() - 1);
   return v;
+}
+
+std::string ToPretty(std::string s)
+{
+  assert(!s.empty());
+  std::replace(
+    std::begin(s),
+    std::end(s),
+    '_',' '
+  );
+  s[0] = std::tolower(s[0]);
+  return s;
 }
 
 void Wait(const double n_secs) noexcept

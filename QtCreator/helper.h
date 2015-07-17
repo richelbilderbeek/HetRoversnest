@@ -20,6 +20,9 @@ void ShowText(const std::string& text, const bool auto_play);
 
 void Test();
 
+///Replace 'two_words' by 'two words'
+std::string ToPretty(std::string s);
+
 void Wait(const double n_secs) noexcept;
 
 #endif // HELPER_H

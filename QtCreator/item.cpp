@@ -56,7 +56,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::piece_of_chalk,"piece_of_chalk"));
   m.insert(Pair(Item::shield_with_uniform_crest,"shield_with_uniform_crest"));
   m.insert(Pair(Item::copper_brooch,"copper_brooch"));
-  m.insert(Pair(Item::carralifs_sword,"Carralif's_sword"));
+  m.insert(Pair(Item::carralifs_sword,"carralifs_sword"));
   m.insert(Pair(Item::ordinary_sword,"ordinary_sword"));
   m.insert(Pair(Item::luck_potion,"luck_potion"));
   m.insert(Pair(Item::stamina_potion,"stamina_potion"));

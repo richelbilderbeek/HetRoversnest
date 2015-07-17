@@ -38,6 +38,11 @@ void DoGameOver();
 void DoGameWon();
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character);
 
+void DoInventory(
+  Character& character,
+  const bool auto_play
+);
+
 void DoNormalChapter(
   std::vector<std::pair<char,int>> options,
   int& chapter,

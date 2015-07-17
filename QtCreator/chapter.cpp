@@ -311,29 +311,32 @@ void Chapter::Do(Character& character,const bool auto_play) const
   //Options
   if (!GetOptions().GetOptions().empty())
   {
-    const auto options = GetOptions().GetValidOptions(character);
-    const int n_options{static_cast<int>(options.size())};
-    for (int i=0; i!=n_options; ++i)
-    {
-      const auto option = options[i];
-      std::cout << '[' << (i+1) << "]" << option.GetText() << std::endl;
-    }
-    //Chose an options
-    if (auto_play)
-    {
-      std::cout << "AUTOPLAY: chose option #1" << std::endl;
-      options[0].DoChoose(character);
-      return;
-    }
-    //Only one option
-    if (options.size() == 1)
-    {
-      options[0].DoChoose(character);
-      return;
-    }
-    //Process command
     while (1)
     {
+      //Show options
+      const auto options = GetOptions().GetValidOptions(character);
+      const int n_options{static_cast<int>(options.size())};
+      for (int i=0; i!=n_options; ++i)
+      {
+        const auto option = options[i];
+        std::cout << '[' << (i+1) << "]" << option.GetText() << std::endl;
+      }
+      std::cout << "[9] Status and inventory" << std::endl;
+      //Chose an options
+      if (auto_play)
+      {
+        std::cout << "AUTOPLAY: chose option #1" << std::endl;
+        options[0].DoChoose(character);
+        return;
+      }
+      //Only one option
+      if (options.size() == 1)
+      {
+        options[0].DoChoose(character);
+        return;
+      }
+
+      //Process command
       std::string s;
       std::getline(std::cin,s);
       if (s.empty()) continue;
@@ -344,6 +347,19 @@ void Chapter::Do(Character& character,const bool auto_play) const
         continue;
       }
       const int chosen_option_number{boost::lexical_cast<int>(s)};
+      if (chosen_option_number != 9
+        && (chosen_option_number < 1 || chosen_option_number > static_cast<int>(options.size()))
+      )
+      {
+        std::cout << "Please enter a number from 1 to " << options.size() << " or 9 for inventory" << std::endl;
+        continue;
+      }
+      if (chosen_option_number == 9)
+      {
+        DoInventory(character,auto_play);
+        std::cout << std::endl;
+        continue;
+      }
       const int chosen_option_index{chosen_option_number-1};
       assert(chosen_option_index >= 0);
       assert(chosen_option_index < static_cast<int>(options.size()));
