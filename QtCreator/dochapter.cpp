@@ -1361,7 +1361,8 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
 
 void Parse(std::stringstream& s, const char expected_char)
 {
-  char c = ReadChar(s);
+  const char c = ReadChar(s);
+  if (c != expected_char) { std::cerr << "Warning: expected character" << std::endl; }
   assert(c == expected_char);
 }
 
