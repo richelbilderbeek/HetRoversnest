@@ -1,10 +1,6 @@
 As you draw your sword the guard leaps to his right 
 and attempts to ring a small bell on the wall of the 
-guardhouse. Test yoiir Luck. If you are Lucky, he 
-misses the bell, curses, and turns to fight you with 
-his pike. If you are unlucky, he manages 
-to grab the bell and rings it loudly before turning to 
-fight you with his pike. 
-@1
-@0:Bad luck!@311
-@1:Luck!@10
+guardhouse. Test your Luck. 
+@999
+no_luck He manages to grab the bell and rings it loudly before turning to fight you with his pike. @ goto 311
+luck He misses the bell, curses, and turns to fight you with his pike. @ goto 10

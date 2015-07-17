@@ -58,11 +58,11 @@ enum class Item
   random_item_or_one_gold = 92, //For chapter 148
   any_item = 93, //For chapter 113, where you give a selected item
   all_silver_items = 94, //For chapter 343
-  something_silver = 95, //For chapter 328
+  //something_silver = 95, //For chapter 328
   some_piece_of_armor = 96, //For chapter 293, where Miss Pipe request some piece of armor
   two_magic_items = 97, //For chapter 248, where Ben Borryman wants two magic items
   something_magic = 98, //For chapter 187 and 293, where the guards/Miss Pipe request something magic
-  random_item = 99, //For chapter 63, where you lose two random items
+  two_random_items = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
   fought_ape_man = 100 //Chapter 201
 };

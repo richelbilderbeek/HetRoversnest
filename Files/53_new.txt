@@ -1,0 +1,4 @@
+The silk curtains in front of the archway are pulled aside and a strange creature steps into the room. It has a snake's head, which sits oddly atop the body of a young woman wearing a lavish gown. Its mouth opens and a forked tongue darts in and out as the serpent queen says, 'Don't try to fool me, I know that scoundrel Borryman never sends flowers. What silver gift have you brought me?' 
+@999
+option If you wish to give the silver arrow to the Serpent Queen @ if has silver_arrow then remove silver_arrow goto 328
+option If you have not got a silver item that you wish to give away @ goto 39

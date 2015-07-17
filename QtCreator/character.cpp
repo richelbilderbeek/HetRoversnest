@@ -89,13 +89,25 @@ int Character::GetDexterityBase() const noexcept
 
 bool Character::HasItem(const Item item) const
 {
+  /*
+  if (item == Item::something_silver)
+  {
+    return HasItem(Item::silver_arrow)
+      || HasItem(Item::silver_brooch)
+      || HasItem(Item::silver_chain)
+      || HasItem(Item::silver_flute)
+      || HasItem(Item::silver_goblet)
+      || HasItem(Item::silver_insect_bracelet)
+    ;
+  }
+  */
   return m_items.find(item) != std::end(m_items);
 }
 
 void Character::RemoveItem(Item item)
 {
   if (m_items.empty()) return;
-  if (item == Item::random_item)
+  if (item == Item::two_random_items)
   {
     const int n_items{static_cast<int>(m_items.size())};
     const int item_index{std::rand() % n_items};

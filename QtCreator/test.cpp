@@ -236,6 +236,30 @@ void Test()
     chapter.Do(character,true);
     assert(character.GetProvisions() == 0);
   }
+
+  //Chapter 53: Can only give if something silver
+  if (1==2)
+  {
+    const Chapter chapter("../Files/53.txt");
+    Character character(10,10,10,Item::shield);
+    character.AddItem(Item::silver_arrow);
+    chapter.Do(character,true);
+    chapter.Do(character,true);
+    chapter.Do(character,true);
+    chapter.Do(character,true);
+    assert(!character.HasItem(Item::silver_arrow));
+  }
+
+  //Chapter 63: Lose two random items
+  {
+    const Chapter chapter("../Files/63.txt");
+    Character character(10,10,10,Item::shield);
+    const int n_items_before{static_cast<int>(character.GetItems().size())};
+    chapter.Do(character,true);
+    const int n_items_after{static_cast<int>(character.GetItems().size())};
+    assert(n_items_after == n_items_before - 2);
+  }
+
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times

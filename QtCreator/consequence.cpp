@@ -78,6 +78,21 @@ void Consequence::Apply(Character& character) const
       character.ChangeProvisions(-character.GetProvisions());
       continue;
     }
+    if (item == Item::two_random_items)
+    {
+      if (verbose) { std::clog << "Removing two random items" << std::endl; }
+      for (int i=0; i!=2; ++i)
+      {
+        const auto items = character.GetItems();
+        const int n_items{static_cast<int>(items.size())};
+        if (n_items == 0) continue;
+        auto iter = items.cbegin();
+        const int item_index{(std::rand() >> 4) % n_items};
+        for (int j=0; j!=item_index; ++j) { ++iter; }
+        character.RemoveItem(*iter);
+      }
+      continue;
+    }
     if (verbose) { std::clog << "Removing item " << ToStr(item) << std::endl; }
     character.RemoveItem(item);
   }
