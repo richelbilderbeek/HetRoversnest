@@ -78,8 +78,9 @@ void Test()
   //Chapter 8: change status
   {
     const Chapter chapter("../Files/8.txt");
-    assert(chapter.GetAddItems().count(Item::golden_brooch));
-    assert(chapter.GetChangeLuck() == 2);
+    assert(chapter.GetConsequence().GetItemsToAdd().size() == 1);
+    assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::golden_brooch);
+    assert(chapter.GetConsequence().GetChangeLuck() == 2);
   }
   //Chapter 26: no change of status
   {
@@ -100,7 +101,7 @@ void Test()
     const Chapter chapter("../Files/223.txt");
     assert(chapter.GetType() == ChapterType::play_pill);
     assert(chapter.GetNextChapter() == 165);
-    assert(chapter.GetChangeGold() == 20);
+    assert(chapter.GetConsequence().GetChangeGold() == 20);
     assert(!chapter.GetByeText().empty());
     Character character(100,100,100,Item::shield);
     chapter.Do(character,true);
@@ -136,6 +137,9 @@ void Test()
   {
     const Chapter chapter("../Files/7.txt");
     assert(chapter.GetOptions().GetOptions().size() == 2);
+    assert(chapter.GetConsequence().GetItemsToAdd().size() == 1);
+    assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::black_pearls);
+    assert(chapter.GetConsequence().GetItemsToRemove().empty());
     Character character(10,10,10,Item::shield);
     character.ChangeLuck(-character.GetLuck()); //Make player unlucky
     assert(character.GetLuck() == 0);

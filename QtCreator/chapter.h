@@ -6,9 +6,10 @@
 
 #include "chaptertype.h"
 #include "character.h"
-#include "monster.h"
+//#include "monster.h"
 #include "fightingchapter.h"
 #include "optionschapter.h"
+#include "consequence.h"
 
 struct Chapter
 {
@@ -17,23 +18,11 @@ struct Chapter
   ///Let the player do this chapter
   void Do(Character& character, const bool auto_play) const;
 
-  ///Which items are added to the player's inventory?
-  std::set<Item> GetAddItems() const noexcept { return m_add_items; }
 
   ///The text displayed at the end of the chapter
   const std::string& GetByeText() const noexcept { return m_bye_text; }
 
-  ///How will the dexterity of the character change in this chapter?
-  int GetChangeDexterity() const noexcept { return m_change_dex; }
-
-  ///How will the gold of the character change in this chapter?
-  int GetChangeGold() const noexcept { return m_change_gold; }
-
-  ///How will the luck of the character change in this chapter?
-  int GetChangeLuck() const noexcept { return m_change_luck; }
-
-  ///How will the stamina of the character change in this chapter?
-  int GetChangeStamina() const noexcept { return m_change_sta; }
+  const Consequence& GetConsequence() const noexcept { return m_consequence; }
 
   int GetNextChapter() const noexcept { return m_next_chapter; }
 
@@ -48,23 +37,10 @@ struct Chapter
   ChapterType GetType() const noexcept { return m_chapter_type; }
 
   private:
-  ///Which items are added to the player's inventory?
-  std::set<Item> m_add_items;
-
   ///The text displayed at the end of the chapter
   std::string m_bye_text;
 
-  ///How much will the dexterity of the character change?
-  int m_change_dex;
-
-  ///How much will the gold of the character change?
-  int m_change_gold;
-
-  ///How much will the luck of the character change?
-  int m_change_luck;
-
-  ///How much will the stamina of the character change?
-  int m_change_sta;
+  Consequence m_consequence;
 
   ChapterType m_chapter_type;
 
@@ -75,8 +51,6 @@ struct Chapter
 
   OptionsChapter m_options_chapter;
 
-  ///Which items are removed to the player's inventory?
-  std::set<Item> m_remove_items;
 
   std::string m_text;
 };

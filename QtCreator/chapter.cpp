@@ -13,17 +13,13 @@
 #include "helper.h"
 
 Chapter::Chapter(const std::string& filename)
-  : m_add_items{},
+  :
     m_bye_text{},
-    m_change_dex{0},
-    m_change_gold{0},
-    m_change_luck{0},
-    m_change_sta{0},
+    m_consequence{},
     m_chapter_type{ChapterType::normal},
     m_fighting_chapter{},
     m_next_chapter{-1},
     m_options_chapter{},
-    m_remove_items{},
     m_text{}
 {
   if (!IsRegularFile(filename))
@@ -219,38 +215,39 @@ Chapter::Chapter(const std::string& filename)
     }
     else if (str == "Change" || str == "change")
     {
+
       const std::string what{ReadString(s)};
       if (what == "gold")
       {
         const int change_gold{ReadInt(s)};
-        m_change_gold = change_gold;
+        m_consequence.SetChangeGold(change_gold);
       }
       else if (what == "dexterity" || what == "dex")
       {
         const int change_dex{ReadInt(s)};
-        m_change_dex = change_dex;
+        m_consequence.SetChangeDexterity(change_dex);
       }
       else if (what == "luck")
       {
         const int change_luck{ReadInt(s)};
-        m_change_luck = change_luck;
+        m_consequence.SetChangeLuck(change_luck);
       }
       else if (what == "stamina" || what == "sta")
       {
         const int change_sta{ReadInt(s)};
-        m_change_sta = change_sta;
+        m_consequence.SetChangeStamina(change_sta);
       }
       else if (what == "add")
       {
         const std::string item_name{ReadString(s)};
         const Item item{ToItem(item_name)};
-        m_add_items.insert(item);
+        m_consequence.AddItemToAdd(item);
       }
       else if (what == "remove")
       {
         const std::string item_name{ReadString(s)};
         const Item item{ToItem(item_name)};
-        m_remove_items.insert(item);
+        m_consequence.AddItemToRemove(item);
       }
       else
       {
@@ -276,13 +273,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
 
   std::cout << std::endl;
 
-  character.ChangeDexterity(this->GetChangeDexterity());
-  character.ChangeLuck(this->GetChangeLuck());
-  character.ChangeStamina(this->GetChangeStamina());
-  for (const auto item: this->GetAddItems())
-  {
-    character.AddItem(item);
-  }
+  m_consequence.Apply(character);
 
   //Options
   if (!GetOptions().GetOptions().empty())
