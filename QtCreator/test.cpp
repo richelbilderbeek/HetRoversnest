@@ -198,13 +198,20 @@ void Test()
     assert(dex_after == dex_before - 1);
     assert(sta_after == sta_before - 4);
   }
-  //Chapter 15: Luck chapter
+  //Chapter 15: Luck chapter must be parsed correctly
   {
     const Chapter chapter("../Files/15.txt");
     assert(!chapter.GetLuck().GetLuckText().empty());
     assert(!chapter.GetLuck().GetNoLuckText().empty());
     assert(chapter.GetLuck().GetLuckChapter() > 1);
     assert(chapter.GetLuck().GetNoLuckChapter() > 1);
+  }
+  //Chapter 15: Luck chapter must be parsed correctly
+  {
+    const Chapter chapter("../Files/15.txt");
+    Character character(10,10,10,Item::shield);
+    chapter.Do(character,true);
+    assert(character.GetCurrentChapter() > -1);
   }
 
   //Chapters 13 and 273: should not be able to take both brooches

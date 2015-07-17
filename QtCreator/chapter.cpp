@@ -423,6 +423,10 @@ void Chapter::Do(Character& character,const bool auto_play) const
     assert(m_next_chapter > 0);
     character.SetChapter(m_next_chapter);
   }
+  else if (!GetLuck().GetLuckText().empty())
+  {
+    GetLuck().Do(character,auto_play);
+  }
   else if (GetType() == ChapterType::game_lost)
   {
     character.SetIsDead();

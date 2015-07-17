@@ -3,10 +3,16 @@
 
 #include <string>
 
+struct Character;
+
 ///Chapter in which you have to test your luck
 struct LuckChapter
 {
   LuckChapter();
+
+  ///Let the character undergo this chapter
+  void Do(Character& character, const bool auto_play) const;
+
   const std::string& GetLuckText() const noexcept { return m_luck_text; }
   const std::string& GetNoLuckText() const noexcept { return m_no_luck_text; }
   int GetLuckChapter() const noexcept { return m_luck_chapter; }

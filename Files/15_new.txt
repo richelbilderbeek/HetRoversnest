@@ -1,5 +1,0 @@
-You leap over the snakes and run for the door. Test 
-your Luck.
-@1
-if luck One of the snakes strikes out and bites you in the leg@ goto 15
-if no_luck You reach the door safely@ goto 75
