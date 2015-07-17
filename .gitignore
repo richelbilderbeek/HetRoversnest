@@ -1,3 +1,9 @@
 build-*
 *.pro.user
 Thumbs.db
+Makefile
+Makefile.*
+*_plugin_import.cpp
+object_script*
+release/
+release/*
