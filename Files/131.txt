@@ -3,10 +3,7 @@ polished wooden floor. Silk curtains hang down
 over an archway on the far wall. As you start to walk 
 across the wooden floor, a woman's voice calls out 
 'Who is it?' You may: 
-[1] Tell her you are delivering flowers 
-[2] Tell her you have come to collect old rags 
-[3] Tell her you are a tax collector
-@0
-@1:195
-@2:6
-@3:179
+@999
+option Tell her you are delivering flowers @ goto 195
+option Tell her you have come to collect old rags @ goto 6
+option Tell her you are a tax collector @ goto 179

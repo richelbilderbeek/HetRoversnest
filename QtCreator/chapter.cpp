@@ -317,8 +317,17 @@ Chapter::Chapter(const std::string& filename)
         const Option option(option_text,option_next_chapter);
         GetOptions().AddOption(option);
       }
+      else if (IsInt(t))
+      {
+        std::clog << "WARNING: goto omitted in file " << filename << std::endl;
+        //If no goto, just parse the number
+        const int option_next_chapter{std::stoi(t)};
+        const Option option(option_text,option_next_chapter);
+        GetOptions().AddOption(option);
+      }
       else
       {
+        std::cerr << "Unknown option " << t << " in file " << filename <<std::endl;
         assert(!"Should not get here");
       }
     }

@@ -260,6 +260,16 @@ void Test()
     assert(n_items_after == n_items_before - 2);
   }
 
+  //Chapter 134: Lose all gold
+  {
+    const Chapter chapter("../Files/134.txt");
+    Character character(10,10,10,Item::shield);
+    assert(character.GetGold() > 0);
+    chapter.Do(character,true);
+    assert(character.GetGold() == 0);
+  }
+
+
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times

@@ -54,6 +54,7 @@ enum class Item
   stamina_potion = 49,
   dexterity_potion = 50,
   //Abstract items
+  all_gold = 90, //For chapter 42
   all_provisions = 91, //For chapter 42
   random_item_or_one_gold = 92, //For chapter 148
   any_item = 93, //For chapter 113, where you give a selected item

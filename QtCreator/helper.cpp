@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 
+#include <boost/lexical_cast.hpp>
 #include <boost/timer.hpp>
 
 std::vector<std::string> FileToVector(const std::string& filename)
@@ -19,6 +20,19 @@ std::vector<std::string> FileToVector(const std::string& filename)
     v.push_back(s);
   }
   return v;
+}
+
+bool IsInt(const std::string& s) noexcept
+{
+  try
+  {
+    boost::lexical_cast<int>(s);
+    return true;
+  }
+  catch (boost::bad_lexical_cast&)
+  {
+    return false;
+  }
 }
 
 

@@ -72,6 +72,12 @@ void Consequence::Apply(Character& character) const
   }
   for (const auto item: this->GetItemsToRemove())
   {
+    if (item == Item::all_gold)
+    {
+      if (verbose) { std::clog << "Removing all gold" << std::endl; }
+      character.ChangeGold(-character.GetGold());
+      continue;
+    }
     if (item == Item::all_provisions)
     {
       if (verbose) { std::clog << "Removing all provisions" << std::endl; }
