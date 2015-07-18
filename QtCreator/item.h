@@ -75,7 +75,8 @@ enum class Item
   lifted_goblet_b, //Chapter 209
   lifted_goblet_c,
   picked_up_silver_scorpion,
-  picked_up_golden_scorpion
+  picked_up_golden_scorpion,
+  all_needed_to_slay_zanbar_bone
 };
 
 std::string ToStr(const Item item);

@@ -43,13 +43,40 @@ bool Condition::IsSatisfied(const Character &character) const
 {
   if (GetGoldNeeded() > character.GetGold()) return false;
   if (GetProvisionsNeeded() > character.GetProvisions()) return false;
+
+
   for (const auto item_needed: GetItemsNeeded())
   {
-    if (!character.HasItem(item_needed)) return false;
+    if (item_needed == Item::all_needed_to_slay_zanbar_bone)
+    {
+      if (!character.HasItem(Item::tattoo)) return false;
+      if (!character.HasItem(Item::lotus_flower)) return false;
+      if (!character.HasItem(Item::black_pearls)) return false;
+      if (!character.HasItem(Item::hags_hair)) return false;
+    }
+    else
+    {
+      if (!character.HasItem(item_needed)) return false;
+    }
   }
   for (const auto item_not_needed: GetItemsNotNeeded())
   {
-    if (character.HasItem(item_not_needed)) return false;
+    if (item_not_needed == Item::all_needed_to_slay_zanbar_bone)
+    {
+      if (
+        character.HasItem(Item::tattoo)
+        && character.HasItem(Item::lotus_flower)
+        && character.HasItem(Item::black_pearls)
+        && character.HasItem(Item::hags_hair)
+      )
+      {
+        return false;
+      }
+    }
+    else
+    {
+      if (character.HasItem(item_not_needed)) return false;
+    }
   }
   return true;
 }

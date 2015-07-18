@@ -303,6 +303,31 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
   }
 
+  //Chapter 239: all_needed_to_slay_zanbar_bone
+  {
+    const Chapter chapter("../Files/239.txt");
+    Character character(1,1,1,Item::luck_potion);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_all_chapter_1{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    character.AddItem(Item::tattoo);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_all_chapter_2{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_all_chapter_1 == not_all_chapter_2);
+    character.AddItem(Item::hags_hair);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_all_chapter_3{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_all_chapter_1 == not_all_chapter_3);
+    character.AddItem(Item::lotus_flower);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_all_chapter_4{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_all_chapter_1 == not_all_chapter_4);
+    character.AddItem(Item::black_pearls);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int all_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_all_chapter_1 != all_chapter);
+
+  }
+
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times
