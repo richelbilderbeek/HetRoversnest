@@ -1,5 +1,5 @@
 As you start your fight with the guard, you see 
 two more armed men appear from a stone guardhouse by the gate. They draw their swords and await the outcome of your battle.
-@7
-Monster City_guard 8 7 2
-Next_chapter 405
+@999
+monster City_guard 8 7 2
+goto 405

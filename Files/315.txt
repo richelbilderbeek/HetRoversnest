@@ -1,13 +1,5 @@
-The creature leads you downstairs to the room 
-below and asks if you require fortune or good 
-health. It takes the gold and silver scorpions out 
-of their bowls and tells you that they are magic 
-brooches. Each costs 6 Gold Pieces but you may only 
-buy one. 
-[1] If you wish fortune
-[2] If you wish good health
-[3] If you wish to you leave the house and head north
-@0
-@1?G6:8
-@2?G6:132
-@3:334
+The creature leads you downstairs to the room below and asks if you require fortune or good health. It takes the gold and silver scorpions out of their bowls and tells you that they are magic brooches. Each costs 6 gold pieces but you may only buy one. 
+@999
+option If you wish fortune @ if gold 6 goto 8
+option If you wish good health @ if gold 6 goto 132
+option If you wish to you leave the house and head north @ goto 334

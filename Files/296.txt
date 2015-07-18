@@ -1,11 +1,5 @@
-Walking towards you down the street are two men 
-wearing black robes which cover them completely 
-except for their eyes. On seeing you they nod at 
-each other and draw their swords; they are 
-thieves hoping to rob you of your possessions 
-and you must defend yourself. Fight them one at a 
-time. 
-@7
-Monster First_thief 7 8 2
-Monster Second_thief 7 6 2
-Next_chapter 147
+Walking towards you down the street are two men wearing black robes which cover them completely except for their eyes. On seeing you they nod at each other and draw their swords. They are thieves hoping to rob you of your possessions and you must defend yourself. Fight them one at a time. 
+@999
+monster First_thief 7 8 2
+monster Second_thief 7 6 2
+goto 147

@@ -8,8 +8,7 @@ in exchange for the golden flower.
 [1] Buy the flowers for a magic item?
 [2] Buy the flowers for a piece of armor?
 [3] Buy the flowers for two provisions?
-[4] Leave the shop 
-and head west (turn to 24). 
+[4] Leave the shop and head west (turn to 24). 
 @0
 @1?I98:414
 @2?I96:415

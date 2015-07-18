@@ -108,7 +108,7 @@ Chapter::Chapter(const std::string& filename)
   {
     const std::string str{ReadString(s)};
     if (str.empty()) break;
-    if (str == "Fight_both")
+    if (str == "Fight_both" || str == "fight_both")
     {
       GetFighting().SetFightSequentially(false);
     }

@@ -45,7 +45,7 @@ enum class Item
   magic_helmet = 39, //Found in chapter 376. add 1 point to attack
   silver_flute = 40, //Obtained at 359
   eye_patch = 41,
-  elven_boots = 42,
+  magic_elven_boots = 42,
   piece_of_chalk = 43,
   shield_with_unicorn_crest = 44, //Found in chapter 374
   shield_with_tower_crest = 51, //Found in chapter 125

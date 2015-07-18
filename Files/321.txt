@@ -1,10 +1,5 @@
-At the bottom of the ladder you realize, much to 
-your disgust, that you are standing in a sewer. 
-There are torches along the tunnel wall, giving a 
-very dim light, and droplets of water make eerie 
-sounds as they fall into the sewage water. 
-[1] If you wish to walk north along the tunnel
-[2] If you wish to walk south
-@0
-@1:356
-@2:118
+At the bottom of the ladder you realize, much to your disgust, that you are standing in a sewer. There are torches along the tunnel wall, giving a very dim light, and droplets of water make eerie sounds as they fall into the sewage water. 
+@999
+option If you wish to walk north along the tunnel @ goto 356
+option If you wish to walk south @ goto 118
+

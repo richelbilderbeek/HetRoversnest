@@ -1,6 +1,5 @@
-You feel the effects of poison creeping through 
-your body. Lose 4 stamina points. If you are still 
-alive you manage to reach the door to escape. 
-@3
-@S-4
-@75
+You feel the effects of poison creeping through your body. Lose 4 stamina points. 
+@999
+change stamina -4
+goto 75
+bye You manage to reach the door to escape. @

@@ -130,6 +130,7 @@ void DoInventory(Character& character, const bool auto_play)
   ;
   if (character.HasItem(Item::carralifs_sword)) { s << " * " << ToStr(Item::carralifs_sword) << ": +2\n"; }
   if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
+  if (character.HasItem(Item::magic_elven_boots)) { s << " * " << ToStr(Item::magic_elven_boots) << ": +1\n"; }
   if (character.HasItem(Item::chainmail_coat)) { s << " * " << ToStr(Item::chainmail_coat) << ": +2\n"; }
   s
     << " * Total: " << character.GetDexterity() << "/" << character.GetInitialDexterity() << '\n'

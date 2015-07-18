@@ -1,7 +1,4 @@
-The boots fit perfectly and walking about you feel 
-very sure-footed. They are magic elven boots. Add 1 
-skill point to your total and sel off east again (lurn 
-to 103). 
-@3
-@S+1,I42+
-@103
+The boots fit perfectly and walking about you feel very sure-footed. They are magic elven boots, adding 1 skill point to your total. You set off east again.
+@999
+change add magic_elven_boots
+goto 103

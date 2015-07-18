@@ -53,7 +53,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::magic_helmet,"magic_helmet"));
   m.insert(Pair(Item::silver_flute,"silver_flute"));
   m.insert(Pair(Item::eye_patch,"eye_patch"));
-  m.insert(Pair(Item::elven_boots,"elven_boots"));
+  m.insert(Pair(Item::magic_elven_boots,"magic_elven_boots"));
   m.insert(Pair(Item::piece_of_chalk,"piece_of_chalk"));
   m.insert(Pair(Item::shield_with_unicorn_crest,"shield_with_unicorn_crest"));
   m.insert(Pair(Item::shield_with_tower_crest,"shield_with_tower_crest"));

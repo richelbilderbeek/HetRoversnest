@@ -1,9 +1,4 @@
-Vou show the man the two gems. Holding them up 
-to the light he examines them carefully with a small 
-magnifying glass. He turns to face you and offers 
-you 9 Gold Pieces for the two. 
-[1] If you wish to accept the offer
-[2] If you wish to haggle for a better deal
-@0
-@1:240
-@2:345
+Vou show the man the two gems. Holding them up to the light he examines them carefully with a small magnifying glass. He turns to face you and offers you 9 gold pieces for the two. 
+@999
+option If you wish to accept the offer @ goto 240
+option If you wish to haggle for a better deal @ goto 345

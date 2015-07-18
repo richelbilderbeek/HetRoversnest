@@ -1,8 +1,5 @@
-You hurry on down the street but glance back after 
-hearing cries of jubilation behind you. Some people 
-are linked arm in arm and are dancing in a circle 
-round your 10 Gold Pieces. You lose 2 luck points. 
-You curse this thieving city and press on north.
-@3
-@G-10,L-2
-@112
+You hurry on down the street but glance back after hearing cries of jubilation behind you. Some people are linked arm in arm and are dancing in a circle round your 10 Gold Pieces. You lose 2 luck points. You curse this thieving city and press on north.
+@999
+change gold -10
+change luck -2
+goto 112

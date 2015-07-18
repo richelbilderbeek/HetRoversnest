@@ -83,8 +83,10 @@ int Character::GetDexterity() const noexcept
 {
   return
     GetDexterityBase()
+    + (this->HasItem(Item::magic_elven_boots) ? 1 : 0)
     + (this->HasItem(Item::shield) ? 1 : 0)
     + (this->HasItem(Item::chainmail_coat) ? 2 : 0)
+    + (this->HasItem(Item::carralifs_sword) ? 2 : 0)
   ;
 }
 

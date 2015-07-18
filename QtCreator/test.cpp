@@ -303,10 +303,6 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
   }
 
-  {
-    const Chapter chapter("../Files/291_new.txt");
-  }
-
   //Chapters 13 and 273: should not be able to take both brooches
 
   //Chapter 43,175,209: cannot lift a globlet multiple times
