@@ -38,3 +38,19 @@ void Option::DoChoose(Character& character) const
 {
   character.SetChapter(m_next_chapter);
 }
+
+std::ostream& operator<<(std::ostream& os, const Option& option)
+{
+  os
+    << "Conditions: \n"
+  ;
+  for (const auto condition: option.GetConditions())
+  {
+    os << " * " << condition << '\n';
+  }
+  os
+    << "m_next_chapter: " << option.GetNextChapter() << '\n'
+    << "m_text: " << option.GetText() << '\n'
+  ;
+  return os;
+}

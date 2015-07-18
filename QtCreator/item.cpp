@@ -38,8 +38,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::ring_of_the_golden_eye,"ring_of_the_golden_eye"));
   m.insert(Pair(Item::golden_brooch,"golden_brooch"));
   m.insert(Pair(Item::glass_ball,"glass_ball"));
-  m.insert(Pair(Item::ivory_skull,"ivory_skull"));
-  m.insert(Pair(Item::silver_chain,"silver_chain"));
+  m.insert(Pair(Item::ivory_skull_on_a_silver_chain,"ivory_skull_on_a_silver_chain"));
   m.insert(Pair(Item::garlic,"garlic"));
   m.insert(Pair(Item::knucklebones,"knucklebones"));
   m.insert(Pair(Item::golden_owl,"golden_owl"));
@@ -54,7 +53,8 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::eye_patch,"eye_patch"));
   m.insert(Pair(Item::elven_boots,"elven_boots"));
   m.insert(Pair(Item::piece_of_chalk,"piece_of_chalk"));
-  m.insert(Pair(Item::shield_with_uniform_crest,"shield_with_uniform_crest"));
+  m.insert(Pair(Item::shield_with_unicorn_crest,"shield_with_unicorn_crest"));
+  m.insert(Pair(Item::shield_with_tower_crest,"shield_with_tower_crest"));
   m.insert(Pair(Item::copper_brooch,"copper_brooch"));
   m.insert(Pair(Item::carralifs_sword,"carralifs_sword"));
   m.insert(Pair(Item::ordinary_sword,"ordinary_sword"));
@@ -63,7 +63,6 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::dexterity_potion,"dexterity_potion"));
   m.insert(Pair(Item::all_provisions,"all_provisions"));
   m.insert(Pair(Item::all_gold,"all_gold"));
-
   m.insert(Pair(Item::random_item_or_one_gold,"random_item_or_one_gold"));
   m.insert(Pair(Item::any_item,"any_item"));
   m.insert(Pair(Item::all_silver_items,"all_silver_items"));
@@ -72,6 +71,14 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::two_magic_items,"two magic items"));
   m.insert(Pair(Item::something_magic,"something magic"));
   m.insert(Pair(Item::fought_ape_man,"fought_ape_man"));
+  m.insert(Pair(Item::followed_sewer_north,"followed_sewer_north"));
+  m.insert(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));
+  m.insert(Pair(Item::opened_pirate_captain_door,"opened_pirate_captain_door"));
+
+  m.insert(Pair(Item::lifted_goblet_a,"lifted_goblet_a"));
+  m.insert(Pair(Item::lifted_goblet_b,"lifted_goblet_b"));
+  m.insert(Pair(Item::lifted_goblet_c,"lifted_goblet_c"));
+
   return m;
 }
 

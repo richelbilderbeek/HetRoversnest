@@ -1,11 +1,9 @@
-You cry out in pain as the goblet changes into a 
-burning coal in your hand. You are badly burnt. 
-Lose 2 skill and 2 luck points. 
-Will you
+You cry out in pain as the goblet changes into a burning coal in your hand. You are badly burnt. Lose 2 skill and 2 luck points. 
 @999
 change stamina -2
 change luck -2
-option Lift goblet A (if you have not done so already)@ goto 175
-option Lift goblet B (if you have not done so already)@ goto 209
+change add lifted_goblet_c
+option Lift goblet A @ if has_not lifted_goblet_a goto 175
+option Lift goblet B @ if has_not lifted_goblet_b goto 209
 option Walk through the archway@ goto 107
 option Climb the stairs@ goto 60

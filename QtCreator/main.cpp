@@ -14,9 +14,9 @@ int main()
   Test();
   bool auto_play{true};
   std::srand(0);
-  int chapter = 1;
+  int chapter = 146;
   Character character(100,100,100,Item::luck_potion);
-
+  character.AddItem(Item::skeleton_key);
   //chapter = 8; std::srand(28); //Start
   //chapter = 206; //Dice game
   //chapter = 223; std::srand(0); //Pill game and die

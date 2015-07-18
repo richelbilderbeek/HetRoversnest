@@ -1,11 +1,8 @@
 A man wearing a white apron is sitting at a bench 
 busily polishing a silver goblet. There are several 
 silver objects in a glass cupboard secured by an iron 
-grill at the back of the shop. You may: 
-[1] Talk to the silversmith
-[2] Attack him with your sword
-[3] Leave the shop and continue east
-@0
-@1:248
-@2:135
-@3:1
+grill at the back of the shop. You may:
+@999
+option Talk to the silversmith @ goto 248
+option Attack him with your sword @ goto 135
+option Leave the shop and continue east @ goto 1

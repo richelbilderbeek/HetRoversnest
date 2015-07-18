@@ -30,8 +30,7 @@ enum class Item
   silver_brooch = 23, //Heals one stamina after each battle
   ring_of_the_golden_eye = 24,
   glass_ball = 26,
-  ivory_skull = 27,
-  silver_chain = 28,
+  ivory_skull_on_a_silver_chain = 27,
   garlic = 29,
   knucklebones = 30, //NL: bikkels
   golden_owl = 31,
@@ -46,7 +45,8 @@ enum class Item
   eye_patch = 41,
   elven_boots = 42,
   piece_of_chalk = 43,
-  shield_with_uniform_crest = 44, //Found in chapter 374
+  shield_with_unicorn_crest = 44, //Found in chapter 374
+  shield_with_tower_crest = 51, //Found in chapter 125
   copper_brooch = 45, //Lose 1 luck without knowing
   carralifs_sword = 46, //Present at start, can lose it at 126
   ordinary_sword = 47, //Obtain it at 126
@@ -65,7 +65,13 @@ enum class Item
   something_magic = 98, //For chapter 187 and 293, where the guards/Miss Pipe request something magic
   two_random_items = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
-  fought_ape_man = 100 //Chapter 201
+  fought_ape_man = 100, //Chapter 201
+  followed_sewer_north = 101, //Chapter 174
+  opened_pirate_crew_door, //Chapter 176
+  opened_pirate_captain_door, //Chapter
+  lifted_goblet_a,
+  lifted_goblet_b, //Chapter 209
+  lifted_goblet_c
 };
 
 std::string ToStr(const Item item);

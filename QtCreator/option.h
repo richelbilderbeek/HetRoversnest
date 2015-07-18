@@ -26,6 +26,8 @@ struct Option
 
   void DoChoose(Character& character) const;
 
+  const std::vector<Condition>& GetConditions() const noexcept { return m_conditions; }
+
   int GetNextChapter() const noexcept { return m_next_chapter; }
 
   const std::string& GetText() const noexcept { return m_text; }
@@ -36,5 +38,7 @@ struct Option
   int m_next_chapter;
   std::string m_text;
 };
+
+std::ostream& operator<<(std::ostream& os, const Option& option);
 
 #endif // OPTION_H

@@ -1,8 +1,5 @@
 Which person will you say sent the flowers?
-[1] Tell her it is Lord Azzur 
-[2] Tell her it is Mrs Pipe 
-[3] Tell her it is Ben Borryman 
-@0
-@1:61
-@2:268
-@3:53
+@999
+option Tell her it is Lord Azzur @ goto 61
+option Tell her it is Mrs Pipe @ goto 268
+option Tell her it is Ben Borryman @ goto 53

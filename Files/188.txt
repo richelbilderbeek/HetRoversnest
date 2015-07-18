@@ -1,12 +1,4 @@
-It is gloomy in the house but you can make out the 
-shapes of abandoned furniture. Litter and rubble is 
-strewn all over the floor. You find a broken chair 
-and slump down in it to rest. Suddenly you notice 
-something slither across the floor, and before you 
-can get to your feet you see in the half-light that you 
-are encircled by six snakes, each a metre long. 
-[1] If you wish to hack at them with your sword
-[2] If you would rather make a dash for the door
-@0
-@1:253
-@2:15
+It is gloomy in the house but you can make out the shapes of abandoned furniture. Litter and rubble is strewn all over the floor. You find a broken chair and slump down in it to rest. Suddenly you notice something slither across the floor, and before you can get to your feet you see in the half-light that you are encircled by six snakes, each a metre long. 
+@999
+option If you wish to hack at them with your sword @ goto 253
+option If you would rather make a dash for the door @ goto 15

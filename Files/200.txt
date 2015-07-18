@@ -1,7 +1,4 @@
-In the next stall area Ihere is a small, brightly coloured tent. Attached to it is a small sign which 
-reads, 'Madame Star, Clairvoyant'. 
-[1] If you wish to enter the tent
-[2] If you would rather continue north
-@0
-@1:394
-@2:117
+In the next stall area there is a small, brightly coloured tent. Attached to it is a small sign which reads, 'Madame Star, Clairvoyant'. 
+@999
+option If you wish to enter the tent @ goto 394
+option If you would rather continue north @ goto 117

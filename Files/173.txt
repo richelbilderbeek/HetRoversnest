@@ -1,9 +1,4 @@
-The three old bearded Dwarfs are so involved with 
-their game that they pay you no attention as you sit 
-down at their table. Finally, one turns to you and 
-asks if you would like to join in their game. 
-[1] If you wish to gamble some of your Gold Pieces
-[2] If you would rather leave the smoky tavern and walk north
-@0
-@1:206
-@2:296
+The three old bearded dwarfs are so involved with their game that they pay you no attention as you sit down at their table. Finally, one turns to you and asks if you would like to join in their game. 
+@999
+option If you wish to gamble some of your gold pieces @ goto 206
+option If you would rather leave the smoky tavern and walk north @ goto 296

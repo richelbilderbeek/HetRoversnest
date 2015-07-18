@@ -302,6 +302,7 @@ Chapter::Chapter(const std::string& filename)
         }
         else
         {
+          std::cerr << "Unknown item " << what << " in " << filename << std::endl;
           assert(!"Should not get here");
         }
         const std::string str_goto{ReadString(s)};
@@ -431,10 +432,22 @@ void Chapter::Do(Character& character,const bool auto_play) const
   //Options
   if (!GetOptions().GetOptions().empty())
   {
+    if (GetOptions().GetValidOptions(character).empty())
+    {
+      std::cerr
+        << "ERROR: no valid options in chapter " << character.GetCurrentChapter()
+        << std::endl
+        << "Options:\n"
+      ;
+      for (const auto option: GetOptions().GetOptions())
+      {
+        std::cerr << option << std::endl;
+      }
+    }
     while (1)
     {
-      //Show options
       const auto options = GetOptions().GetValidOptions(character);
+      assert(!options.empty());
       const int n_options{static_cast<int>(options.size())};
       for (int i=0; i!=n_options; ++i)
       {

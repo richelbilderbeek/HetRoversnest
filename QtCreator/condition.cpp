@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 #include "character.h"
 
@@ -55,4 +56,23 @@ void Condition::SetGoldNeeded(const int gold_needed)
 {
   assert(gold_needed > 0);
   m_gold_needed = gold_needed;
+}
+
+std::ostream& operator<<(std::ostream& os, const Condition& condition)
+{
+  os
+    << "gold needed: " << condition.GetGoldNeeded()
+    << ", items needed: {"
+  ;
+  for (const auto item: condition.GetItemsNeeded())
+  {
+    os << ToStr(item) << ", ";
+  }
+  os << "}, items not_needed: {";
+  for (const auto item: condition.GetItemsNotNeeded())
+  {
+    os << ToStr(item) << ", ";
+  }
+  os << "}";
+  return os;
 }

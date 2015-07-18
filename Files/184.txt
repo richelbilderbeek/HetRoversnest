@@ -1,5 +1,4 @@
 Do you have any of Mrs Pipe's golden flowers?
-@6
-@I20
-@0:308
-@1:55
+@999
+option Yes @ if has gold_flower goto 55
+option No @ ifnot gold_flower goto 308

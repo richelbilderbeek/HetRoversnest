@@ -32,4 +32,6 @@ struct Condition
   std::vector<Item> m_items_not_needed;
 };
 
+std::ostream& operator<<(std::ostream& os, const Condition& condition);
+
 #endif // CONDITION_H

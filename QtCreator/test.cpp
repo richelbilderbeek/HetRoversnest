@@ -159,6 +159,18 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 191);
   }
+  //Chapter 146: must respond to skeleton_key
+  {
+    const Chapter chapter("../Files/146.txt");
+    assert(chapter.GetOptions().GetOptions().size() == 2);
+    Character character(1,1,1,Item::luck_potion);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int chapter_a{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    character.AddItem(Item::skeleton_key);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int chapter_b{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(chapter_a != chapter_b);
+  }
 
   //Chapter 11: lose 1 skill point and shield
   {
@@ -290,30 +302,78 @@ void Test()
   //All chapters with monster must have a valid next_chapter
 
   //Parse chapters using Chapter
-  std::ofstream f("TODO.txt");
-  for (int i=1; i!=450; ++i)
   {
-    try
+    std::ofstream f("TODO.txt");
+    for (int i=1; i!=450; ++i)
     {
-      const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
-      if (chapter.GetNextChapter() == 1)
+      try
       {
-        f << i << "ERROR: incorrect Next_chapter" << std::endl;
+        const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
+        if (chapter.GetNextChapter() == 1)
+        {
+          f << i << "ERROR: incorrect Next_chapter" << std::endl;
+        }
+        else
+        {
+          f << i << ": OK" << std::endl;
+        }
       }
-      else
+      catch (std::logic_error& e)
       {
-        f << i << ": OK" << std::endl;
+        f << i << ": FAIL" << std::endl;
       }
-    }
-    catch (std::logic_error& e)
-    {
-      f << i << ": FAIL" << std::endl;
-    }
-    catch (std::runtime_error& e)
-    {
-      f << i << ": not present" << std::endl;
+      catch (std::runtime_error& e)
+      {
+        f << i << ": not present" << std::endl;
+      }
     }
   }
+
+  //Create graph
+  {
+    std::ofstream f("Graph.dot");
+    f << "digraph CityOfThieves {\n";
+    for (int i=1; i!=450; ++i)
+    {
+      try
+      {
+        const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
+        if (chapter.GetNextChapter() != -1)
+        {
+          f << i << "->" << chapter.GetNextChapter() << ";\n";
+        }
+        else if (!chapter.GetLuck().GetLuckText().empty())
+        {
+          f << i << "->" << chapter.GetLuck().GetLuckChapter() << " [ label = \"Luck\"];\n";
+          f << i << "->" << chapter.GetLuck().GetNoLuckChapter() << " [ label = \"No luck\"];\n";
+        }
+        else if (!chapter.GetOptions().GetOptions().empty())
+        {
+          for (const auto option: chapter.GetOptions().GetOptions())
+          {
+            f << i << "->" << option.GetNextChapter() << " [ label = \"Choice\"];\n";
+          }
+        }
+        else if (!chapter.GetSkill().GetSkillText().empty())
+        {
+          f << i << "->" << chapter.GetSkill().GetSkillChapter() << " [ label = \"Skill\"];\n";
+          f << i << "->" << chapter.GetSkill().GetNoSkillChapter() << " [ label = \"No skill\"];\n";
+        }
+      }
+      catch (std::logic_error& e)
+      {
+        //f << i << ": FAIL" << std::endl;
+      }
+      catch (std::runtime_error& e)
+      {
+        //f << i << ": not present" << std::endl;
+      }
+    }
+    f << "}\n";
+    f.close();
+    std::system("dot -Tpng Graph.dot > Graph.png");
+  }
+
   //Try all chapters
   for (const Language language: { Language::Dutch, Language::English } )
   {
