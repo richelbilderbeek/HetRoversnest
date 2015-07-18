@@ -123,7 +123,7 @@ void Test()
     Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
-  //Chapter 3: options
+  //Chapter 3: option depending on gold
   {
     const Chapter chapter("../Files/3.txt");
     assert(chapter.GetType() == ChapterType::normal);
@@ -292,6 +292,17 @@ void Test()
     assert(character.GetGold() == 0);
   }
 
+  //Chapter 264: option depending on provisions
+  {
+    const Chapter chapter("../Files/264.txt");
+    assert(chapter.GetType() == ChapterType::normal);
+    assert(chapter.GetOptions().GetOptions().size() == 2);
+    Character character(1,1,1,Item::luck_potion);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 2);
+    character.ChangeProvisions(-character.GetProvisions()); //Make player bankrupt
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+  }
+
 
   //Chapters 13 and 273: should not be able to take both brooches
 
@@ -329,51 +340,6 @@ void Test()
     }
   }
 
-  //Create graph
-  {
-    std::ofstream f("Graph.dot");
-    f << "digraph CityOfThieves {\n";
-    for (int i=1; i!=450; ++i)
-    {
-      try
-      {
-        const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
-        if (chapter.GetNextChapter() != -1)
-        {
-          f << i << "->" << chapter.GetNextChapter() << ";\n";
-        }
-        else if (!chapter.GetLuck().GetLuckText().empty())
-        {
-          f << i << "->" << chapter.GetLuck().GetLuckChapter() << " [ label = \"Luck\"];\n";
-          f << i << "->" << chapter.GetLuck().GetNoLuckChapter() << " [ label = \"No luck\"];\n";
-        }
-        else if (!chapter.GetOptions().GetOptions().empty())
-        {
-          for (const auto option: chapter.GetOptions().GetOptions())
-          {
-            f << i << "->" << option.GetNextChapter() << " [ label = \"Choice\"];\n";
-          }
-        }
-        else if (!chapter.GetSkill().GetSkillText().empty())
-        {
-          f << i << "->" << chapter.GetSkill().GetSkillChapter() << " [ label = \"Skill\"];\n";
-          f << i << "->" << chapter.GetSkill().GetNoSkillChapter() << " [ label = \"No skill\"];\n";
-        }
-      }
-      catch (std::logic_error& e)
-      {
-        //f << i << ": FAIL" << std::endl;
-      }
-      catch (std::runtime_error& e)
-      {
-        //f << i << ": not present" << std::endl;
-      }
-    }
-    f << "}\n";
-    f.close();
-    std::system("dot -Tpng Graph.dot > Graph.png");
-  }
-
   //Try all chapters
   for (const Language language: { Language::Dutch, Language::English } )
   {
@@ -395,5 +361,66 @@ void Test()
     }
   }
   //Try chapters of different types
+
+
+  //Create graph
+  {
+    std::ofstream f("Graph.dot");
+    f << "digraph CityOfThieves {\n";
+    for (int i=1; i!=450; ++i)
+    {
+      try
+      {
+        const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
+        if (chapter.GetNextChapter() != -1)
+        {
+          f << i << "->" << chapter.GetNextChapter() << ";\n";
+        }
+        else if (!chapter.GetFighting().GetMonsters().empty())
+        {
+          if (chapter.GetFighting().GetEscapeToChapter() != -1)
+          {
+            f << i << "->" << chapter.GetFighting().GetEscapeToChapter() << " [ label = \"Escape\"];\n";
+          }
+        }
+        else if (!chapter.GetLuck().GetLuckText().empty())
+        {
+          f << i << "->" << chapter.GetLuck().GetLuckChapter() << " [ label = \"Luck\"];\n";
+          f << i << "->" << chapter.GetLuck().GetNoLuckChapter() << " [ label = \"No luck\"];\n";
+        }
+        else if (!chapter.GetOptions().GetOptions().empty())
+        {
+          for (const auto option: chapter.GetOptions().GetOptions())
+          {
+            f << i << "->" << option.GetNextChapter() << " [ label = \"Choice\"];\n";
+          }
+        }
+        else if (!chapter.GetSkill().GetSkillText().empty())
+        {
+          f << i << "->" << chapter.GetSkill().GetSkillChapter() << " [ label = \"Skill\"];\n";
+          f << i << "->" << chapter.GetSkill().GetNoSkillChapter() << " [ label = \"No skill\"];\n";
+        }
+        else if (chapter.GetType() == ChapterType::game_lost)
+        {
+          f << i << "-> GameOver;\n";
+        }
+        else if (chapter.GetType() == ChapterType::game_won)
+        {
+          f << i << "-> GameWon;\n";
+        }
+      }
+      catch (std::logic_error& e)
+      {
+        //f << i << ": FAIL" << std::endl;
+      }
+      catch (std::runtime_error& e)
+      {
+        //f << i << ": not present" << std::endl;
+      }
+    }
+    f << "}\n";
+    f.close();
+    std::system("dot -Tpng Graph.dot > Graph.png");
+  }
 }
 

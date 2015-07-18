@@ -1,9 +1,4 @@
-On the right side of ihe street you see a small 
-alleyway between two houses. The alley soon ends 
-at a doorway with six skulls painted on it; one black 
-and five white. 
-[1] It you wish to walk down the alley and open the door
-[2] If you would rather continue east
-@0
-@1:27
-@2:139
+On the right side of ihe street you see a small alleyway between two houses. The alley soon ends at a doorway with six skulls painted on it: one black and five white.
+@999
+option It you wish to walk down the alley and open the door @ goto 27
+option If you would rather continue east @ goto 139

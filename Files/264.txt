@@ -1,8 +1,4 @@
-Before you are able to speak a word, the ogre's 
-voice booms out, saying, 'Somebody has stolen all 
-my food. Will you give me some of yours?' 
-[1] If you wish to give the ogre two provisions
-[2] If you wish to refuse his request
-@0
-@1?P2:121
-@2:357
+Before you are able to speak a word, the ogre's voice booms out, saying, 'Somebody has stolen all my food. Will you give me some of yours?' 
+@999
+option If you wish to give the ogre two provisions @ if provisions 2 goto 121
+option If you wish to refuse his request @ goto 357

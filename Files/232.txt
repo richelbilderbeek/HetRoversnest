@@ -1,7 +1,5 @@
-The door opens into a small room, in the centre of 
-which stands a steaming tub of hot water. 
-[1] If you wish to hide behind the door inside the room to see who is about to take a bath
-[2] If you would rather close the door
-@0
-@1:12
-@2:383
+The door opens into a small room, in the centre of which stands a steaming tub of hot water.
+@999
+option If you wish to hide behind the door inside the room to see who is about to take a bath @ goto 12
+option If you would rather close the door @ goto 383
+

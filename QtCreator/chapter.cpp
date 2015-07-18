@@ -252,6 +252,11 @@ Chapter::Chapter(const std::string& filename)
           const int gold_amount{ReadInt(s)};
           condition.SetGoldNeeded(gold_amount);
         }
+        else if (what == "provisions")
+        {
+          const int number_of_provisions{ReadInt(s)};
+          condition.SetProvisionsNeeded(number_of_provisions);
+        }
         else if (what == "has")
         {
           const std::string item = ReadString(s);

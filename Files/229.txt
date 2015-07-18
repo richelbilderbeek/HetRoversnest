@@ -1,5 +1,4 @@
-As you advance towards him the man swallows the 
-key and throws the egg at you. Test your Luck. 
-@1
-@0:The egg breaks against your chest and you breathe in some of the green-coloured gas released@343
-@1:The egg misses you and breaks against a wall to release a green-coloured gas@23
+As you advance towards him the man swallows the key and throws the egg at you. Test your Luck. 
+@999
+no_luck The egg breaks against your chest and you breathe in some of the green-coloured gas released @ goto 343
+luck The egg misses you and breaks against a wall to release a green-coloured gas @ goto 23

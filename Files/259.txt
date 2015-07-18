@@ -1,10 +1,5 @@
-You wipe the blood from your sword and walk to 
-the wooden door. You try the handle, but it is 
-locked. 
-[1] If you have a skeleton key, you may try it
-[2] You may pull cord hanging down in front of the door
-[3] attempt to charge the door open with vour shoulder
-@0
-@1?I21:228
-@2:4
-@3:365
+You wipe the blood from your sword and walk to the wooden door. You try the handle, but it is locked. 
+@999
+option If you have a skeleton key, you may try it @ if skeleton_key goto 228
+option You may pull the cord hanging down in front of the door @ goto 4
+option attempt to charge the door open with vour shoulder @ goto 365

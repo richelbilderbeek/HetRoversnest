@@ -9,7 +9,8 @@
 Condition::Condition()
   : m_gold_needed{0},
     m_items_needed{},
-    m_items_not_needed{}
+    m_items_not_needed{},
+    m_provisions_needed{0}
 {
 
 }
@@ -41,6 +42,7 @@ void Condition::AddItemNotNeeded(const Item item)
 bool Condition::IsSatisfied(const Character &character) const
 {
   if (GetGoldNeeded() > character.GetGold()) return false;
+  if (GetProvisionsNeeded() > character.GetProvisions()) return false;
   for (const auto item_needed: GetItemsNeeded())
   {
     if (!character.HasItem(item_needed)) return false;
@@ -56,6 +58,12 @@ void Condition::SetGoldNeeded(const int gold_needed)
 {
   assert(gold_needed > 0);
   m_gold_needed = gold_needed;
+}
+
+void Condition::SetProvisionsNeeded(const int provisions_needed)
+{
+  assert(provisions_needed > 0);
+  m_provisions_needed = provisions_needed;
 }
 
 std::ostream& operator<<(std::ostream& os, const Condition& condition)

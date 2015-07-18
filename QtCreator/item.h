@@ -39,7 +39,9 @@ enum class Item
   stale_bread = 34,
   two_gems = 35,
   magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1
-  silver_goblet = 37, //?Where to find it?
+  two_silver_goblets = 37, //Chapter 220
+  silver_chalice = 51, //Chapter 220
+  silver_spoon = 52, //Chapter 220
   magic_helmet = 39, //Found in chapter 376. add 1 point to attack
   silver_flute = 40, //Obtained at 359
   eye_patch = 41,

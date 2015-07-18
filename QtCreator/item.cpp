@@ -47,7 +47,9 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::stale_bread,"stale_bread"));
   m.insert(Pair(Item::two_gems,"two_gems"));
   m.insert(Pair(Item::magnificent_shield,"magnificent_shield"));
-  m.insert(Pair(Item::silver_goblet,"silver_goblet"));
+  m.insert(Pair(Item::two_silver_goblets,"two_silver_goblets"));
+  m.insert(Pair(Item::silver_chalice,"silver_chalice"));
+  m.insert(Pair(Item::silver_spoon,"silver_spoon"));
   m.insert(Pair(Item::magic_helmet,"magic_helmet"));
   m.insert(Pair(Item::silver_flute,"silver_flute"));
   m.insert(Pair(Item::eye_patch,"eye_patch"));
@@ -68,7 +70,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::all_silver_items,"all_silver_items"));
   m.insert(Pair(Item::some_piece_of_armor,"some piece of armor"));
   m.insert(Pair(Item::two_random_items,"two_random_items"));
-  m.insert(Pair(Item::two_magic_items,"two magic items"));
+  m.insert(Pair(Item::two_magic_items,"two_magic_items"));
   m.insert(Pair(Item::something_magic,"something magic"));
   m.insert(Pair(Item::fought_ape_man,"fought_ape_man"));
   m.insert(Pair(Item::followed_sewer_north,"followed_sewer_north"));

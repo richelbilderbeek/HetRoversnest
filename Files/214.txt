@@ -1,7 +1,4 @@
-As soon as you touch the battle-axe, the Suit of 
-Armour starts to move. In a series of quick, jerky 
-movements it swings the battle-axe in an attempt to 
-strike you. Test your Luck.
-@1
-@0:The blade cuts into your left arm@379
-@1:You manage to jump back out of reach of the swinging axe@158
+As soon as you touch the battle-axe, the suit of armour starts to move. In a series of quick, jerky movements it swings the battle-axe in an attempt to strike you. Test your Luck.
+@999
+no_luck The blade cuts into your left arm @ goto 379
+luck You manage to jump back out of reach of the swinging axe @ goto 158

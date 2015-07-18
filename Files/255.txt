@@ -1,4 +1,3 @@
-The guards eye you suspiciously but let you walk on 
-after seeing your pass. You walk on quickly north.
+The guards eye you suspiciously but let you walk on after seeing your pass. You walk on quickly north.
 @999
-Next_chapter 227
+goto 227
