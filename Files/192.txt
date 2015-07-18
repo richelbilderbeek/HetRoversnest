@@ -1,5 +1,5 @@
 It is a drop of some five metres to the ground and 
 you land heavily. Test your Luck. 
-@1
-@0:You twist your sword arm badly. Lose 1 skill point. You head north@S-1,304
-@1:You escape injury and set off north again@304
+@999
+no_luck You twist your sword arm badly. Lose 1 skill point. You head north @ change stamina -1 goto 304
+luck You escape injury and set off north again @ goto 304

@@ -1,5 +1,5 @@
 Walking along the narrow street you see a man 
-wearing [altered rags silting in the gutter. His head 
+wearing faltered rags sitting in the gutter. His head 
 rests on his hands and he looks thoroughly miserable. 
 @999
 option If you wish to stop to talk to him@ goto 331
