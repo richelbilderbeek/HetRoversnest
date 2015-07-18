@@ -1,7 +1,6 @@
-Sweat breaks out on your forehead. You choose a 
-pill and swallow it. 
+Sweat breaks out on your forehead. You choose a pill and swallow it. 
 @15
 Next_chapter 165
 Change gold 20
-Bye You have chosen a harmless pill. The man reaches into a pouch on his cord belt and hands you 20 Cold Pieces. He then bids you farewell and tells you to come back soon. You leave the room and walk backup the alley to Candle Street.@
+Bye You have chosen a harmless pill. The man reaches into a pouch on his cord belt and hands you 20 gold pieces. He then bids you farewell and tells you to come back soon. You leave the room and walk backup the alley to Candle Street. @
  

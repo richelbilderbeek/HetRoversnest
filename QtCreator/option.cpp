@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cassert>
 #include "character.h"
+#include <iostream>
 
 Option::Option(
   const std::string& text,
@@ -13,7 +14,10 @@ Option::Option(
     m_text{text}
 {
   assert(!text.empty());
-  assert(next_chapter > 1);
+  if (next_chapter == 1)
+  {
+    std::cerr << "Warning: next chapter is 1" << std::endl;
+  }
 }
 
 void Option::AddCondition(const Condition& condition)
