@@ -1,18 +1,7 @@
-Although many of the items in the room are ex- 
-tremely valuable, they are not of much use to you on 
-your quest. However, something strange catches 
-your eye. On a mahogany card table lie three up- 
-turned silver goblets. One is inscribed with the 
-letter A, another with B and another with C. Will 
-you: 
-[1] Pick up goblet A?
-[2] Pick up goblet B?
-[3] Pick up goblet C?
-[4] VValk through the archway?
-[5] Climb the stairs?
-@0
-@1:175
-@2:209
-@3:43
-@4:107
-@5:60
+Although many of the items in the room are extremely valuable, they are not of much use to you on your quest. However, something strange catches your eye. On a mahogany card table lie three upturned silver goblets. One is inscribed with the letter A, another with B and another with C. Will you: 
+@999
+option Pick up goblet A? @ goto 175
+option Pick up goblet B? @ goto 209
+option Pick up goblet C? @ goto 43
+option Walk through the archway? @ goto 107
+option Climb the stairs? @ goto 60

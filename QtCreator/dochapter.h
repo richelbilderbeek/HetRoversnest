@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "consequence.h"
 #include "item.h"
 #include "language.h"
 
@@ -73,6 +74,8 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
 void Parse(std::stringstream& s, const char expected_char);
 
 std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s);
+
+Consequence ParseConsequence(std::stringstream& s);
 
 void ParsePawnShop(
   std::stringstream& s,

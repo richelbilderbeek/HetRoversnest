@@ -19,7 +19,6 @@ Chapter::Chapter(const std::string& filename)
     m_chapter_type{ChapterType::normal},
     m_fighting_chapter{},
     m_luck_chapter{},
-    m_next_chapter{-1},
     m_options_chapter{},
     m_skill_chapter{},
     m_text{}
@@ -179,7 +178,7 @@ Chapter::Chapter(const std::string& filename)
     }
     else if (str == "Next_chapter" || str == "goto")
     {
-      m_next_chapter = ReadInt(s);
+      m_consequence.SetNextChapter(ReadInt(s));
     }
     else if (str == "No_luck" || str == "no_luck")
     {
@@ -196,8 +195,18 @@ Chapter::Chapter(const std::string& filename)
       s << std::skipws; //Obligatory
       assert(!no_luck_text.empty());
       GetLuck().SetNoLuckText(no_luck_text);
-      const std::string goto_str{ReadString(s)};
-      assert(goto_str == "goto");
+      const std::string then{ReadString(s)};
+      if (then == "change")
+      {
+        const Consequence no_luck_consequence{ParseConsequence(s)};
+        GetLuck().SetNoLuckConsequence(no_luck_consequence);
+        const std::string goto_str{ReadString(s)};
+        assert(goto_str == "goto");
+      }
+      else
+      {
+        assert(then == "goto");
+      }
       const int no_luck_chapter{ReadInt(s)};
       assert(no_luck_chapter > 1);
       GetLuck().SetNoLuckChapter(no_luck_chapter);
@@ -339,55 +348,7 @@ Chapter::Chapter(const std::string& filename)
     }
     else if (str == "Change" || str == "change")
     {
-
-      const std::string what{ReadString(s)};
-      if (what == "gold")
-      {
-        const int change_gold{ReadInt(s)};
-        m_consequence.SetChangeGold(change_gold);
-      }
-      else if (what == "dexterity" || what == "dex")
-      {
-        const int change_dex{ReadInt(s)};
-        m_consequence.SetChangeDexterity(change_dex);
-      }
-      else if (what == "luck")
-      {
-        const int change_luck{ReadInt(s)};
-        m_consequence.SetChangeLuck(change_luck);
-      }
-      else if (what == "stamina" || what == "sta")
-      {
-        const int change_sta{ReadInt(s)};
-        m_consequence.SetChangeStamina(change_sta);
-      }
-      else if (what == "add")
-      {
-        const std::string item_name{ReadString(s)};
-        if (!IsItem(item_name))
-        {
-          std::cerr << "Unknown item: " << item_name << std::endl;
-          assert(!"Should not get here");
-        }
-        const Item item{ToItem(item_name)};
-        m_consequence.AddItemToAdd(item);
-      }
-      else if (what == "remove")
-      {
-        const std::string item_name{ReadString(s)};
-        if (!IsItem(item_name))
-        {
-          std::cerr << "Unknown item: " << item_name << std::endl;
-          assert(!"Should not get here");
-        }
-        const Item item{ToItem(item_name)};
-        m_consequence.AddItemToRemove(item);
-      }
-      else
-      {
-        std::cerr << "Unknown what: " << what << std::endl;
-        assert(!"Should not get here");
-      }
+      m_consequence.Add(ParseConsequence(s));
     }
     else
     {
@@ -415,17 +376,17 @@ void Chapter::Do(Character& character,const bool auto_play) const
   else if (GetType() == ChapterType::play_dice)
   {
     DoPlayDice(character,auto_play);
-    character.SetChapter(m_next_chapter);
+    character.SetChapter(m_consequence.GetNextChapter());
   }
   else if (GetType() == ChapterType::play_ball)
   {
     DoPlayBall(character,auto_play);
-    character.SetChapter(m_next_chapter);
+    character.SetChapter(m_consequence.GetNextChapter());
   }
   else if (GetType() == ChapterType::play_pill)
   {
     DoPlayPill(character,auto_play);
-    character.SetChapter(m_next_chapter);
+    character.SetChapter(m_consequence.GetNextChapter());
     if (character.IsDead()) return;
     std::cout << std::endl;
   }
@@ -515,8 +476,8 @@ void Chapter::Do(Character& character,const bool auto_play) const
     {
       DoFightTwoMonsters(GetFighting().GetMonsters(),character,auto_play);
     }
-    assert(m_next_chapter > 0);
-    character.SetChapter(m_next_chapter);
+    assert(m_consequence.GetNextChapter() > 0);
+    character.SetChapter(m_consequence.GetNextChapter());
   }
   else if (!GetLuck().GetLuckText().empty())
   {
@@ -528,7 +489,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
   }
   else if (GetType() == ChapterType::normal)
   {
-    character.SetChapter(m_next_chapter);
+    character.SetChapter(m_consequence.GetNextChapter());
   }
 
   if (character.IsDead()) return;

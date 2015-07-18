@@ -132,8 +132,15 @@ void DoInventory(Character& character, const bool auto_play)
   if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
   if (character.HasItem(Item::chainmail_coat)) { s << " * " << ToStr(Item::chainmail_coat) << ": +2\n"; }
   s
+    << " * Total: " << character.GetDexterity() << "/" << character.GetInitialDexterity() << '\n'
     << "Stamina: " << character.GetStamina() << "/" << character.GetInitialStamina() << '\n'
-    << "Luck: " << character.GetLuck() << "/" << character.GetInitialLuck() << '\n'
+    << "Luck:\n"
+    << " * Base: " << character.GetLuckBase() << "/" << character.GetInitialLuck() << '\n'
+  ;
+
+  if (character.HasItem(Item::golden_brooch)) { s << " * " << ToStr(Item::golden_brooch) << ": +2\n"; }
+  s
+    << " * Total: " << character.GetLuck() << "/" << character.GetInitialDexterity() << '\n'
     << "Gold pieces: " << character.GetGold() << '\n'
     << "Provisions: " << character.GetProvisions() << '\n'
     << '\n'
@@ -1582,6 +1589,59 @@ void ParseChangeStatusAskOption(
   character.SetChapter(chapter);
 }
 
+Consequence ParseConsequence(std::stringstream &s)
+{
+  Consequence consequence;
+  const std::string what{ReadString(s)};
+  if (what == "gold")
+  {
+    const int change_gold{ReadInt(s)};
+    consequence.SetChangeGold(change_gold);
+  }
+  else if (what == "dexterity" || what == "dex")
+  {
+    const int change_dex{ReadInt(s)};
+    consequence.SetChangeDexterity(change_dex);
+  }
+  else if (what == "luck")
+  {
+    const int change_luck{ReadInt(s)};
+    consequence.SetChangeLuck(change_luck);
+  }
+  else if (what == "stamina" || what == "sta")
+  {
+    const int change_sta{ReadInt(s)};
+    consequence.SetChangeStamina(change_sta);
+  }
+  else if (what == "add")
+  {
+    const std::string item_name{ReadString(s)};
+    if (!IsItem(item_name))
+    {
+      std::cerr << "Unknown item: " << item_name << std::endl;
+      assert(!"Should not get here");
+    }
+    const Item item{ToItem(item_name)};
+    consequence.AddItemToAdd(item);
+  }
+  else if (what == "remove")
+  {
+    const std::string item_name{ReadString(s)};
+    if (!IsItem(item_name))
+    {
+      std::cerr << "Unknown item: " << item_name << std::endl;
+      assert(!"Should not get here");
+    }
+    const Item item{ToItem(item_name)};
+    consequence.AddItemToRemove(item);
+  }
+  else
+  {
+    std::cerr << "Unknown what: " << what << std::endl;
+    assert(!"Should not get here");
+  }
+  return consequence;
+}
 std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s)
 {
   std::vector<std::pair<Item,int>> items;
@@ -1602,6 +1662,7 @@ std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s)
   }
   return items;
 }
+
 
 void ParseNormalChapter(
   std::stringstream& s,
@@ -1689,25 +1750,6 @@ void ParsePawnShop(
     ParseItemWithPrices(s)
   };
 
-  /*
-  //Parse the items
-  std::vector<std::pair<Item,int>> items;
-
-  while (1)
-  {
-    Parse(s,'I');
-    const Item item = ReadItem(s);
-    Parse(s,'?');
-    int price = -1;
-    s >> price;
-    assert(price != -1);
-    items.push_back(std::make_pair(item,price));
-    char comma_or_not = '*';
-    s >> comma_or_not;
-    assert(comma_or_not != '*');
-    if (comma_or_not != ',') break;
-  }
-  */
   Parse(s,'@');
   int next_chapter = -1;
   s >> next_chapter;

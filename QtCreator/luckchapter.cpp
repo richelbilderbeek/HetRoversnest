@@ -7,9 +7,9 @@
 #include "helper.h"
 LuckChapter::LuckChapter()
   :
-    m_luck_chapter{},
+    m_luck_consequence{},
     m_luck_text{},
-    m_no_luck_chapter{},
+    m_no_luck_consequence{},
     m_no_luck_text{}
 {
 
@@ -42,4 +42,14 @@ void LuckChapter::Do(Character& character, const bool auto_play) const
     ShowText(s.str(),auto_play);
     character.SetChapter(GetNoLuckChapter());
   }
+}
+
+void LuckChapter::SetLuckChapter(const int luck_chapter) noexcept
+{
+  m_luck_consequence.SetNextChapter(luck_chapter);
+}
+
+void LuckChapter::SetNoLuckChapter(const int no_luck_chapter) noexcept
+{
+  m_no_luck_consequence.SetNextChapter(no_luck_chapter);
 }

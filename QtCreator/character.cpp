@@ -93,6 +93,19 @@ int Character::GetDexterityBase() const noexcept
   return m_dexterity;
 }
 
+int Character::GetLuck() const noexcept
+{
+  return
+    GetLuckBase()
+    + (this->HasItem(Item::golden_brooch) ? 2 : 0)
+  ;
+}
+
+int Character::GetLuckBase() const noexcept
+{
+  return m_luck;
+}
+
 bool Character::HasItem(const Item item) const
 {
   /*

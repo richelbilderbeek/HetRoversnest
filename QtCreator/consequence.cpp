@@ -11,9 +11,27 @@ Consequence::Consequence()
     m_change_dex{0},
     m_change_gold{0},
     m_change_luck{0},
+    m_next_chapter{-1},
     m_remove_items{},
     m_change_sta{0}
 {
+}
+
+void Consequence::Add(const Consequence& other)
+{
+  this->m_change_dex += other.m_change_dex;
+  this->m_change_gold += other.m_change_gold;
+  this->m_change_luck += other.m_change_luck;
+  this->m_change_sta += other.m_change_sta;
+  for (const auto item_to_add: other.GetItemsToAdd())
+  {
+    this->m_add_items.push_back(item_to_add);
+  }
+  for (const auto item_to_remove: other.GetItemsToRemove())
+  {
+    this->m_remove_items.push_back(item_to_remove);
+  }
+
 }
 
 void Consequence::AddItemToAdd(const Item& item)
@@ -129,4 +147,10 @@ void Consequence::Apply(Character& character) const
     if (verbose) { std::clog << "Removing item " << ToStr(item) << std::endl; }
     character.RemoveItem(item);
   }
+}
+
+void Consequence::SetNextChapter(const int next_chapter) noexcept
+{
+  m_next_chapter = next_chapter;
+  if (m_next_chapter < 2) { std::cerr << "WARNING: next_chapter incorrect\n"; }
 }

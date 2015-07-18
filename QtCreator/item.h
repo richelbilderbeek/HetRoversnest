@@ -73,7 +73,9 @@ enum class Item
   opened_pirate_captain_door, //Chapter
   lifted_goblet_a,
   lifted_goblet_b, //Chapter 209
-  lifted_goblet_c
+  lifted_goblet_c,
+  picked_up_silver_scorpion,
+  picked_up_golden_scorpion
 };
 
 std::string ToStr(const Item item);

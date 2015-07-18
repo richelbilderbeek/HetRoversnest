@@ -1,7 +1,5 @@
 Further along the street on the left is another shop. 
-A sign outside reads 'Ben Borryman, Silversmith'. 
-[1] If you wish to enter the shop
-[2] If you would rather keep going east
-@0
-@1:213
-@2:100
+A sign outside reads 'Ben Borryman, Silversmith'.
+@999
+option If you wish to enter the shop @ goto 213
+option If you would rather keep going east @ goto 100

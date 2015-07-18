@@ -1,5 +1,3 @@
-The little man with the crossbow curses before running into the building on your left. There does not 
-appear to be an easy way to catch him. so you walk 
-under the bridge and continue east.
+The little man with the crossbow curses before running into the building on your left. There does not appear to be an easy way to catch him, so you walk under the bridge and continue east.
 @999
-Next_chapter 30
+goto 30

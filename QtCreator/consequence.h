@@ -13,6 +13,9 @@ struct Consequence
 
   Consequence();
 
+  ///Add the other's consequences to this one
+  void Add(const Consequence& other);
+
   void AddItemToAdd(const Item& item);
   void AddItemToRemove(const Item& item);
 
@@ -37,14 +40,14 @@ struct Consequence
   ///How will the stamina of the character change in this chapter?
   int GetChangeStamina() const noexcept { return m_change_sta; }
 
-
-
-
+  int GetNextChapter() const noexcept { return m_next_chapter; }
 
   void SetChangeDexterity(const int dex) noexcept { m_change_dex = dex; }
   void SetChangeGold(const int gold) noexcept { m_change_gold = gold; }
   void SetChangeLuck(const int luck) noexcept { m_change_luck = luck; }
   void SetChangeStamina(const int sta) noexcept { m_change_sta = sta; }
+
+  void SetNextChapter(const int next_chapter) noexcept;
 
   private:
 
@@ -59,6 +62,8 @@ struct Consequence
 
   ///How much will the luck of the character change?
   int m_change_luck;
+
+  int m_next_chapter;
 
   ///Which items are removed to the player's inventory?
   Items m_remove_items;

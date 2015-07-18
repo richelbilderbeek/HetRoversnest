@@ -19,19 +19,18 @@ struct Chapter
   ///Let the player do this chapter
   void Do(Character& character, const bool auto_play) const;
 
-
   ///The text displayed at the end of the chapter
   const std::string& GetByeText() const noexcept { return m_bye_text; }
 
   const Consequence& GetConsequence() const noexcept { return m_consequence; }
-
-  int GetNextChapter() const noexcept { return m_next_chapter; }
 
   const FightingChapter& GetFighting() const noexcept { return m_fighting_chapter; }
   FightingChapter& GetFighting() noexcept { return m_fighting_chapter; }
 
   const LuckChapter& GetLuck() const noexcept { return m_luck_chapter; }
   LuckChapter& GetLuck() noexcept { return m_luck_chapter; }
+
+  int GetNextChapter() const noexcept { return m_consequence.GetNextChapter(); }
 
   const OptionsChapter& GetOptions() const noexcept { return m_options_chapter; }
   OptionsChapter& GetOptions() noexcept { return m_options_chapter; }
@@ -47,6 +46,7 @@ struct Chapter
   ///The text displayed at the end of the chapter
   std::string m_bye_text;
 
+  ///When there is no choice
   Consequence m_consequence;
 
   ChapterType m_chapter_type;
@@ -54,8 +54,6 @@ struct Chapter
   FightingChapter m_fighting_chapter;
 
   LuckChapter m_luck_chapter;
-
-  int m_next_chapter; //When there is no choice
 
   OptionsChapter m_options_chapter;
 

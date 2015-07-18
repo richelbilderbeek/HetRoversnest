@@ -81,6 +81,11 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::lifted_goblet_b,"lifted_goblet_b"));
   m.insert(Pair(Item::lifted_goblet_c,"lifted_goblet_c"));
 
+  m.insert(Pair(Item::picked_up_silver_scorpion,"picked_up_silver_scorpion"));
+  m.insert(Pair(Item::picked_up_golden_scorpion,"picked_up_golden_scorpion"));
+
+
+
   return m;
 }
 
