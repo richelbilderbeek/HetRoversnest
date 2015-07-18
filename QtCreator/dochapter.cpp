@@ -128,6 +128,7 @@ void DoInventory(Character& character, const bool auto_play)
     << "Dexterity:\n"
     << " * Base: " << character.GetDexterityBase() << "/" << character.GetInitialDexterity() << '\n'
   ;
+  if (character.HasItem(Item::ordinary_sword)) { s << " * " << ToStr(Item::ordinary_sword) << ": +1\n"; }
   if (character.HasItem(Item::carralifs_sword)) { s << " * " << ToStr(Item::carralifs_sword) << ": +2\n"; }
   if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
   if (character.HasItem(Item::magic_elven_boots)) { s << " * " << ToStr(Item::magic_elven_boots) << ": +1\n"; }
@@ -1779,25 +1780,6 @@ void ParseShop(
     ParseItemWithPrices(s)
   };
 
-  /*
-  //Parse the items
-  std::vector<std::pair<Item,int>> items;
-
-  while (1)
-  {
-    Parse(s,'I');
-    const Item item = ReadItem(s);
-    Parse(s,'?');
-    int price = -1;
-    s >> price;
-    assert(price != -1);
-    items.push_back(std::make_pair(item,price));
-    char comma_or_not = '*';
-    s >> comma_or_not;
-    assert(comma_or_not != '*');
-    if (comma_or_not != ',') break;
-  }
-  */
   Parse(s,'@');
   int next_chapter = -1;
   s >> next_chapter;
@@ -1832,15 +1814,6 @@ int ReadInt(std::stringstream& s)
   s >> number;
   assert(number > -9999);
   return number;
-}
-
-Item ReadItem(std::stringstream& s)
-{
-  int number = -1;
-  s >> number;
-  assert(number > -1);
-  const Item item = static_cast<Item>(number);
-  return item;
 }
 
 std::string ReadString(std::stringstream& s)

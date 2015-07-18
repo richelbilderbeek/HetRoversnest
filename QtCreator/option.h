@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "condition.h"
+#include "consequence.h"
 #include "item.h"
 struct Character;
 
@@ -12,12 +13,12 @@ struct Character;
 ///Option [text]@ goto [chapter]@
 ///Option [text]@ if [conditionals] goto [chapter]@
 ///Option [text]@ then [consequences] goto [chapter]@
-///Option [text]@ if [conditionals] then [consequences] goto [chapter]@
+///Option [text]@ if [conditionals] change [consequences] goto [chapter]@
 struct Option
 {
   Option(
     const std::string& text,
-    const int next_chapter
+    const Consequence& consequence
   );
 
   void AddCondition(const Condition& condition);
@@ -28,14 +29,15 @@ struct Option
 
   const std::vector<Condition>& GetConditions() const noexcept { return m_conditions; }
 
-  int GetNextChapter() const noexcept { return m_next_chapter; }
+  int GetNextChapter() const noexcept { return m_consequence.GetNextChapter(); }
 
   const std::string& GetText() const noexcept { return m_text; }
 
 
   private:
   std::vector<Condition> m_conditions;
-  int m_next_chapter;
+  Consequence m_consequence;
+  //int m_next_chapter;
   std::string m_text;
 };
 

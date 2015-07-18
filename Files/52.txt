@@ -1,6 +1,11 @@
-Behind the next stall is a young man selling small 
-weapons and items of equipment. The prices of his 
-wares are chalked up on a slate.
-@9
-@I14?4,I15?2,I16?2,I17?1,I18?3
-@200:You then walk north.
+Behind the next stall is a young man selling small weapons and items of equipment. The prices of his wares are chalked up on a slate.
+@999
+shop_items 
+  throwing_knife 4
+  climbing_rope 2
+  meat_hook 2
+  iron_spike 1
+  lantern 3
+  @
+bye You then walk north. @
+goto 200

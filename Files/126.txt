@@ -15,7 +15,8 @@ Then in a slow and almost inaudible voice he tells
 you that he wants the broadsword that Owen Carralif gave you in payment for the healing. You feel 
 obliged to give him your sword, though reluctantly. 
 In exchange he gives you an ordinary fighting 
-sword. Reduce your skill score by 1.
-@3
-@D-1,I46-,I47+
-@112
+sword. As a net effect, your skill score gets reduced by 1.
+@999
+change remove carralifs_sword
+change add ordinary_sword
+goto 112

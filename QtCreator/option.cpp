@@ -7,14 +7,14 @@
 
 Option::Option(
   const std::string& text,
-  const int next_chapter
+  const Consequence& consequence
 )
   : m_conditions{},
-    m_next_chapter{next_chapter},
+    m_consequence{consequence},
     m_text{text}
 {
   assert(!text.empty());
-  if (next_chapter == 1)
+  if (GetNextChapter() == 1)
   {
     std::cerr << "Warning: next chapter is 1" << std::endl;
   }
@@ -36,7 +36,7 @@ bool Option::CanChoose(const Character& character) const
 
 void Option::DoChoose(Character& character) const
 {
-  character.SetChapter(m_next_chapter);
+  m_consequence.Apply(character);
 }
 
 std::ostream& operator<<(std::ostream& os, const Option& option)

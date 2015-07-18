@@ -14,6 +14,9 @@ bool IsInt(const std::string& s) noexcept;
 ///From http://www.richelbilderbeek.nl/CppIsRegularFile.htm
 bool IsRegularFile(const std::string& filename);
 
+char ReadChar(std::stringstream& s);
+int ReadInt(std::stringstream& s);
+std::string ReadString(std::stringstream& s);
 
 ///Strip only the first character of the first line
 std::vector<std::string> StripFirstChar(std::vector<std::string> v);
@@ -21,7 +24,9 @@ std::vector<std::string> StripFirstChar(std::vector<std::string> v);
 ///Shows the text slowly
 void ShowText(const std::string& text, const bool auto_play);
 
+#ifndef NDEBUG
 void Test();
+#endif // NDEBUG
 
 ///Replace 'two_words' by 'two words'
 std::string ToPretty(std::string s);

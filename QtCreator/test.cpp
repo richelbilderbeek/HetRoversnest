@@ -7,6 +7,8 @@
 #include "chapter.h"
 #include "character.h"
 #include "dochapter.h"
+
+#ifndef NDEBUG
 void Test()
 {
   //StripFirstChar
@@ -27,16 +29,10 @@ void Test()
   //Sequential fight
   {
     const Chapter chapter("../Files/5.txt");
+    assert(chapter.GetType() == ChapterType::fight);
     assert(chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 1);
     assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 2);
-    Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
-  }
-  {
-    const Chapter chapter("../Files/10.txt");
-    assert(chapter.GetFighting().DoFightSequentially());
-    assert(chapter.GetFighting().GetMonsters().size() == 1);
     Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
@@ -248,20 +244,6 @@ void Test()
     chapter.Do(character,true);
     assert(character.GetProvisions() == 0);
   }
-
-  //Chapter 53: Can only give if something silver
-  if (1==2)
-  {
-    const Chapter chapter("../Files/53.txt");
-    Character character(10,10,10,Item::luck_potion);
-    character.AddItem(Item::silver_arrow);
-    chapter.Do(character,true);
-    chapter.Do(character,true);
-    chapter.Do(character,true);
-    chapter.Do(character,true);
-    assert(!character.HasItem(Item::silver_arrow));
-  }
-
   //Chapter 148: Lose one random items or one gold
   {
     const Chapter chapter("../Files/148.txt");
@@ -326,6 +308,32 @@ void Test()
     const int all_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
     assert(not_all_chapter_1 != all_chapter);
 
+  }
+  //Chapter 36: shop chapter
+  {
+    const Chapter chapter("../Files/36.txt");
+    assert(chapter.GetType() == ChapterType::shop);
+    assert(chapter.GetShop().GetItems().size() == 3);
+    assert(!chapter.GetByeText().empty());
+    Character character(100,100,100,Item::luck_potion);
+    const int n_items_before{static_cast<int>(character.GetItems().size())};
+    chapter.Do(character,true);
+    const int n_items_after{static_cast<int>(character.GetItems().size())};
+    assert(n_items_after == n_items_before + 3);
+  }
+
+  //Chapter 53: Can only give if something silver, with direct consequence
+  {
+    const Chapter chapter("../Files/53.txt");
+    Character character(10,10,10,Item::luck_potion);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    character.AddItem(Item::silver_arrow);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 2);
+    while (character.HasItem(Item::silver_arrow))
+    {
+      chapter.Do(character,true);
+    }
+    assert(!character.HasItem(Item::silver_arrow));
   }
 
   //Chapters 13 and 273: should not be able to take both brooches
@@ -447,4 +455,4 @@ void Test()
     std::system("dot -Tpng Graph.dot > Graph.png");
   }
 }
-
+#endif

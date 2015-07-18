@@ -56,7 +56,7 @@ void Character::ChangeDexterity(const int change)
 void Character::ChangeGold(const int change)
 {
   m_gold += change;
-  std::cerr << "Caracter's gold is negative" << std::endl;
+  std::cerr << "WARNING: Character's gold is negative" << std::endl;
   //assert(m_gold >= 0);
 }
 

@@ -1,8 +1,6 @@
 Just as the guards are about to lead you away, you 
 try with all your might to pull your arms from their 
-grip. Roll two dice. If the number rolled is less than 
-or equal to your skill score, you succeed. If the number rolled is greater than your skill, 
-you fail to release yourself, and are led away, struggling violently. 
-@2
-@0:No skill@151
-@1:Skill@355
+grip. 
+@999
+no_skill you fail to release yourself, and are led away, struggling violently @ goto 151
+skill you succeed @ goto 355

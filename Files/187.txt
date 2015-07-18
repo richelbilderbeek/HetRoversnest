@@ -5,10 +5,12 @@ should not help him, but they insist that you bribe
 them or else you too will be taken to the jail. They 
 say they are interested in any of the following items: 
 magic armour, magic rings or magic potions. 
-[1] If you 
-wish to give them one of the items they require
-[2] If you do not have any of the items that the 
-guards require
-@0
-@1?I87:260
-@2:341
+@999
+option If you wish to give them a luck potion @ if luck_potion change remove luck_potion goto 160
+option If you wish to give them a stamina potion @ if stamina_potion change remove stamina_potion goto 160
+option If you wish to give them a dexterity potion @ if dexterity_potion change remove dexterity_potion goto 160
+option If you wish to give them an invisibility ring @ if invisibility_ring change remove invisibility_ring goto 160
+option If you wish to give them a ring of ice @ if ring_of_ice change remove ring_of_ice goto 160
+option If you wish to give them a ring of fire @ if ring_of_fire change remove ring_of_fire goto 160
+option If you wish to give them the elven boots @ if magic_elven_boots change remove magic_elven_boots goto 160
+option If you do not have any of the items that the guards require @ goto 341

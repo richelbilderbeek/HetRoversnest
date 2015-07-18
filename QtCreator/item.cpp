@@ -96,6 +96,15 @@ bool IsItem(const std::string& item_name)
   return m.right.find(item_name) != m.right.end();
 }
 
+Item ReadItem(std::stringstream& s)
+{
+  int number = -1;
+  s >> number;
+  assert(number > -1);
+  const Item item = static_cast<Item>(number);
+  return item;
+}
+
 Item ToItem(const std::string& item_name)
 {
   const auto m = CreateBimap();

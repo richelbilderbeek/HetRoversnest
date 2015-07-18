@@ -84,4 +84,6 @@ Item ToItem(const std::string& item_name);
 bool IsItem(const std::string& item_name);
 std::ostream& operator<<(std::ostream& os, const Item item);
 
+Item ReadItem(std::stringstream& s);
+
 #endif // ITEM_H

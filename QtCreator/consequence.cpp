@@ -46,7 +46,10 @@ void Consequence::AddItemToRemove(const Item& item)
 
 void Consequence::Apply(Character& character) const
 {
-  const bool verbose{true};
+  const bool verbose{false};
+
+  character.SetChapter(GetNextChapter());
+
   //Dex
   {
     const int change_dex{GetChangeDexterity()};

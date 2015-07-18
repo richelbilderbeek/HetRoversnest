@@ -7,10 +7,10 @@
 #include "helper.h"
 SkillChapter::SkillChapter()
   :
-    m_luck_chapter{},
-    m_luck_text{},
-    m_no_luck_chapter{},
-    m_no_luck_text{}
+    m_skill_consequence{},
+    m_skill_text{},
+    m_no_skill_consequence{},
+    m_no_skill_text{}
 {
 
 }
@@ -19,7 +19,7 @@ void SkillChapter::Do(Character& character, const bool auto_play) const
 {
   {
     std::stringstream s;
-    s << "You test your luck..." << std::endl;
+    s << "You test your skill..." << std::endl;
     ShowText(s.str(),auto_play);
     if (!auto_play) { Wait(1.0); }
   }
