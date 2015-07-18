@@ -2,7 +2,6 @@ You walk back into the shop. You try to open the
 glass cupboard but it is locked. Inside you see two 
 silver goblets, a silver chalice and a silver spoon. Do 
 you have a skeleton key?
-@6
-@I21
-@0:388
-@1:20
+@999
+option Yes @ if has skeleton_key goto 388
+option No @ if has_not skeleton_key goto 388

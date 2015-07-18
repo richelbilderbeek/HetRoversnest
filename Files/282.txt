@@ -1,8 +1,4 @@
-On the right-hand side of the street you see a large 
-wooden barrel and a small boy sitting beside it on a 
-stool. 
-[1] If you wish to talk to the boy
-[2] If you wish to keep walking north
-@0
-@1:119
-@2:247
+On the right-hand side of the street you see a large wooden barrel and a small boy sitting beside it on a stool. 
+@999
+option If you wish to talk to the boy @ goto 119
+option If you wish to keep walking north @ goto 247

@@ -12,14 +12,15 @@ int main()
 {
   #ifndef NDEBUG
   Test();
-  //int chapter = 8; std::srand(28); //Start
-  //int chapter = 206; //Dice game
-  //int chapter = 223; std::srand(0); //Pill game and die
-  //int chapter = 223; std::srand(2); //Pill game and live
-  const bool auto_play{true};
+  bool auto_play{true};
   std::srand(0);
   int chapter = 1;
   Character character(100,100,100,Item::luck_potion);
+
+  //chapter = 8; std::srand(28); //Start
+  //chapter = 206; //Dice game
+  //chapter = 223; std::srand(0); //Pill game and die
+  //chapter = 223; std::srand(2); //Pill game and live
   #else
   std::srand(std::time(0));
   int chapter = 1;

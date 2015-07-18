@@ -1,10 +1,4 @@
-When you hear the guards coming down the stairs, 
-you lie on the floor and start to groan. They unlock 
-the cell door and enter.
-[1] If you wish to continue with 
-your feigned illness and tell them that you think 
-you've got the plague
-[2] If you wish to light them unarmed
-@0
-@1:306
-@2:157
+When you hear the guards coming down the stairs, you lie on the floor and start to groan. They unlock the cell door and enter.
+@999
+option If you wish to continue with your feigned illness and tell them that you think you've got the plague @ goto 306
+option If you wish to light them unarmed @ goto 157

@@ -1,10 +1,4 @@
-The women immediately start arguing again over 
-your gift to them, ignoring you completely. You 
-look around the room and see a table set for a meal. 
-There are two bowls of hot soup on top of the 
-table waiting to be drunk. 
-[1] If you wish to pick up a wooden spoon and drink some of the soup
-[2] If you would rather leave the old ladies and continue east
-@0
-@1:68
-@2:375
+The women immediately start arguing again over your gift to them, ignoring you completely. You look around the room and see a table set for a meal. There are two bowls of hot soup on top of the table waiting to be drunk. 
+@999
+option If you wish to pick up a wooden spoon and drink some of the soup @ goto 68
+option If you would rather leave the old ladies and continue east @ goto 375

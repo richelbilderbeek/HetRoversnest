@@ -1,7 +1,4 @@
-You must react quickly to escape the advancing Suit 
-of Armour. 
-[1] If you wish to open the door in front of you
-[2] If you wish to run back to the staircase and climb up to the next floor
-@0
-@1:122
-@2:207
+You must react quickly to escape the advancing suit of armour. 
+@999
+option If you wish to open the door in front of you @ goto 122
+option If you wish to run back to the staircase and climb up to the next floor @ goto 207

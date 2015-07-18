@@ -36,7 +36,7 @@ enum class Item
   knucklebones = 30, //NL: bikkels
   golden_owl = 31,
   potion_of_mind_control = 32, //Obtained at 359
-  set_of_keys = 33,
+  set_of_keys = 33, //Obtained at 285
   stale_bread = 34,
   two_gems = 35,
   magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1

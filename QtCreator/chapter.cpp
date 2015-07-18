@@ -263,7 +263,7 @@ Chapter::Chapter(const std::string& filename)
           const Item item_needed{ToItem(item)};
           condition.AddItemNeeded(item_needed);
         }
-        else if (what == "has_not")
+        else if (what == "has_not" || what == "hasnot")
         {
           const std::string item = ReadString(s);
           if (!IsItem(item))
@@ -401,7 +401,32 @@ void Chapter::Do(Character& character,const bool auto_play) const
 
   std::cout << std::endl;
 
+  if (GetType() == ChapterType::game_lost)
+  {
+    character.SetIsDead();
+    return;
+  }
+  else if (GetType() == ChapterType::play_dice)
+  {
+    DoPlayDice(character,auto_play);
+    character.SetChapter(m_next_chapter);
+  }
+  else if (GetType() == ChapterType::play_ball)
+  {
+    DoPlayBall(character,auto_play);
+    character.SetChapter(m_next_chapter);
+  }
+  else if (GetType() == ChapterType::play_pill)
+  {
+    DoPlayPill(character,auto_play);
+    character.SetChapter(m_next_chapter);
+    if (character.IsDead()) return;
+    std::cout << std::endl;
+  }
+
   m_consequence.Apply(character);
+
+
 
   //Options
   if (!GetOptions().GetOptions().empty())
@@ -483,32 +508,13 @@ void Chapter::Do(Character& character,const bool auto_play) const
   {
     GetSkill().Do(character,auto_play);
   }
-  else if (GetType() == ChapterType::game_lost)
-  {
-    character.SetIsDead();
-    return;
-  }
-  else if (GetType() == ChapterType::play_dice)
-  {
-    DoPlayDice(character,auto_play);
-    character.SetChapter(m_next_chapter);
-  }
-  else if (GetType() == ChapterType::play_ball)
-  {
-    DoPlayBall(character,auto_play);
-    character.SetChapter(m_next_chapter);
-  }
-  else if (GetType() == ChapterType::play_pill)
-  {
-    DoPlayPill(character,auto_play);
-    character.SetChapter(m_next_chapter);
-    if (character.IsDead()) return;
-    std::cout << std::endl;
-  }
   else if (GetType() == ChapterType::normal)
   {
     character.SetChapter(m_next_chapter);
   }
+
+  if (character.IsDead()) return;
+
   ShowText(m_bye_text,auto_play);
 }
 

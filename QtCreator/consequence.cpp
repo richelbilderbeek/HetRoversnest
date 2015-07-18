@@ -84,6 +84,33 @@ void Consequence::Apply(Character& character) const
       character.ChangeProvisions(-character.GetProvisions());
       continue;
     }
+    if (item == Item::random_item_or_one_gold)
+    {
+      if (verbose) { std::clog << "Removing random item or 1 gold" << std::endl; }
+      const auto items = character.GetItems();
+      const int n_items{static_cast<int>(items.size())};
+      if (n_items == 0) continue;
+      if (n_items == 0 || (std::rand() >> 4) % 2)
+      {
+        if (character.GetGold() > 0)
+        {
+          if (verbose) { std::clog << "Removed 1 gold" << std::endl; }
+          character.ChangeGold(-1);
+        }
+        else
+        {
+          if (verbose) { std::clog << "Removing random item or 1 gold failed: character has neither" << std::endl; }
+        }
+      }
+      else
+      {
+        auto iter = items.cbegin();
+        const int item_index{(std::rand() >> 4) % n_items};
+        for (int j=0; j!=item_index; ++j) { ++iter; }
+        character.RemoveItem(*iter);
+      }
+      continue;
+    }
     if (item == Item::two_random_items)
     {
       if (verbose) { std::clog << "Removing two random items" << std::endl; }

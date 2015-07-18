@@ -30,14 +30,14 @@ void Test()
     assert(chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 1);
     assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 2);
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   {
     const Chapter chapter("../Files/10.txt");
     assert(chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 1);
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   //Chapter 326: Simulateous fight
@@ -45,7 +45,7 @@ void Test()
     const Chapter chapter("../Files/326.txt");
     assert(!chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 2);
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   //Chapter 323: blacksmith must attack with attack strength 3
@@ -93,7 +93,7 @@ void Test()
     assert(chapter.GetType() == ChapterType::play_dice);
     assert(chapter.GetNextChapter() == 296);
     assert(!chapter.GetByeText().empty());
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   //Chapter 223: pill game
@@ -103,7 +103,7 @@ void Test()
     assert(chapter.GetNextChapter() == 165);
     assert(chapter.GetConsequence().GetChangeGold() == 20);
     assert(!chapter.GetByeText().empty());
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   //Chapter 378: ball game
@@ -112,7 +112,7 @@ void Test()
     assert(chapter.GetType() == ChapterType::play_ball);
     assert(chapter.GetNextChapter() == 52);
     assert(!chapter.GetByeText().empty());
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   //Chapter 1: options
@@ -120,7 +120,7 @@ void Test()
     const Chapter chapter("../Files/1.txt");
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 3);
-    Character character(100,100,100,Item::shield);
+    Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
   }
   //Chapter 3: options
@@ -128,7 +128,7 @@ void Test()
     const Chapter chapter("../Files/3.txt");
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 2);
-    Character character(1,1,1,Item::shield);
+    Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 2);
     character.ChangeGold(-character.GetGold()); //Make player bankrupt
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
@@ -140,7 +140,7 @@ void Test()
     assert(chapter.GetConsequence().GetItemsToAdd().size() == 1);
     assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::black_pearls);
     assert(chapter.GetConsequence().GetItemsToRemove().empty());
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     character.ChangeLuck(-character.GetLuck()); //Make player unlucky
     assert(character.GetLuck() == 0);
     assert(!character.HasItem(Item::black_pearls));
@@ -152,7 +152,7 @@ void Test()
   {
     const Chapter chapter("../Files/14.txt");
     assert(chapter.GetOptions().GetOptions().size() == 2);
-    Character character(1,1,1,Item::shield);
+    Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 237);
     character.AddItem(Item::ring_of_fire);
@@ -174,7 +174,7 @@ void Test()
   //Chapter 11: must lose 3 skill points and shield and chain mail
   {
     const Chapter chapter("../Files/11.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     character.AddItem(Item::chainmail_coat);
     const int dex_before{character.GetDexterity()};
     assert(character.HasItem(Item::shield));
@@ -189,7 +189,7 @@ void Test()
   {
     const Chapter chapter("../Files/19.txt");
     assert(chapter.GetOptions().GetOptions().size() == 2);
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     const int dex_before{character.GetDexterity()};
     const int sta_before{character.GetStamina()};
     chapter.Do(character,true);
@@ -209,7 +209,7 @@ void Test()
   //Chapter 15: Luck chapter must be parsed correctly
   {
     const Chapter chapter("../Files/15.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     chapter.Do(character,true);
     assert(character.GetCurrentChapter() > -1);
   }
@@ -224,14 +224,14 @@ void Test()
   //Chapter 18: Skill chapter must be parsed correctly
   {
     const Chapter chapter("../Files/18.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     chapter.Do(character,true);
     assert(character.GetCurrentChapter() > -1);
   }
   //Chapter 42: Must loose all provisions
   {
     const Chapter chapter("../Files/42.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     assert(character.GetProvisions() > 0);
     chapter.Do(character,true);
     assert(character.GetProvisions() == 0);
@@ -241,7 +241,7 @@ void Test()
   if (1==2)
   {
     const Chapter chapter("../Files/53.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     character.AddItem(Item::silver_arrow);
     chapter.Do(character,true);
     chapter.Do(character,true);
@@ -250,10 +250,21 @@ void Test()
     assert(!character.HasItem(Item::silver_arrow));
   }
 
+  //Chapter 148: Lose one random items or one gold
+  {
+    const Chapter chapter("../Files/148.txt");
+    Character character(10,10,10,Item::luck_potion);
+    const int n_items_before{static_cast<int>(character.GetItems().size())};
+    const int gold_before{character.GetGold()};
+    chapter.Do(character,true);
+    const int n_items_after{static_cast<int>(character.GetItems().size())};
+    const int gold_after{character.GetGold()};
+    assert(n_items_after == n_items_before - 1 || gold_after == gold_before - 1);
+  }
   //Chapter 63: Lose two random items
   {
     const Chapter chapter("../Files/63.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
     chapter.Do(character,true);
     const int n_items_after{static_cast<int>(character.GetItems().size())};
@@ -263,7 +274,7 @@ void Test()
   //Chapter 134: Lose all gold
   {
     const Chapter chapter("../Files/134.txt");
-    Character character(10,10,10,Item::shield);
+    Character character(10,10,10,Item::luck_potion);
     assert(character.GetGold() > 0);
     chapter.Do(character,true);
     assert(character.GetGold() == 0);
@@ -309,7 +320,7 @@ void Test()
     for (int i=1; i!=450; ++i)
     {
       std::cout << "CHAPTER " << i << std::endl;
-      Character character(100,100,100,Item::shield);
+      Character character(100,100,100,Item::luck_potion);
       character.AddItem(Item::silver_arrow);
       int chapter = i; //Must use copy, otherwise i is changed
       try

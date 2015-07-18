@@ -1,10 +1,9 @@
-You try to walk nonchalantly past the Trolls, but 
+You try to walk nonchalantly past the trolls, but 
 they suspect something odd about you and call you 
 over to them. They ask you where you live and you 
 reply that you are in Port Blacksand on a trading 
-mission. The Trolls laugh scornfully and ask to see 
+mission. The trolls laugh scornfully and ask to see 
 your pass. Do you have a merchant's pass?
-@6
-@I19
-@0:335
-@1:219
+@999
+option Yes @ if merchant_pass goto 335
+option No @ ifnot merchant_pass goto 335

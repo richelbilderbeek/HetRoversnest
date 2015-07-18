@@ -26,6 +26,11 @@ Character::Character(
 {
   m_items.insert(Item::shield);
   m_items.insert(Item::carralifs_sword);
+  assert(
+    initial_item == Item::dexterity_potion
+    || initial_item == Item::luck_potion
+    || initial_item == Item::stamina_potion
+  );
   m_items.insert(initial_item);
 }
 
