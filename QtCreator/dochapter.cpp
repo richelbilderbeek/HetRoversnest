@@ -442,7 +442,7 @@ void DoPlayPill(Character& character, const bool auto_play)
 
 void ParseFight(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
 {
-  const bool verbose{true};
+  const bool verbose{false};
   s << std::skipws; //Obligatory
   int next_chapter = 0;
   std::vector<Monster> monsters;
@@ -648,7 +648,7 @@ void DoGameWon()
 
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character)
 {
-  const bool verbose{true};
+  const bool verbose{false};
   if (verbose) { std::clog << "CHAPTER " << chapter << std::endl; }
   std::vector<int> item_numbers;
   int gold_pieces = 0;
@@ -1245,7 +1245,6 @@ void ParseChangeStatusAskOption(
   const bool auto_play)
 {
   assert(1==2);
-  //const bool verbose{true};
 
   //Parse change status
   ParseChangeStatus(s,character);
