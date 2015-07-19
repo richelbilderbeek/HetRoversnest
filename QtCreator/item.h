@@ -40,21 +40,22 @@ enum class Item
   two_gems = 35,
   magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1
   two_silver_goblets = 37, //Chapter 220
-  silver_chalice = 51, //Chapter 220
-  silver_spoon = 52, //Chapter 220
   magic_helmet = 39, //Found in chapter 376. add 1 point to attack
   silver_flute = 40, //Obtained at 359
   eye_patch = 41,
   magic_elven_boots = 42,
   piece_of_chalk = 43,
   shield_with_unicorn_crest = 44, //Found in chapter 374
-  shield_with_tower_crest = 51, //Found in chapter 125
+  shield_with_tower_crest = 54, //Found in chapter 125
   copper_scorpion_brooch = 45, //Lose 1 luck without knowing
   carralifs_sword = 46, //Present at start, can lose it at 126
   ordinary_sword = 47, //Obtain it at 126
   luck_potion = 48,
   stamina_potion = 49,
   dexterity_potion = 50,
+  silver_chalice = 51, //Chapter 220
+  silver_spoon = 52, //Chapter 220
+  coloured_candle = 53, //Chapter 241
   //Abstract items
   any_scorpion_brooch = 89,
   all_gold = 90, //For chapter 42
@@ -68,7 +69,6 @@ enum class Item
   something_magic = 98, //For chapter 187 and 293, where the guards/Miss Pipe request something magic
   two_random_items = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
-  fought_ape_man = 100, //Chapter 201
   followed_sewer_north = 101, //Chapter 174
   opened_pirate_crew_door, //Chapter 176
   opened_pirate_captain_door, //Chapter

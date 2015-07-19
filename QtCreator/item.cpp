@@ -63,6 +63,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::luck_potion,"luck_potion"));
   m.insert(Pair(Item::stamina_potion,"stamina_potion"));
   m.insert(Pair(Item::dexterity_potion,"dexterity_potion"));
+  m.insert(Pair(Item::coloured_candle,"coloured_candle"));
   m.insert(Pair(Item::any_scorpion_brooch,"any_scorpion_brooch"));
   m.insert(Pair(Item::all_provisions,"all_provisions"));
   m.insert(Pair(Item::all_gold,"all_gold"));
@@ -73,7 +74,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::two_random_items,"two_random_items"));
   m.insert(Pair(Item::two_magic_items,"two_magic_items"));
   m.insert(Pair(Item::something_magic,"something magic"));
-  m.insert(Pair(Item::fought_ape_man,"fought_ape_man"));
+  //m.insert(Pair(Item::fought_ape_man,"fought_ape_man"));
   m.insert(Pair(Item::followed_sewer_north,"followed_sewer_north"));
   m.insert(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));
   m.insert(Pair(Item::opened_pirate_captain_door,"opened_pirate_captain_door"));

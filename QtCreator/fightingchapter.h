@@ -5,12 +5,16 @@
 
 #include "monster.h"
 
+struct Character;
+
 ///A chapter in which a fight takes place
 struct FightingChapter
 {
   FightingChapter();
 
   void AddMonster(const Monster& monster);
+
+  void Do(Character& character, const bool auto_play) const;
 
   ///Battle the monsters one by one
   bool DoFightSequentially() const noexcept { return m_fight_sequentially; }
@@ -40,5 +44,33 @@ struct FightingChapter
   std::vector<Monster> m_monsters;
   int m_rounds_to_escape;
 };
+
+///Fight multiple monsters after each other
+void DoFight(
+  std::vector<Monster> monsters,
+  Character& character,
+  const bool auto_play
+);
+
+///Fight multiple monsters at the same time
+void DoFightTwoMonsters(
+  std::vector<Monster> monsters,
+  Character& character,
+  const bool auto_play
+);
+
+///Fight single monster
+void DoFight(
+  Monster monster,
+  Character& character,
+  const bool auto_play
+);
+
+void DoFightWithTime(
+  std::stringstream& s,
+  int& chapter,
+  Character& character,
+  const bool auto_play
+);
 
 #endif // FIGHTINGCHAPTER_H

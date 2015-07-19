@@ -45,7 +45,7 @@ void DoChapter(
   if (!IsRegularFile(filename))
   {
     std::stringstream msg;
-    msg << __func__ << ": ERROR: File " << filename << " does not exist";
+    //msg << __func__ << ": ERROR: File " << filename << " does not exist";
     throw std::runtime_error(msg.str());
   }
   try
@@ -59,6 +59,7 @@ void DoChapter(
   {
     //No problem, use old interface
   }
+  assert(language == Language::Dutch); //Obsolete in English
   const std::vector<std::string> lines = FileToVector(filename);
   std::stringstream s;
   s << std::noskipws;
@@ -128,9 +129,41 @@ void DoInventory(Character& character, const bool auto_play)
     << "Dexterity:\n"
     << " * Base: " << character.GetDexterityBase() << "/" << character.GetInitialDexterity() << '\n'
   ;
-  if (character.HasItem(Item::ordinary_sword)) { s << " * " << ToStr(Item::ordinary_sword) << ": +1\n"; }
-  if (character.HasItem(Item::carralifs_sword)) { s << " * " << ToStr(Item::carralifs_sword) << ": +2\n"; }
-  if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
+
+  //Shield
+  if (character.HasItem(Item::shield_with_tower_crest))
+  {
+    s << " * " << ToStr(Item::shield_with_tower_crest) << ": -1 (equipped, cursed)\n";
+    if (character.HasItem(Item::shield_with_unicorn_crest)) { s << " * " << ToStr(Item::shield_with_unicorn_crest) << ": +3\n"; }
+    if (character.HasItem(Item::magnificent_shield)) { s << " * " << ToStr(Item::magnificent_shield) << ": +2\n"; }
+    if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
+  }
+  else if (character.HasItem(Item::shield_with_unicorn_crest))
+  {
+    s << " * " << ToStr(Item::shield_with_unicorn_crest) << ": +3 (equipped)\n";
+    if (character.HasItem(Item::magnificent_shield)) { s << " * " << ToStr(Item::magnificent_shield) << ": +2\n"; }
+    if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
+  }
+  else if (character.HasItem(Item::magnificent_shield))
+  {
+    if (character.HasItem(Item::magnificent_shield)) { s << " * " << ToStr(Item::magnificent_shield) << ": +2 (equipped)\n"; }
+    if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1\n"; }
+  }
+  else if (character.HasItem(Item::shield))
+  {
+    if (character.HasItem(Item::shield)) { s << " * " << ToStr(Item::shield) << ": +1 (equipped)\n"; }
+  }
+
+  if (character.HasItem(Item::carralifs_sword))
+  {
+    s << " * " << ToStr(Item::carralifs_sword) << ": +2 (equipped) \n";
+    if (character.HasItem(Item::ordinary_sword)) { s << " * " << ToStr(Item::ordinary_sword) << ": +1\n"; }
+  }
+  else if (character.HasItem(Item::ordinary_sword))
+  {
+    if (character.HasItem(Item::ordinary_sword)) { s << " * " << ToStr(Item::ordinary_sword) << ": +1 (equipped)\n"; }
+  }
+
   if (character.HasItem(Item::magic_elven_boots)) { s << " * " << ToStr(Item::magic_elven_boots) << ": +1\n"; }
   if (character.HasItem(Item::chainmail_coat)) { s << " * " << ToStr(Item::chainmail_coat) << ": +2\n"; }
   s
@@ -193,9 +226,8 @@ Gold Pieces.
       }
       else
       {
-        //std::clog << "ERROR: should not have got here, due to lack of gold\n";
-        //character.ChangeGold(-character.GetGold());
-        assert(1==2);
+        std::clog << "WARNING: should not have got here, due to lack of gold\n";
+        character.ChangeGold(-character.GetGold());
       }
       return;
     }
@@ -567,355 +599,28 @@ void ParseFightWithTwoMonsters(std::stringstream& s, int& chapter, Character& ch
   chapter = new_chapter;
 }
 
-void DoFight(
-  std::vector<Monster> monsters,
-  Character& character,
-  const bool auto_play
-)
-{
-  for (auto monster: monsters)
-  {
-    DoFight(monster,character,auto_play);
-    if (character.IsDead()) return;
-  }
-}
-
-void DoFightTwoMonsters(
-  std::vector<Monster> monsters,
-  Character& character,
-  const bool auto_play
-)
-{
-  //Fight both
-  assert(monsters.size() == 2);
-  for (int round=0; ; ++round)
-  {
-
-    if (character.IsDead()) { return; }
-    if (monsters[0].IsDead()) { break; }
-
-    {
-      std::stringstream s;
-      s
-        << '\n'
-        << "Fight round #" << round << '\n'
-        << "You " << character.GetDexterity() << " "
-        << character.GetStamina() << "/"
-        << character.GetInitialStamina() << '\n'
-        << monsters[0].GetName() << " "
-        << monsters[0].GetDexterity() << " "
-        << monsters[0].GetStamina() << "/"
-        << monsters[0].GetInitialStamina() << '\n'
-        << monsters[1].GetName() << " "
-        << monsters[1].GetDexterity() << " "
-        << monsters[1].GetStamina() << "/"
-        << monsters[1].GetInitialStamina() << '\n'
-        << "Fight round #" << round
-        << '\n'
-      ;
-      ShowText(s.str(),auto_play);
-    }
-
-    {
-      const int monster_attack{monsters[0].CalcAttackStrength()};
-      const int player_attack{character.CalcAttackStrength()};
-      if (player_attack > monster_attack)
-      {
-        const int damage{2};
-        {
-          std::stringstream s;
-          s << "You hit the " << monsters[0].GetName() << ".\n";
-          ShowText(s.str(),auto_play);
-        }
-        if (!auto_play)
-        {
-          //std::cout << "Do you want to use luck?" << std::endl;
-          //assert(!"TODO");
-          monsters[0].ChangeStamina(-damage);
-        }
-        else
-        {
-          monsters[0].ChangeStamina(-damage);
-        }
-      }
-      else if (player_attack < monster_attack)
-      {
-        const int damage{monsters[0].GetAttackDamage()};
-        {
-          std::stringstream s;
-          s << "You were hit by the " << monsters[0].GetName() << "\n.";
-          ShowText(s.str(),auto_play);
-        }
-        if (!auto_play)
-        {
-          //std::cout << "Do you want to use luck?" << std::endl;
-          //assert(!"TODO");
-          character.ChangeStamina(-damage);
-        }
-        else
-        {
-          character.ChangeStamina(-damage);
-        }
-      }
-      else
-      {
-        std::stringstream s;
-        s << "No damage was dealt.\n";
-        ShowText(s.str(),auto_play);
-      }
-    }
-    //Second monster
-    {
-      const int monster_attack{monsters[1].CalcAttackStrength()};
-      const int player_attack{character.CalcAttackStrength()};
-      if (player_attack >= monster_attack)
-      {
-        std::stringstream s;
-        s << "You resisted the " << monsters[1].GetName() << ".\n";
-        ShowText(s.str(),auto_play);
-      }
-      else if (player_attack < monster_attack)
-      {
-        const int damage{monsters[1].GetAttackDamage()};
-        {
-          std::stringstream s;
-          s<< "You were hit by the " << monsters[1].GetName() << "\n.";
-          ShowText(s.str(),auto_play);
-        }
-        if (!auto_play)
-        {
-          //std::cout << "Do you want to use luck?" << std::endl;
-          //assert(!"TODO");
-          character.ChangeStamina(-damage);
-        }
-        else
-        {
-          character.ChangeStamina(-damage);
-        }
-      }
-    }
-    if (!auto_play) { Wait(1.0); }
-  }
-
-  std::cout << "You defeated the " << monsters[0].GetName() << "!" << std::endl;
-
-  //Fight the remaining monster normally
-  DoFight(monsters[1],character,auto_play);
-  if (character.IsDead()) return;
-}
 
 
-void DoFight(
-  Monster monster,
-  Character& character,
-  const bool auto_play
-)
-{
-  for (int round = 1; ; ++round)
-  {
-    if (character.IsDead()) break;
-    if (monster.IsDead()) break;
 
-    {
-      std::stringstream s;
-      s
-        << '\n'
-        << "Fight round #" << round << '\n'
-        << "You " << character.GetDexterity() << " "
-        << character.GetStamina() << "/"
-        << character.GetInitialStamina() << '\n'
-        << monster.GetName() << " "
-        << monster.GetDexterity() << " "
-        << monster.GetStamina() << "/"
-        << monster.GetInitialStamina() << '\n'
-      ;
-      ShowText(s.str(),auto_play);
-    }
 
-    const int monster_attack{monster.CalcAttackStrength()};
-    const int player_attack{character.CalcAttackStrength()};
 
-    {
-      std::stringstream s;
-      s
-        << "You attack with strength " << player_attack << '\n'
-        << monster.GetName() << " attacks with strength " << monster_attack << '\n'
-      ;
-      ShowText(s.str(),auto_play);
-    }
 
-    if (player_attack > monster_attack)
-    {
-      {
-        std::stringstream s;
-        s << "You hit the " << monster.GetName() << "." << '\n';
-        ShowText(s.str(),auto_play);
-      }
-      const int damage = 2;
-      if (!auto_play)
-      {
-        //std::cout
-        //  << "Do you want to use luck? [1] Yes [2] No\n"
-        //  << std::endl
-        //;
-        //assert(!"TODO");
-        monster.ChangeStamina(-damage);
-      }
-      else
-      {
-        monster.ChangeStamina(-damage);
-      }
-    }
-    else if (player_attack < monster_attack)
-    {
-      {
-        std::stringstream s;
-        s << "You were hit by the " << monster.GetName() << "." << '\n';
-        ShowText(s.str(),auto_play);
-      }
-      const int damage{monster.GetAttackDamage()};
-      if (!auto_play)
-      {
-        //std::cout << "Do you want to use luck?" << std::endl;
-        //assert(!"TODO");
-        character.ChangeStamina(-damage);
-      }
-      else
-      {
-        character.ChangeStamina(-damage);
-      }
-    }
-    else
-    {
-      std::stringstream s;
-      s << "No damage was dealt.\n";
-      ShowText(s.str(),auto_play);
-    }
-    if (!auto_play) { Wait(1.0); }
-  }
 
-  if (character.IsDead())
-  {
-    std::cout << "\nThe " << monster.GetName() << " defeated you.\n";
-    if (!auto_play) { Wait(1.0); }
-  }
-  else
-  {
-    std::cout << "\nYou defeated the " << monster.GetName() << "!" << std::endl;
-    if (!auto_play) { Wait(1.0); }
-  }
-}
 
-void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
-{
-  const bool verbose{false};
-  Parse(s,'@');
 
-  //Name monster
-  std::string name;
-  {
-    while (1)
-    {
-      char c = '*';
-      s >> c;
-      assert(c != '*');
-      if (c == ' ' || c == '\n') continue;
-      if (c == '@') break;
-      name += c;
-    }
-  }
-  if (verbose) { std::cout << "Monster name: " << name << std::endl; }
-  //Skill monster
-  int monster_dexterity = -1;
-  {
-    s >> monster_dexterity;
-    assert(monster_dexterity != -1);
-  }
-  if (verbose) { std::cout << "Monster dexterity: " << monster_dexterity << std::endl; }
-  //Condition monster
-  int monster_stamina = -1;
-  {
-    Parse(s,'@');
-    s >> monster_stamina;
-    assert(monster_stamina != -1);
-  }
-  if (verbose) { std::cout << "Monster stamina: " << monster_stamina << std::endl; }
-  //Number of rounds
-  int number_of_rounds = -1;
-  {
-    Parse(s,'@');
-    s >> number_of_rounds;
-    assert(number_of_rounds > -1);
-  }
-  if (verbose) { std::cout << "Number of rounds: " << number_of_rounds << std::endl; }
-  //New chapter after time limit
-  int new_chapter_after_time_limit = -1;
-  {
-    Parse(s,'@');
-    s >> new_chapter_after_time_limit;
-    assert(new_chapter_after_time_limit > -1);
-  }
-  if (verbose) { std::cout << "New chapter after time limit: " << new_chapter_after_time_limit << std::endl; }
-  //New chapter after time limit
-  int new_chapter_within_time_limit = -1;
-  {
-    Parse(s,'@');
-    s >> new_chapter_within_time_limit;
-    assert(new_chapter_within_time_limit > -1);
-  }
-  if (verbose) { std::cout << "New chapter within time limit: " << new_chapter_within_time_limit << std::endl; }
-  for (int i=0; i!=number_of_rounds; ++i)
-  {
-    const int monster_attack = (std::rand() >> 4) % 6;
-    const int player_attack = (std::rand() >> 4) % 12;
-    if (player_attack > monster_attack)
-    {
-      std::cout << "You hit the monster." << std::endl;
-      if (!auto_play)
-      {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
-      }
-      else
-      {
-        monster_stamina -= 2;
-      }
-    }
-    else if (player_attack < monster_attack)
-    {
-      std::cout << "You were hit by the monster." << std::endl;
-      if (!auto_play)
-      {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
-      }
-      else
-      {
-        character.ChangeStamina(-2);
-      }
-    }
-    else
-    {
-      std::cout << "No damage was dealt." << std::endl;
-    }
-    if (character.GetStamina() < 1)
-    {
 
-      std::cout
-        << "The monster defeated you.\n"
-        << "\n";
-      return;
-    }
-    else if (monster_stamina < 1)
-    {
-      std::cout << "You defeated the monster." << std::endl;
-      chapter = new_chapter_within_time_limit;
-      return;
-    }
-  }
-  std::cout << "You did not make it within the time limit." << std::endl;
-  chapter = new_chapter_after_time_limit;
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 void DoGameOver()
 {
@@ -1260,7 +965,7 @@ void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& c
         //Allow for having no money
         if (character.GetGold() + change_gold < 0)
         {
-          std::clog << "Warning: character could not afford this" << std::endl;
+          std::clog << "WARNING: character could not afford this" << std::endl;
           character.ChangeGold(-character.GetGold());
           assert(character.GetGold() == 0);
         }
@@ -1381,12 +1086,6 @@ void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& charac
   }
 }
 
-void Parse(std::stringstream& s, const char expected_char)
-{
-  const char c = ReadChar(s);
-  if (c != expected_char) { std::cerr << "Warning: expected character" << std::endl; }
-  assert(c == expected_char);
-}
 
 void ParseChangeStatus(std::stringstream& s, Character& character)
 {
@@ -1588,7 +1287,7 @@ void ParseChangeStatusAskOption(
     if (chapter == chapter_to_go)
     {
       std::stringstream msg;
-      msg << __func__ << ": ERROR: Chapter " << chapter << "\'s option " << option
+      msg << __func__ << ": WARNING: Chapter " << chapter << "\'s option " << option
         << " brings player to the same chapter";
       throw std::runtime_error(msg.str());
     }
@@ -1616,8 +1315,19 @@ Consequence ParseConsequence(std::stringstream &s)
   else if (what == "arrows" || what == "arrow")
   {
     const std::string value{ReadString(s)};
-    assert(value == "random[1-6]");
-    consequence.SetChangeArrows(1 + ((std::rand() >> 4) % 6));
+    if (value == "random[1-6]")
+    {
+      const int n_arrows{1 + ((std::rand() >> 4) % 6)};
+      consequence.SetChangeArrows(n_arrows);
+    }
+    else if (value == "remove_all")
+    {
+      consequence.SetChangeArrows(-6);
+    }
+    else
+    {
+      assert(!"Should not get here");
+    }
   }
   else if (what == "dexterity" || what == "dex")
   {
@@ -1756,7 +1466,7 @@ void ParseNormalChapter(
     if (chapter == chapter_to_go)
     {
       std::stringstream msg;
-      msg << __func__ << ": ERROR: Chapter " << chapter << "\'s option " << option
+      msg << __func__ << ": WARNING: Chapter " << chapter << "\'s option " << option
         << " brings player to the same chapter";
       throw std::runtime_error(msg.str());
     }

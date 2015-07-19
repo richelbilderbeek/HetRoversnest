@@ -11,6 +11,10 @@
 #ifndef NDEBUG
 void Test()
 {
+
+  assert(IsItem("shield_with_unicorn_crest"));
+  assert(IsItem("shield_with_tower_crest"));
+
   //StripFirstChar
   {
     const std::vector<std::string> original = { "AB" };
@@ -33,8 +37,11 @@ void Test()
     assert(chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 1);
     assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 2);
+    const std::string monster_name{chapter.GetFighting().GetMonsters()[0].GetName()};
     Character character(100,100,100,Item::luck_potion);
+    assert(!character.HasFought(monster_name));
     chapter.Do(character,true);
+    assert(character.HasFought(monster_name));
   }
   //Chapter 326: Simulateous fight
   {
@@ -175,8 +182,9 @@ void Test()
     assert(character.HasItem(Item::shield));
     const int dex_before{character.GetDexterity()};
     chapter.Do(character,true);
+    assert(!character.HasItem(Item::shield));
     const int dex_after{character.GetDexterity()};
-    assert(dex_after == dex_before - 1); //Due to losing shield
+    assert(dex_after < dex_before); //Due to losing shield
     assert(!character.HasItem(Item::shield));
   }
   //Chapter 11: must lose 3 skill points and shield and chain mail
@@ -394,6 +402,13 @@ void Test()
   }
 
 
+  //Chapter 392: Lizardine has fiery breath
+  {
+    const Chapter chapter("../Files/392.txt");
+    assert(chapter.GetFighting().GetMonsters().size() == 1);
+    assert(chapter.GetFighting().GetMonsters()[0].HasFireBreath());
+  }
+
 
 
   //Chapters 13 and 273: should not be able to take both brooches
@@ -437,14 +452,13 @@ void Test()
   {
     for (int i=1; i!=450; ++i)
     {
-      std::cout << "CHAPTER " << i << std::endl;
-      Character character(100,100,100,Item::luck_potion);
-      character.AddItem(Item::silver_arrow);
       int chapter = i; //Must use copy, otherwise i is changed
       try
       {
+        Character character(100,100,100,Item::luck_potion);
+        character.AddItem(Item::silver_arrow);
+        std::cout << "CHAPTER " << i << std::endl;
         DoChapter(chapter,character,language,true);
-        if (character.GetGold() < 30) { character.ChangeGold(30); }
       }
       catch (std::runtime_error& e)
       {
@@ -512,7 +526,9 @@ void Test()
     }
     f << "}\n";
     f.close();
+    std::clog << "Creating graph..." << std::endl;
     std::system("dot -Tpng Graph.dot > Graph.png");
+    std::clog << "Graph created" << std::endl;
   }
 }
 #endif

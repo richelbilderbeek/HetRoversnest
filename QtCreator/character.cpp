@@ -16,6 +16,7 @@ Character::Character(
   : m_chapters{std::vector<int>(1,1)},
     m_arrows{0},
     m_dexterity{dexterity},
+    m_fought{},
     m_gold{30},
     m_initial_dexterity{dexterity},
     m_initial_luck{luck},
@@ -35,6 +36,11 @@ Character::Character(
   m_items.insert(initial_item);
 }
 
+void Character::AddHasFought(const std::string& monster_name)
+{
+  m_fought.push_back(monster_name);
+}
+
 void Character::AddItem(const Item item)
 {
   m_items.insert(item);
@@ -42,7 +48,15 @@ void Character::AddItem(const Item item)
 
 int Character::CalcAttackStrength() const noexcept
 {
-  return m_dexterity
+  int shield_value = 0;
+  if (HasItem(Item::shield_with_tower_crest)) { shield_value = 0; } //Cursed
+  else if (HasItem(Item::shield_with_unicorn_crest)) { shield_value = 1; }
+  else if (HasItem(Item::magnificent_shield)) { shield_value = 1; }
+  else if (HasItem(Item::shield)) { shield_value = 0; }
+
+  return GetDexterity()
+    + (HasItem(Item::magic_helmet) ? 1 : 0)
+    + shield_value
     + ((std::rand() >> 4) % 6)
     + ((std::rand() >> 4) % 6)
   ;
@@ -100,12 +114,23 @@ void Character::ChangeLuck(const int change)
 
 int Character::GetDexterity() const noexcept
 {
+  int shield_value = 0;
+  if (HasItem(Item::shield_with_tower_crest)) { shield_value = -1; } //Cursed
+  else if (HasItem(Item::shield_with_unicorn_crest)) { shield_value = 3; }
+  else if (HasItem(Item::magnificent_shield)) { shield_value = 2; }
+  else if (HasItem(Item::shield)) { shield_value = 1; }
+
+
+  int sword_value = 0;
+  if (HasItem(Item::ordinary_sword)) { sword_value = 1; }
+  else if (HasItem(Item::carralifs_sword)) { sword_value = 2; }
+
   return
     GetDexterityBase()
     + (this->HasItem(Item::magic_elven_boots) ? 1 : 0)
-    + (this->HasItem(Item::shield) ? 1 : 0)
+    + shield_value
     + (this->HasItem(Item::chainmail_coat) ? 2 : 0)
-    + (this->HasItem(Item::carralifs_sword) ? 2 : 0)
+    + sword_value
   ;
 }
 
@@ -126,6 +151,15 @@ int Character::GetLuck() const noexcept
 int Character::GetLuckBase() const noexcept
 {
   return m_luck;
+}
+
+bool Character::HasFought(const std::string& monster_name) const
+{
+  return std::count(
+    std::begin(m_fought),
+    std::end(m_fought),
+    monster_name
+  ) > 0;
 }
 
 bool Character::HasItem(const Item item) const
@@ -166,7 +200,7 @@ void Character::SetChapter(const int chapter)
     std::find(std::begin(m_chapters),std::end(m_chapters),chapter) != std::end(m_chapters)
   )
   {
-    std::cerr << "ERROR: entering same chapter twice!" << std::endl;
+    std::cerr << "WARNING: entering same chapter twice!" << std::endl;
     std::ofstream f("Path.txt");
     const auto v = GetChapters();
     std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));

@@ -28,7 +28,7 @@ Chapter::Chapter(const std::string& filename)
   if (!IsRegularFile(filename))
   {
     std::stringstream msg;
-    msg << __func__ << ": ERROR: File " << filename << " does not exist";
+    //msg << __func__ << ": ERROR: File " << filename << " does not exist";
     throw std::runtime_error(msg.str());
   }
   const std::vector<std::string> lines = FileToVector(filename);
@@ -249,51 +249,8 @@ Chapter::Chapter(const std::string& filename)
       const std::string t{ReadString(s)};
       if (t == "if")
       {
-        Condition condition;
-        const std::string what{ReadString(s)};
+        const Condition condition{ParseCondition(s)};
 
-        if (what == "gold")
-        {
-          const int gold_amount{ReadInt(s)};
-          condition.SetGoldNeeded(gold_amount);
-        }
-        else if (what == "provisions" || what == "provision")
-        {
-          const int number_of_provisions{ReadInt(s)};
-          condition.SetProvisionsNeeded(number_of_provisions);
-        }
-        else if (what == "has")
-        {
-          const std::string item = ReadString(s);
-          if (!IsItem(item))
-          {
-            std::cerr << "Unknown item " << item << " in " << filename << std::endl;
-            assert(!"Should not get here");
-          }
-          const Item item_needed{ToItem(item)};
-          condition.AddItemNeeded(item_needed);
-        }
-        else if (what == "has_not" || what == "hasnot")
-        {
-          const std::string item = ReadString(s);
-          if (!IsItem(item))
-          {
-            std::cerr << "Unknown item " << item << " in " << filename << std::endl;
-            assert(!"Should not get here");
-          }
-          const Item item_not_needed{ToItem(item)};
-          condition.AddItemNotNeeded(item_not_needed);
-        }
-        else if (IsItem(what)) //assumes item is needed, 'has' before it can be omitted
-        {
-          const Item item_needed{ToItem(what)};
-          condition.AddItemNeeded(item_needed);
-        }
-        else
-        {
-          std::cerr << "Unknown option after if in " << filename << std::endl;
-          assert(!"Should not get here");
-        }
         const std::string then_str{ReadString(s)};
         Consequence consequence;
         if (then_str == "goto")
@@ -522,14 +479,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
   }
   else if (!GetFighting().GetMonsters().empty())
   {
-    if (GetFighting().DoFightSequentially())
-    {
-      DoFight(GetFighting().GetMonsters(),character,auto_play);
-    }
-    else
-    {
-      DoFightTwoMonsters(GetFighting().GetMonsters(),character,auto_play);
-    }
+    m_fighting_chapter.Do(character,auto_play);
     assert(m_consequence.GetNextChapter() > 0);
   }
   else if (!GetLuck().GetLuckText().empty())

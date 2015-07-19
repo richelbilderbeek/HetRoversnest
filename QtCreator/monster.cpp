@@ -10,10 +10,12 @@ Monster::Monster(
   const std::string& name,
   const int dexterity,
   const int stamina,
-  const int attack_damage
+  const int attack_damage,
+  const bool has_fire_breath
 )
   : m_attack_damage{attack_damage},
     m_dexterity{dexterity},
+    m_has_fire_breath{has_fire_breath},
     m_initial_stamina{stamina},
     m_name{ToPretty(name)},
     m_stamina{stamina}
@@ -43,8 +45,19 @@ Monster ParseMonster(std::stringstream& s)
   const std::string name{ReadString(s)};
   const int dexterity{ReadInt(s)};
   const int condition{ReadInt(s)};
-  const int attack_strength{ReadInt(s)};
-  const Monster monster(name,dexterity,condition,attack_strength);
+  const std::string attack{ReadString(s)};
+  int attack_strength{2};
+  bool has_fire_breath{false};
+  if (IsInt(attack))
+  {
+    attack_strength = std::stoi(attack);
+  }
+  else
+  {
+    assert(attack == "2+fire");
+    has_fire_breath = true;
+  }
+  const Monster monster(name,dexterity,condition,attack_strength,has_fire_breath);
   return monster;
 }
 

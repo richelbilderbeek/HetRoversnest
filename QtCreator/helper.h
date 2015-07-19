@@ -14,6 +14,8 @@ bool IsInt(const std::string& s) noexcept;
 ///From http://www.richelbilderbeek.nl/CppIsRegularFile.htm
 bool IsRegularFile(const std::string& filename);
 
+void Parse(std::stringstream& s, const char expected_char);
+
 char ReadChar(std::stringstream& s);
 int ReadInt(std::stringstream& s);
 std::string ReadString(std::stringstream& s);

@@ -10,7 +10,8 @@ struct Monster
     const std::string& name,
     const int dexterity,
     const int stamina,
-    const int attack_damage = 2
+    const int attack_damage = 2,
+    const bool has_fire_breath = false
   );
 
   ///In a fight, produce a random attack strength
@@ -22,6 +23,9 @@ struct Monster
   int GetAttackDamage() const noexcept { return m_attack_damage; }
 
   int GetDexterity() const noexcept { return m_dexterity; }
+
+  bool HasFireBreath() const noexcept { return m_has_fire_breath; }
+
   int GetInitialStamina() const noexcept { return m_initial_stamina; }
   std::string GetName() const noexcept { return m_name; }
   int GetStamina() const noexcept { return m_stamina; }
@@ -30,6 +34,7 @@ struct Monster
   private:
   const int m_attack_damage;
   const int m_dexterity;
+  const bool m_has_fire_breath;
   const int m_initial_stamina;
   const std::string m_name;
   int m_stamina;

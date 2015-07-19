@@ -59,12 +59,21 @@ void Consequence::Apply(Character& character) const
   //Arrows
   {
     const int change_arrows{GetChangeArrows()};
-    if (change_arrows != 0)
+    if (change_arrows > 0)
     {
       if (verbose) { std::clog << "Changing arrows by " << change_arrows << std::endl; }
       character.ChangeArrows(change_arrows);
-      if (verbose) { std::clog << "Changing stamina due to arrows by " << change_arrows << std::endl; }
-      character.ChangeStamina(change_arrows * 3); //Each arrow costs three stamina
+      const int delta_stamina{-3 * change_arrows}; //Each arrow damages three stamina
+      if (verbose) { std::clog << "Changing stamina due to arrows by " << delta_stamina << std::endl; }
+      character.ChangeStamina(delta_stamina);
+    }
+    else if (change_arrows < 0)
+    {
+      if (verbose) { std::clog << "Changing arrows by " << character.GetArrows() << std::endl; }
+      character.ChangeArrows(-character.GetArrows());
+      const int delta_stamina{2 * character.GetArrows()}; //Each arrow is healed by two stamina
+      if (verbose) { std::clog << "Changing stamina due to arrows by " << delta_stamina << std::endl; }
+      character.ChangeStamina(delta_stamina);
     }
   }
   //Dex

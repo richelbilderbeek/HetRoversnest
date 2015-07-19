@@ -16,7 +16,7 @@ Option::Option(
   assert(!text.empty());
   if (GetNextChapter() == 1)
   {
-    std::cerr << "Warning: next chapter is 1" << std::endl;
+    std::cerr << "WARNING: next chapter is 1" << std::endl;
   }
 }
 

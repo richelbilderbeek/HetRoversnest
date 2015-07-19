@@ -8,6 +8,7 @@
 struct Character
 {
   using Items = std::set<Item>;
+  using MonsterNames = std::vector<std::string>;
 
   Character(
     const int dexterity, //NL: Behendigheid
@@ -16,6 +17,7 @@ struct Character
     const Item initial_item
   );
 
+  void AddHasFought(const std::string& monster_name);
   void AddItem(const Item item);
 
   ///In a fight, produce a random attack strength
@@ -41,6 +43,7 @@ struct Character
   int GetLuckBase() const noexcept;
   int GetProvisions() const noexcept { return m_provisions; }
   int GetStamina() const noexcept { return m_stamina; }
+  bool HasFought(const std::string& monster_name) const;
   bool HasItem(const Item item) const;
   bool IsDead() const noexcept { return m_stamina <= 0; }
   void RemoveItem(const Item item);
@@ -55,6 +58,7 @@ struct Character
   ///How much arrows does the character have sticking out his/her body?
   int m_arrows;
   int m_dexterity; //NL: Behendigheid
+  MonsterNames m_fought;
   int m_gold; //NL: Goud
   const int m_initial_dexterity; //NL: Behendigheid
   const int m_initial_luck; //NL: Geluk

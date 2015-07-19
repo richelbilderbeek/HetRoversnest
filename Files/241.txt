@@ -1,4 +1,6 @@
-Inside the shop you see a tall, thin man with pointed ears and fair hair, pouring hot wax from an iron pan into a mould. The candlemaker is an elf. As he turns to you to speak, you notice his slanted eyes, which are ice-blue. For some reason they appear very cold to you. He tells you that all his coloured candles cost 1 gold piece each [TODO: implement this]. You may buy as many as you wish. He then asks you if you would like to see one of his magic candles in the back room. 
+Inside the shop you see a tall, thin man with pointed ears and fair hair, pouring hot wax from an iron pan into a mould. The candlemaker is an elf. As he turns to you to speak, you notice his slanted eyes, which are ice-blue. For some reason they appear very cold to you. He tells you that he can sell you a coloured candle for 1 gold piece. 
 @999
-option If you wish to see one @ goto 63
-option If you would rather leave the shop and head east @ goto 280
+shop_items 
+  coloured_candle 1 
+  @
+goto 432

@@ -1,12 +1,5 @@
-The creature is outraged that you have stolen one of its brooches. It jumps up and you notice flames curling up from its nostrils. Suddenly a blast of fire shoots from its jaw and it moves towards you with outstretched claws. The blast misses you.
-As well as following the usual rules of battle, throw 
-one die every Attack Round for the Lizardme's 
-fiery breath. On a roll of 1. 2or 3, it burns you for 2 
-point of damage to be subtracted from your stamina. On a roll of 4, 5 or 6 you manage to dodge the 
-blast. You may use your luck against the fire.
-[TODO:Actually implement this]
-You may also escape by running back down the stairs out of the house to head north.
+The creature is outraged that you have stolen one of its brooches. It jumps up and you notice flames curling up from its nostrils. Suddenly a blast of fire shoots from its jaw and it moves towards you with outstretched claws. The blast misses you: this creature has a fiery breath! You may escape by running back down the stairs out of the house to head north.
 @7
 escape 0 334
-monster Lizardine 8 5 2
+monster Lizardine 8 5 2+fire
 goto 186

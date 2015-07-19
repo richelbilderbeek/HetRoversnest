@@ -13,28 +13,6 @@ struct Monster;
 void DoChangeStatusChapter(std::stringstream& s, int& chapter, Character& character);
 void DoChapter(int& chapter, Character& character, const Language language, const bool auto_play = false);
 
-///Fight multiple monsters after each other
-void DoFight(
-  std::vector<Monster> monsters,
-  Character& character,
-  const bool auto_play
-);
-
-///Fight multiple monsters at the same time
-void DoFightTwoMonsters(
-  std::vector<Monster> monsters,
-  Character& character,
-  const bool auto_play
-);
-
-///Fight single monster
-void DoFight(
-  Monster monster,
-  Character& character,
-  const bool auto_play
-);
-
-void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play);
 void DoGameOver();
 void DoGameWon();
 void DoHasItemChapter(std::stringstream& s, int& chapter, Character& character);
@@ -71,7 +49,6 @@ void DoPlayPill(Character& character, const bool auto_play); //Chapter 223
 void DoTestYourDexterityChapter(std::stringstream& s, int& chapter, Character& character);
 void DoTestYourLuckChapter(std::stringstream& s, int& chapter, Character& character);
 
-void Parse(std::stringstream& s, const char expected_char);
 
 std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s);
 

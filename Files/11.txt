@@ -1,13 +1,4 @@
-The Trolls see what you are doing and run towards 
-the tree. You are forced to leave your shield behind. 
-Lose 1 skill point. After climbing quickly up the 
-tree you realize that you must jump a distance of 
-two metres between the branch and the top of the 
-wall. If you are wearing a chainmail coat you will 
-have to take it off in order to jump safely across to 
-the wall (lose 2 skill points). Below, you see the 
-two Trolls running round the tree waving their 
-swords at you. There is no alternative but to jump.
+The Trolls see what you are doing and run towards the tree. You are forced to leave your shield behind. After climbing quickly up the tree you realize that you must jump a distance of two metres between the branch and the top of the wall. If you are wearing a chainmail coat you will have to take it off in order to jump safely across to the wall. Below, you see the two trolls running round the tree waving their swords at you. There is no alternative but to jump.
 @999
 change remove shield
 change remove chainmail_coat

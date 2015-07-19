@@ -1,4 +1,4 @@
 You may either:
 @999
 option turn right down Candle Street @ goto 139
-option walk back to the junction and go down @ goto 1
+option walk back to the junction and go down Harbour street @ goto 91

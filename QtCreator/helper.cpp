@@ -43,6 +43,13 @@ bool IsRegularFile(const std::string& filename)
   return f.is_open();
 }
 
+void Parse(std::stringstream& s, const char expected_char)
+{
+  const char c = ReadChar(s);
+  if (c != expected_char) { std::cerr << "WARNING: expected character" << std::endl; }
+  assert(c == expected_char);
+}
+
 void ShowText(const std::string& text, const bool auto_play)
 {
   for (const char c: text)
