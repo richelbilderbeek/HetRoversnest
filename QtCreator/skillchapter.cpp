@@ -3,6 +3,7 @@
 #include <cassert>
 #include <sstream>
 
+#include "consequence.h"
 #include "character.h"
 #include "helper.h"
 SkillChapter::SkillChapter()
@@ -31,7 +32,7 @@ void SkillChapter::Do(Character& character, const bool auto_play) const
       << GetSkillText() << std::endl
     ;
     ShowText(s.str(),auto_play);
-    character.SetChapter(GetSkillChapter());
+    GetSkillConsequence().Apply(character);
   }
   else
   {
@@ -40,6 +41,6 @@ void SkillChapter::Do(Character& character, const bool auto_play) const
       << GetNoSkillText() << std::endl
     ;
     ShowText(s.str(),auto_play);
-    character.SetChapter(GetNoSkillChapter());
+    GetNoSkillConsequence().Apply(character);
   }
 }

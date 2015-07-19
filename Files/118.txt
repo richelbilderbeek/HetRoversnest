@@ -2,3 +2,4 @@ You can hear some scratching sounds in the tunnel ahead. Then you see a long sha
 @999
 option You use your silver insect bracelet @ if has silver_insect_bracelet goto 166
 option You have no have a silver insect bracelet @ ifnot silver_insect_bracelet goto 2
+change add followed_sewer_south

@@ -84,7 +84,10 @@ void Character::ChangeGold(const int change)
   m_gold += change;
   if (m_gold < 0)
   {
-    std::cerr << "WARNING: Character's gold is negative" << std::endl;
+    #ifndef NDEBUG
+    std::cerr << "WARNING: Character's gold became negative, set to zero instead" << std::endl;
+    #endif
+    m_gold = 0;
     //assert(m_gold >= 0);
   }
 }
@@ -205,14 +208,24 @@ void Character::SetChapter(const int chapter)
     std::find(std::begin(m_chapters),std::end(m_chapters),chapter) != std::end(m_chapters)
   )
   {
-    #ifndef NDEBUG
-    std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
-    #endif
-    std::ofstream f("Path.txt");
-    const auto v = GetChapters();
-    std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
-    f.close();
-    assert(!"Time to inspect path.txt");
+    //These chapters can be legally visited more often
+    if (chapter != 96
+      && chapter != 197
+      && chapter != 207
+      && chapter != 234
+      && chapter != 231
+      && chapter != 314
+    )
+    {
+      #ifndef NDEBUG
+      std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
+      #endif
+      std::ofstream f("Path.txt");
+      const auto v = GetChapters();
+      std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
+      f.close();
+      assert(!"Time to inspect path.txt");
+    }
   }
 
   //assert(std::find(std::begin(m_chapters),std::end(m_chapters),chapter) == std::end(m_chapters));
@@ -221,11 +234,20 @@ void Character::SetChapter(const int chapter)
 
 bool Character::TestDexterity() noexcept
 {
-  return (std::rand() >> 4) % 2;
+  const int dice{
+      1 + ((std::rand() >> 4) % 6)
+    + 1 + ((std::rand() >> 4) % 6)
+  };
+  return dice < GetDexterity();
 }
 
 bool Character::TestLuck() noexcept
 {
+  const int dice{
+      1 + ((std::rand() >> 4) % 6)
+    + 1 + ((std::rand() >> 4) % 6)
+  };
+  const bool has_luck{dice < GetLuck()};
   --m_luck;
-  return (std::rand() >> 4) % 2;
+  return has_luck;
 }

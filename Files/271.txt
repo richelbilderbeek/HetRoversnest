@@ -2,3 +2,4 @@ Asleep in their bunks are three pirates. Their room is small and contains only c
 @999
 option If you wish to creep up and try to cut it loose @ goto 162
 option If you would rather close the door again, and not take any risks @ goto 284
+change add opened_pirate_crew_door

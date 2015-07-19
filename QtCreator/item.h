@@ -70,6 +70,7 @@ enum class Item
   two_random_items = 99, //For chapter 63, where you lose two random items
   //Below this, these are status changes
   followed_sewer_north = 101, //Chapter 174
+  followed_sewer_south = 102, //Chapter 118
   opened_pirate_crew_door, //Chapter 176
   opened_pirate_captain_door, //Chapter
   lifted_goblet_a,

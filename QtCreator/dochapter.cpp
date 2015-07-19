@@ -1381,6 +1381,7 @@ Consequence ParseConsequence(std::stringstream &s)
   }
   return consequence;
 }
+
 std::vector<std::pair<Item,int>> ParseItemWithPrices(std::stringstream& s)
 {
   std::vector<std::pair<Item,int>> items;

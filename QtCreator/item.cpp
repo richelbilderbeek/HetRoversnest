@@ -76,6 +76,7 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::something_magic,"something magic"));
   //m.insert(Pair(Item::fought_ape_man,"fought_ape_man"));
   m.insert(Pair(Item::followed_sewer_north,"followed_sewer_north"));
+  m.insert(Pair(Item::followed_sewer_south,"followed_sewer_south"));
   m.insert(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));
   m.insert(Pair(Item::opened_pirate_captain_door,"opened_pirate_captain_door"));
 

@@ -234,8 +234,8 @@ void Test()
     const Chapter chapter("../Files/18.txt");
     assert(!chapter.GetSkill().GetSkillText().empty());
     assert(!chapter.GetSkill().GetNoSkillText().empty());
-    assert(chapter.GetSkill().GetSkillChapter() > 1);
-    assert(chapter.GetSkill().GetNoSkillChapter() > 1);
+    assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 102);
+    assert(chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() == 225);
   }
   //Chapter 18: Skill chapter must be parsed correctly
   {
@@ -337,15 +337,8 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     character.AddItem(Item::silver_arrow);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 2);
-    while (character.HasItem(Item::silver_arrow))
-    {
-      chapter.Do(character,true);
-    }
-    assert(!character.HasItem(Item::silver_arrow));
+    chapter.Do(character,true); //Change 1 in 2
   }
-
-
-
   //Chapter 80: any_scorpion_brooch
   {
     const Chapter chapter("../Files/80.txt");
@@ -409,6 +402,27 @@ void Test()
     assert(chapter.GetFighting().GetMonsters()[0].HasFireBreath());
   }
 
+  //Chapter 190: test-your-skill for skilled character
+  {
+    const Chapter chapter("../Files/190.txt");
+    assert(chapter.GetType() == ChapterType::test_your_skill);
+    assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 38);
+    Character character(100,100,100,Item::luck_potion);
+    chapter.Do(character,true);
+    assert(character.GetCurrentChapter() == 38);
+  }
+  //Chapter 190: test-your-skill for unskilled character
+  {
+    const Chapter chapter("../Files/190.txt");
+    assert(chapter.GetType() == ChapterType::test_your_skill);
+    assert(chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() == 295);
+    Character character(1,1,1,Item::luck_potion);
+    const int gold_before{character.GetGold()};
+    chapter.Do(character,true);
+    const int gold_after{character.GetGold()};
+    assert(gold_after < gold_before);
+    assert(character.GetCurrentChapter() == 295);
+  }
 
 
   //Chapters 13 and 273: should not be able to take both brooches
@@ -502,8 +516,8 @@ void Test()
         }
         else if (!chapter.GetSkill().GetSkillText().empty())
         {
-          f << i << "->" << chapter.GetSkill().GetSkillChapter() << " [ label = \"Skill\"];\n";
-          f << i << "->" << chapter.GetSkill().GetNoSkillChapter() << " [ label = \"No skill\"];\n";
+          f << i << "->" << chapter.GetSkill().GetSkillConsequence().GetNextChapter() << " [ label = \"Skill\"];\n";
+          f << i << "->" << chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() << " [ label = \"No skill\"];\n";
         }
         else if (chapter.GetType() == ChapterType::game_lost)
         {

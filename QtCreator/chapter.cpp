@@ -226,6 +226,10 @@ Chapter::Chapter(const std::string& filename)
       else if (then_str == "change")
       {
         consequence = ParseConsequence(s);
+        //Also read goto
+        const std::string goto_str{ReadString(s)};
+        assert(goto_str == "goto");
+        consequence.SetNextChapter(ReadInt(s));
       }
       else
       {
@@ -260,6 +264,10 @@ Chapter::Chapter(const std::string& filename)
         else if (then_str == "change")
         {
           consequence = ParseConsequence(s);
+          //Also read goto
+          const std::string goto_str{ReadString(s)};
+          assert(goto_str == "goto");
+          consequence.SetNextChapter(ReadInt(s));
         }
         else
         {
@@ -356,6 +364,10 @@ Chapter::Chapter(const std::string& filename)
       else if (then_str == "change")
       {
         consequence = ParseConsequence(s);
+        //Also read goto
+        const std::string goto_str{ReadString(s)};
+        assert(goto_str == "goto");
+        consequence.SetNextChapter(ReadInt(s));
       }
       else
       {
@@ -415,7 +427,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
         << std::endl
         << "Options:\n"
       ;
-      std::clog << "character.HasItem(Item::gold_flower): " << character.HasItem(Item::gold_flower) << std::endl;
+      std::clog << "character.HasItem(Item::silver_arrow): " << character.HasItem(Item::silver_arrow) << std::endl;
       assert(GetOptions().GetOptions().size() == 2);
       //assert(GetOptions().GetOptions()[0].
       for (const auto option: GetOptions().GetOptions())
@@ -482,6 +494,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
       //options[chosen_option_index].DoChoose(character);
       break;
     }
+    assert(m_consequence.GetNextChapter() == -1);
     m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::fight)

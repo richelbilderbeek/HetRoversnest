@@ -2,5 +2,5 @@ The trolls watch carefully as you open your backpack. You give them all your gol
 @999
 change remove all_gold
 change gold 1
-option Yes @ if has all_needed_to_slay_zanbar_bone goto 299
-option No @ ifnot all_needed_to_slay_zanbar_bone goto 201
+option Yes @ if has all_needed_to_slay_zanbar_bone goto 201
+option No @ if has_not all_needed_to_slay_zanbar_bone goto 299

@@ -3,4 +3,5 @@ Ahead you hear the sound of squealing and frantic splashing. Long shadows are ca
 monster First_rat 4 4 2
 monster Second_rat 5 4 2
 monster Third_rat 5 5 2
+change add followed_sewer_north
 goto 28

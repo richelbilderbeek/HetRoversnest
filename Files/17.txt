@@ -1,6 +1,4 @@
-Walking along the narrow street you see a man 
-wearing faltered rags sitting in the gutter. His head 
-rests on his hands and he looks thoroughly miserable. 
+Walking along the narrow street called Clock Street you see a man wearing faltered rags sitting in the gutter. His head rests on his hands and he looks thoroughly miserable. 
 @999
 option If you wish to stop to talk to him@ goto 331
 option If you would rather continue walking east@ goto 161

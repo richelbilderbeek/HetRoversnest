@@ -7,4 +7,4 @@ chest containing a golden skull. Will you:
 @999
 option Walk over to the chest?@ goto 257
 option Close the door and open the white door (if you have not done so already)?@ goto 319
-option Close the door and walk back to the staircase lo climb up to the next floor?@ goto 197
+option Close the door and walk back to the staircase to climb up to the next floor?@ goto 197
