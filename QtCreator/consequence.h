@@ -28,6 +28,9 @@ struct Consequence
   ///Which items are removed to the player's inventory?
   const Items& GetItemsToRemove() const noexcept { return m_remove_items; }
 
+  ///How much will the number of arrows in the character his/her body change?
+  int GetChangeArrows() const noexcept { return m_change_arrows; }
+
   ///How will the dexterity of the character change in this chapter?
   int GetChangeDexterity() const noexcept { return m_change_dex; }
 
@@ -45,6 +48,7 @@ struct Consequence
 
   int GetNextChapter() const noexcept { return m_next_chapter; }
 
+  void SetChangeArrows(const int n_arrows) noexcept { m_change_arrows = n_arrows; }
   void SetChangeDexterity(const int dex) noexcept { m_change_dex = dex; }
   void SetChangeGold(const int gold) noexcept { m_change_gold = gold; }
   void SetChangeLuck(const int luck) noexcept { m_change_luck = luck; }
@@ -57,6 +61,9 @@ struct Consequence
 
   ///Which items are added to the player's inventory?
   Items m_add_items;
+
+  ///How much will the number of arrows in the character his/her body change?
+  int m_change_arrows;
 
   ///How much will the dexterity of the character change?
   int m_change_dex;

@@ -34,9 +34,9 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::gold_flower,"gold_flower"));
   m.insert(Pair(Item::skeleton_key,"skeleton_key"));
   m.insert(Pair(Item::iron_key,"iron_key"));
-  m.insert(Pair(Item::silver_brooch,"silver_brooch"));
+  m.insert(Pair(Item::silver_scorpion_brooch,"silver_scorpion_brooch"));
   m.insert(Pair(Item::ring_of_the_golden_eye,"ring_of_the_golden_eye"));
-  m.insert(Pair(Item::golden_brooch,"golden_brooch"));
+  m.insert(Pair(Item::golden_scorpion_brooch,"golden_scorpion_brooch"));
   m.insert(Pair(Item::glass_ball,"glass_ball"));
   m.insert(Pair(Item::ivory_skull_on_a_silver_chain,"ivory_skull_on_a_silver_chain"));
   m.insert(Pair(Item::garlic,"garlic"));
@@ -57,12 +57,13 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::piece_of_chalk,"piece_of_chalk"));
   m.insert(Pair(Item::shield_with_unicorn_crest,"shield_with_unicorn_crest"));
   m.insert(Pair(Item::shield_with_tower_crest,"shield_with_tower_crest"));
-  m.insert(Pair(Item::copper_brooch,"copper_brooch"));
+  m.insert(Pair(Item::copper_scorpion_brooch,"copper_scorpion_brooch"));
   m.insert(Pair(Item::carralifs_sword,"carralifs_sword"));
   m.insert(Pair(Item::ordinary_sword,"ordinary_sword"));
   m.insert(Pair(Item::luck_potion,"luck_potion"));
   m.insert(Pair(Item::stamina_potion,"stamina_potion"));
   m.insert(Pair(Item::dexterity_potion,"dexterity_potion"));
+  m.insert(Pair(Item::any_scorpion_brooch,"any_scorpion_brooch"));
   m.insert(Pair(Item::all_provisions,"all_provisions"));
   m.insert(Pair(Item::all_gold,"all_gold"));
   m.insert(Pair(Item::random_item_or_one_gold,"random_item_or_one_gold"));

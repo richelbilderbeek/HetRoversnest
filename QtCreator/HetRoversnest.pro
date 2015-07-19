@@ -69,7 +69,8 @@ SOURCES += main.cpp \
     consequence.cpp \
     luckchapter.cpp \
     skillchapter.cpp \
-    shopchapter.cpp
+    shopchapter.cpp \
+    pawnshopchapter.cpp
 
 HEADERS += \
     helper.h \
@@ -88,4 +89,5 @@ HEADERS += \
     consequence.h \
     luckchapter.h \
     skillchapter.h \
-    shopchapter.h
+    shopchapter.h \
+    pawnshopchapter.h

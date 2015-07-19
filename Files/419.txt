@@ -1,4 +1,3 @@
 You give the hags an item of your choise.
-@3
-@I93-
-@141
+@999
+goto 141

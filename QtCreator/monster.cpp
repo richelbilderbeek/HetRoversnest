@@ -38,6 +38,30 @@ int Monster::CalcAttackStrength() const noexcept
   ;
 }
 
+Monster ParseMonster(std::stringstream& s)
+{
+  const std::string name{ReadString(s)};
+  const int dexterity{ReadInt(s)};
+  const int condition{ReadInt(s)};
+  const int attack_strength{ReadInt(s)};
+  const Monster monster(name,dexterity,condition,attack_strength);
+  return monster;
+}
+
+std::vector<Monster> ParseMonsters(std::stringstream& s)
+{
+  std::vector<Monster> monsters;
+  while (1)
+  {
+    const std::string what{ReadString(s)};
+    if (what == "@") break;
+    assert(what == "monster");
+    const Monster monster{ParseMonster(s)};
+    monsters.push_back(monster);
+  }
+  return monsters;
+}
+
 std::ostream& operator<<(std::ostream& os, const Monster& monster)
 {
   os << monster.GetName() << " "

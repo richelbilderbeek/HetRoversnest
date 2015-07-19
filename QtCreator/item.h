@@ -12,7 +12,7 @@ enum class Item
   hags_hair = 5,
   lotus_flower = 6,
   tattoo = 7,
-  golden_brooch = 8, //Gives 2 luck, chapter 8
+  golden_scorpion_brooch = 8, //Gives 2 luck, chapter 8
   silver_arrow = 9,
   mirror = 10,
   ring_of_ice = 11,
@@ -27,7 +27,7 @@ enum class Item
   gold_flower = 20, //The Gold Flower
   skeleton_key = 21,
   iron_key = 22,
-  silver_brooch = 23, //Heals one stamina after each battle
+  silver_scorpion_brooch = 23, //Heals one stamina after each battle
   ring_of_the_golden_eye = 24,
   glass_ball = 26,
   ivory_skull_on_a_silver_chain = 27,
@@ -49,13 +49,14 @@ enum class Item
   piece_of_chalk = 43,
   shield_with_unicorn_crest = 44, //Found in chapter 374
   shield_with_tower_crest = 51, //Found in chapter 125
-  copper_brooch = 45, //Lose 1 luck without knowing
+  copper_scorpion_brooch = 45, //Lose 1 luck without knowing
   carralifs_sword = 46, //Present at start, can lose it at 126
   ordinary_sword = 47, //Obtain it at 126
   luck_potion = 48,
   stamina_potion = 49,
   dexterity_potion = 50,
   //Abstract items
+  any_scorpion_brooch = 89,
   all_gold = 90, //For chapter 42
   all_provisions = 91, //For chapter 42
   random_item_or_one_gold = 92, //For chapter 148

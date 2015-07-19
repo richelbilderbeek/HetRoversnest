@@ -1,9 +1,5 @@
-The creature pins the golden brooch to your leather 
-tunic and you pay the price demanded. You have 
-bought a lucky charm. Add 2 luck points to your 
-total. Pleased with your purchase you leave the 
-house and head north. 
+The creature pins the golden brooch to your leather tunic and you pay the price demanded. You have bought a lucky charm. Add 2 luck points to your total. Pleased with your purchase you leave the house and head north. 
 @999
 change luck 2
-change add golden_brooch
+change add golden_scorpion_brooch
 goto 334

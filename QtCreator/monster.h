@@ -2,6 +2,7 @@
 #define MONSTER_H
 
 #include <string>
+#include <vector>
 
 struct Monster
 {
@@ -20,8 +21,6 @@ struct Monster
   ///If the monster hits the player, how much damage will be dealt. This dependends on the weapon
   int GetAttackDamage() const noexcept { return m_attack_damage; }
 
-
-
   int GetDexterity() const noexcept { return m_dexterity; }
   int GetInitialStamina() const noexcept { return m_initial_stamina; }
   std::string GetName() const noexcept { return m_name; }
@@ -35,6 +34,9 @@ struct Monster
   const std::string m_name;
   int m_stamina;
 };
+
+Monster ParseMonster(std::stringstream& s);
+std::vector<Monster> ParseMonsters(std::stringstream& s);
 
 std::ostream& operator<<(std::ostream& os, const Monster& monster);
 

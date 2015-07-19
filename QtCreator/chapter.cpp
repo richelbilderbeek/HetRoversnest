@@ -20,6 +20,7 @@ Chapter::Chapter(const std::string& filename)
     m_fighting_chapter{},
     m_luck_chapter{},
     m_options_chapter{},
+    m_pawn_shop_chapter{},
     m_shop_chapter{},
     m_skill_chapter{},
     m_text{}
@@ -108,10 +109,9 @@ Chapter::Chapter(const std::string& filename)
   while (!s.eof())
   {
     const std::string str{ReadString(s)};
-    if (str.empty()) break;
-    if (str == "Fight_both" || str == "fight_both")
+    if (str.empty())
     {
-      GetFighting().SetFightSequentially(false);
+      break;
     }
     else if (str == "Bye" || str == "bye")
     {
@@ -125,6 +125,19 @@ Chapter::Chapter(const std::string& filename)
         m_bye_text += c;
       }
       s << std::skipws; //Obligatory
+    }
+    else if (str == "Change" || str == "change")
+    {
+      m_consequence.Add(ParseConsequence(s));
+    }
+    else if (str == "Escape" || str == "escape")
+    {
+      GetFighting().SetRoundsToEscape(ReadInt(s));
+      GetFighting().SetEscapeToChapter(ReadInt(s));
+    }
+    else if (str == "Fight_both" || str == "fight_both")
+    {
+      GetFighting().SetFightSequentially(false);
     }
     else if (str == "Luck" || str == "luck")
     {
@@ -148,47 +161,10 @@ Chapter::Chapter(const std::string& filename)
       assert(luck_chapter > 1);
       GetLuck().SetLuckChapter(luck_chapter);
     }
-    else if (str == "Skill" || str == "skill")
-    {
-      this->m_chapter_type = ChapterType::test_your_skill;
-      s << std::noskipws; //Obligatory
-      //Parse(s,' '); //You expect a space after a word
-      std::string skill_text;
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        skill_text += c;
-      }
-      s << std::skipws; //Obligatory
-      assert(!skill_text.empty());
-      GetSkill().SetSkillText(skill_text);
-      const std::string then_str{ReadString(s)};
-      Consequence consequence;
-      if (then_str == "goto")
-      {
-        consequence.SetNextChapter(ReadInt(s));
-      }
-      else if (then_str == "change")
-      {
-        consequence = ParseConsequence(s);
-      }
-      else
-      {
-        assert(!"Should not get here");
-      }
-      GetSkill().SetSkillConsequence(consequence);
-
-    }
     else if (str == "Monster" || str == "monster")
     {
       this->m_chapter_type = ChapterType::fight;
-      const std::string name{ReadString(s)};
-      const int dexterity{ReadInt(s)};
-      const int condition{ReadInt(s)};
-      const int attack_strength{ReadInt(s)};
-      const Monster monster(name,dexterity,condition,attack_strength);
+      const Monster monster{ParseMonster(s)};
       GetFighting().AddMonster(monster);
     }
     else if (str == "Next_chapter" || str == "goto")
@@ -256,11 +232,6 @@ Chapter::Chapter(const std::string& filename)
         assert(!"Should not get here");
       }
       GetSkill().SetNoSkillConsequence(consequence);
-    }
-    else if (str == "Escape" || str == "escape")
-    {
-      GetFighting().SetRoundsToEscape(ReadInt(s));
-      GetFighting().SetEscapeToChapter(ReadInt(s));
     }
     else if (str == "Option" || str == "option")
     {
@@ -385,15 +356,58 @@ Chapter::Chapter(const std::string& filename)
         assert(!"Should not get here");
       }
     }
-    else if (str == "Change" || str == "change")
+    else if (str == "Random_monsters" || str == "random_monsters")
     {
-      m_consequence.Add(ParseConsequence(s));
+      std::vector<Monster> monsters{ParseMonsters(s)};
+      m_chapter_type = ChapterType::fight;
+      const int which_monster_index{ (std::rand() >> 4) % 6 };
+      const Monster monster{monsters[which_monster_index]};
+      m_fighting_chapter.AddMonster(monster);
+    }
+    else if (str == "Sell_items" || str == "sell_items")
+    {
+      m_chapter_type = ChapterType::pawn_shop;
+      m_pawn_shop_chapter = ParsePawnShopChapter(s);
     }
     else if (str == "Shop_items" || str == "shop_items")
     {
       m_chapter_type = ChapterType::shop;
       m_shop_chapter = ParseShopChapter(s);
     }
+    else if (str == "Skill" || str == "skill")
+    {
+      this->m_chapter_type = ChapterType::test_your_skill;
+      s << std::noskipws; //Obligatory
+      //Parse(s,' '); //You expect a space after a word
+      std::string skill_text;
+      while (1)
+      {
+        char c = '*';
+        s >> c;
+        if (c == '@') break;
+        skill_text += c;
+      }
+      s << std::skipws; //Obligatory
+      assert(!skill_text.empty());
+      GetSkill().SetSkillText(skill_text);
+      const std::string then_str{ReadString(s)};
+      Consequence consequence;
+      if (then_str == "goto")
+      {
+        consequence.SetNextChapter(ReadInt(s));
+      }
+      else if (then_str == "change")
+      {
+        consequence = ParseConsequence(s);
+      }
+      else
+      {
+        assert(!"Should not get here");
+      }
+      GetSkill().SetSkillConsequence(consequence);
+
+    }
+
     else
     {
       std::cerr
@@ -529,6 +543,10 @@ void Chapter::Do(Character& character,const bool auto_play) const
   else if (GetType() == ChapterType::shop)
   {
     GetShop().Do(character,auto_play);
+  }
+  else if (GetType() == ChapterType::pawn_shop)
+  {
+    GetPawnShop().Do(character,auto_play);
   }
   else if (GetType() == ChapterType::normal)
   {

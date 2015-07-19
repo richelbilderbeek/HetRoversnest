@@ -21,11 +21,13 @@ struct Character
   ///In a fight, produce a random attack strength
   int CalcAttackStrength() const noexcept;
 
+  void ChangeArrows(const int change);
   void ChangeDexterity(const int change);
   void ChangeGold(const int change);
   void ChangeProvisions(const int change);
   void ChangeStamina(const int change);
   void ChangeLuck(const int change);
+  int GetArrows() const noexcept { return m_arrows; }
   const std::vector<int>& GetChapters() const noexcept { return m_chapters; }
   int GetCurrentChapter() const noexcept { return m_chapters.back(); }
   int GetDexterity() const noexcept;
@@ -49,6 +51,9 @@ struct Character
 
   private:
   std::vector<int> m_chapters;
+
+  ///How much arrows does the character have sticking out his/her body?
+  int m_arrows;
   int m_dexterity; //NL: Behendigheid
   int m_gold; //NL: Goud
   const int m_initial_dexterity; //NL: Behendigheid

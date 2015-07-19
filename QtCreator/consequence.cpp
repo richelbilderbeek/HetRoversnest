@@ -8,6 +8,7 @@
 Consequence::Consequence()
   :
     m_add_items{},
+    m_change_arrows{0},
     m_change_dex{0},
     m_change_gold{0},
     m_change_luck{0},
@@ -21,6 +22,7 @@ Consequence::Consequence()
 
 void Consequence::Add(const Consequence& other)
 {
+  this->m_change_arrows += other.m_change_arrows;
   this->m_change_dex += other.m_change_dex;
   this->m_change_gold += other.m_change_gold;
   this->m_change_luck += other.m_change_luck;
@@ -54,6 +56,17 @@ void Consequence::Apply(Character& character) const
 
   character.SetChapter(GetNextChapter());
 
+  //Arrows
+  {
+    const int change_arrows{GetChangeArrows()};
+    if (change_arrows != 0)
+    {
+      if (verbose) { std::clog << "Changing arrows by " << change_arrows << std::endl; }
+      character.ChangeArrows(change_arrows);
+      if (verbose) { std::clog << "Changing stamina due to arrows by " << change_arrows << std::endl; }
+      character.ChangeStamina(change_arrows * 3); //Each arrow costs three stamina
+    }
+  }
   //Dex
   {
     const int change_dex{GetChangeDexterity()};

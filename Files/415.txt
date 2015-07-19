@@ -1,4 +1,4 @@
 You pay Miss Pipe with a piece of armor to buy the gold flower. Then you leave the shop and head west.
-@3
-@I96-,I20+
-@24
+@999
+change add gold_flower
+goto 24

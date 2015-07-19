@@ -140,7 +140,7 @@ void DoInventory(Character& character, const bool auto_play)
     << " * Base: " << character.GetLuckBase() << "/" << character.GetInitialLuck() << '\n'
   ;
 
-  if (character.HasItem(Item::golden_brooch)) { s << " * " << ToStr(Item::golden_brooch) << ": +2\n"; }
+  if (character.HasItem(Item::golden_scorpion_brooch)) { s << " * " << ToStr(Item::golden_scorpion_brooch) << ": +2\n"; }
   //Note: the copper brooch decreases luck with 1, but this is not shown on purpose
   //I cannot avoid that it will be easy to see that base luck and total luck don't match
   s
@@ -149,6 +149,11 @@ void DoInventory(Character& character, const bool auto_play)
     << "Provisions: " << character.GetProvisions() << '\n'
     << '\n'
   ;
+
+  if (character.GetArrows() != 0)
+  {
+    s << "You got " << character.GetArrows() << " sticking in your body\n";
+  }
   for (const Item item: character.GetItems())
   {
     s << ToStr(item) << '\n';
@@ -1608,6 +1613,12 @@ Consequence ParseConsequence(std::stringstream &s)
     const Item item{ToItem(item_name)};
     consequence.AddItemToAdd(item);
   }
+  else if (what == "arrows" || what == "arrow")
+  {
+    const std::string value{ReadString(s)};
+    assert(value == "random[1-6]");
+    consequence.SetChangeArrows(1 + ((std::rand() >> 4) % 6));
+  }
   else if (what == "dexterity" || what == "dex")
   {
     const int change_dex{ReadInt(s)};
@@ -1641,8 +1652,16 @@ Consequence ParseConsequence(std::stringstream &s)
   }
   else if (what == "stamina" || what == "sta")
   {
-    const int change_sta{ReadInt(s)};
-    consequence.SetChangeStamina(change_sta);
+    const std::string value{ReadString(s)};
+    if (IsInt(value))
+    {
+      consequence.SetChangeStamina(std::stoi(value));
+    }
+    else
+    {
+      assert(value == "random[1-6]");
+      consequence.SetChangeStamina(1 + ((std::rand() >> 4) % 6));
+    }
   }
   else
   {

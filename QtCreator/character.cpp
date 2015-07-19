@@ -14,6 +14,7 @@ Character::Character(
   const Item initial_item
 )
   : m_chapters{std::vector<int>(1,1)},
+    m_arrows{0},
     m_dexterity{dexterity},
     m_gold{30},
     m_initial_dexterity{dexterity},
@@ -47,6 +48,17 @@ int Character::CalcAttackStrength() const noexcept
   ;
 }
 
+void Character::ChangeArrows(const int change)
+{
+  m_arrows += change;
+  if (m_arrows < 0)
+  {
+    std::cerr << "WARNING: Character's number of arrows in his/her body is negative" << std::endl;
+    assert(m_arrows >= 0);
+  }
+}
+
+
 void Character::ChangeDexterity(const int change)
 {
   m_dexterity += change;
@@ -56,8 +68,11 @@ void Character::ChangeDexterity(const int change)
 void Character::ChangeGold(const int change)
 {
   m_gold += change;
-  std::cerr << "WARNING: Character's gold is negative" << std::endl;
-  //assert(m_gold >= 0);
+  if (m_gold < 0)
+  {
+    std::cerr << "WARNING: Character's gold is negative" << std::endl;
+    //assert(m_gold >= 0);
+  }
 }
 
 void Character::ChangeProvisions(const int change)
@@ -70,6 +85,11 @@ void Character::ChangeStamina(const int change)
 {
   m_stamina += change;
   m_stamina = std::min(m_stamina,m_initial_stamina);
+  if (m_stamina < 0)
+  {
+    m_stamina = 0;
+    this->SetIsDead();
+  }
 }
 
 void Character::ChangeLuck(const int change)
@@ -77,7 +97,6 @@ void Character::ChangeLuck(const int change)
   m_luck += change;
   m_luck = std::min(m_luck,m_initial_luck);
 }
-
 
 int Character::GetDexterity() const noexcept
 {
@@ -99,8 +118,8 @@ int Character::GetLuck() const noexcept
 {
   return
     GetLuckBase()
-    + (this->HasItem(Item::copper_brooch) ? -1 : 0)
-    + (this->HasItem(Item::golden_brooch) ? 2 : 0)
+    + (this->HasItem(Item::copper_scorpion_brooch) ? -1 : 0)
+    + (this->HasItem(Item::golden_scorpion_brooch) ? 2 : 0)
   ;
 }
 

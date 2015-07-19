@@ -1,5 +1,5 @@
-#ifndef SHOPCHAPTER_H
-#define SHOPCHAPTER_H
+#ifndef PAWNSHOPCHAPTER_H
+#define PAWNSHOPCHAPTER_H
 
 #include <vector>
 
@@ -7,10 +7,10 @@
 
 struct Character;
 
-///Chapter where you can buy stuff
-struct ShopChapter
+///Chapter where you can sell stuff
+struct PawnShopChapter
 {
-  ShopChapter();
+  PawnShopChapter();
 
   void AddItem(const Item item, const int price);
 
@@ -23,6 +23,6 @@ struct ShopChapter
   std::vector<std::pair<Item,int>> m_items;
 };
 
-ShopChapter ParseShopChapter(std::stringstream& s);
+PawnShopChapter ParsePawnShopChapter(std::stringstream& s);
 
-#endif // SHOPCHAPTER_H
+#endif // PAWNSHOPCHAPTER_H

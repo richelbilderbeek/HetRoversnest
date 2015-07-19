@@ -75,7 +75,7 @@ void Test()
   {
     const Chapter chapter("../Files/8.txt");
     assert(chapter.GetConsequence().GetItemsToAdd().size() == 1);
-    assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::golden_brooch);
+    assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::golden_scorpion_brooch);
     assert(chapter.GetConsequence().GetChangeLuck() == 2);
   }
   //Chapter 26: no change of status
@@ -314,23 +314,14 @@ void Test()
     assert(not_all_chapter_1 == not_all_chapter_4);
     character.AddItem(Item::black_pearls);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_all_chapter_5{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_all_chapter_1 == not_all_chapter_5);
+    character.AddItem(Item::silver_arrow);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     const int all_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
     assert(not_all_chapter_1 != all_chapter);
 
   }
-  //Chapter 36: shop chapter
-  {
-    const Chapter chapter("../Files/36.txt");
-    assert(chapter.GetType() == ChapterType::shop);
-    assert(chapter.GetShop().GetItems().size() == 3);
-    assert(!chapter.GetByeText().empty());
-    Character character(100,100,100,Item::luck_potion);
-    const int n_items_before{static_cast<int>(character.GetItems().size())};
-    chapter.Do(character,true);
-    const int n_items_after{static_cast<int>(character.GetItems().size())};
-    assert(n_items_after == n_items_before + 3);
-  }
-
   //Chapter 53: Can only give if something silver, with direct consequence
   {
     const Chapter chapter("../Files/53.txt");
@@ -344,6 +335,66 @@ void Test()
     }
     assert(!character.HasItem(Item::silver_arrow));
   }
+
+
+
+  //Chapter 80: any_scorpion_brooch
+  {
+    const Chapter chapter("../Files/80.txt");
+    Character character(1,1,1,Item::luck_potion);
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    character.AddItem(Item::copper_scorpion_brooch);
+    const int yes_chapter_1{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_chapter != yes_chapter_1);
+    character.RemoveItem(Item::copper_scorpion_brooch);
+    character.AddItem(Item::silver_scorpion_brooch);
+    const int yes_chapter_2{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_chapter != yes_chapter_2);
+    character.RemoveItem(Item::silver_scorpion_brooch);
+    character.AddItem(Item::golden_scorpion_brooch);
+    const int yes_chapter_3{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_chapter != yes_chapter_3);
+    assert(yes_chapter_1 == yes_chapter_3);
+    assert(yes_chapter_2 == yes_chapter_3);
+  }
+
+  //Chapter 36: shop chapter
+  {
+    const Chapter chapter("../Files/36.txt");
+    assert(chapter.GetType() == ChapterType::shop);
+    assert(chapter.GetShop().GetItems().size() > 0);
+    assert(!chapter.GetByeText().empty());
+    Character character(100,100,100,Item::luck_potion);
+    const int n_items_before{static_cast<int>(character.GetItems().size())};
+    chapter.Do(character,true); //Buy everything
+    const int n_items_after{static_cast<int>(character.GetItems().size())};
+    assert(n_items_after == n_items_before + static_cast<int>(chapter.GetShop().GetItems().size()));
+  }
+
+  //Chapter 354: pawn shop chapter
+  {
+    const Chapter chapter("../Files/354.txt");
+    assert(chapter.GetType() == ChapterType::pawn_shop);
+    assert(!chapter.GetByeText().empty());
+    Character character(100,100,100,Item::luck_potion);
+    const int n_items_before{static_cast<int>(character.GetItems().size())};
+    character.AddItem(Item::knucklebones); //Add one item, which must be pawned
+    chapter.Do(character,true);
+    const int n_items_after_again{static_cast<int>(character.GetItems().size())};
+    assert(n_items_after_again == n_items_before); //Sold everything
+  }
+
+  //Chapter 431: fight random monster
+  {
+    const Chapter chapter("../Files/431.txt");
+    assert(chapter.GetType() == ChapterType::fight);
+    Character character(100,100,100,Item::luck_potion);
+    chapter.Do(character,true);
+  }
+
+
+
 
   //Chapters 13 and 273: should not be able to take both brooches
 
@@ -363,7 +414,7 @@ void Test()
         const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
         if (chapter.GetNextChapter() == 1)
         {
-          f << i << "ERROR: incorrect Next_chapter" << std::endl;
+          f << i << ": incorrect Next_chapter" << std::endl;
         }
         else
         {
@@ -376,7 +427,7 @@ void Test()
       }
       catch (std::runtime_error& e)
       {
-        f << i << ": not present" << std::endl;
+        //f << i << ": not present" << std::endl;
       }
     }
   }

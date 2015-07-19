@@ -9,6 +9,7 @@
 #include "fightingchapter.h"
 #include "luckchapter.h"
 #include "optionschapter.h"
+#include "pawnshopchapter.h"
 #include "shopchapter.h"
 #include "skillchapter.h"
 #include "consequence.h"
@@ -36,6 +37,9 @@ struct Chapter
   const OptionsChapter& GetOptions() const noexcept { return m_options_chapter; }
   OptionsChapter& GetOptions() noexcept { return m_options_chapter; }
 
+  const PawnShopChapter& GetPawnShop() const noexcept { return m_pawn_shop_chapter; }
+  PawnShopChapter& GetPawnShop() noexcept { return m_pawn_shop_chapter; }
+
   const ShopChapter& GetShop() const noexcept { return m_shop_chapter; }
   ShopChapter& GetShop() noexcept { return m_shop_chapter; }
 
@@ -60,6 +64,8 @@ struct Chapter
   LuckChapter m_luck_chapter;
 
   OptionsChapter m_options_chapter;
+
+  PawnShopChapter m_pawn_shop_chapter;
 
   ShopChapter m_shop_chapter;
 

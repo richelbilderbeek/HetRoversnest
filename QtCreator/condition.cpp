@@ -49,10 +49,22 @@ bool Condition::IsSatisfied(const Character &character) const
   {
     if (item_needed == Item::all_needed_to_slay_zanbar_bone)
     {
-      if (!character.HasItem(Item::tattoo)) return false;
-      if (!character.HasItem(Item::lotus_flower)) return false;
-      if (!character.HasItem(Item::black_pearls)) return false;
-      if (!character.HasItem(Item::hags_hair)) return false;
+      if ( !character.HasItem(Item::tattoo)
+        || !character.HasItem(Item::lotus_flower)
+        || !character.HasItem(Item::black_pearls)
+        || !character.HasItem(Item::hags_hair)
+        || !character.HasItem(Item::silver_arrow)
+      )
+      {
+        return false;
+      }
+    }
+    else if (item_needed == Item::any_scorpion_brooch)
+    {
+      if ( !character.HasItem(Item::copper_scorpion_brooch)
+        && !character.HasItem(Item::silver_scorpion_brooch)
+        && !character.HasItem(Item::golden_scorpion_brooch)
+      ) return false;
     }
     else
     {
@@ -61,13 +73,20 @@ bool Condition::IsSatisfied(const Character &character) const
   }
   for (const auto item_not_needed: GetItemsNotNeeded())
   {
-    if (item_not_needed == Item::all_needed_to_slay_zanbar_bone)
+    if (item_not_needed == Item::any_scorpion_brooch)
     {
-      if (
-        character.HasItem(Item::tattoo)
+      if ( character.HasItem(Item::copper_scorpion_brooch)
+        || character.HasItem(Item::silver_scorpion_brooch)
+        || character.HasItem(Item::golden_scorpion_brooch)
+      ) return false;
+    }
+    else if (item_not_needed == Item::all_needed_to_slay_zanbar_bone)
+    {
+      if ( character.HasItem(Item::tattoo)
         && character.HasItem(Item::lotus_flower)
         && character.HasItem(Item::black_pearls)
         && character.HasItem(Item::hags_hair)
+        && character.HasItem(Item::silver_arrow)
       )
       {
         return false;
