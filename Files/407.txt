@@ -4,7 +4,7 @@ life on a Troll's breakfast plate than in them. Quickly
 provoked, the guards rush down the stairs and 
 are surprised to see you wailing for them, sword 
 drawn. You fight them one at a time. 
-@7
-Monster First_city_guard 6 7 2
-Monster Second_city_guard 6 5 2
-Next_chapter 54
+@999
+monster First_city_guard 6 7 2
+monster Second_city_guard 6 5 2
+goto 54

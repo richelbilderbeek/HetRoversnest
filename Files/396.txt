@@ -1,7 +1,4 @@
-On the left side of the street is a flower shop. The 
-window is filled with exotic and colourful flowers.
-[1] If you wish to enter the shop
-[2] To keep walking west
-@0
-@1:145
-@2:24
+On the left side of the street is a flower shop. The window is filled with exotic and colourful flowers.
+@999
+option If you wish to enter the shop @ goto 145
+option To keep walking west @ goto 54

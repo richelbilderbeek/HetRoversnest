@@ -1,5 +1,4 @@
-Do you have enough gold to buy a tattoo from Ben? If no, you'll come back later.
-@6
-@G20
-@0:1
-@1:316
+Do you have enough gold (20 gold pieces) to buy a tattoo from Ben?
+@999
+option Yes @ if gold 20 goto 316
+option No, you will have to come back later @ goto 1

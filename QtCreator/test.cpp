@@ -284,6 +284,15 @@ void Test()
     character.ChangeProvisions(-character.GetProvisions()); //Make player bankrupt
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
   }
+  //Chapter 416: lose provisions
+  {
+    const Chapter chapter("../Files/416.txt");
+    Character character(1,1,1,Item::luck_potion);
+    const int provisions_before{character.GetProvisions()};
+    chapter.Do(character,true);
+    const int provisions_after{character.GetProvisions()};
+    assert(provisions_after == provisions_before - 2);
+  }
 
   //Chapter 239: all_needed_to_slay_zanbar_bone
   {
@@ -358,7 +367,7 @@ void Test()
         }
         else
         {
-          f << i << ": OK" << std::endl;
+          //f << i << ": OK" << std::endl;
         }
       }
       catch (std::logic_error& e)

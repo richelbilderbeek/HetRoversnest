@@ -1,4 +1,4 @@
 You successfully defeated the ape man.
-@3
-@I100+
-@138
+@999
+change add fought_ape_man
+goto 138

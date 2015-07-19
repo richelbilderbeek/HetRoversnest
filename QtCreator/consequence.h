@@ -37,6 +37,9 @@ struct Consequence
   ///How will the luck of the character change in this chapter?
   int GetChangeLuck() const noexcept { return m_change_luck; }
 
+  ///How will the provisions of the character change in this chapter?
+  int GetChangeProvisions() const noexcept { return m_change_provisions; }
+
   ///How will the stamina of the character change in this chapter?
   int GetChangeStamina() const noexcept { return m_change_sta; }
 
@@ -45,6 +48,7 @@ struct Consequence
   void SetChangeDexterity(const int dex) noexcept { m_change_dex = dex; }
   void SetChangeGold(const int gold) noexcept { m_change_gold = gold; }
   void SetChangeLuck(const int luck) noexcept { m_change_luck = luck; }
+  void SetChangeProvisions(const int n_provisions) noexcept { m_change_provisions = n_provisions; }
   void SetChangeStamina(const int sta) noexcept { m_change_sta = sta; }
 
   void SetNextChapter(const int next_chapter) noexcept;
@@ -63,13 +67,18 @@ struct Consequence
   ///How much will the luck of the character change?
   int m_change_luck;
 
+  ///How much will the provisions of the character change?
+  int m_change_provisions;
+
+  ///How much will the stamina of the character change?
+  int m_change_sta;
+
+  ///What will the next chapter be?
   int m_next_chapter;
 
   ///Which items are removed to the player's inventory?
   Items m_remove_items;
 
-  ///How much will the stamina of the character change?
-  int m_change_sta;
 };
 
 #endif // CONSEQUENCE_H

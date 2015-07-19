@@ -99,6 +99,7 @@ int Character::GetLuck() const noexcept
 {
   return
     GetLuckBase()
+    + (this->HasItem(Item::copper_brooch) ? -1 : 0)
     + (this->HasItem(Item::golden_brooch) ? 2 : 0)
   ;
 }

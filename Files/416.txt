@@ -1,4 +1,5 @@
 You pay Miss Pipe with two provisions to buy the gold flower. Then you leave the shop and head west.
-@3
-@P-2,I20+
-@24
+@999
+change add gold_flower
+change provisions -2
+goto 24

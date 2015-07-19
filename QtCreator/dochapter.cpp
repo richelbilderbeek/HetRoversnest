@@ -141,6 +141,8 @@ void DoInventory(Character& character, const bool auto_play)
   ;
 
   if (character.HasItem(Item::golden_brooch)) { s << " * " << ToStr(Item::golden_brooch) << ": +2\n"; }
+  //Note: the copper brooch decreases luck with 1, but this is not shown on purpose
+  //I cannot avoid that it will be easy to see that base luck and total luck don't match
   s
     << " * Total: " << character.GetLuck() << "/" << character.GetInitialDexterity() << '\n'
     << "Gold pieces: " << character.GetGold() << '\n'
@@ -1595,27 +1597,7 @@ Consequence ParseConsequence(std::stringstream &s)
 {
   Consequence consequence;
   const std::string what{ReadString(s)};
-  if (what == "gold")
-  {
-    const int change_gold{ReadInt(s)};
-    consequence.SetChangeGold(change_gold);
-  }
-  else if (what == "dexterity" || what == "dex")
-  {
-    const int change_dex{ReadInt(s)};
-    consequence.SetChangeDexterity(change_dex);
-  }
-  else if (what == "luck")
-  {
-    const int change_luck{ReadInt(s)};
-    consequence.SetChangeLuck(change_luck);
-  }
-  else if (what == "stamina" || what == "sta")
-  {
-    const int change_sta{ReadInt(s)};
-    consequence.SetChangeStamina(change_sta);
-  }
-  else if (what == "add")
+  if (what == "add")
   {
     const std::string item_name{ReadString(s)};
     if (!IsItem(item_name))
@@ -1625,6 +1607,26 @@ Consequence ParseConsequence(std::stringstream &s)
     }
     const Item item{ToItem(item_name)};
     consequence.AddItemToAdd(item);
+  }
+  else if (what == "dexterity" || what == "dex")
+  {
+    const int change_dex{ReadInt(s)};
+    consequence.SetChangeDexterity(change_dex);
+  }
+  else if (what == "gold")
+  {
+    const int change_gold{ReadInt(s)};
+    consequence.SetChangeGold(change_gold);
+  }
+  else if (what == "luck")
+  {
+    const int change_luck{ReadInt(s)};
+    consequence.SetChangeLuck(change_luck);
+  }
+  else if (what == "provision" || what == "provisions")
+  {
+    const int change_provisions{ReadInt(s)};
+    consequence.SetChangeProvisions(change_provisions);
   }
   else if (what == "remove")
   {
@@ -1636,6 +1638,11 @@ Consequence ParseConsequence(std::stringstream &s)
     }
     const Item item{ToItem(item_name)};
     consequence.AddItemToRemove(item);
+  }
+  else if (what == "stamina" || what == "sta")
+  {
+    const int change_sta{ReadInt(s)};
+    consequence.SetChangeStamina(change_sta);
   }
   else
   {

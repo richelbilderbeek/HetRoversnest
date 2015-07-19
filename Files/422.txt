@@ -1,5 +1,4 @@
-You are fighting a pirate with a wooden stick. 
-Due to this, your attack strength is 2 points less.
-@7
-Monster Pirate 7 5 2
-Next_chapter 423
+You are fighting a pirate with a wooden stick, instead of Carralif's sword. Due to this, your attack strength is 2 points less.
+@999
+monster Pirate 7 5 2
+goto 423

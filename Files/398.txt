@@ -1,7 +1,4 @@
-A small circle of people is standing around a bare-chested man. He is enormous and his muscles are as hard as iron. He is asking the crowd for a volunteer to play catch with a cannon-ball. He starts that whoever drops the cannon-ball must pay the other 5 
-gold pieces. 
-[1] If you wish to take him on
-[2] If you would rather walk on
-@0
-@1?G5:378
-@2:52
+A small circle of people is standing around a bare-chested man. He is enormous and his muscles are as hard as iron. He is asking the crowd for a volunteer to play catch with a cannon-ball. He starts that whoever drops the cannon-ball must pay the other 5 gold pieces. 
+@999
+option If you wish to take him on @ if gold 5 goto 378
+option If you would rather walk on @ goto 52

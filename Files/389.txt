@@ -1,10 +1,8 @@
 You push the door with your shoulder with all your 
-might. Roll two dice. If the number rolled is less 
-than or equal to your skill score, the door flies 
-open. If the number rolled is greater 
-than your skill, the door remains firmly shut. You 
+might. Test your skill.
+@999
+no_skill the door remains firmly shut. You 
 decide not to risk injury to yourself and walk back to 
-the street, continuing northwards.
-@2
-@0:No skill@304
-@1:Skill@159
+the street, continuing northwards @ goto 304
+skill The door flies 
+open @ goto 159

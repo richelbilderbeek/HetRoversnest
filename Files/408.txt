@@ -1,5 +1,5 @@
 You fight them one at a time. 
 @7
-Monster first_city_guard 6 7 2
-Monster second_city_guard 6 5 2
-Next_chapter 409
+monster first_city_guard 6 7 2
+monster second_city_guard 6 5 2
+goto 409

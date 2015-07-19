@@ -2,7 +2,7 @@ The two guards are relaxing
 over a game of cards. You wave your sword in the 
 air and charge at them. They grab their swords to 
 defend themselves and fight you one at a time.
-@7
-Monster First_city_guard 6 7 2
-Monster Second_city_guard 6 5 2
-Next_chapter 54
+@999
+monster First_city_guard 6 7 2
+monster Second_city_guard 6 5 2
+goto 54

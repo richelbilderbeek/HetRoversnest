@@ -1,8 +1,4 @@
-You are now wearing the copper brooch, that
-does not appear to do anything.
-Finding nothing else of interest in 
-the room you decide to go back down the stairs and 
-leave the house to head north.
-@3
-@I45+,D-1
-@334
+You are now wearing the copper brooch, that does not appear to do anything. Finding nothing else of interest in the room you decide to go back down the stairs and leave the house to head north.
+@999
+change add copper_brooch
+goto 334

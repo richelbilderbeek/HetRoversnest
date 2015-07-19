@@ -1,4 +1,4 @@
 You draw your sword to defend yourself.
-@7
-Monster Serpent_queen 9 7 2
-Next_chapter 295
+@999
+monster Serpent_queen 9 7 2
+goto 295

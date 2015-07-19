@@ -11,10 +11,12 @@ Consequence::Consequence()
     m_change_dex{0},
     m_change_gold{0},
     m_change_luck{0},
+    m_change_provisions{0},
+    m_change_sta{0},
     m_next_chapter{-1},
-    m_remove_items{},
-    m_change_sta{0}
+    m_remove_items{}
 {
+
 }
 
 void Consequence::Add(const Consequence& other)
@@ -22,6 +24,8 @@ void Consequence::Add(const Consequence& other)
   this->m_change_dex += other.m_change_dex;
   this->m_change_gold += other.m_change_gold;
   this->m_change_luck += other.m_change_luck;
+  this->m_change_provisions += other.m_change_provisions;
+
   this->m_change_sta += other.m_change_sta;
   for (const auto item_to_add: other.GetItemsToAdd())
   {
@@ -75,6 +79,15 @@ void Consequence::Apply(Character& character) const
     {
       if (verbose) { std::clog << "Changing luck by " << change_luck << std::endl; }
       character.ChangeLuck(change_luck);
+    }
+  }
+  //Provisions
+  {
+    const int change_provisions{GetChangeProvisions()};
+    if (change_provisions != 0)
+    {
+      if (verbose) { std::clog << "Changing provisions by " << change_provisions << std::endl; }
+      character.ChangeProvisions(change_provisions);
     }
   }
   //Stamina

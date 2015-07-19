@@ -1,5 +1,4 @@
-After the hard fight with Sourbelly,
-and without your shield, you take on Fatnose.
-@7
-Monster Fatnose 11 12 2
-Next_chapter 110
+After the hard fight with Sourbelly you take on Fatnose.
+@999
+monster Fatnose 11 12 2
+goto 110
