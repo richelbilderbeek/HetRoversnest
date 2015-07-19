@@ -196,15 +196,25 @@ void Character::RemoveItem(Item item)
 
 void Character::SetChapter(const int chapter)
 {
+  if (chapter == -1)
+  {
+    std::cerr << "ERROR: cannot go to chapter -1" << std::endl;
+    assert(!"Should not get here");
+  }
   if (
     std::find(std::begin(m_chapters),std::end(m_chapters),chapter) != std::end(m_chapters)
   )
   {
-    std::cerr << "WARNING: entering same chapter twice!" << std::endl;
+    #ifndef NDEBUG
+    std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
+    #endif
     std::ofstream f("Path.txt");
     const auto v = GetChapters();
     std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
+    f.close();
+    assert(!"Time to inspect path.txt");
   }
+
   //assert(std::find(std::begin(m_chapters),std::end(m_chapters),chapter) == std::end(m_chapters));
   m_chapters.push_back(chapter);
 }

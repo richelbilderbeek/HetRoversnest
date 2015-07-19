@@ -3,4 +3,4 @@ The goblin's pockets contain 2 gold Pieces, a clove of garlic and some old knuck
 change gold 2
 change add garlic
 change add knucklebones
-goto 387
+goto 317

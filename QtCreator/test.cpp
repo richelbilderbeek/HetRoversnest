@@ -448,28 +448,27 @@ void Test()
   }
 
   //Try all chapters
-  for (const Language language: { Language::Dutch, Language::English } )
+  for (int i=1; i!=450; ++i)
   {
-    for (int i=1; i!=450; ++i)
+    try
     {
-      int chapter = i; //Must use copy, otherwise i is changed
-      try
-      {
-        Character character(100,100,100,Item::luck_potion);
-        character.AddItem(Item::silver_arrow);
-        std::cout << "CHAPTER " << i << std::endl;
-        DoChapter(chapter,character,language,true);
-      }
-      catch (std::runtime_error& e)
-      {
-        std::cout << e.what() << std::endl;
-      }
+      Character character(100,100,100,Item::luck_potion);
+      character.AddItem(Item::silver_arrow);
+      std::cout << "CHAPTER " << i << std::endl;
+      Chapter chapter("../Files/" + std::to_string(i));
+      chapter.Do(character,true);
+      //DoChapter(chapter,character,language,true);
+    }
+    catch (std::runtime_error& e)
+    {
+      std::cout << e.what() << std::endl;
     }
   }
   //Try chapters of different types
 
 
   //Create graph
+  if (1 == 2)
   {
     std::ofstream f("Graph.dot");
     f << "digraph CityOfThieves {\n";

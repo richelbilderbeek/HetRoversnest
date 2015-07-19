@@ -4,6 +4,9 @@
 #include <iterator>
 #include <sstream>
 #include <fstream>
+#include <stdexcept>
+
+#include "chapter.h"
 #include "helper.h"
 #include "dochapter.h"
 #include "character.h"
@@ -13,13 +16,8 @@ int main()
   #ifndef NDEBUG
   Test();
   bool auto_play{true};
-  std::srand(0);
-  int chapter = 1;
+  std::srand(7);
   Character character(100,100,100,Item::luck_potion);
-  //chapter = 8; std::srand(28); //Start
-  //chapter = 206; //Dice game
-  //chapter = 223; std::srand(0); //Pill game and die
-  //chapter = 223; std::srand(2); //Pill game and live
   #else
   std::srand(std::time(0));
   int chapter = 1;
@@ -31,21 +29,34 @@ int main()
 
   while (1)
   {
+    const int chapter_number{character.GetCurrentChapter()};
+    if (chapter_number == 400) { break; }
     std::cout
       << '\n'
     #ifndef NDEBUG
       << std::string(60,'-') << '\n'
-      << chapter << '\n'
+      << chapter_number << '\n'
       << std::string(60,'-') << '\n'
     #endif
     ;
-    DoChapter(chapter,character,language,auto_play);
-    if (character.IsDead() || chapter == 0)
+
+    const std::string filename{
+      (language == Language::Dutch ? "../Bestanden/" : "../Files/")
+      + std::to_string(chapter_number) + ".txt"
+    };
+    if (!IsRegularFile(filename))
+    {
+      std::stringstream msg;
+      msg << __func__ << ": ERROR: File " << filename << " does not exist";
+      throw std::runtime_error(msg.str());
+    }
+    const Chapter chapter(filename);
+    chapter.Do(character,auto_play);
+    if (character.IsDead())
     {
       DoGameOver();
       break;
     }
-    if (chapter == 400) { break; }
   }
 
   std::ofstream f("Solution.txt");

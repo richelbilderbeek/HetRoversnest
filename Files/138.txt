@@ -1,4 +1,4 @@
 Have you fought the ape man?
 @999
 option Yes @ if fought ape_man goto 312
-option No @ if not_fought ape_man goto 282
+option No @ if not_fought ape_man goto 217

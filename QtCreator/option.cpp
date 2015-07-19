@@ -9,7 +9,7 @@ Option::Option(
   const std::string& text,
   const Consequence& consequence
 )
-  : m_conditions{},
+  : m_condition{},
     m_consequence{consequence},
     m_text{text}
 {
@@ -20,35 +20,20 @@ Option::Option(
   }
 }
 
-void Option::AddCondition(const Condition& condition)
-{
-  m_conditions.push_back(condition);
-}
-
 bool Option::CanChoose(const Character& character) const
 {
-  for (const auto condition: m_conditions)
-  {
-    if (!condition.IsSatisfied(character)) return false;
-  }
-  return true;
+  return m_condition.IsSatisfied(character);
 }
 
-void Option::DoChoose(Character& character) const
+void Option::SetCondition(const Condition& condition)
 {
-  m_consequence.Apply(character);
+  m_condition = condition;
 }
 
 std::ostream& operator<<(std::ostream& os, const Option& option)
 {
   os
-    << "Conditions: \n"
-  ;
-  for (const auto condition: option.GetConditions())
-  {
-    os << " * " << condition << '\n';
-  }
-  os
+    << "Condition: " << option.GetCondition() << '\n'
     << "m_next_chapter: " << option.GetNextChapter() << '\n'
     << "m_text: " << option.GetText() << '\n'
   ;

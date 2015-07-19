@@ -21,23 +21,22 @@ struct Option
     const Consequence& consequence
   );
 
-  void AddCondition(const Condition& condition);
-
   bool CanChoose(const Character& character) const;
 
-  void DoChoose(Character& character) const;
+  const Condition& GetCondition() const noexcept { return m_condition; }
 
-  const std::vector<Condition>& GetConditions() const noexcept { return m_conditions; }
+  const Consequence& GetConsequence() const noexcept { return m_consequence; }
 
   int GetNextChapter() const noexcept { return m_consequence.GetNextChapter(); }
 
   const std::string& GetText() const noexcept { return m_text; }
 
+  void SetCondition(const Condition& condition);
+
 
   private:
-  std::vector<Condition> m_conditions;
+  Condition m_condition;
   Consequence m_consequence;
-  //int m_next_chapter;
   std::string m_text;
 };
 

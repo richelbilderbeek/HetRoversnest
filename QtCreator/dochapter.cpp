@@ -1244,6 +1244,7 @@ void ParseChangeStatusAskOption(
   Character& character,
   const bool auto_play)
 {
+  assert(1==2);
   //const bool verbose{true};
 
   //Parse change status

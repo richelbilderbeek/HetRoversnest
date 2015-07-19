@@ -52,9 +52,12 @@ void Consequence::AddItemToRemove(const Item& item)
 
 void Consequence::Apply(Character& character) const
 {
-  const bool verbose{false};
+  const bool verbose{true};
 
-  character.SetChapter(GetNextChapter());
+  if (GetNextChapter() != -1)
+  {
+    character.SetChapter(GetNextChapter());
+  }
 
   //Arrows
   {

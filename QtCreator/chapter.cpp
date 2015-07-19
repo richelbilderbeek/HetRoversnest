@@ -266,7 +266,7 @@ Chapter::Chapter(const std::string& filename)
           assert(!"Should not get here");
         }
         Option option(option_text,consequence);
-        option.AddCondition(condition);
+        option.SetCondition(condition);
         GetOptions().AddOption(option);
       }
       else if (t == "ifnot")
@@ -288,7 +288,7 @@ Chapter::Chapter(const std::string& filename)
         Consequence consequence;
         consequence.SetNextChapter(ReadInt(s));
         Option option(option_text,consequence);
-        option.AddCondition(condition);
+        option.SetCondition(condition);
         GetOptions().AddOption(option);
       }
       else if (t == "goto")
@@ -396,18 +396,17 @@ void Chapter::Do(Character& character,const bool auto_play) const
   else if (GetType() == ChapterType::play_ball)
   {
     DoPlayBall(character,auto_play);
+    m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::play_pill)
   {
     DoPlayPill(character,auto_play);
     if (character.IsDead()) return;
     std::cout << std::endl;
+    m_consequence.Apply(character);
   }
-
-  m_consequence.Apply(character);
-
   //Options
-  if (!GetOptions().GetOptions().empty())
+  else if (!GetOptions().GetOptions().empty())
   {
     if (GetOptions().GetValidOptions(character).empty())
     {
@@ -416,6 +415,9 @@ void Chapter::Do(Character& character,const bool auto_play) const
         << std::endl
         << "Options:\n"
       ;
+      std::clog << "character.HasItem(Item::gold_flower): " << character.HasItem(Item::gold_flower) << std::endl;
+      assert(GetOptions().GetOptions().size() == 2);
+      //assert(GetOptions().GetOptions()[0].
       for (const auto option: GetOptions().GetOptions())
       {
         std::cerr << option << std::endl;
@@ -436,14 +438,17 @@ void Chapter::Do(Character& character,const bool auto_play) const
       if (auto_play)
       {
         std::cout << "AUTOPLAY: chose option #1" << std::endl;
-        options[0].DoChoose(character);
-        return;
+        options[0].GetConsequence().Apply(character);
+        //m_consequence = options[0].GetConsequence();
+        //options[0].DoChoose(character);
+        break;
       }
       //Only one option
       if (options.size() == 1)
       {
-        options[0].DoChoose(character);
-        return;
+        options[0].GetConsequence().Apply(character);
+        //options[0].DoChoose(character);
+        break;
       }
 
       //Process command
@@ -473,34 +478,47 @@ void Chapter::Do(Character& character,const bool auto_play) const
       const int chosen_option_index{chosen_option_number-1};
       assert(chosen_option_index >= 0);
       assert(chosen_option_index < static_cast<int>(options.size()));
-      options[chosen_option_index].DoChoose(character);
+      options[chosen_option_index].GetConsequence().Apply(character);
+      //options[chosen_option_index].DoChoose(character);
       break;
     }
+    m_consequence.Apply(character);
   }
-  else if (!GetFighting().GetMonsters().empty())
+  else if (GetType() == ChapterType::fight)
   {
     m_fighting_chapter.Do(character,auto_play);
     assert(m_consequence.GetNextChapter() > 0);
+    m_consequence.Apply(character);
   }
-  else if (!GetLuck().GetLuckText().empty())
+  else if (GetType() == ChapterType::test_your_luck)
   {
     GetLuck().Do(character,auto_play);
+    //m_consequence.Apply(character); Applies its own consequences
+
   }
-  else if (!GetSkill().GetSkillText().empty())
+  else if (GetType() == ChapterType::test_your_skill)
   {
     GetSkill().Do(character,auto_play);
+    //m_consequence.Apply(character); Applies its own consequences
   }
   else if (GetType() == ChapterType::shop)
   {
     GetShop().Do(character,auto_play);
+    m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::pawn_shop)
   {
     GetPawnShop().Do(character,auto_play);
+    m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::normal)
   {
     //Nothing
+    m_consequence.Apply(character);
+  }
+  else
+  {
+    assert(!"Should not get here");
   }
 
   if (character.IsDead()) return;

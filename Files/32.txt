@@ -1,7 +1,4 @@
-Before you reach the door, the Serpent Queen ex- 
-tends her head and bites you on Ihe neck, causing 
-the loss of 4 stamina points and 1 skill point. 
-You draw your sword to attack the serpent Queen.
+Before you reach the door, the serpent queen extends her head and bites you on Ihe neck, causing the loss of 4 stamina points and 1 skill point. You draw your sword to attack the serpent queen.
 @999
 Change stamina -4
 Change dexterity -1
