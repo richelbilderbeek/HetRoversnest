@@ -5,5 +5,5 @@ reply that you are in Port Blacksand on a trading
 mission. The trolls laugh scornfully and ask to see 
 your pass. Do you have a merchant's pass?
 @999
-option Yes @ if merchant_pass goto 335
+option Yes @ if merchant_pass goto 219
 option No @ ifnot merchant_pass goto 335

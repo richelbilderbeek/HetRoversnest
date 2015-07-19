@@ -1,4 +1,0 @@
-You pay Miss Pipe with a magic item to buy the gold flower. Then you leave the shop and head west.
-@999
-change add gold_flower
-goto 24

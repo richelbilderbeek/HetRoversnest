@@ -1,3 +1,0 @@
-You successfully defeated the ape man.
-@999
-goto 138

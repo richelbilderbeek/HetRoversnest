@@ -13,7 +13,7 @@ int main()
   #endif
 
   #ifndef NDEBUG
-  for (int rng_seed = 7115; ; ++rng_seed)
+  for (int rng_seed = 0; ; ++rng_seed)
   {
     { std::ofstream f("last_seed.txt"); f << rng_seed; }
     Game(rng_seed,true);
