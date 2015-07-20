@@ -6,6 +6,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <cstdlib>
+#include <ctime>
 
 #include "character.h"
 #include "helper.h"
