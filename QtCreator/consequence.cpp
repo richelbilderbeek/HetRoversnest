@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "character.h"
+#include "dice.h"
 #include "helper.h"
 
 Consequence::Consequence()
@@ -154,7 +155,7 @@ void Consequence::Apply(Character& character) const
       const auto items = character.GetItems();
       const int n_items{static_cast<int>(items.size())};
       if (n_items == 0) continue;
-      if (n_items == 0 || (std::rand() >> 4) % 2)
+      if (n_items == 0 || Dice::Get()->Throw() <= 3)
       {
         if (character.GetGold() > 0)
         {
@@ -225,7 +226,7 @@ Consequence ParseConsequence(std::stringstream &s)
     const std::string value{ReadString(s)};
     if (value == "random[1-6]")
     {
-      const int n_arrows{1 + ((std::rand() >> 4) % 6)};
+      const int n_arrows{Dice::Get()->Throw()};
       consequence.SetChangeArrows(n_arrows);
     }
     else if (value == "remove_all")
@@ -278,7 +279,7 @@ Consequence ParseConsequence(std::stringstream &s)
     else
     {
       assert(value == "random[1-6]");
-      consequence.SetChangeStamina(1 + ((std::rand() >> 4) % 6));
+      consequence.SetChangeStamina(Dice::Get()->Throw());
     }
   }
   else

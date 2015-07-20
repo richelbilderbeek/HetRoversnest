@@ -9,6 +9,7 @@
 #include <ctime>
 
 #include "character.h"
+#include "dice.h"
 #include "helper.h"
 #include "chapter.h"
 #include "specialchapter.h"
@@ -22,7 +23,7 @@ Game::Game(
     m_has_lost{false},
     m_has_won{false}
 {
-  std::srand(rng_seed);
+  Dice::Get()->SetSeed(rng_seed);
 
   while (1)
   {

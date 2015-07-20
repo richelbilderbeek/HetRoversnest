@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "character.h"
+#include "dice.h"
 #include "helper.h"
 
 FightingChapter::FightingChapter()
@@ -289,7 +290,7 @@ void DoFight(
         ShowText(s.str(),auto_play);
         if (!auto_play) { Wait(1.0); }
       }
-      if ( (std::rand() >> 6) % 2)
+      if (Dice::Get()->Throw() <= 3)
       {
         std::stringstream s;
         s << "The fire hits you!\n";
@@ -385,8 +386,8 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
   if (verbose) { std::cout << "New chapter within time limit: " << new_chapter_within_time_limit << std::endl; }
   for (int i=0; i!=number_of_rounds; ++i)
   {
-    const int monster_attack = (std::rand() >> 4) % 6;
-    const int player_attack = (std::rand() >> 4) % 12;
+    const int monster_attack = Dice::Get()->Throw() + Dice::Get()->Throw();
+    const int player_attack = Dice::Get()->Throw() + Dice::Get()->Throw();
     if (player_attack > monster_attack)
     {
       std::cout << "You hit the monster." << std::endl;

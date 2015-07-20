@@ -1,9 +1,11 @@
 #include "specialchapter.h"
 
+#include <cassert>
 #include <iostream>
 #include <sstream>
 
 #include "character.h"
+#include "dice.h"
 #include "helper.h"
 
 void DoPlayBall(Character& character, const bool auto_play)
@@ -26,7 +28,9 @@ Gold Pieces.
 
   while (1)
   {
-    const int dice_you{1 + ((std::rand() >> 4) % 6)};
+    assert(Dice::Get());
+    const int dice_you{Dice::Get()->Throw()};
+    assert(dice_you >= 1 && dice_you <= 6);
     if (dice_you == 1)
     {
       std::stringstream s;
@@ -49,7 +53,8 @@ Gold Pieces.
       ShowText(s.str(),auto_play);
     }
     if (!auto_play) { Wait(0.5); }
-    const int dice_man{1 + ((std::rand() >> 4) % 6)};
+    const int dice_man{Dice::Get()->Throw()};
+    assert(dice_man >= 1 && dice_man <= 6);
     if (dice_man == 1)
     {
       std::stringstream s;
@@ -139,10 +144,10 @@ wish to
       ShowText(s.str(),auto_play);
     }
     //You
-    const int dice_you = 1 + ((std::rand() >> 4) % 6);
-    const int dice_1 = 1 + ((std::rand() >> 4) % 6);
-    const int dice_2 = 1 + ((std::rand() >> 4) % 6);
-    const int dice_3 = 1 + ((std::rand() >> 4) % 6);
+    const int dice_you{Dice::Get()->Throw()};
+    const int dice_1{Dice::Get()->Throw()};
+    const int dice_2{Dice::Get()->Throw()};
+    const int dice_3{Dice::Get()->Throw()};
     {
       std::stringstream s;
       s << "You throw: " << dice_you << '\n';
@@ -220,11 +225,11 @@ wish to
       }
       else
       {
-        switch ((std::rand() >> 4) % 3)
+        switch (Dice::Get()->Throw())
         {
-          case 0: s = "1"; break;
-          case 1: s = "2"; break;
-          case 2: s = "x"; break;
+          case 1: case 2: s = "1"; break;
+          case 3: case 4: case 5: s = "2"; break;
+          case 6: s = "x"; break;
         }
       }
       if (s == "2") { return; }

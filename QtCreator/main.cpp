@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iterator>
 
+#include "dice.h"
 #include "helper.h"
 #include "game.h"
 
@@ -14,14 +15,12 @@ int main()
   #ifndef NDEBUG
   for (int rng_seed = 2138; ; ++rng_seed)
   {
-    { std::ofstream f("last_seed.txt"); f << rng_seed; }
-
-    std::srand(rng_seed);
+    Dice::Get()->SetSeed(rng_seed);
 
     Character character(
-      1 + (std::rand() % 12),
-      1 + (std::rand() % 12),
-      1 + (std::rand() % 12),
+      Dice::Get()->Throw(),
+      Dice::Get()->Throw() + Dice::Get()->Throw(),
+      Dice::Get()->Throw(),
       Item::luck_potion
     );
 
@@ -39,8 +38,8 @@ int main()
   #endif
 
   //Play the game
-  std::srand(std::time(0)); //Mix up RNG
-  const int seed{std::rand()};
+  std::random_device rd;
+  const int seed{static_cast<int>(rd())};
   Character character(12,12,12,Item::luck_potion);
   Game(seed,character,false);
 }

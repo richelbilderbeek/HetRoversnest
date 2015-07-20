@@ -5,15 +5,23 @@
 #include <iostream>
 #include <stdexcept>
 #include "chapter.h"
+#include "dice.h"
 #include "item.h"
 #include "specialchapter.h"
 
 #ifndef NDEBUG
 void Test()
 {
-
-  assert(IsItem("shield_with_unicorn_crest"));
-  assert(IsItem("shield_with_tower_crest"));
+  //Check the dice
+  {
+    for (int i=1; i!=7; )
+    {
+      assert(Dice::Get());
+      const int x{Dice::Get()->Throw()};
+      assert(x >= 1 && x <= 6);
+      if (x == i) ++i;
+    }
+  }
 
   //StripFirstChar
   {
@@ -157,10 +165,10 @@ void Test()
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
-    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 237);
+    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 191);
     character.AddItem(Item::ring_of_fire);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
-    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 191);
+    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 237);
   }
   //Chapter 146: must respond to skeleton_key
   {
@@ -187,19 +195,17 @@ void Test()
     assert(dex_after < dex_before); //Due to losing shield
     assert(!character.HasItem(Item::shield));
   }
-  //Chapter 11: must lose 3 skill points and shield and chain mail
+  //Chapter 11: must lose shield
   {
     const Chapter chapter(11);
     Character character(10,10,10,Item::luck_potion);
     character.AddItem(Item::chainmail_coat);
     const int dex_before{character.GetDexterity()};
     assert(character.HasItem(Item::shield));
-    assert(character.HasItem(Item::chainmail_coat));
     chapter.Do(character,true);
     assert(!character.HasItem(Item::shield));
-    assert(!character.HasItem(Item::chainmail_coat));
     const int dex_after{character.GetDexterity()};
-    assert(dex_after == dex_before - 3); //Due to losing shield and chainmail
+    assert(dex_after == dex_before - 1); //Due to losing shield
   }
   //Chapter 19: 2 options and status change
   {
@@ -436,6 +442,7 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 65);
   }
 
+
   //Parse chapters using Chapter
   {
     std::ofstream f("TODO.txt");
@@ -470,9 +477,19 @@ void Test()
     try
     {
       Character character(100,100,100,Item::luck_potion);
-      character.RemoveItem(Item::shield);
-      character.RemoveItem(Item::carralifs_sword);
-      //character.AddItem(Item::silver_arrow);
+      switch (i)
+      {
+        case 2: character.AddItem(Item::silver_insect_bracelet); break;
+        case 55: character.AddItem(Item::gold_flower); break;
+        case 106: character.AddItem(Item::lantern); break;
+        case 157: character.RemoveItem(Item::carralifs_sword); character.RemoveItem(Item::shield); break;
+        case 172: character.AddItem(Item::gold_flower); break;
+        case 230: character.RemoveItem(Item::carralifs_sword); character.RemoveItem(Item::shield); break;
+        case 240: character.AddItem(Item::two_gems); break;
+        case 306: character.RemoveItem(Item::carralifs_sword); character.RemoveItem(Item::shield); break;
+        case 351: character.RemoveItem(Item::carralifs_sword); character.RemoveItem(Item::shield); break;
+        case 423: character.RemoveItem(Item::carralifs_sword); break;
+      }
       std::cout << "CHAPTER " << i << std::endl;
       Chapter chapter(i);
       chapter.Do(character,true);
@@ -487,6 +504,7 @@ void Test()
   //Create graph
   if (1==1)
   {
+    std::clog << "Creating dot file..." << std::endl;
     std::ofstream f("Graph.dot");
     f << "digraph CityOfThieves {\n";
     for (int i=1; i!=450; ++i)
@@ -494,12 +512,29 @@ void Test()
       try
       {
         const Chapter chapter(i);
+        //Label node according to chapter type
+        std::string node_color = "black";
+        switch (chapter.GetType())
+        {
+          case ChapterType::fight: node_color = "red"; break;
+          case ChapterType::test_your_luck: node_color = "blue"; break;
+          case ChapterType::test_your_skill: node_color = "green"; break;
+          default: break; //OK
+        }
+        f << i
+          << "[label =\""
+          << std::to_string(chapter.GetChapterNumber())
+          << "\",color=\"" << node_color << "\""
+          << "];\n"
+        ;
+
         if (chapter.GetNextChapter() != -1)
         {
           f << i << "->" << chapter.GetNextChapter() << ";\n";
         }
         else if (!chapter.GetFighting().GetMonsters().empty())
         {
+
           if (chapter.GetFighting().GetEscapeToChapter() != -1)
           {
             f << i << "->" << chapter.GetFighting().GetEscapeToChapter() << " [ label = \"Escape\"];\n";

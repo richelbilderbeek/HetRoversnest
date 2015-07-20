@@ -69,7 +69,8 @@ SOURCES += main.cpp \
     shopchapter.cpp \
     pawnshopchapter.cpp \
     game.cpp \
-    specialchapter.cpp
+    specialchapter.cpp \
+    dice.cpp
 
 HEADERS += \
     helper.h \
@@ -88,4 +89,5 @@ HEADERS += \
     shopchapter.h \
     pawnshopchapter.h \
     game.h \
-    specialchapter.h
+    specialchapter.h \
+    dice.h

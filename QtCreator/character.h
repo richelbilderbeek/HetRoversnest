@@ -2,12 +2,11 @@
 #define CHARACTER_H
 
 #include <vector>
-#include <set>
 #include "item.h"
 
 struct Character
 {
-  using Items = std::set<Item>;
+  using Items = std::vector<Item>;
   using MonsterNames = std::vector<std::string>;
 
   Character(

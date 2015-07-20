@@ -3,6 +3,7 @@
 #include <cassert>
 #include <iostream>
 
+#include "dice.h"
 #include "helper.h"
 
 Monster::Monster(
@@ -34,8 +35,8 @@ void Monster::ChangeStamina(const int delta_stamina) noexcept
 int Monster::CalcAttackStrength() const noexcept
 {
   return m_dexterity
-    + ((std::rand() >> 4) % 6)
-    + ((std::rand() >> 4) % 6)
+    + Dice::Get()->Throw()
+    + Dice::Get()->Throw()
   ;
 }
 

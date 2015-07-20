@@ -7,6 +7,7 @@
 #include <iterator>
 #include <fstream>
 
+#include "dice.h"
 #include "helper.h"
 
 Character::Character(
@@ -28,14 +29,14 @@ Character::Character(
     m_provisions{10},
     m_stamina{condition}
 {
-  m_items.insert(Item::shield);
-  m_items.insert(Item::carralifs_sword);
+  m_items.push_back(Item::shield);
+  m_items.push_back(Item::carralifs_sword);
   assert(
     initial_item == Item::dexterity_potion
     || initial_item == Item::luck_potion
     || initial_item == Item::stamina_potion
   );
-  m_items.insert(initial_item);
+  m_items.push_back(initial_item);
 }
 
 void Character::AddHasFought(const std::string& monster_name)
@@ -46,7 +47,7 @@ void Character::AddHasFought(const std::string& monster_name)
 
 void Character::AddItem(const Item item)
 {
-  if (m_items.count(item) != 0)
+  if (HasItem(item))
   {
     #ifndef NDEBUG
     std::cerr << "WARNING: adding item " << item << " for the second time!" << std::endl;
@@ -54,7 +55,7 @@ void Character::AddItem(const Item item)
     ShowInventory(false);
     assert(!"Should not get here");
   }
-  m_items.insert(item);
+  m_items.push_back(item);
 }
 
 int Character::CalcAttackStrength() const noexcept
@@ -68,8 +69,8 @@ int Character::CalcAttackStrength() const noexcept
   return GetDexterity()
     + (HasItem(Item::magic_helmet) ? 1 : 0)
     + shield_value
-    + ((std::rand() >> 4) % 6)
-    + ((std::rand() >> 4) % 6)
+    + (Dice::Get()->Throw())
+    + (Dice::Get()->Throw())
   ;
 }
 
@@ -178,19 +179,11 @@ bool Character::HasFought(const std::string& monster_name) const
 
 bool Character::HasItem(const Item item) const
 {
-  /*
-  if (item == Item::something_silver)
-  {
-    return HasItem(Item::silver_arrow)
-      || HasItem(Item::silver_brooch)
-      || HasItem(Item::silver_chain)
-      || HasItem(Item::silver_flute)
-      || HasItem(Item::silver_goblet)
-      || HasItem(Item::silver_insect_bracelet)
-    ;
-  }
-  */
-  return m_items.find(item) != std::end(m_items);
+  const int n{
+    std::count(std::begin(m_items),std::end(m_items),item)
+  };
+  assert(n == 0 || n == 1);
+  return n;
 }
 
 void Character::RemoveItem(Item item)
@@ -198,14 +191,41 @@ void Character::RemoveItem(Item item)
   if (m_items.empty()) return;
   if (item == Item::two_random_items)
   {
-    const int n_items{static_cast<int>(m_items.size())};
-    const int item_index{std::rand() % n_items};
-    auto iter = m_items.cbegin();
-    for (int i=0; i!=item_index; ++i) { ++iter; }
-    assert(iter != m_items.cend());
-    item = *iter;
+    auto items = m_items;
+    if (items.empty()) { return; }
+    std::shuffle(std::begin(items),std::end(items),Dice::Get()->GetEngine());
+    RemoveItem(items.front());
+    if (items.empty()) { return; }
+    std::shuffle(std::begin(items),std::end(items),Dice::Get()->GetEngine());
+    RemoveItem(items.front());
   }
-  m_items.erase(item);
+  else if (item == Item::all_silver_items)
+  {
+    const auto silver_items = {
+      Item::silver_arrow,
+      Item::silver_chalice,
+      Item::silver_flute,
+      Item::silver_insect_bracelet,
+      Item::silver_scorpion_brooch,
+      Item::silver_spoon
+    };
+    for (const auto silver_item: silver_items)
+    {
+      if (HasItem(silver_item)) RemoveItem(silver_item);
+    }
+    return;
+  }
+
+  const auto iter = std::find(std::begin(m_items),std::end(m_items),item);
+  if (iter == std::end(m_items))
+  {
+    std::cerr << "Warning:: attempted to remove item " << ToStr(item) << " which is not possessed\n";
+    assert(!"Should not get here");
+    return;
+  }
+  assert(iter != std::end(m_items));
+  std::swap(*iter,m_items.back());
+  m_items.pop_back();
 }
 
 void Character::SetChapter(const int chapter)
@@ -337,8 +357,8 @@ void Character::ShowInventory(const bool auto_play)
 bool Character::TestDexterity() noexcept
 {
   const int dice{
-      1 + ((std::rand() >> 4) % 6)
-    + 1 + ((std::rand() >> 4) % 6)
+      Dice::Get()->Throw()
+    + Dice::Get()->Throw()
   };
   return dice < GetDexterity();
 }
@@ -346,8 +366,8 @@ bool Character::TestDexterity() noexcept
 bool Character::TestLuck() noexcept
 {
   const int dice{
-      1 + ((std::rand() >> 4) % 6)
-    + 1 + ((std::rand() >> 4) % 6)
+      Dice::Get()->Throw()
+    + Dice::Get()->Throw()
   };
   const bool has_luck{dice < GetLuck()};
   --m_luck;

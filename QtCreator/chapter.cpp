@@ -6,6 +6,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "dice.h"
 #include "specialchapter.h"
 #include "helper.h"
 
@@ -251,7 +252,9 @@ Chapter::Chapter(const int chapter_number)
     {
       std::vector<Monster> monsters{ParseMonsters(s)};
       m_chapter_type = ChapterType::fight;
-      const int which_monster_index{ (std::rand() >> 4) % 6 };
+      const int which_monster_index{Dice::Get()->Throw() - 1};
+      assert(which_monster_index >= 0);
+      assert(which_monster_index < static_cast<int>(monsters.size()));
       const Monster monster{monsters[which_monster_index]};
       m_fighting_chapter.AddMonster(monster);
     }
