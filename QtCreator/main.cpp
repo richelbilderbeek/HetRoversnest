@@ -12,7 +12,7 @@ int main()
   #endif
 
   #ifndef NDEBUG
-  for (int rng_seed = 0; ; ++rng_seed)
+  for (int rng_seed = 2138; ; ++rng_seed)
   {
     { std::ofstream f("last_seed.txt"); f << rng_seed; }
 
@@ -33,7 +33,7 @@ int main()
       const auto v = game.GetCharacter().GetChapters();
       std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
       f << "\nSeed: " << rng_seed << '\n';
-      break;
+      return 0;
     }
   }
   #endif

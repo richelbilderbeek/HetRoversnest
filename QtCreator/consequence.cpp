@@ -202,6 +202,7 @@ void Consequence::SetNextChapter(const int next_chapter) noexcept
 {
   m_next_chapter = next_chapter;
   if (m_next_chapter < 2) { std::cerr << "WARNING: next_chapter incorrect\n"; }
+  assert(m_next_chapter > 1);
 }
 
 Consequence ParseConsequence(std::stringstream &s)

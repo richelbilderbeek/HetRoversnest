@@ -183,7 +183,6 @@ Condition ParseCondition(std::stringstream& s)
   else if (what == "not_fought" || what == "has_not_fought")
   {
     const std::string monster_name{ReadString(s)};
-    std::cerr << "Monster name: " << monster_name << std::endl;
     condition.AddNotFought(monster_name);
   }
   else if (what == "provisions" || what == "provision")

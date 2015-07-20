@@ -15,6 +15,7 @@ Option::Option(
   if (GetNextChapter() == 1)
   {
     std::cerr << "WARNING: next chapter is 1" << std::endl;
+    assert(!"Should not get here");
   }
 }
 
