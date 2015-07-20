@@ -76,6 +76,38 @@ std::string ReadString(std::stringstream& s)
   return str;
 }
 
+std::string ReadText(std::stringstream& s, const int line_length)
+{
+  s << std::noskipws; //Obligatory
+  //Show text until @
+  std::string text;
+  int pos = 0;
+  char prev_c = ' ';
+  while (1)
+  {
+    char c;
+    s >> c;
+    if (c == '@')
+    {
+      break; //Now the options must be parsed
+    }
+    if (c == '\n') c = ' '; //Convert a newline to space, so input files do not require a space after every line
+    if (c == ' ' && pos == 0) continue; //Een nieuwe regel begint niet met een spatie
+    if (c == ' ' && prev_c == ' ') continue; //Tweede spatie overslaan
+    //if (c == '[') { text << '\n'; pos = 0; }
+    text += c;
+    prev_c = c;
+    ++pos;
+    if (pos > line_length && c == ' ')
+    {
+      text += '\n';
+      pos = 0;
+    }
+  }
+  s << std::skipws; //Obligatory
+  return text;
+}
+
 void ShowText(const std::string& text, const bool auto_play)
 {
   for (const char c: text)

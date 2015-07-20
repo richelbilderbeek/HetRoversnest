@@ -21,6 +21,8 @@ char ReadChar(std::stringstream& s);
 int ReadInt(std::stringstream& s);
 std::string ReadString(std::stringstream& s);
 
+std::string ReadText(std::stringstream& s, const int line_length);
+
 ///Strip only the first character of the first line
 std::vector<std::string> StripFirstChar(std::vector<std::string> v);
 

@@ -30,55 +30,13 @@ Chapter::Chapter(const std::string& filename)
   }
   const std::vector<std::string> lines = FileToVector(filename);
   std::stringstream s;
-  s << std::noskipws; //Obligatory
   std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
 
-  //Show text until @
-  {
-    std::stringstream text;
-    int pos = 0;
-    char prev_c = ' ';
-    while (s)
-    {
-      char c;
-      s >> c;
-      if (c == '@')
-      {
-        s.putback('@');
-        break; //Now the options must be parsed
-      }
-      if (c == '\n') c = ' '; //Convert a newline to space, so input files do not require a space after every line
-      if (c == ' ' && pos == 0) continue; //Een nieuwe regel begint niet met een spatie
-      if (c == ' ' && prev_c == ' ') continue; //Tweede spatie overslaan
-      if (c == '[') { text << '\n'; pos = 0; }
-      text << c;
-      prev_c = c;
-      ++pos;
-      if (pos > 60 && c == ' ')
-      {
-        text << '\n';
-        pos = 0;
-      }
-    }
-    m_text = text.str();
-  }
+  m_text = ReadText(s,60);
 
-  Parse(s,'@');
+  //Parse(s,'@'); //Read by ReadText
   const int chapter_type = ReadInt(s);
-  if (!(
-       chapter_type == 5
-    || chapter_type == 7
-    || chapter_type == 10
-    || chapter_type == 11
-    || chapter_type == 14 //dice game
-    || chapter_type == 15 //pill game
-    || chapter_type == 16 //ball game
-    || chapter_type == 999
-  ))
-  {
-    throw std::logic_error("Chapter type not yet supported");
-  }
-  s << std::skipws; //Now strings will be read
+
 
   if (chapter_type == 5)
   {
@@ -434,19 +392,24 @@ void Chapter::Do(Character& character,const bool auto_play) const
     }
     while (1)
     {
+      //Show options
       const auto options = GetOptions().GetValidOptions(character);
       assert(!options.empty());
       const int n_options{static_cast<int>(options.size())};
-      for (int i=0; i!=n_options; ++i)
       {
-        const auto option = options[i];
-        std::cout << '[' << (i+1) << "]" << option.GetText() << std::endl;
+        std::stringstream ss;
+        for (int i=0; i!=n_options; ++i)
+        {
+          const auto option = options[i];
+          ss << '[' << (i+1) << "]" << option.GetText() << '\n';
+        }
+        ss << "[0] Status and inventory\n";
+        ShowText(ss.str(),auto_play);
       }
-      std::cout << "[9] Status and inventory" << std::endl;
       //Chose an options
       if (auto_play)
       {
-        std::cout << "AUTOPLAY: chose option #1" << std::endl;
+        ShowText("AUTOPLAY: chose option #1",auto_play);
         options[0].GetConsequence().Apply(character);
         //m_consequence = options[0].GetConsequence();
         //options[0].DoChoose(character);
@@ -456,7 +419,6 @@ void Chapter::Do(Character& character,const bool auto_play) const
       if (options.size() == 1)
       {
         options[0].GetConsequence().Apply(character);
-        //options[0].DoChoose(character);
         break;
       }
 
@@ -466,18 +428,20 @@ void Chapter::Do(Character& character,const bool auto_play) const
       if (s.empty()) continue;
       if (!IsInt(s))
       {
-        std::cout << "Please enter a number" << std::endl;
+        ShowText("Please enter a number",auto_play);
         continue;
       }
       const int chosen_option_number{std::stoi(s)};
-      if (chosen_option_number != 9
+      if (chosen_option_number != 0
         && (chosen_option_number < 1 || chosen_option_number > static_cast<int>(options.size()))
       )
       {
-        std::cout << "Please enter a number from 1 to " << options.size() << " or 9 for inventory" << std::endl;
+        std::stringstream ss;
+        ss << "Please enter a number from 1 to " << options.size() << " or 0 for inventory\n";
+        ShowText(ss.str(),auto_play);
         continue;
       }
-      if (chosen_option_number == 9)
+      if (chosen_option_number == 0)
       {
         DoInventory(character,auto_play);
         std::cout << std::endl;
@@ -487,7 +451,6 @@ void Chapter::Do(Character& character,const bool auto_play) const
       assert(chosen_option_index >= 0);
       assert(chosen_option_index < static_cast<int>(options.size()));
       options[chosen_option_index].GetConsequence().Apply(character);
-      //options[chosen_option_index].DoChoose(character);
       break;
     }
     assert(m_consequence.GetNextChapter() == -1);
