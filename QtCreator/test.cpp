@@ -5,8 +5,8 @@
 #include <iostream>
 #include <stdexcept>
 #include "chapter.h"
-#include "character.h"
-#include "dochapter.h"
+#include "item.h"
+#include "specialchapter.h"
 
 #ifndef NDEBUG
 void Test()

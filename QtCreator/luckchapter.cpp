@@ -1,10 +1,10 @@
 #include "luckchapter.h"
 
-#include <cassert>
 #include <sstream>
 
 #include "character.h"
 #include "helper.h"
+
 LuckChapter::LuckChapter()
   :
     m_luck_consequence{},

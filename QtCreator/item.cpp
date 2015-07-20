@@ -1,7 +1,5 @@
 #include "item.h"
 
-#include <cassert>
-#include <string>
 #include <boost/bimap.hpp>
 
 boost::bimap<Item,std::string> CreateBimap()

@@ -1,11 +1,8 @@
 #include <fstream>
 
-#include "chapter.h"
-#include "dochapter.h"
-#include "character.h"
-
 #include "helper.h"
 #include "game.h"
+
 int main()
 {
   #ifndef NDEBUG

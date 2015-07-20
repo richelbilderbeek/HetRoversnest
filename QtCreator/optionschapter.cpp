@@ -1,13 +1,13 @@
 #include "optionschapter.h"
 
 #include <algorithm>
-#include <cassert>
 
 #include "character.h"
 
 OptionsChapter::OptionsChapter()
   : m_options{}
 {
+
 }
 
 void OptionsChapter::AddOption(const Option& option)

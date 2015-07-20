@@ -3,8 +3,6 @@
 #include <cassert>
 #include <iostream>
 
-#include <boost/lexical_cast.hpp>
-
 #include "character.h"
 #include "helper.h"
 
@@ -73,7 +71,7 @@ void ShopChapter::Do(Character& character, const bool auto_play) const
       std::cout << "Invalid command\n";
       continue;
     }
-    const int command = boost::lexical_cast<int>(s);
+    const int command = std::stoi(s);
     if (command == 0) break;
     const int i = command - 1;
     if (i < 0 || i >= static_cast<int>(items.size()))

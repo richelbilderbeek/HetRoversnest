@@ -4,7 +4,6 @@
 #include <sstream>
 #include <iostream>
 
-
 #include "character.h"
 #include "helper.h"
 

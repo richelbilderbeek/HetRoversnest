@@ -1,14 +1,7 @@
-#ifndef DOCHAPTER_H
-#define DOCHAPTER_H
-
-//#include <string>
-//#include <vector>
-//#include "consequence.h"
-//#include "item.h"
-//#include "language.h"
+#ifndef SPECIALCHAPTER_H
+#define SPECIALCHAPTER_H
 
 struct Character;
-//struct Monster;
 
 void DoGameOver();
 void DoGameWon();

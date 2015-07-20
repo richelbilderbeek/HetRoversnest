@@ -1,8 +1,6 @@
 #include "option.h"
 
-#include <algorithm>
 #include <cassert>
-#include "character.h"
 #include <iostream>
 
 Option::Option(

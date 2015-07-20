@@ -7,7 +7,6 @@
 
 #include "condition.h"
 #include "consequence.h"
-//#include "item.h"
 
 struct Character;
 

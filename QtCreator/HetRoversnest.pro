@@ -53,7 +53,6 @@ CONFIG(release, debug|release) {
 
 SOURCES += main.cpp \
     helper.cpp \
-    dochapter.cpp \
     character.cpp \
     item.cpp \
     test.cpp \
@@ -71,11 +70,11 @@ SOURCES += main.cpp \
     skillchapter.cpp \
     shopchapter.cpp \
     pawnshopchapter.cpp \
-    game.cpp
+    game.cpp \
+    specialchapter.cpp
 
 HEADERS += \
     helper.h \
-    dochapter.h \
     character.h \
     item.h \
     autoplay.h \
@@ -92,4 +91,5 @@ HEADERS += \
     skillchapter.h \
     shopchapter.h \
     pawnshopchapter.h \
-    game.h
+    game.h \
+    specialchapter.h

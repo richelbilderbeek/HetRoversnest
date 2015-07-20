@@ -1,9 +1,7 @@
 #include "helper.h"
 
-#include <algorithm>
 #include <cassert>
 #include <fstream>
-#include <iostream>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/timer.hpp>

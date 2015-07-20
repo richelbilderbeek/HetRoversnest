@@ -1,17 +1,16 @@
 #include "game.h"
 
-#include <cassert>
-#include <ctime>
 #include <iostream>
 #include <iterator>
 #include <sstream>
 #include <fstream>
 #include <stdexcept>
+#include <cstdlib>
 
 #include "character.h"
 #include "helper.h"
 #include "chapter.h"
-#include "dochapter.h"
+#include "specialchapter.h"
 
 Game::Game(
   const int rng_seed,

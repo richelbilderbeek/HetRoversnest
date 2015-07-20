@@ -1,11 +1,10 @@
 #include "skillchapter.h"
 
-#include <cassert>
 #include <sstream>
 
-#include "consequence.h"
 #include "character.h"
 #include "helper.h"
+
 SkillChapter::SkillChapter()
   :
     m_skill_consequence{},

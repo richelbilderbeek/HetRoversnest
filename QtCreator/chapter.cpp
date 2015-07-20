@@ -1,15 +1,12 @@
 #include "chapter.h"
 
-#include <algorithm>
 #include <cassert>
 #include <iterator>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 
-#include <boost/lexical_cast.hpp>
-
-#include "dochapter.h"
+#include "specialchapter.h"
 #include "helper.h"
 
 Chapter::Chapter(const std::string& filename)
@@ -467,13 +464,12 @@ void Chapter::Do(Character& character,const bool auto_play) const
       std::string s;
       std::getline(std::cin,s);
       if (s.empty()) continue;
-      try { boost::lexical_cast<int>(s); }
-      catch (boost::bad_lexical_cast&)
+      if (!IsInt(s))
       {
         std::cout << "Please enter a number" << std::endl;
         continue;
       }
-      const int chosen_option_number{boost::lexical_cast<int>(s)};
+      const int chosen_option_number{std::stoi(s)};
       if (chosen_option_number != 9
         && (chosen_option_number < 1 || chosen_option_number > static_cast<int>(options.size()))
       )

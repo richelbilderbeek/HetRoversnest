@@ -1,18 +1,10 @@
-#include "dochapter.h"
+#include "specialchapter.h"
 
-#include <algorithm>
-#include <cassert>
-#include <string>
-#include <iterator>
 #include <iostream>
 #include <sstream>
 
-#include <boost/lexical_cast.hpp>
-
-#include "chapter.h"
 #include "character.h"
 #include "helper.h"
-#include "monster.h"
 
 void DoInventory(Character& character, const bool auto_play)
 {
