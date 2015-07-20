@@ -1,6 +1,7 @@
 #ifndef CONDITION_H
 #define CONDITION_H
 
+#include <iosfwd>
 #include <vector>
 
 #include "item.h"

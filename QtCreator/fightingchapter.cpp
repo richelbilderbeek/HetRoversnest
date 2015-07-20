@@ -309,6 +309,7 @@ void DoFight(
 
 void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
 {
+  //TODO: Should be called
   const bool verbose{false};
   Parse(s,'@');
 

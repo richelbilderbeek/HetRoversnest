@@ -1,12 +1,14 @@
 #ifndef OPTION_H
 #define OPTION_H
 
+#include <iosfwd>
 #include <string>
 #include <vector>
 
 #include "condition.h"
 #include "consequence.h"
-#include "item.h"
+//#include "item.h"
+
 struct Character;
 
 ///An option the player may or may not choose

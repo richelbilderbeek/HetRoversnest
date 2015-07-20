@@ -2,6 +2,7 @@
 #define ITEM_H
 
 #include <iosfwd>
+#include <string>
 
 enum class Item
 {

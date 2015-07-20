@@ -3,8 +3,8 @@
 
 #include <string>
 #include "consequence.h"
-struct Character;
 
+struct Character;
 
 ///Chapter in which you have to test your luck
 struct LuckChapter

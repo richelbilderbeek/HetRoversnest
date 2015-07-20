@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "character.h"
+#include "helper.h"
 
 Consequence::Consequence()
   :
@@ -194,4 +195,88 @@ void Consequence::SetNextChapter(const int next_chapter) noexcept
 {
   m_next_chapter = next_chapter;
   if (m_next_chapter < 2) { std::cerr << "WARNING: next_chapter incorrect\n"; }
+}
+
+Consequence ParseConsequence(std::stringstream &s)
+{
+  Consequence consequence;
+  const std::string what{ReadString(s)};
+  if (what == "add")
+  {
+    const std::string item_name{ReadString(s)};
+    if (!IsItem(item_name))
+    {
+      std::cerr << "Unknown item: " << item_name << std::endl;
+      assert(!"Should not get here");
+    }
+    const Item item{ToItem(item_name)};
+    consequence.AddItemToAdd(item);
+  }
+  else if (what == "arrows" || what == "arrow")
+  {
+    const std::string value{ReadString(s)};
+    if (value == "random[1-6]")
+    {
+      const int n_arrows{1 + ((std::rand() >> 4) % 6)};
+      consequence.SetChangeArrows(n_arrows);
+    }
+    else if (value == "remove_all")
+    {
+      consequence.SetChangeArrows(-6);
+    }
+    else
+    {
+      assert(!"Should not get here");
+    }
+  }
+  else if (what == "dexterity" || what == "dex")
+  {
+    const int change_dex{ReadInt(s)};
+    consequence.SetChangeDexterity(change_dex);
+  }
+  else if (what == "gold")
+  {
+    const int change_gold{ReadInt(s)};
+    consequence.SetChangeGold(change_gold);
+  }
+  else if (what == "luck")
+  {
+    const int change_luck{ReadInt(s)};
+    consequence.SetChangeLuck(change_luck);
+  }
+  else if (what == "provision" || what == "provisions")
+  {
+    const int change_provisions{ReadInt(s)};
+    consequence.SetChangeProvisions(change_provisions);
+  }
+  else if (what == "remove")
+  {
+    const std::string item_name{ReadString(s)};
+    if (!IsItem(item_name))
+    {
+      std::cerr << "Unknown item: " << item_name << std::endl;
+      assert(!"Should not get here");
+    }
+    const Item item{ToItem(item_name)};
+    consequence.AddItemToRemove(item);
+  }
+  else if (what == "stamina" || what == "sta")
+  {
+    const std::string value{ReadString(s)};
+    if (IsInt(value))
+    {
+      consequence.SetChangeStamina(std::stoi(value));
+    }
+    else
+    {
+      assert(value == "random[1-6]");
+      consequence.SetChangeStamina(1 + ((std::rand() >> 4) % 6));
+    }
+  }
+  else
+  {
+    std::cerr << "Unknown what: " << what << std::endl;
+    assert(!"Should not get here");
+  }
+  return consequence;
 }

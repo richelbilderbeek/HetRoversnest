@@ -1,6 +1,7 @@
 #ifndef PAWNSHOPCHAPTER_H
 #define PAWNSHOPCHAPTER_H
 
+#include <iosfwd>
 #include <vector>
 
 #include "item.h"

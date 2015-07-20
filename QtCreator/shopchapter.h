@@ -1,6 +1,7 @@
 #ifndef SHOPCHAPTER_H
 #define SHOPCHAPTER_H
 
+#include <iosfwd>
 #include <vector>
 
 #include "item.h"

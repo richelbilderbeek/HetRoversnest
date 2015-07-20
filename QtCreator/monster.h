@@ -1,6 +1,7 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
+#include <iosfwd>
 #include <string>
 #include <vector>
 

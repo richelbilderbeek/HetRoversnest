@@ -472,6 +472,7 @@ void Test()
 
 
   //Create graph
+  if (1==2)
   {
     std::ofstream f("Graph.dot");
     f << "digraph CityOfThieves {\n";

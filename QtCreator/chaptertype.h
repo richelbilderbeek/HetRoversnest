@@ -4,7 +4,6 @@
 enum class ChapterType
 {
   fight,
-  //fight_random_monster, //Chapter 431
   game_lost,
   game_won,
   normal,

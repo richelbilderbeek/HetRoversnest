@@ -50,6 +50,33 @@ void Parse(std::stringstream& s, const char expected_char)
   assert(c == expected_char);
 }
 
+char ReadChar(std::stringstream& s)
+{
+  char c;
+  assert(!s.eof());
+  s >> c;
+  assert(!s.eof());
+  while (!s.eof() && (c == '\n' || c == ' ' || c == '\0')) { s >> c; }
+  assert(!s.eof());
+  return c;
+}
+
+
+int ReadInt(std::stringstream& s)
+{
+  int number = -9999;
+  s >> number;
+  assert(number > -9999);
+  return number;
+}
+
+std::string ReadString(std::stringstream& s)
+{
+  std::string str = "";
+  s >> str;
+  return str;
+}
+
 void ShowText(const std::string& text, const bool auto_play)
 {
   for (const char c: text)

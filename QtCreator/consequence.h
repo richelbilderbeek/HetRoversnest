@@ -1,6 +1,7 @@
 #ifndef CONSEQUENCE_H
 #define CONSEQUENCE_H
 
+#include <iosfwd>
 #include <vector>
 
 #include "item.h"
@@ -85,7 +86,8 @@ struct Consequence
 
   ///Which items are removed to the player's inventory?
   Items m_remove_items;
-
 };
+
+Consequence ParseConsequence(std::stringstream& s);
 
 #endif // CONSEQUENCE_H
