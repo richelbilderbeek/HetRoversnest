@@ -13,7 +13,7 @@ int main()
   #endif
 
   #ifndef NDEBUG
-  for (int rng_seed = 2138; ; ++rng_seed)
+  for (int rng_seed = 0; ; ++rng_seed)
   {
     Dice::Get()->SetSeed(rng_seed);
 

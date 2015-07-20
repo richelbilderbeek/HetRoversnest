@@ -25,6 +25,14 @@ Game::Game(
 {
   Dice::Get()->SetSeed(rng_seed);
 
+  #ifndef NDEBUG
+  {
+    std::ofstream f("last_seed.txt");
+    f << rng_seed;
+  }
+  #endif
+
+
   while (1)
   {
     const int chapter_number{m_character.GetCurrentChapter()};
