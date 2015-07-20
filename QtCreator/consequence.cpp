@@ -53,7 +53,11 @@ void Consequence::AddItemToRemove(const Item& item)
 
 void Consequence::Apply(Character& character) const
 {
-  const bool verbose{true};
+  #ifndef NDEBUG
+  const bool verbose{false};
+  #else
+  const bool verbose{false};
+  #endif
 
   if (GetNextChapter() != -1)
   {
@@ -127,7 +131,7 @@ void Consequence::Apply(Character& character) const
   }
   for (const auto item: this->GetItemsToAdd())
   {
-    if (verbose) { std::clog << "Adding item " << ToStr(item) << std::endl; }
+    if (verbose) { std::clog << "Obtained item " << ToPrettyStr(item) << std::endl; }
     character.AddItem(item);
   }
   for (const auto item: this->GetItemsToRemove())
@@ -146,7 +150,7 @@ void Consequence::Apply(Character& character) const
     }
     if (item == Item::random_item_or_one_gold)
     {
-      if (verbose) { std::clog << "Removing random item or 1 gold" << std::endl; }
+      //if (verbose) { std::clog << "Removing random item or 1 gold" << std::endl; }
       const auto items = character.GetItems();
       const int n_items{static_cast<int>(items.size())};
       if (n_items == 0) continue;
@@ -159,7 +163,7 @@ void Consequence::Apply(Character& character) const
         }
         else
         {
-          if (verbose) { std::clog << "Removing random item or 1 gold failed: character has neither" << std::endl; }
+          //if (verbose) { std::clog << "Removing random item or 1 gold failed: character has neither" << std::endl; }
         }
       }
       else
@@ -167,13 +171,14 @@ void Consequence::Apply(Character& character) const
         auto iter = items.cbegin();
         const int item_index{(std::rand() >> 4) % n_items};
         for (int j=0; j!=item_index; ++j) { ++iter; }
+        if (verbose) { std::clog << "Removed item " << ToPrettyStr(*iter) << std::endl; }
         character.RemoveItem(*iter);
       }
       continue;
     }
     if (item == Item::two_random_items)
     {
-      if (verbose) { std::clog << "Removing two random items" << std::endl; }
+      //if (verbose) { std::clog << "Removing two random items" << std::endl; }
       for (int i=0; i!=2; ++i)
       {
         const auto items = character.GetItems();
@@ -182,11 +187,13 @@ void Consequence::Apply(Character& character) const
         auto iter = items.cbegin();
         const int item_index{(std::rand() >> 4) % n_items};
         for (int j=0; j!=item_index; ++j) { ++iter; }
+        if (verbose) { std::clog << "Lost  " << ToPrettyStr(*iter) << std::endl; }
         character.RemoveItem(*iter);
       }
       continue;
     }
-    if (verbose) { std::clog << "Removing item " << ToStr(item) << std::endl; }
+    //if (verbose) { std::clog << "Removing item " << ToStr(item) << std::endl; }
+    if (verbose) { std::clog << "Removed item " << ToPrettyStr(item) << std::endl; }
     character.RemoveItem(item);
   }
 }

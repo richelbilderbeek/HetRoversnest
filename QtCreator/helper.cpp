@@ -76,12 +76,12 @@ std::string ReadString(std::stringstream& s)
   return str;
 }
 
-std::string ReadText(std::stringstream& s, const int line_length)
+std::string ReadText(std::stringstream& s)
 {
   s << std::noskipws; //Obligatory
   //Show text until @
   std::string text;
-  int pos = 0;
+  //int pos = 0;
   char prev_c = ' ';
   while (1)
   {
@@ -92,17 +92,17 @@ std::string ReadText(std::stringstream& s, const int line_length)
       break; //Now the options must be parsed
     }
     if (c == '\n') c = ' '; //Convert a newline to space, so input files do not require a space after every line
-    if (c == ' ' && pos == 0) continue; //Een nieuwe regel begint niet met een spatie
+    //if (c == ' ' && pos == 0) continue; //Een nieuwe regel begint niet met een spatie
     if (c == ' ' && prev_c == ' ') continue; //Tweede spatie overslaan
     //if (c == '[') { text << '\n'; pos = 0; }
     text += c;
     prev_c = c;
-    ++pos;
-    if (pos > line_length && c == ' ')
-    {
-      text += '\n';
-      pos = 0;
-    }
+    //++pos;
+    //if (pos > line_length && c == ' ')
+    //{
+    //  text += '\n';
+    //  pos = 0;
+    //}
   }
   s << std::skipws; //Obligatory
   return text;
@@ -110,13 +110,22 @@ std::string ReadText(std::stringstream& s, const int line_length)
 
 void ShowText(const std::string& text, const bool auto_play)
 {
+  int pos = 0;
   for (const char c: text)
   {
+    //if (c == '[') std::cout << '\n';
+    if (c == '\n') pos = -1;
+    if (c == ' ' && pos > 60) { pos = 0; std::cout << '\n'; continue; }
     std::cout << c;
+    ++pos;
     if (!auto_play)
     {
       std::cout.flush();
+      #ifndef NDEBUG
+      Wait(0.001);
+      #else
       Wait(0.01);
+      #endif
     }
   }
 }
@@ -129,9 +138,11 @@ std::vector<std::string> StripFirstChar(std::vector<std::string> v)
   return v;
 }
 
+
 std::string ToPretty(std::string s)
 {
   assert(!s.empty());
+  if (s == "carralifs_sword") { return "Carralif's sword"; }
   std::replace(
     std::begin(s),
     std::end(s),

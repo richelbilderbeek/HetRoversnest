@@ -16,7 +16,7 @@ Monster::Monster(
     m_dexterity{dexterity},
     m_has_fire_breath{has_fire_breath},
     m_initial_stamina{stamina},
-    m_name{ToPretty(name)},
+    m_name{name},
     m_stamina{stamina}
 {
   assert(!name.empty());

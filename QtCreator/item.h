@@ -79,10 +79,13 @@ enum class Item
   lifted_goblet_c,
   picked_up_silver_scorpion,
   picked_up_golden_scorpion,
+  has_inspected_suit_of_armor, //5th floor of Zanbar Bone's tower
   all_needed_to_slay_zanbar_bone
 };
 
+std::string ToPrettyStr(const Item item);
 std::string ToStr(const Item item);
+
 Item ToItem(const std::string& item_name);
 bool IsItem(const std::string& item_name);
 std::ostream& operator<<(std::ostream& os, const Item item);

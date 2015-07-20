@@ -1,4 +1,4 @@
 The pirate draws his cutlass. As he approaches, his toothless grin unnerves you a little. You do not have time to draw your sword and must fight the pirate with a wooden stick. 
 @999
-change dexterity -2
+change remove carralifs_sword
 goto 422

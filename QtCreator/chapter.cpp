@@ -9,10 +9,11 @@
 #include "specialchapter.h"
 #include "helper.h"
 
-Chapter::Chapter(const std::string& filename)
+Chapter::Chapter(const int chapter_number)
   :
     m_bye_text{},
     m_consequence{},
+    m_chapter_number{chapter_number},
     m_chapter_type{ChapterType::normal},
     m_fighting_chapter{},
     m_luck_chapter{},
@@ -22,6 +23,13 @@ Chapter::Chapter(const std::string& filename)
     m_skill_chapter{},
     m_text{}
 {
+  const std::string filename{"../Files/" + std::to_string(chapter_number) + ".txt"};
+  if (!IsRegularFile(filename))
+  {
+    std::stringstream msg;
+    msg << __func__ << ": ERROR: File " << filename << " does not exist";
+    throw std::runtime_error(msg.str());
+  }
   if (!IsRegularFile(filename))
   {
     std::stringstream msg;
@@ -32,7 +40,7 @@ Chapter::Chapter(const std::string& filename)
   std::stringstream s;
   std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
 
-  m_text = ReadText(s,60);
+  m_text = ReadText(s);
 
   //Parse(s,'@'); //Read by ReadText
   const int chapter_type = ReadInt(s);
@@ -97,17 +105,7 @@ Chapter::Chapter(const std::string& filename)
     else if (str == "Luck" || str == "luck")
     {
       this->m_chapter_type = ChapterType::test_your_luck;
-      s << std::noskipws; //Obligatory
-      //Parse(s,' '); //You expect a space after a word
-      std::string luck_text;
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        luck_text += c;
-      }
-      s << std::skipws; //Obligatory
+      const std::string luck_text{ReadText(s)};
       assert(!luck_text.empty());
       GetLuck().SetLuckText(luck_text);
       const std::string goto_str{ReadString(s)};
@@ -128,17 +126,9 @@ Chapter::Chapter(const std::string& filename)
     }
     else if (str == "No_luck" || str == "no_luck")
     {
-      s << std::noskipws; //Obligatory
+      //s << std::noskipws; //Obligatory
       //Parse(s,' '); //You expect a space after a word
-      std::string no_luck_text;
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        no_luck_text += c;
-      }
-      s << std::skipws; //Obligatory
+      const std::string no_luck_text{ReadText(s)};
       assert(!no_luck_text.empty());
       GetLuck().SetNoLuckText(no_luck_text);
       const std::string then{ReadString(s)};
@@ -159,17 +149,8 @@ Chapter::Chapter(const std::string& filename)
     }
     else if (str == "No_skill" || str == "no_skill")
     {
-      s << std::noskipws; //Obligatory
       //Parse(s,' '); //You expect a space after a word
-      std::string no_skill_text;
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        no_skill_text += c;
-      }
-      s << std::skipws; //Obligatory
+      const std::string no_skill_text{ReadText(s)};
       assert(!no_skill_text.empty());
       GetSkill().SetNoSkillText(no_skill_text);
       const std::string then_str{ReadString(s)};
@@ -194,17 +175,7 @@ Chapter::Chapter(const std::string& filename)
     }
     else if (str == "Option" || str == "option")
     {
-      std::string option_text;
-      s << std::noskipws; //Obligatory
-      //Parse(s,' '); //You expect a space after a word
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        option_text += c;
-      }
-      s << std::skipws; //Obligatory
+      const std::string option_text{ReadText(s)};
       const std::string t{ReadString(s)};
       if (t == "if")
       {
@@ -297,17 +268,8 @@ Chapter::Chapter(const std::string& filename)
     else if (str == "Skill" || str == "skill")
     {
       this->m_chapter_type = ChapterType::test_your_skill;
-      s << std::noskipws; //Obligatory
       //Parse(s,' '); //You expect a space after a word
-      std::string skill_text;
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        skill_text += c;
-      }
-      s << std::skipws; //Obligatory
+      const std::string skill_text{ReadText(s)};
       assert(!skill_text.empty());
       GetSkill().SetSkillText(skill_text);
       const std::string then_str{ReadString(s)};
@@ -353,6 +315,10 @@ void Chapter::Do(Character& character,const bool auto_play) const
   if (GetType() == ChapterType::game_lost)
   {
     character.SetIsDead();
+    return;
+  }
+  else if (GetType() == ChapterType::game_won)
+  {
     return;
   }
   else if (GetType() == ChapterType::play_dice)
@@ -401,7 +367,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
         for (int i=0; i!=n_options; ++i)
         {
           const auto option = options[i];
-          ss << '[' << (i+1) << "]" << option.GetText() << '\n';
+          ss << '[' << (i+1) << "] " << option.GetText() << '\n';
         }
         ss << "[0] Status and inventory\n";
         ShowText(ss.str(),auto_play);
@@ -443,7 +409,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
       }
       if (chosen_option_number == 0)
       {
-        DoInventory(character,auto_play);
+        character.ShowInventory(auto_play);
         std::cout << std::endl;
         continue;
       }

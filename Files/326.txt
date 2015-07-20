@@ -2,6 +2,6 @@ Ahead the alleyway is strewn with rubbish and discarded possessions. Suddenly yo
 @999
 escape 0 180
 fight_both
-monster First_wild_dog 4 4 2
-monster Second_wild_dog 4 3 2
+monster first_wild_dog 4 4 2
+monster second_wild_dog 4 3 2
 goto 184

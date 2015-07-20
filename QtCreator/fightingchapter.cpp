@@ -23,6 +23,7 @@ void FightingChapter::AddMonster(const Monster& monster)
 
 void FightingChapter::Do(Character& character, const bool auto_play) const
 {
+
   if (DoFightSequentially())
   {
     DoFight(GetMonsters(),character,auto_play);
@@ -62,7 +63,12 @@ void DoFightTwoMonsters(
   {
 
     if (character.IsDead()) { return; }
-    if (monsters[0].IsDead()) { break; }
+    if (monsters[0].IsDead())
+    {
+      character.AddHasFought(monsters[0].GetName());
+      assert(character.HasFought(monsters[0].GetName()));
+      break;
+    }
 
     {
       std::stringstream s;
@@ -166,9 +172,12 @@ void DoFightTwoMonsters(
     }
     if (!auto_play) { Wait(1.0); }
   }
-
-  std::cout << "You defeated the " << monsters[0].GetName() << "!" << std::endl;
-  character.AddHasFought(monsters[0].GetName());
+  {
+    std::stringstream s;
+    s << "You defeated the " << monsters[0].GetName() << "!\n";
+    ShowText(s.str(),auto_play);
+  }
+  //character.AddHasFought(monsters[0].GetName());
 
   //Fight the remaining monster normally
   DoFight(monsters[1],character,auto_play);
@@ -185,7 +194,12 @@ void DoFight(
   for (int round = 1; ; ++round)
   {
     if (character.IsDead()) break;
-    if (monster.IsDead()) break;
+    if (monster.IsDead())
+    {
+      character.AddHasFought(monster.GetName());
+      assert(character.HasFought(monster.GetName()));
+      break;
+    }
 
     {
       std::stringstream s;
@@ -295,19 +309,23 @@ void DoFight(
 
   if (character.IsDead())
   {
-    std::cout << "\nThe " << monster.GetName() << " defeated you.\n";
+    std::stringstream s;
+    s << "\nThe " << monster.GetName() << " defeated you.\n";
+    ShowText(s.str(),auto_play);
     if (!auto_play) { Wait(1.0); }
   }
   else
   {
-    std::cout << "\nYou defeated the " << monster.GetName() << "!" << std::endl;
-    character.AddHasFought(monster.GetName());
+    std::stringstream s;
+    s << "\nYou defeated the " << monster.GetName() << "!\n";
+    ShowText(s.str(),auto_play);
     if (!auto_play) { Wait(1.0); }
   }
 }
 
 void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
 {
+  assert(1==2);
   //TODO: Should be called
   const bool verbose{false};
   Parse(s,'@');

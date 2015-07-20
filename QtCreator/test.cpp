@@ -32,7 +32,7 @@ void Test()
   //New fighting engine
   //Sequential fight
   {
-    const Chapter chapter("../Files/5.txt");
+    const Chapter chapter(5);
     assert(chapter.GetType() == ChapterType::fight);
     assert(chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 1);
@@ -45,7 +45,7 @@ void Test()
   }
   //Chapter 326: Simulateous fight
   {
-    const Chapter chapter("../Files/326.txt");
+    const Chapter chapter(326);
     assert(!chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 2);
     Character character(100,100,100,Item::luck_potion);
@@ -53,46 +53,46 @@ void Test()
   }
   //Chapter 323: blacksmith must attack with attack strength 3
   {
-    const Chapter chapter("../Files/323.txt");
+    const Chapter chapter(323);
     assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 3);
     //std::cout << chapter << std::endl;
   }
   //Chapter 253: snakes must bite with attack strength 4
   {
-    const Chapter chapter("../Files/253.txt");
+    const Chapter chapter(253);
     assert(chapter.GetFighting().GetMonsters()[0].GetAttackDamage() == 4);
   }
   //Chapter 140: can escape after 3 rounds
   {
-    const Chapter chapter("../Files/140.txt");
+    const Chapter chapter(140);
     assert(chapter.GetFighting().GetRoundsToEscape() == 3);
     assert(chapter.GetFighting().GetEscapeToChapter() == 282);
   }
   //Chapter 9: Game over
   {
-    const Chapter chapter("../Files/9.txt");
+    const Chapter chapter(9);
     assert(chapter.GetType() == ChapterType::game_lost);
   }
   //Chapter 400: Game won
   {
-    const Chapter chapter("../Files/400.txt");
+    const Chapter chapter(400);
     assert(chapter.GetType() == ChapterType::game_won);
   }
   //Chapter 8: change status
   {
-    const Chapter chapter("../Files/8.txt");
+    const Chapter chapter(8);
     assert(chapter.GetConsequence().GetItemsToAdd().size() == 1);
     assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::golden_scorpion_brooch);
     assert(chapter.GetConsequence().GetChangeLuck() == 2);
   }
   //Chapter 26: no change of status
   {
-    const Chapter chapter("../Files/26.txt");
+    const Chapter chapter(26);
     assert(chapter.GetNextChapter() == 296);
   }
   //Chapter 206: dice game
   {
-    const Chapter chapter("../Files/206.txt");
+    const Chapter chapter(206);
     assert(chapter.GetType() == ChapterType::play_dice);
     assert(chapter.GetNextChapter() == 296);
     assert(!chapter.GetByeText().empty());
@@ -101,7 +101,7 @@ void Test()
   }
   //Chapter 223: pill game
   {
-    const Chapter chapter("../Files/223.txt");
+    const Chapter chapter(223);
     assert(chapter.GetType() == ChapterType::play_pill);
     assert(chapter.GetNextChapter() == 165);
     assert(chapter.GetConsequence().GetChangeGold() == 20);
@@ -111,7 +111,7 @@ void Test()
   }
   //Chapter 378: ball game
   {
-    const Chapter chapter("../Files/378.txt");
+    const Chapter chapter(378);
     assert(chapter.GetType() == ChapterType::play_ball);
     assert(chapter.GetNextChapter() == 52);
     assert(!chapter.GetByeText().empty());
@@ -120,7 +120,7 @@ void Test()
   }
   //Chapter 1: options
   {
-    const Chapter chapter("../Files/1.txt");
+    const Chapter chapter(1);
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 3);
     Character character(100,100,100,Item::luck_potion);
@@ -128,7 +128,7 @@ void Test()
   }
   //Chapter 3: option depending on gold
   {
-    const Chapter chapter("../Files/3.txt");
+    const Chapter chapter(3);
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(1,1,1,Item::luck_potion);
@@ -138,7 +138,7 @@ void Test()
   }
   //Chapter 7: 2 options and status change
   {
-    const Chapter chapter("../Files/7.txt");
+    const Chapter chapter(7);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     assert(chapter.GetConsequence().GetItemsToAdd().size() == 1);
     assert(chapter.GetConsequence().GetItemsToAdd()[0] == Item::black_pearls);
@@ -153,7 +153,7 @@ void Test()
   }
   //Chapter 14: must respond to ring of fire
   {
-    const Chapter chapter("../Files/14.txt");
+    const Chapter chapter(14);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
@@ -164,7 +164,7 @@ void Test()
   }
   //Chapter 146: must respond to skeleton_key
   {
-    const Chapter chapter("../Files/146.txt");
+    const Chapter chapter(146);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
@@ -177,7 +177,7 @@ void Test()
 
   //Chapter 11: lose 1 skill point and shield
   {
-    const Chapter chapter("../Files/11.txt");
+    const Chapter chapter(11);
     Character character(10,10,10,Item::luck_potion);
     assert(character.HasItem(Item::shield));
     const int dex_before{character.GetDexterity()};
@@ -189,7 +189,7 @@ void Test()
   }
   //Chapter 11: must lose 3 skill points and shield and chain mail
   {
-    const Chapter chapter("../Files/11.txt");
+    const Chapter chapter(11);
     Character character(10,10,10,Item::luck_potion);
     character.AddItem(Item::chainmail_coat);
     const int dex_before{character.GetDexterity()};
@@ -203,7 +203,7 @@ void Test()
   }
   //Chapter 19: 2 options and status change
   {
-    const Chapter chapter("../Files/19.txt");
+    const Chapter chapter(19);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(10,10,10,Item::luck_potion);
     const int dex_before{character.GetDexterity()};
@@ -216,7 +216,7 @@ void Test()
   }
   //Chapter 15: Luck chapter must be parsed correctly
   {
-    const Chapter chapter("../Files/15.txt");
+    const Chapter chapter(15);
     assert(!chapter.GetLuck().GetLuckText().empty());
     assert(!chapter.GetLuck().GetNoLuckText().empty());
     assert(chapter.GetLuck().GetLuckChapter() > 1);
@@ -224,14 +224,14 @@ void Test()
   }
   //Chapter 15: Luck chapter must be parsed correctly
   {
-    const Chapter chapter("../Files/15.txt");
+    const Chapter chapter(15);
     Character character(10,10,10,Item::luck_potion);
     chapter.Do(character,true);
     assert(character.GetCurrentChapter() > -1);
   }
   //Chapter 18: Skill chapter must be parsed correctly
   {
-    const Chapter chapter("../Files/18.txt");
+    const Chapter chapter(18);
     assert(!chapter.GetSkill().GetSkillText().empty());
     assert(!chapter.GetSkill().GetNoSkillText().empty());
     assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 102);
@@ -239,14 +239,14 @@ void Test()
   }
   //Chapter 18: Skill chapter must be parsed correctly
   {
-    const Chapter chapter("../Files/18.txt");
+    const Chapter chapter(18);
     Character character(10,10,10,Item::luck_potion);
     chapter.Do(character,true);
     assert(character.GetCurrentChapter() > -1);
   }
   //Chapter 42: Must loose all provisions
   {
-    const Chapter chapter("../Files/42.txt");
+    const Chapter chapter(42);
     Character character(10,10,10,Item::luck_potion);
     assert(character.GetProvisions() > 0);
     chapter.Do(character,true);
@@ -254,7 +254,7 @@ void Test()
   }
   //Chapter 148: Lose one random items or one gold
   {
-    const Chapter chapter("../Files/148.txt");
+    const Chapter chapter(148);
     Character character(10,10,10,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
     const int gold_before{character.GetGold()};
@@ -265,7 +265,7 @@ void Test()
   }
   //Chapter 63: Lose two random items
   {
-    const Chapter chapter("../Files/63.txt");
+    const Chapter chapter(63);
     Character character(10,10,10,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
     chapter.Do(character,true);
@@ -275,7 +275,7 @@ void Test()
 
   //Chapter 134: Lose all gold
   {
-    const Chapter chapter("../Files/134.txt");
+    const Chapter chapter(134);
     Character character(10,10,10,Item::luck_potion);
     assert(character.GetGold() > 0);
     chapter.Do(character,true);
@@ -284,7 +284,7 @@ void Test()
 
   //Chapter 264: option depending on provisions
   {
-    const Chapter chapter("../Files/264.txt");
+    const Chapter chapter(264);
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(1,1,1,Item::luck_potion);
@@ -294,7 +294,7 @@ void Test()
   }
   //Chapter 239: all_needed_to_slay_zanbar_bone
   {
-    const Chapter chapter("../Files/239.txt");
+    const Chapter chapter(239);
     Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     const int not_all_chapter_1{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
@@ -322,7 +322,7 @@ void Test()
   }
   //Chapter 53: Can only give if something silver, with direct consequence
   {
-    const Chapter chapter("../Files/53.txt");
+    const Chapter chapter(53);
     Character character(10,10,10,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     character.AddItem(Item::silver_arrow);
@@ -331,7 +331,7 @@ void Test()
   }
   //Chapter 80: any_scorpion_brooch
   {
-    const Chapter chapter("../Files/80.txt");
+    const Chapter chapter(80);
     Character character(1,1,1,Item::luck_potion);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     const int not_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
@@ -352,7 +352,7 @@ void Test()
 
   //Chapter 36: shop chapter
   {
-    const Chapter chapter("../Files/36.txt");
+    const Chapter chapter(36);
     assert(chapter.GetType() == ChapterType::shop);
     assert(chapter.GetShop().GetItems().size() > 0);
     assert(!chapter.GetByeText().empty());
@@ -365,7 +365,7 @@ void Test()
 
   //Chapter 354: pawn shop chapter
   {
-    const Chapter chapter("../Files/354.txt");
+    const Chapter chapter(354);
     assert(chapter.GetType() == ChapterType::pawn_shop);
     assert(!chapter.GetByeText().empty());
     Character character(100,100,100,Item::luck_potion);
@@ -378,7 +378,7 @@ void Test()
 
   //Chapter 431: fight random monster
   {
-    const Chapter chapter("../Files/431.txt");
+    const Chapter chapter(431);
     assert(chapter.GetType() == ChapterType::fight);
     Character character(100,100,100,Item::luck_potion);
     chapter.Do(character,true);
@@ -387,14 +387,14 @@ void Test()
 
   //Chapter 392: Lizardine has fiery breath
   {
-    const Chapter chapter("../Files/392.txt");
+    const Chapter chapter(392);
     assert(chapter.GetFighting().GetMonsters().size() == 1);
     assert(chapter.GetFighting().GetMonsters()[0].HasFireBreath());
   }
 
   //Chapter 190: test-your-skill for skilled character
   {
-    const Chapter chapter("../Files/190.txt");
+    const Chapter chapter(190);
     assert(chapter.GetType() == ChapterType::test_your_skill);
     assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 38);
     Character character(100,100,100,Item::luck_potion);
@@ -403,25 +403,38 @@ void Test()
   }
   //Chapter 190: test-your-skill for unskilled character
   {
-    const Chapter chapter("../Files/190.txt");
+    const Chapter chapter(190);
     assert(chapter.GetType() == ChapterType::test_your_skill);
-    assert(chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() == 295);
+    assert(chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() == 296);
     Character character(1,1,1,Item::luck_potion);
     const int gold_before{character.GetGold()};
     chapter.Do(character,true);
     const int gold_after{character.GetGold()};
     assert(gold_after < gold_before);
-    assert(character.GetCurrentChapter() == 295);
+    assert(character.GetCurrentChapter() == 296);
   }
 
+  //Chapter 297: must respond to monster being faught
+  {
+    const Chapter chapter(297);
+    Character character(100,100,100,Item::luck_potion);
 
-  //Chapters 13 and 273: should not be able to take both brooches
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int not_fought_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 207);
 
-  //Chapter 43,175,209: cannot lift a globlet multiple times
+    const Chapter fight_chapter(207);
+    fight_chapter.Do(character,true);
 
-  //Chapter 429: lizardine has extra attack
+    character.ShowInventory(true);
+    assert(character.HasFought("second_death_hawk"));
+    assert(character.HasFought("first_death_hawk"));
 
-  //All chapters with monster must have a valid next_chapter
+    assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
+    const int yes_fought_chapter{chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter()};
+    assert(not_fought_chapter != yes_fought_chapter);
+    assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 65);
+  }
 
   //Parse chapters using Chapter
   {
@@ -430,7 +443,7 @@ void Test()
     {
       try
       {
-        const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
+        const Chapter chapter(i);
         if (chapter.GetNextChapter() == 1)
         {
           f << i << ": incorrect Next_chapter" << std::endl;
@@ -457,9 +470,11 @@ void Test()
     try
     {
       Character character(100,100,100,Item::luck_potion);
-      character.AddItem(Item::silver_arrow);
+      character.RemoveItem(Item::shield);
+      character.RemoveItem(Item::carralifs_sword);
+      //character.AddItem(Item::silver_arrow);
       std::cout << "CHAPTER " << i << std::endl;
-      Chapter chapter("../Files/" + std::to_string(i));
+      Chapter chapter(i);
       chapter.Do(character,true);
       //DoChapter(chapter,character,language,true);
     }
@@ -468,11 +483,9 @@ void Test()
       std::cout << e.what() << std::endl;
     }
   }
-  //Try chapters of different types
-
 
   //Create graph
-  if (1==2)
+  if (1==1)
   {
     std::ofstream f("Graph.dot");
     f << "digraph CityOfThieves {\n";
@@ -480,7 +493,7 @@ void Test()
     {
       try
       {
-        const Chapter chapter("../Files/" + std::to_string(i) + ".txt");
+        const Chapter chapter(i);
         if (chapter.GetNextChapter() != -1)
         {
           f << i << "->" << chapter.GetNextChapter() << ";\n";

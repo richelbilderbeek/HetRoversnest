@@ -16,13 +16,15 @@
 
 struct Chapter
 {
-  Chapter(const std::string& filename);
+  Chapter(const int chapter_number);
 
   ///Let the player do this chapter
   void Do(Character& character, const bool auto_play) const;
 
   ///The text displayed at the end of the chapter
   const std::string& GetByeText() const noexcept { return m_bye_text; }
+
+  int GetChapterNumber() const noexcept { return m_chapter_number; }
 
   const Consequence& GetConsequence() const noexcept { return m_consequence; }
 
@@ -56,6 +58,8 @@ struct Chapter
 
   ///When there is no choice
   Consequence m_consequence;
+
+  const int m_chapter_number;
 
   ChapterType m_chapter_type;
 

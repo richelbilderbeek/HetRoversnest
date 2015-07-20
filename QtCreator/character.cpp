@@ -3,8 +3,11 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <sstream>
 #include <iterator>
 #include <fstream>
+
+#include "helper.h"
 
 Character::Character(
   const int dexterity, //NL: Behendigheid
@@ -37,11 +40,20 @@ Character::Character(
 
 void Character::AddHasFought(const std::string& monster_name)
 {
+  assert(!HasFought(monster_name));
   m_fought.push_back(monster_name);
 }
 
 void Character::AddItem(const Item item)
 {
+  if (m_items.count(item) != 0)
+  {
+    #ifndef NDEBUG
+    std::cerr << "WARNING: adding item " << item << " for the second time!" << std::endl;
+    #endif
+    ShowInventory(false);
+    assert(!"Should not get here");
+  }
   m_items.insert(item);
 }
 
@@ -208,17 +220,25 @@ void Character::SetChapter(const int chapter)
   )
   {
     //These chapters can be legally visited more often
-    if (chapter != 96
+    if (
+         chapter != 96
+      && chapter != 65
+      && chapter != 122
       && chapter != 197
-      && chapter != 207
-      && chapter != 234
       && chapter != 231
+      && chapter != 232
+      && chapter != 234
+      && chapter != 284
       && chapter != 314
+      && chapter != 319
+      && chapter != 383
     )
     {
       #ifndef NDEBUG
       std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
       #endif
+      ShowInventory(false);
+
       std::ofstream f("Path.txt");
       const auto v = GetChapters();
       std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
@@ -229,6 +249,89 @@ void Character::SetChapter(const int chapter)
 
   //assert(std::find(std::begin(m_chapters),std::end(m_chapters),chapter) == std::end(m_chapters));
   m_chapters.push_back(chapter);
+}
+
+void Character::ShowInventory(const bool auto_play)
+{
+  std::stringstream s;
+  s
+    << "dexterity:\n"
+    << " * base: " << GetDexterityBase() << "/" << GetInitialDexterity() << '\n'
+  ;
+
+  //Shield
+  if (HasItem(Item::shield_with_tower_crest))
+  {
+    s << " * " << ToPrettyStr(Item::shield_with_tower_crest) << ": -1 (equipped, cursed)\n";
+
+    if (HasItem(Item::shield_with_unicorn_crest)) { s << " * " << ToPrettyStr(Item::shield_with_unicorn_crest) << ": +3\n"; }
+    if (HasItem(Item::magnificent_shield)) { s << " * " << ToPrettyStr(Item::magnificent_shield) << ": +2\n"; }
+    if (HasItem(Item::shield)) { s << " * " << ToPrettyStr(Item::shield) << ": +1\n"; }
+  }
+  else if (HasItem(Item::shield_with_unicorn_crest))
+  {
+    s << " * " << ToPrettyStr(Item::shield_with_unicorn_crest) << ": +3 (equipped)\n";
+    if (HasItem(Item::magnificent_shield)) { s << " * " << ToPrettyStr(Item::magnificent_shield) << ": +2\n"; }
+    if (HasItem(Item::shield)) { s << " * " << ToPrettyStr(Item::shield) << ": +1\n"; }
+  }
+  else if (HasItem(Item::magnificent_shield))
+  {
+    if (HasItem(Item::magnificent_shield)) { s << " * " << ToPrettyStr(Item::magnificent_shield) << ": +2 (equipped)\n"; }
+    if (HasItem(Item::shield)) { s << " * " << ToPrettyStr(Item::shield) << ": +1\n"; }
+  }
+  else if (HasItem(Item::shield))
+  {
+    if (HasItem(Item::shield)) { s << " * " << ToPrettyStr(Item::shield) << ": +1 (equipped)\n"; }
+  }
+
+  if (HasItem(Item::carralifs_sword))
+  {
+    s << " * " << ToPrettyStr(Item::carralifs_sword) << ": +2 (equipped) \n";
+    if (HasItem(Item::ordinary_sword)) { s << " * " << ToPrettyStr(Item::ordinary_sword) << ": +1\n"; }
+  }
+  else if (HasItem(Item::ordinary_sword))
+  {
+    if (HasItem(Item::ordinary_sword)) { s << " * " << ToPrettyStr(Item::ordinary_sword) << ": +1 (equipped)\n"; }
+  }
+
+  if (HasItem(Item::magic_elven_boots)) { s << " * " << ToPrettyStr(Item::magic_elven_boots) << ": +1\n"; }
+  if (HasItem(Item::chainmail_coat)) { s << " * " << ToPrettyStr(Item::chainmail_coat) << ": +2\n"; }
+  s
+    << " * total: " << GetDexterity() << "/" << GetInitialDexterity() << '\n'
+    << "stamina: " << GetStamina() << "/" << GetInitialStamina() << '\n'
+    << "luck:\n"
+    << " * base: " << GetLuckBase() << "/" << GetInitialLuck() << '\n'
+  ;
+
+  if (HasItem(Item::golden_scorpion_brooch)) { s << " * " << ToPrettyStr(Item::golden_scorpion_brooch) << ": +2\n"; }
+  //Note: the copper brooch decreases luck with 1, but this is not shown on purpose
+  //I cannot avoid that it will be easy to see that base luck and total luck don't match
+  s
+    << " * total: " << GetLuck() << "/" << GetInitialDexterity() << '\n'
+    << "gold pieces: " << GetGold() << '\n'
+    << "provisions: " << GetProvisions() << '\n'
+    << '\n'
+  ;
+
+  if (GetArrows() != 0)
+  {
+    s << "You got " << GetArrows() << " sticking in your body\n";
+  }
+
+  s << "items: \n";
+  for (const Item item: GetItems())
+  {
+    s << " * " << ToPrettyStr(item) << '\n';
+  }
+
+  s << "monsters fought: \n";
+
+  for (const auto monster_name: m_fought)
+  {
+    s << " * " << monster_name << '\n';
+  }
+
+  ShowText(s.str(),auto_play);
 }
 
 bool Character::TestDexterity() noexcept

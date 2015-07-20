@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <sstream>
 
 #include "character.h"
 #include "helper.h"
@@ -23,21 +24,27 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
 
   while (1)
   {
-    std::cout << "[0] Leave shop\n";
-    const int n_items{static_cast<int>(items.size())};
     bool can_sell{false};
-    for (int i=0; i!=n_items; ++i)
     {
-      std::cout
-        << '[' << (character.HasItem(items[i].first) ? std::to_string(i+1) : " ") << "] Sell "
-        << ToStr(items[i].first) << " for "
-        << items[i].second << " gold pieces\n"
-      ;
-      if (character.HasItem(items[i].first)) { can_sell = true; }
+      std::stringstream s;
+      s << "[0] Leave shop\n";
+      const int n_items{static_cast<int>(items.size())};
+      for (int i=0; i!=n_items; ++i)
+      {
+        s
+          << '[' << (character.HasItem(items[i].first) ? std::to_string(i+1) : " ") << "] Sell "
+          << ToStr(items[i].first) << " for "
+          << items[i].second << " gold pieces\n"
+        ;
+        if (character.HasItem(items[i].first)) { can_sell = true; }
+      }
+      ShowText(s.str(),auto_play);
     }
     if (!can_sell)
     {
-      std::cout << "You do not have any items to sell.\n";
+      std::stringstream s;
+      s << "You do not have any items to sell.\n";
+      ShowText(s.str(),auto_play);
       break;
     }
     if (auto_play)
@@ -46,7 +53,9 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
       {
         if (character.HasItem(items[i].first))
         {
-          std::cout << "You sold " << ToStr(items[i].first) << std::endl;
+          std::stringstream s;
+          s << "You sold " << ToStr(items[i].first) << '\n';
+          ShowText(s.str(),auto_play);
           character.RemoveItem(items[i].first);
           character.ChangeGold(items[i].second);
           std::swap(items[i],items.back());
@@ -59,16 +68,20 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
     assert(!auto_play);
 
     //Pawn shop
-    std::string s;
-    std::getline(std::cin,s);
-    if (s.empty()) continue;
-    if (!IsInt(s))
+    int command = -1;
     {
-      std::cout << "Invalid command\n";
-      continue;
+      std::string s;
+      std::getline(std::cin,s);
+      if (s.empty()) continue;
+      if (!IsInt(s))
+      {
+        std::cout << "Invalid command\n";
+        continue;
+      }
+      command = std::stoi(s);
     }
-    const int command{std::stoi(s)};
-    if (command == 0) break;
+    assert(command >= 0);
+    if (command == 0) break; //Leave pawn shop
     const int i = command - 1;
     if (i < 0 || i >= static_cast<int>(items.size()))
     {
@@ -82,7 +95,9 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
       std::cout << "You do not possess this item.\n";
       continue;
     }
-    std::cout << "You sold " << ToStr(items[i].first) << std::endl;
+    std::stringstream s;
+    s << "You sold " << ToStr(items[i].first) << '\n';
+    ShowText(s.str(),auto_play);
     character.RemoveItem(items[i].first);
     character.ChangeGold(items[i].second);
     std::swap(items[i],items.back());

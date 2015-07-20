@@ -2,6 +2,8 @@
 
 #include <boost/bimap.hpp>
 
+#include "helper.h"
+
 boost::bimap<Item,std::string> CreateBimap()
 {
   static boost::bimap<Item,std::string> m;
@@ -77,13 +79,15 @@ boost::bimap<Item,std::string> CreateBimap()
   m.insert(Pair(Item::followed_sewer_south,"followed_sewer_south"));
   m.insert(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));
   m.insert(Pair(Item::opened_pirate_captain_door,"opened_pirate_captain_door"));
-
   m.insert(Pair(Item::lifted_goblet_a,"lifted_goblet_a"));
   m.insert(Pair(Item::lifted_goblet_b,"lifted_goblet_b"));
   m.insert(Pair(Item::lifted_goblet_c,"lifted_goblet_c"));
-
   m.insert(Pair(Item::picked_up_silver_scorpion,"picked_up_silver_scorpion"));
   m.insert(Pair(Item::picked_up_golden_scorpion,"picked_up_golden_scorpion"));
+
+  m.insert(Pair(Item::has_inspected_suit_of_armor,"has_inspected_suit_of_armor"));
+
+
   m.insert(Pair(Item::all_needed_to_slay_zanbar_bone,"all_needed_to_slay_zanbar_bone"));
 
 
@@ -111,6 +115,11 @@ Item ToItem(const std::string& item_name)
   const auto m = CreateBimap();
   assert(IsItem(item_name));
   return m.right.find(item_name)->second;
+}
+
+std::string ToPrettyStr(const Item item)
+{
+  return ToPretty(ToStr(item));
 }
 
 std::string ToStr(const Item item)

@@ -1,4 +1,0 @@
-You leave the cell and climb the stairs, picking up your sword off the table.
-@999
-change add carralifs_sword
-goto 54

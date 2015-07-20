@@ -15,20 +15,23 @@
 
 Game::Game(
   const int rng_seed,
-  const bool auto_play)
+  const Character& character,
+  const bool auto_play
+)
+  : m_character{character},
+    m_has_lost{false},
+    m_has_won{false}
 {
   std::srand(rng_seed);
-  #ifndef NDEBUG
-  Character character(100,100,100,Item::luck_potion);
-  #else
-  std::srand(std::time(0)); //Mix up RNG
-  Character character(100,100,100,Item::luck_potion);
-  #endif
 
   while (1)
   {
-    const int chapter_number{character.GetCurrentChapter()};
-    if (chapter_number == 400) { break; }
+    const int chapter_number{m_character.GetCurrentChapter()};
+    if (chapter_number == 400)
+    {
+      m_has_won = true;
+      break;
+    }
     std::cout
       << '\n'
     #ifndef NDEBUG
@@ -37,23 +40,13 @@ Game::Game(
       << std::string(60,'-') << '\n'
     #endif
     ;
-    const std::string filename{"../Files/" + std::to_string(chapter_number) + ".txt"};
-    if (!IsRegularFile(filename))
+    const Chapter chapter(chapter_number);
+    chapter.Do(m_character,auto_play);
+    if (m_character.IsDead())
     {
-      std::stringstream msg;
-      msg << __func__ << ": ERROR: File " << filename << " does not exist";
-      throw std::runtime_error(msg.str());
-    }
-    const Chapter chapter(filename);
-    chapter.Do(character,auto_play);
-    if (character.IsDead())
-    {
+      m_has_lost = true;
       DoGameOver();
       return;
     }
   }
-  std::ofstream f("Solution.txt");
-  const auto v = character.GetChapters();
-  std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
-  f << "\nSeed: " << rng_seed << '\n';
 }

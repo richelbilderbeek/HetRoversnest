@@ -49,6 +49,7 @@ struct Character
   void RemoveItem(const Item item);
   void SetChapter(const int chapter);
   void SetIsDead() noexcept { m_stamina = 0; }
+  void ShowInventory(const bool auto_play);
   bool TestDexterity() noexcept;
   bool TestLuck() noexcept;
 
