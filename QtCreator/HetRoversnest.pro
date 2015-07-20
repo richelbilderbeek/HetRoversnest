@@ -56,7 +56,6 @@ SOURCES += main.cpp \
     character.cpp \
     item.cpp \
     test.cpp \
-    autoplay.cpp \
     monster.cpp \
     chapter.cpp \
     option.cpp \
@@ -76,7 +75,6 @@ HEADERS += \
     helper.h \
     character.h \
     item.h \
-    autoplay.h \
     monster.h \
     chapter.h \
     option.h \
