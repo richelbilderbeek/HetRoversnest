@@ -309,6 +309,7 @@ void Chapter::Do(Character& character,const bool auto_play) const
 {
   //Display the text line by line
   ShowText(m_text,auto_play);
+  //SpeakText(m_text,auto_play);
 
   std::cout << std::endl;
 

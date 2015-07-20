@@ -30,6 +30,8 @@ std::vector<std::string> StripFirstChar(std::vector<std::string> v);
 ///Shows the text slowly
 void ShowText(const std::string& text, const bool auto_play);
 
+void SpeakText(const std::string& text, const bool auto_play);
+
 #ifndef NDEBUG
 void Test();
 #endif // NDEBUG

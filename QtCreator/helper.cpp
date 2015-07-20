@@ -130,6 +130,18 @@ void ShowText(const std::string& text, const bool auto_play)
   }
 }
 
+void SpeakText(const std::string& text, const bool auto_play)
+{
+  if (auto_play) return;
+  std::ofstream f("espeak.txt");
+  f << text;
+  f.close();
+  const int error{std::system("espeak -f espeak.txt")};
+  assert(!error);
+  if (error) {;}
+}
+
+
 std::vector<std::string> StripFirstChar(std::vector<std::string> v)
 {
   assert(!v.empty());

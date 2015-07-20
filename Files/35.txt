@@ -3,4 +3,4 @@ You push the man through the doorway and run him through with your sword. Much t
 change stamina -2
 option Fire the silver arrow at him?@ goto 189
 option Reflect his stare in your mirror?@ if has mirror goto 305
-option Fire your Ring of Ice at him?@ if has ring_of_ice goto 382
+option Fire your ring of ice at him?@ if has ring_of_ice goto 382
