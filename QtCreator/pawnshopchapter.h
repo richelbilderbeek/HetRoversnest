@@ -4,6 +4,7 @@
 #include <iosfwd>
 #include <vector>
 
+#include "showtextmode.h"
 #include "item.h"
 
 struct Character;
@@ -15,7 +16,7 @@ struct PawnShopChapter
 
   void AddItem(const Item item, const int price);
 
-  void Do(Character& character, const bool auto_play) const;
+  void Do(Character& character, const ShowTextMode text_mode) const;
 
   const std::vector<std::pair<Item,int>>& GetItems() const noexcept { return m_items; }
 

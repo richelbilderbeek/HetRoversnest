@@ -52,7 +52,7 @@ void Character::AddItem(const Item item)
     #ifndef NDEBUG
     std::cerr << "WARNING: adding item " << item << " for the second time!" << std::endl;
     #endif
-    ShowInventory(false);
+    ShowInventory(ShowTextMode::debug);
     assert(!"Should not get here");
   }
   m_items.push_back(item);
@@ -97,7 +97,7 @@ void Character::ChangeGold(const int change)
   if (m_gold < 0)
   {
     #ifndef NDEBUG
-    std::cerr << "WARNING: Character's gold became negative, set to zero instead" << std::endl;
+    //std::cerr << "WARNING: Character's gold became negative, set to zero instead" << std::endl;
     #endif
     m_gold = 0;
     //assert(m_gold >= 0);
@@ -258,7 +258,7 @@ void Character::SetChapter(const int chapter)
       #ifndef NDEBUG
       std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
       #endif
-      ShowInventory(false);
+      ShowInventory(ShowTextMode::debug);
 
       std::ofstream f("Path.txt");
       const auto v = GetChapters();
@@ -272,7 +272,7 @@ void Character::SetChapter(const int chapter)
   m_chapters.push_back(chapter);
 }
 
-void Character::ShowInventory(const bool auto_play)
+void Character::ShowInventory(const ShowTextMode text_mode)
 {
   std::stringstream s;
   s
@@ -352,7 +352,7 @@ void Character::ShowInventory(const bool auto_play)
     s << " * " << monster_name << '\n';
   }
 
-  ShowText(s.str(),auto_play);
+  ShowText(s.str(),text_mode);
 }
 
 bool Character::TestDexterity() noexcept

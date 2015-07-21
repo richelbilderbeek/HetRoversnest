@@ -3,6 +3,7 @@
 
 #include <string>
 #include "consequence.h"
+#include "showtextmode.h"
 
 struct Character;
 
@@ -12,7 +13,7 @@ struct LuckChapter
   LuckChapter();
 
   ///Let the character undergo this chapter
-  void Do(Character& character, const bool auto_play) const;
+  void Do(Character& character, const ShowTextMode text_mode) const;
 
   const std::string& GetLuckText() const noexcept { return m_luck_text; }
   const std::string& GetNoLuckText() const noexcept { return m_no_luck_text; }

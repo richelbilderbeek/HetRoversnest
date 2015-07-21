@@ -14,12 +14,14 @@
 #include "skillchapter.h"
 #include "consequence.h"
 
+struct Ai;
+
 struct Chapter
 {
   Chapter(const int chapter_number);
 
   ///Let the player do this chapter
-  void Do(Character& character, const bool auto_play) const;
+  void Do(Character& character, const ShowTextMode text_mode = ShowTextMode::debug, Ai * const ai = nullptr) const;
 
   ///The text displayed at the end of the chapter
   const std::string& GetByeText() const noexcept { return m_bye_text; }

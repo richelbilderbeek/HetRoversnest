@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "ai.h"
 #include "character.h"
 #include "dice.h"
 #include "helper.h"
@@ -17,7 +18,7 @@
 Game::Game(
   const int rng_seed,
   const Character& character,
-  const bool auto_play
+  Ai * const ai
 )
   : m_character{character},
     m_has_lost{false},
@@ -41,20 +42,29 @@ Game::Game(
       m_has_won = true;
       break;
     }
-    std::cout
-      << '\n'
+
     #ifndef NDEBUG
-      << std::string(60,'-') << '\n'
-      << chapter_number << '\n'
-      << std::string(60,'-') << '\n'
+    const ShowTextMode text_mode{
+      ai ? ShowTextMode::silent : ShowTextMode::debug
+    };
+    #else
+    const ShowTextMode text_mode{ShowTextMode::normal};
     #endif
-    ;
+
+    if (text_mode == ShowTextMode::debug)
+    {
+      std::cout << '\n'
+        << std::string(60,'-') << '\n'
+        << chapter_number << '\n'
+        << std::string(60,'-') << '\n'
+      ;
+    }
     const Chapter chapter(chapter_number);
-    chapter.Do(m_character,auto_play);
+    chapter.Do(m_character,text_mode,ai);
     if (m_character.IsDead())
     {
       m_has_lost = true;
-      DoGameOver();
+      DoGameOver(text_mode);
       return;
     }
   }

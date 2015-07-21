@@ -15,13 +15,14 @@ LuckChapter::LuckChapter()
 
 }
 
-void LuckChapter::Do(Character& character, const bool auto_play) const
+void LuckChapter::Do(Character& character, const ShowTextMode text_mode) const
 {
   {
     std::stringstream s;
     s << "You test your luck..." << std::endl;
-    ShowText(s.str(),auto_play);
-    if (!auto_play) { Wait(1.0); }
+    ShowText(s.str(),text_mode);
+    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
   }
 
   if (character.TestLuck())
@@ -30,7 +31,7 @@ void LuckChapter::Do(Character& character, const bool auto_play) const
     s << "Luck!\n"
       << GetLuckText() << std::endl
     ;
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     character.SetChapter(GetLuckChapter());
   }
   else
@@ -39,7 +40,7 @@ void LuckChapter::Do(Character& character, const bool auto_play) const
     s << "No luck!\n"
       << GetNoLuckText() << std::endl
     ;
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     character.SetChapter(GetNoLuckChapter());
   }
 }

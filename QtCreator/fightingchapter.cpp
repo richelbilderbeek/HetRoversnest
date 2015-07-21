@@ -22,16 +22,16 @@ void FightingChapter::AddMonster(const Monster& monster)
   m_monsters.push_back(monster);
 }
 
-void FightingChapter::Do(Character& character, const bool auto_play) const
+void FightingChapter::Do(Character& character, const ShowTextMode text_mode) const
 {
 
   if (DoFightSequentially())
   {
-    DoFight(GetMonsters(),character,auto_play);
+    DoFight(GetMonsters(),character,text_mode);
   }
   else
   {
-    DoFightTwoMonsters(GetMonsters(),character,auto_play);
+    DoFightTwoMonsters(GetMonsters(),character,text_mode);
   }
   if (character.HasItem(Item::silver_scorpion_brooch))
   {
@@ -42,12 +42,12 @@ void FightingChapter::Do(Character& character, const bool auto_play) const
 void DoFight(
   std::vector<Monster> monsters,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 )
 {
   for (auto monster: monsters)
   {
-    DoFight(monster,character,auto_play);
+    DoFight(monster,character,text_mode);
     if (character.IsDead()) return;
   }
 }
@@ -55,7 +55,7 @@ void DoFight(
 void DoFightTwoMonsters(
   std::vector<Monster> monsters,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 )
 {
   //Fight both
@@ -90,7 +90,7 @@ void DoFightTwoMonsters(
         << "Fight round #" << round
         << '\n'
       ;
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
 
     {
@@ -102,9 +102,9 @@ void DoFightTwoMonsters(
         {
           std::stringstream s;
           s << "You hit the " << monsters[0].GetName() << ".\n";
-          ShowText(s.str(),auto_play);
+          ShowText(s.str(),text_mode);
         }
-        if (!auto_play)
+        if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
         {
           //std::cout << "Do you want to use luck?" << std::endl;
           //assert(!"TODO");
@@ -121,9 +121,9 @@ void DoFightTwoMonsters(
         {
           std::stringstream s;
           s << "You were hit by the " << monsters[0].GetName() << "\n.";
-          ShowText(s.str(),auto_play);
+          ShowText(s.str(),text_mode);
         }
-        if (!auto_play)
+        if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
         {
           //std::cout << "Do you want to use luck?" << std::endl;
           //assert(!"TODO");
@@ -138,7 +138,7 @@ void DoFightTwoMonsters(
       {
         std::stringstream s;
         s << "No damage was dealt.\n";
-        ShowText(s.str(),auto_play);
+        ShowText(s.str(),text_mode);
       }
     }
     //Second monster
@@ -149,7 +149,7 @@ void DoFightTwoMonsters(
       {
         std::stringstream s;
         s << "You resisted the " << monsters[1].GetName() << ".\n";
-        ShowText(s.str(),auto_play);
+        ShowText(s.str(),text_mode);
       }
       else if (player_attack < monster_attack)
       {
@@ -157,9 +157,9 @@ void DoFightTwoMonsters(
         {
           std::stringstream s;
           s<< "You were hit by the " << monsters[1].GetName() << "\n.";
-          ShowText(s.str(),auto_play);
+          ShowText(s.str(),text_mode);
         }
-        if (!auto_play)
+        if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
         {
           //std::cout << "Do you want to use luck?" << std::endl;
           //assert(!"TODO");
@@ -171,17 +171,18 @@ void DoFightTwoMonsters(
         }
       }
     }
-    if (!auto_play) { Wait(1.0); }
+    if (text_mode == ShowTextMode::debug) { Wait(0.1); }
+    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
   }
   {
     std::stringstream s;
     s << "You defeated the " << monsters[0].GetName() << "!\n";
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
   }
   //character.AddHasFought(monsters[0].GetName());
 
   //Fight the remaining monster normally
-  DoFight(monsters[1],character,auto_play);
+  DoFight(monsters[1],character,text_mode);
   if (character.IsDead()) return;
 }
 
@@ -189,7 +190,7 @@ void DoFightTwoMonsters(
 void DoFight(
   Monster monster,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 )
 {
   for (int round = 1; ; ++round)
@@ -215,7 +216,7 @@ void DoFight(
         << monster.GetStamina() << "/"
         << monster.GetInitialStamina() << '\n'
       ;
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
 
     const int monster_attack{monster.CalcAttackStrength()};
@@ -227,7 +228,7 @@ void DoFight(
         << "You attack with strength " << player_attack << '\n'
         << monster.GetName() << " attacks with strength " << monster_attack << '\n'
       ;
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
 
     if (player_attack > monster_attack)
@@ -235,10 +236,10 @@ void DoFight(
       {
         std::stringstream s;
         s << "You hit the " << monster.GetName() << "." << '\n';
-        ShowText(s.str(),auto_play);
+        ShowText(s.str(),text_mode);
       }
       const int damage = 2;
-      if (!auto_play)
+      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
       {
         //std::cout
         //  << "Do you want to use luck? [1] Yes [2] No\n"
@@ -257,10 +258,10 @@ void DoFight(
       {
         std::stringstream s;
         s << "You were hit by the " << monster.GetName() << "." << '\n';
-        ShowText(s.str(),auto_play);
+        ShowText(s.str(),text_mode);
       }
       const int damage{monster.GetAttackDamage()};
-      if (!auto_play)
+      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
       {
         //std::cout << "Do you want to use luck?" << std::endl;
         //assert(!"TODO");
@@ -275,9 +276,11 @@ void DoFight(
     {
       std::stringstream s;
       s << "No damage was dealt.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
-    if (!auto_play) { Wait(1.0); }
+
+    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
 
     if (character.IsDead()) break;
 
@@ -287,23 +290,26 @@ void DoFight(
       {
         std::stringstream s;
         s << "The monster uses its fiery breath....\n";
-        ShowText(s.str(),auto_play);
-        if (!auto_play) { Wait(1.0); }
+        ShowText(s.str(),text_mode);
+        if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+        if (text_mode == ShowTextMode::normal) { Wait(1.0); }
       }
       if (Dice::Get()->Throw() <= 3)
       {
         std::stringstream s;
         s << "The fire hits you!\n";
-        ShowText(s.str(),auto_play);
-        if (!auto_play) { Wait(1.0); }
+        ShowText(s.str(),text_mode);
+        if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+        if (text_mode == ShowTextMode::normal) { Wait(1.0); }
         character.ChangeStamina(-2);
       }
       else
       {
         std::stringstream s;
         s << "The fire missed you!\n";
-        ShowText(s.str(),auto_play);
-        if (!auto_play) { Wait(1.0); }
+        ShowText(s.str(),text_mode);
+        if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+        if (text_mode == ShowTextMode::normal) { Wait(1.0); }
       }
     }
   }
@@ -312,19 +318,21 @@ void DoFight(
   {
     std::stringstream s;
     s << "\nThe " << monster.GetName() << " defeated you.\n";
-    ShowText(s.str(),auto_play);
-    if (!auto_play) { Wait(1.0); }
+    ShowText(s.str(),text_mode);
+    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
   }
   else
   {
     std::stringstream s;
     s << "\nYou defeated the " << monster.GetName() << "!\n";
-    ShowText(s.str(),auto_play);
-    if (!auto_play) { Wait(1.0); }
+    ShowText(s.str(),text_mode);
+    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
   }
 }
 
-void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const bool auto_play)
+void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const ShowTextMode text_mode)
 {
   assert(1==2);
   //TODO: Should be called
@@ -391,7 +399,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
     if (player_attack > monster_attack)
     {
       std::cout << "You hit the monster." << std::endl;
-      if (!auto_play)
+      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
       {
         std::cout << "Do you want to use luck?" << std::endl;
         assert(!"TODO");
@@ -404,7 +412,7 @@ void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, c
     else if (player_attack < monster_attack)
     {
       std::cout << "You were hit by the monster." << std::endl;
-      if (!auto_play)
+      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
       {
         std::cout << "Do you want to use luck?" << std::endl;
         assert(!"TODO");

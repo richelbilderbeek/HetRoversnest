@@ -70,7 +70,9 @@ SOURCES += main.cpp \
     pawnshopchapter.cpp \
     game.cpp \
     specialchapter.cpp \
-    dice.cpp
+    dice.cpp \
+    ai.cpp \
+    showtextmode.cpp
 
 HEADERS += \
     helper.h \
@@ -90,4 +92,6 @@ HEADERS += \
     pawnshopchapter.h \
     game.h \
     specialchapter.h \
-    dice.h
+    dice.h \
+    ai.h \
+    showtextmode.h

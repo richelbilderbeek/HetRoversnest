@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "monster.h"
-
+#include "showtextmode.h"
 struct Character;
 
 ///A chapter in which a fight takes place
@@ -14,7 +14,7 @@ struct FightingChapter
 
   void AddMonster(const Monster& monster);
 
-  void Do(Character& character, const bool auto_play) const;
+  void Do(Character& character, const ShowTextMode text_mode) const;
 
   ///Battle the monsters one by one
   bool DoFightSequentially() const noexcept { return m_fight_sequentially; }
@@ -49,28 +49,28 @@ struct FightingChapter
 void DoFight(
   std::vector<Monster> monsters,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 );
 
 ///Fight multiple monsters at the same time
 void DoFightTwoMonsters(
   std::vector<Monster> monsters,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 );
 
 ///Fight single monster
 void DoFight(
   Monster monster,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 );
 
 void DoFightWithTime(
   std::stringstream& s,
   int& chapter,
   Character& character,
-  const bool auto_play
+  const ShowTextMode text_mode
 );
 
 #endif // FIGHTINGCHAPTER_H

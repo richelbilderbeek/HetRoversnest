@@ -1,9 +1,12 @@
 #include "helper.h"
 
+#include <memory>
 #include <cassert>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+
+#include "ai.h"
 #include "chapter.h"
 #include "dice.h"
 #include "game.h"
@@ -39,6 +42,7 @@ void Test()
     assert(result == expected);
   }
   //New fighting engine
+  std::unique_ptr<Ai> ai(new Ai);
   //Sequential fight
   {
     const Chapter chapter(5);
@@ -49,7 +53,7 @@ void Test()
     const std::string monster_name{chapter.GetFighting().GetMonsters()[0].GetName()};
     Character character(100,100,100,Item::luck_potion);
     assert(!character.HasFought(monster_name));
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.HasFought(monster_name));
   }
   //Chapter 326: Simulateous fight
@@ -58,7 +62,7 @@ void Test()
     assert(!chapter.GetFighting().DoFightSequentially());
     assert(chapter.GetFighting().GetMonsters().size() == 2);
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
   }
   //Chapter 323: blacksmith must attack with attack strength 3
   {
@@ -106,7 +110,7 @@ void Test()
     assert(chapter.GetNextChapter() == 296);
     assert(!chapter.GetByeText().empty());
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
   }
   //Chapter 223: pill game
   {
@@ -116,7 +120,7 @@ void Test()
     assert(chapter.GetConsequence().GetChangeGold() == 20);
     assert(!chapter.GetByeText().empty());
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
   }
   //Chapter 378: ball game
   {
@@ -125,7 +129,7 @@ void Test()
     assert(chapter.GetNextChapter() == 52);
     assert(!chapter.GetByeText().empty());
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
   }
   //Chapter 1: options
   {
@@ -133,7 +137,7 @@ void Test()
     assert(chapter.GetType() == ChapterType::normal);
     assert(chapter.GetOptions().GetOptions().size() == 3);
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
   }
   //Chapter 3: option depending on gold
   {
@@ -156,7 +160,7 @@ void Test()
     character.ChangeLuck(-character.GetLuck()); //Make player unlucky
     assert(character.GetLuck() == 0);
     assert(!character.HasItem(Item::black_pearls));
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.GetLuck() > 0);
     assert(character.HasItem(Item::black_pearls));
   }
@@ -190,7 +194,7 @@ void Test()
     Character character(10,10,10,Item::luck_potion);
     assert(character.HasItem(Item::shield));
     const int dex_before{character.GetDexterity()};
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(!character.HasItem(Item::shield));
     const int dex_after{character.GetDexterity()};
     assert(dex_after < dex_before); //Due to losing shield
@@ -203,7 +207,7 @@ void Test()
     character.AddItem(Item::chainmail_coat);
     const int dex_before{character.GetDexterity()};
     assert(character.HasItem(Item::shield));
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(!character.HasItem(Item::shield));
     const int dex_after{character.GetDexterity()};
     assert(dex_after == dex_before - 1); //Due to losing shield
@@ -215,7 +219,7 @@ void Test()
     Character character(10,10,10,Item::luck_potion);
     const int dex_before{character.GetDexterity()};
     const int sta_before{character.GetStamina()};
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     const int dex_after{character.GetDexterity()};
     const int sta_after{character.GetStamina()};
     assert(dex_after == dex_before - 1);
@@ -233,7 +237,7 @@ void Test()
   {
     const Chapter chapter(15);
     Character character(10,10,10,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.GetCurrentChapter() > -1);
   }
   //Chapter 18: Skill chapter must be parsed correctly
@@ -248,7 +252,7 @@ void Test()
   {
     const Chapter chapter(18);
     Character character(10,10,10,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.GetCurrentChapter() > -1);
   }
   //Chapter 42: Must loose all provisions
@@ -256,7 +260,7 @@ void Test()
     const Chapter chapter(42);
     Character character(10,10,10,Item::luck_potion);
     assert(character.GetProvisions() > 0);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.GetProvisions() == 0);
   }
   //Chapter 148: Lose one random items or one gold
@@ -265,7 +269,7 @@ void Test()
     Character character(10,10,10,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
     const int gold_before{character.GetGold()};
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     const int n_items_after{static_cast<int>(character.GetItems().size())};
     const int gold_after{character.GetGold()};
     assert(n_items_after == n_items_before - 1 || gold_after == gold_before - 1);
@@ -275,7 +279,7 @@ void Test()
     const Chapter chapter(63);
     Character character(10,10,10,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     const int n_items_after{static_cast<int>(character.GetItems().size())};
     assert(n_items_after == n_items_before - 2);
   }
@@ -285,7 +289,7 @@ void Test()
     const Chapter chapter(134);
     Character character(10,10,10,Item::luck_potion);
     assert(character.GetGold() > 0);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.GetGold() == 0);
   }
 
@@ -334,7 +338,7 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character).size() == 1);
     character.AddItem(Item::silver_arrow);
     assert(chapter.GetOptions().GetValidOptions(character).size() == 2);
-    chapter.Do(character,true); //Change 1 in 2
+    chapter.Do(character,ShowTextMode::silent,ai.get()); //Change 1 in 2
   }
   //Chapter 80: any_scorpion_brooch
   {
@@ -365,7 +369,7 @@ void Test()
     assert(!chapter.GetByeText().empty());
     Character character(100,100,100,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
-    chapter.Do(character,true); //Buy everything
+    chapter.Do(character,ShowTextMode::silent,ai.get()); //Buy everything
     const int n_items_after{static_cast<int>(character.GetItems().size())};
     assert(n_items_after == n_items_before + static_cast<int>(chapter.GetShop().GetItems().size()));
   }
@@ -378,7 +382,7 @@ void Test()
     Character character(100,100,100,Item::luck_potion);
     const int n_items_before{static_cast<int>(character.GetItems().size())};
     character.AddItem(Item::knucklebones); //Add one item, which must be pawned
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     const int n_items_after_again{static_cast<int>(character.GetItems().size())};
     assert(n_items_after_again == n_items_before); //Sold everything
   }
@@ -388,7 +392,7 @@ void Test()
     const Chapter chapter(431);
     assert(chapter.GetType() == ChapterType::fight);
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
   }
 
 
@@ -405,7 +409,7 @@ void Test()
     assert(chapter.GetType() == ChapterType::test_your_skill);
     assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 38);
     Character character(100,100,100,Item::luck_potion);
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     assert(character.GetCurrentChapter() == 38);
   }
   //Chapter 190: test-your-skill for unskilled character
@@ -415,7 +419,7 @@ void Test()
     assert(chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() == 296);
     Character character(1,1,1,Item::luck_potion);
     const int gold_before{character.GetGold()};
-    chapter.Do(character,true);
+    chapter.Do(character,ShowTextMode::silent,ai.get());
     const int gold_after{character.GetGold()};
     assert(gold_after < gold_before);
     assert(character.GetCurrentChapter() == 296);
@@ -431,9 +435,9 @@ void Test()
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 207);
 
     const Chapter fight_chapter(207);
-    fight_chapter.Do(character,true);
+    fight_chapter.Do(character,ShowTextMode::silent,ai.get());
 
-    character.ShowInventory(true);
+    character.ShowInventory(ShowTextMode::silent);
     assert(character.HasFought("second_death_hawk"));
     assert(character.HasFought("first_death_hawk"));
 
@@ -493,7 +497,7 @@ void Test()
       }
       std::cout << "CHAPTER " << i << std::endl;
       Chapter chapter(i);
-      chapter.Do(character,true);
+      chapter.Do(character,ShowTextMode::silent,ai.get());
       //DoChapter(chapter,character,language,true);
     }
     catch (std::runtime_error& e)
@@ -513,7 +517,7 @@ void Test()
       Item::luck_potion
     );
 
-    const Game game1(seed,character1,true);
+    const Game game1(seed,character1,ai.get());
 
     Dice::Get()->SetSeed(seed);
 
@@ -524,89 +528,9 @@ void Test()
       Item::luck_potion
     );
 
-    const Game game2(seed,character2,true);
+    const Game game2(seed,character2,ai.get());
     assert(character1.GetChapters() == character2.GetChapters());
   }
 
-  //Create graph
-  if (1==1)
-  {
-    std::clog << "Creating dot file..." << std::endl;
-    std::ofstream f("Graph.dot");
-    f << "digraph CityOfThieves {\n";
-    for (int i=1; i!=450; ++i)
-    {
-      try
-      {
-        const Chapter chapter(i);
-        //Label node according to chapter type
-        std::string node_color = "black";
-        switch (chapter.GetType())
-        {
-          case ChapterType::fight: node_color = "red"; break;
-          case ChapterType::test_your_luck: node_color = "blue"; break;
-          case ChapterType::test_your_skill: node_color = "green"; break;
-          default: break; //OK
-        }
-        f << i
-          << "[label =\""
-          << std::to_string(chapter.GetChapterNumber())
-          << "\",color=\"" << node_color << "\""
-          << "];\n"
-        ;
-
-        if (chapter.GetNextChapter() != -1)
-        {
-          f << i << "->" << chapter.GetNextChapter() << ";\n";
-        }
-        else if (!chapter.GetFighting().GetMonsters().empty())
-        {
-
-          if (chapter.GetFighting().GetEscapeToChapter() != -1)
-          {
-            f << i << "->" << chapter.GetFighting().GetEscapeToChapter() << " [ label = \"Escape\"];\n";
-          }
-        }
-        else if (!chapter.GetLuck().GetLuckText().empty())
-        {
-          f << i << "->" << chapter.GetLuck().GetLuckChapter() << " [ label = \"Luck\"];\n";
-          f << i << "->" << chapter.GetLuck().GetNoLuckChapter() << " [ label = \"No luck\"];\n";
-        }
-        else if (!chapter.GetOptions().GetOptions().empty())
-        {
-          for (const auto option: chapter.GetOptions().GetOptions())
-          {
-            f << i << "->" << option.GetNextChapter() << " [ label = \"Choice\"];\n";
-          }
-        }
-        else if (!chapter.GetSkill().GetSkillText().empty())
-        {
-          f << i << "->" << chapter.GetSkill().GetSkillConsequence().GetNextChapter() << " [ label = \"Skill\"];\n";
-          f << i << "->" << chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() << " [ label = \"No skill\"];\n";
-        }
-        else if (chapter.GetType() == ChapterType::game_lost)
-        {
-          f << i << "-> GameOver;\n";
-        }
-        else if (chapter.GetType() == ChapterType::game_won)
-        {
-          f << i << "-> GameWon;\n";
-        }
-      }
-      catch (std::logic_error& e)
-      {
-        //f << i << ": FAIL" << std::endl;
-      }
-      catch (std::runtime_error& e)
-      {
-        //f << i << ": not present" << std::endl;
-      }
-    }
-    f << "}\n";
-    f.close();
-    std::clog << "Creating graph..." << std::endl;
-    std::system("dot -Tpng Graph.dot > Graph.png");
-    std::clog << "Graph created" << std::endl;
-  }
 }
 #endif

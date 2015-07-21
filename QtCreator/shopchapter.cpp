@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <sstream>
 
 #include "character.h"
 #include "helper.h"
@@ -16,8 +17,10 @@ void ShopChapter::AddItem(const Item item, const int price)
   m_items.push_back(std::make_pair(item,price));
 }
 
-void ShopChapter::Do(Character& character, const bool auto_play) const
+void ShopChapter::Do(Character& character, const ShowTextMode text_mode) const
 {
+  assert(text_mode == ShowTextMode::silent);
+
   //Must be a copy, as the copy can get cleared
   std::vector<std::pair<Item,int>> items = this->GetItems();
 
@@ -25,32 +28,43 @@ void ShopChapter::Do(Character& character, const bool auto_play) const
   {
     if (items.empty())
     {
-      std::cout << "There are no more items to buy.\n";
+      std::stringstream s;
+      s << "There are no more items to buy.\n";
+      ShowText(s.str(),text_mode);
       break;
     }
-    std::cout << "[0] Leave shop\n";
+    {
+      std::stringstream s;
+      s << "[0] Leave shop\n";
+      ShowText(s.str(),text_mode);
+    }
     const int n_items{static_cast<int>(items.size())};
     bool can_buy{false};
     for (int i=0; i!=n_items; ++i)
     {
-      std::cout << '[' << (i+1) << "] Buy "
+      std::stringstream s;
+      s << '[' << (i+1) << "] Buy "
         << ToStr(items[i].first) << " for "
         << items[i].second << " gold pieces\n"
       ;
+      ShowText(s.str(),text_mode);
       if (items[i].second <= character.GetGold()) { can_buy = true; }
     }
     if (!can_buy)
     {
-      std::cout << "You do not have enough money to buy anything.\n";
+      std::stringstream s;
+      s << "You do not have enough money to buy anything.\n";
+      ShowText(s.str(),text_mode);
       break;
     }
-    if (auto_play)
+
+    if (text_mode == ShowTextMode::auto_play || text_mode == ShowTextMode::silent)
     {
       for (int i=0; i < static_cast<int>(items.size()); ++i)
       {
         if (items[i].second <= character.GetGold())
         {
-          std::cout << "You bough " << ToStr(items[i].first) << std::endl;
+          ShowText("You bough " + ToStr(items[i].first),text_mode);
           character.AddItem(items[i].first);
           character.ChangeGold(-items[i].second);
           std::swap(items[i],items.back());
@@ -60,7 +74,6 @@ void ShopChapter::Do(Character& character, const bool auto_play) const
       }
       break;
     }
-    assert(!auto_play);
 
     //Shop
     std::string s;

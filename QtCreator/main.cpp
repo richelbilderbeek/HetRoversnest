@@ -1,7 +1,8 @@
 #include <ctime>
 #include <fstream>
 #include <iterator>
-
+#include <memory>
+#include "ai.h"
 #include "dice.h"
 #include "helper.h"
 #include "game.h"
@@ -13,6 +14,7 @@ int main()
   #endif
 
   #ifndef NDEBUG
+  std::unique_ptr<Ai> ai(new Ai);
   std::random_device rd_test;
   for (int rng_seed = static_cast<int>(rd_test()); ; ++rng_seed)
   {
@@ -25,7 +27,7 @@ int main()
       Item::luck_potion
     );
 
-    const Game game(rng_seed,character,true);
+    const Game game(rng_seed,character,ai.get());
 
     if (game.HasWon())
     {
@@ -36,11 +38,20 @@ int main()
       return 0;
     }
   }
-  #endif
 
   //Play the game
   std::random_device rd;
   const int seed{static_cast<int>(rd())};
   Character character(12,12,12,Item::luck_potion);
-  Game(seed,character,false);
+  Game(seed,character,ai.get());
+
+  #else
+  //Release
+  //Play the game
+  std::random_device rd;
+  const int seed{static_cast<int>(rd())};
+  Character character(12,12,12,Item::luck_potion);
+  Game(seed,character);
+  #endif
+
 }

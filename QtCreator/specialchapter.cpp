@@ -8,7 +8,7 @@
 #include "dice.h"
 #include "helper.h"
 
-void DoPlayBall(Character& character, const bool auto_play)
+void DoPlayBall(Character& character, const ShowTextMode text_mode)
 {
   /*
 Roll one die alternately for yourself and for the
@@ -22,9 +22,10 @@ Gold Pieces.
   {
     std::stringstream s;
     s << "The bare-chested man throws the ball to you.\n";
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
   }
-  if (!auto_play) { Wait(0.5); }
+  if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+  if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
 
   while (1)
   {
@@ -35,7 +36,7 @@ Gold Pieces.
     {
       std::stringstream s;
       s << "You drop the ball and pay the bare-chested man 5 gold pieces.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
       if (character.GetGold() >= 5)
       {
         character.ChangeGold(-5);
@@ -50,29 +51,33 @@ Gold Pieces.
     {
       std::stringstream s;
       s << "You catch the ball and throw it to the bare-chested man.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
-    if (!auto_play) { Wait(0.5); }
+
+    if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+    if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
+
     const int dice_man{Dice::Get()->Throw()};
     assert(dice_man >= 1 && dice_man <= 6);
     if (dice_man == 1)
     {
       std::stringstream s;
       s << "The bare-chested man drops the ball and gives you 5 gold pieces.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
       character.ChangeGold(5);
       return;
     }
     {
       std::stringstream s;
       s << "The bare-chested man catched the ball and throws it back to you.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
-    if (!auto_play) { Wait(0.5); }
+    if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+    if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
   }
 }
 
-void DoPlayDice(Character& character, const bool auto_play)
+void DoPlayDice(Character& character, const ShowTextMode text_mode)
 {
   /*
 
@@ -93,7 +98,7 @@ wish to
   {
     std::stringstream s;
     s << "You cannot afford to play this game.";
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     return;
   }
 
@@ -106,10 +111,10 @@ wish to
         << "[1] Yes\n"
         << "[2] No\n"
       ;
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
     std::string s;
-    if (!auto_play)
+    if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
     {
       std::getline(std::cin,s);
     }
@@ -129,7 +134,7 @@ wish to
       s
         << "Please enter either '1' or '2'.\n"
       ;
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
   }
 
@@ -141,7 +146,7 @@ wish to
     {
       std::stringstream s;
       s << "Round #" << (round + 1) << "/" << n_rounds << '\n';
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
     //You
     const int dice_you{Dice::Get()->Throw()};
@@ -151,56 +156,63 @@ wish to
     {
       std::stringstream s;
       s << "You throw: " << dice_you << '\n';
-      ShowText(s.str(),auto_play);
-      if (!auto_play) { Wait(0.5); }
+      ShowText(s.str(),text_mode);
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
     {
       std::stringstream s;
       s << "Dwarf 1 throws: " << dice_1 << '\n';
-      ShowText(s.str(),auto_play);
-      if (!auto_play) { Wait(0.5); }
+      ShowText(s.str(),text_mode);
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
     {
       std::stringstream s;
       s << "Dwarf 2 throws: " << dice_2 << '\n';
-      ShowText(s.str(),auto_play);
-      if (!auto_play) { Wait(0.5); }
+      ShowText(s.str(),text_mode);
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
     {
       std::stringstream s;
       s << "Dwarf 3 throws: " << dice_3 << '\n';
-      ShowText(s.str(),auto_play);
-      if (!auto_play) { Wait(0.5); }
+      ShowText(s.str(),text_mode);
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
     if (dice_you > dice_1 && dice_you > dice_2 && dice_you > dice_3)
     {
       std::stringstream s;
       s << "You won! You collect your 6 gold pieces from the three dwarves.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
       character.ChangeGold(6);
-      if (!auto_play) { Wait(0.5); }
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
     else if (dice_you < dice_1 || dice_you < dice_2 || dice_you < dice_3)
     {
       std::stringstream s;
       s << "You Lost! You lose 2 gold pieces to the three dwarves.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
       character.ChangeGold(-2);
-      if (!auto_play) { Wait(0.5); }
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
     else
     {
       std::stringstream s;
       s << "A draw. You keep your gold\n";
-      ShowText(s.str(),auto_play);
-      if (!auto_play) { Wait(0.5); }
+      ShowText(s.str(),text_mode);
+      if (text_mode == ShowTextMode::normal) { Wait(0.50); }
+      if (text_mode == ShowTextMode::debug ) { Wait(0.05); }
     }
 
     if (character.GetGold() < 2)
     {
       std::stringstream s;
       s << "You cannot afford to play another round.";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
       break;
     }
 
@@ -216,10 +228,10 @@ wish to
           << "[1] Yes\n"
           << "[2] No\n"
         ;
-        ShowText(s.str(),auto_play);
+        ShowText(s.str(),text_mode);
       }
       std::string s;
-      if (!auto_play)
+      if (text_mode == ShowTextMode::normal || text_mode == ShowTextMode::debug)
       {
         std::getline(std::cin,s);
       }
@@ -239,28 +251,29 @@ wish to
         s
           << "Please enter either '1' or '2'.\n"
         ;
-        ShowText(s.str(),auto_play);
+        ShowText(s.str(),text_mode);
       }
     }
   }
 }
 
-void DoPlayPill(Character& character, const bool auto_play)
+void DoPlayPill(Character& character, const ShowTextMode text_mode)
 {
   const int dice{1 + ((std::rand() >> 4) % 6)};
   if (dice == 1)
   {
     std::stringstream s;
     s << "You die quickly from the poisoned pill and your adventure ends here.\n";
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     character.SetIsDead();
   }
 }
 
 
-void DoGameOver()
+void DoGameOver(const ShowTextMode text_mode)
 {
-  std::cout
+  std::stringstream s;
+  s
     << '\n'
     << "*************\n"
     << "*           *\n"
@@ -268,11 +281,13 @@ void DoGameOver()
     << "*           *\n"
     << "*************\n"
   ;
+  ShowText(s.str(),text_mode);
 }
 
-void DoGameWon()
+void DoGameWon(const ShowTextMode text_mode)
 {
-  std::cout
+  std::stringstream s;
+  s
     << '\n'
     << "*************\n"
     << "*           *\n"
@@ -280,4 +295,5 @@ void DoGameWon()
     << "*           *\n"
     << "*************\n"
   ;
+  ShowText(s.str(),text_mode);
 }

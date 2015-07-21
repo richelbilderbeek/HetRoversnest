@@ -3,12 +3,14 @@
 
 #include "character.h"
 
+struct Ai;
+
 struct Game
 {
   Game(
     const int rng_seed,
     const Character& character,
-    const bool auto_play
+    Ai * const ai = nullptr
   );
 
   const Character& GetCharacter() const noexcept { return m_character; }

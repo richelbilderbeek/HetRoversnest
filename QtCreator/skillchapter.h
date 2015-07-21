@@ -4,6 +4,7 @@
 #include <string>
 
 #include "consequence.h"
+#include "showtextmode.h"
 
 struct Character;
 
@@ -13,7 +14,7 @@ struct SkillChapter
   SkillChapter();
 
   ///Let the character undergo this chapter
-  void Do(Character& character, const bool auto_play) const;
+  void Do(Character& character, const ShowTextMode text_mode) const;
 
   const std::string& GetSkillText() const noexcept { return m_skill_text; }
   const std::string& GetNoSkillText() const noexcept { return m_no_skill_text; }

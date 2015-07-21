@@ -7,6 +7,120 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/timer.hpp>
 
+#include "ai.h"
+#include "chapter.h"
+#include "chaptertype.h"
+
+void CreateGraph(const Ai * const ai)
+{
+  std::clog << "Creating dot file..." << std::endl;
+  const std::string filename{ai ? "Payoffs.dot" : "Graph.dot"};
+  std::ofstream f(filename);
+
+  f << "digraph CityOfThieves {\n";
+  for (int i=1; i!=450; ++i)
+  {
+    try
+    {
+      const Chapter chapter(i);
+      //Label node according to chapter type
+      std::string node_color = "black";
+      switch (chapter.GetType())
+      {
+        case ChapterType::fight: node_color = "red"; break;
+        case ChapterType::test_your_luck: node_color = "blue"; break;
+        case ChapterType::test_your_skill: node_color = "green"; break;
+        default: break; //OK
+      }
+      f << i
+        << "["
+        << "label =\"" << std::to_string(chapter.GetChapterNumber()) << "\""
+        << ",color=\"" << node_color << "\""
+      ;
+      if (ai)
+      {
+        std::string fill_color{"#ffffff"};
+        const double payoff{ai->GetPayoff(i)};
+        if      (payoff < 0.00000001 ) { fill_color = "#ffffff"; }
+        else if (payoff < 0.0000001) { fill_color = "#444444"; }
+        else if (payoff < 0.000001) { fill_color = "#555555"; }
+        else if (payoff < 0.00001) { fill_color = "#666666"; }
+        else if (payoff < 0.0001) { fill_color = "#777777"; }
+        else if (payoff < 0.001) { fill_color = "#888888"; }
+        else if (payoff < 0.01) { fill_color = "#997777"; }
+        else if (payoff < 0.1) { fill_color = "#aaaa88"; }
+        else if (payoff <  1) { fill_color = "#99bb99"; }
+        else if (payoff <  2) { fill_color = "#aacccc"; }
+        else if (payoff <  4) { fill_color = "#bbbbdd"; }
+        else if (payoff <  8) { fill_color = "#eeccee"; }
+        else if (payoff < 16) { fill_color = "#ffffff"; }
+        f << ",style=filled,fillcolor=\"" << fill_color << "\"";
+      }
+      f
+        << "];\n"
+      ;
+
+      if (chapter.GetNextChapter() != -1)
+      {
+        f << i << "->" << chapter.GetNextChapter() << ";\n";
+      }
+      else if (!chapter.GetFighting().GetMonsters().empty())
+      {
+
+        if (chapter.GetFighting().GetEscapeToChapter() != -1)
+        {
+          f << i << "->" << chapter.GetFighting().GetEscapeToChapter() << " [ label = \"Escape\"];\n";
+        }
+      }
+      else if (!chapter.GetLuck().GetLuckText().empty())
+      {
+        f << i << "->" << chapter.GetLuck().GetLuckChapter() << " [ label = \"Luck\"];\n";
+        f << i << "->" << chapter.GetLuck().GetNoLuckChapter() << " [ label = \"No luck\"];\n";
+      }
+      else if (!chapter.GetOptions().GetOptions().empty())
+      {
+        for (const auto option: chapter.GetOptions().GetOptions())
+        {
+          f << i << "->" << option.GetNextChapter() << " [ label = \"Choice\"];\n";
+        }
+      }
+      else if (!chapter.GetSkill().GetSkillText().empty())
+      {
+        f << i << "->" << chapter.GetSkill().GetSkillConsequence().GetNextChapter() << " [ label = \"Skill\"];\n";
+        f << i << "->" << chapter.GetSkill().GetNoSkillConsequence().GetNextChapter() << " [ label = \"No skill\"];\n";
+      }
+      else if (chapter.GetType() == ChapterType::game_lost)
+      {
+        f << i << "-> GameOver;\n";
+      }
+      else if (chapter.GetType() == ChapterType::game_won)
+      {
+        f << i << "-> GameWon;\n";
+      }
+    }
+    catch (std::logic_error& e)
+    {
+      //f << i << ": FAIL" << std::endl;
+    }
+    catch (std::runtime_error& e)
+    {
+      //f << i << ": not present" << std::endl;
+    }
+  }
+  f << "}\n";
+  f.close();
+  std::clog << "Creating graph..." << std::endl;
+  if (!ai)
+  {
+    std::system("dot -Tpng Graph.dot > Graph.png");
+  }
+  else
+  {
+    std::system("dot -Tpng Payoffs.dot > Payoffs.png");
+  }
+  std::clog << "Graph created" << std::endl;
+}
+
 std::vector<std::string> FileToVector(const std::string& filename)
 {
   assert(IsRegularFile(filename));
@@ -108,8 +222,9 @@ std::string ReadText(std::stringstream& s)
   return text;
 }
 
-void ShowText(const std::string& text, const bool auto_play)
+void ShowText(const std::string& text, const ShowTextMode mode)
 {
+  if (mode == ShowTextMode::silent) return;
   int pos = 0;
   for (const char c: text)
   {
@@ -118,21 +233,19 @@ void ShowText(const std::string& text, const bool auto_play)
     if (c == ' ' && pos > 60) { pos = 0; std::cout << '\n'; continue; }
     std::cout << c;
     ++pos;
-    if (!auto_play)
+    switch (mode)
     {
-      std::cout.flush();
-      #ifndef NDEBUG
-      Wait(0.001);
-      #else
-      Wait(0.01);
-      #endif
+      case ShowTextMode::silent: assert(!"Should not get here");
+      case ShowTextMode::auto_play: break;
+      case ShowTextMode::debug: std::cout.flush(); break;
+      case ShowTextMode::normal: std::cout.flush(); Wait(0.01); break;
     }
   }
 }
 
-void SpeakText(const std::string& text, const bool auto_play)
+void SpeakText(const std::string& text, const ShowTextMode text_mode)
 {
-  if (auto_play) return;
+  if (text_mode == ShowTextMode::silent) return;
   std::ofstream f("espeak.txt");
   f << text;
   f.close();

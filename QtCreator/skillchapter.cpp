@@ -15,13 +15,14 @@ SkillChapter::SkillChapter()
 
 }
 
-void SkillChapter::Do(Character& character, const bool auto_play) const
+void SkillChapter::Do(Character& character, const ShowTextMode text_mode) const
 {
   {
     std::stringstream s;
     s << "You test your skill..." << std::endl;
-    ShowText(s.str(),auto_play);
-    if (!auto_play) { Wait(1.0); }
+    ShowText(s.str(),text_mode);
+    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
+    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
   }
 
   if (character.TestDexterity())
@@ -30,7 +31,7 @@ void SkillChapter::Do(Character& character, const bool auto_play) const
     s << "Skill!\n"
       << GetSkillText() << std::endl
     ;
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     GetSkillConsequence().Apply(character);
   }
   else
@@ -39,7 +40,7 @@ void SkillChapter::Do(Character& character, const bool auto_play) const
     s << "No skill!\n"
       << GetNoSkillText() << std::endl
     ;
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     GetNoSkillConsequence().Apply(character);
   }
 }

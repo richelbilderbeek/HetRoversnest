@@ -17,7 +17,7 @@ void PawnShopChapter::AddItem(const Item item, const int price)
   m_items.push_back(std::make_pair(item,price));
 }
 
-void PawnShopChapter::Do(Character& character, const bool auto_play) const
+void PawnShopChapter::Do(Character& character, const ShowTextMode text_mode) const
 {
   //Must be a copy, as the copy can get cleared
   std::vector<std::pair<Item,int>> items = this->GetItems();
@@ -38,16 +38,16 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
         ;
         if (character.HasItem(items[i].first)) { can_sell = true; }
       }
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
     }
     if (!can_sell)
     {
       std::stringstream s;
       s << "You do not have any items to sell.\n";
-      ShowText(s.str(),auto_play);
+      ShowText(s.str(),text_mode);
       break;
     }
-    if (auto_play)
+    if (text_mode != ShowTextMode::debug && text_mode != ShowTextMode::normal)
     {
       for (int i=0; i < static_cast<int>(items.size()); ++i)
       {
@@ -55,7 +55,7 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
         {
           std::stringstream s;
           s << "You sold " << ToStr(items[i].first) << '\n';
-          ShowText(s.str(),auto_play);
+          ShowText(s.str(),text_mode);
           character.RemoveItem(items[i].first);
           character.ChangeGold(items[i].second);
           std::swap(items[i],items.back());
@@ -65,7 +65,6 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
       }
       break;
     }
-    assert(!auto_play);
 
     //Pawn shop
     int command = -1;
@@ -97,7 +96,7 @@ void PawnShopChapter::Do(Character& character, const bool auto_play) const
     }
     std::stringstream s;
     s << "You sold " << ToStr(items[i].first) << '\n';
-    ShowText(s.str(),auto_play);
+    ShowText(s.str(),text_mode);
     character.RemoveItem(items[i].first);
     character.ChangeGold(items[i].second);
     std::swap(items[i],items.back());

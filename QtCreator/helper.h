@@ -5,6 +5,12 @@
 #include <string>
 #include <vector>
 
+#include "showtextmode.h"
+
+struct Ai;
+
+void CreateGraph(const Ai * const ai);
+
 ///FileToVector reads a file and converts it to a std::vector<std::string>
 ///From http://www.richelbilderbeek.nl/CppFileToVector.htm
 std::vector<std::string> FileToVector(const std::string& filename);
@@ -27,10 +33,9 @@ std::string ReadText(std::stringstream& s);
 ///Strip only the first character of the first line
 std::vector<std::string> StripFirstChar(std::vector<std::string> v);
 
-///Shows the text slowly
-void ShowText(const std::string& text, const bool auto_play);
+void ShowText(const std::string& text, const ShowTextMode auto_play);
 
-void SpeakText(const std::string& text, const bool auto_play);
+void SpeakText(const std::string& text, const ShowTextMode text_mode);
 
 #ifndef NDEBUG
 void Test();
