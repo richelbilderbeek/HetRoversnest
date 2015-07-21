@@ -51,3 +51,12 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md).
 ## Hoe gebruik ik git en GitHub?
 
 Zie [Hoe gebruik ik git en GitHub?](HoeGebruikIkGitEnGitHub.md)
+
+
+## Zijn er ook kaarten van het spel?
+
+Hier:
+
+ * [Mooie kaart van Graham Parker](KaartZwartzand.pdf)
+ * [Simpele kaart van Nick Folley](Kaart.jpg)
+
