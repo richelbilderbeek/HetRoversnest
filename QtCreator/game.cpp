@@ -48,7 +48,7 @@ Game::Game(
       ai ? ShowTextMode::silent : ShowTextMode::debug
     };
     #else
-    const ShowTextMode text_mode{ShowTextMode::normal};
+    const ShowTextMode text_mode{ai ? ShowTextMode::silent : ShowTextMode::normal};
     #endif
 
     if (text_mode == ShowTextMode::debug)

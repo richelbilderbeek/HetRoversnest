@@ -15,6 +15,9 @@ void CreateGraph(const Ai * const ai);
 ///From http://www.richelbilderbeek.nl/CppFileToVector.htm
 std::vector<std::string> FileToVector(const std::string& filename);
 
+///Is x between a and b?
+bool IsBetween(const double x, const double a, const double b);
+
 bool IsInt(const std::string& s) noexcept;
 
 ///Determines if a filename is a regular file

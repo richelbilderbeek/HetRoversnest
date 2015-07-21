@@ -26,6 +26,8 @@ struct Ai
 
   int Select(const std::vector<Option>& options);
 
+  void SolveGame();
+
   private:
   //Chapter of current sequence
   std::vector<int> m_chapters;

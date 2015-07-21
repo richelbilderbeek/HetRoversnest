@@ -90,43 +90,53 @@ void Ai::SetFinalPayoff(const double final_payoff)
   double weight{1.0};
   for (int i=0; ; ++i)
   {
+    weight *= 0.5;
+
     if (m_chapters.empty()) break;
     const int chapter{m_chapters.back()};
     const double current_chapter_payoff{GetPayoff(chapter)};
-    const double new_chapter_payoff{current_chapter_payoff + (weight * final_payoff)};
+    const double new_chapter_payoff{
+      current_chapter_payoff + (weight * (final_payoff - current_chapter_payoff))
+    };
+    if (!IsBetween(new_chapter_payoff,current_chapter_payoff,final_payoff))
+    {
+      std::cerr
+        << "Now: " << current_chapter_payoff << '\n'
+        << "Final: " << final_payoff << '\n'
+        << "Weight: " << weight<< '\n'
+        << "New: " << new_chapter_payoff << '\n'
+      ;
+    }
+    assert(IsBetween(new_chapter_payoff,current_chapter_payoff,final_payoff));
     SetPayoff(chapter,new_chapter_payoff);
     m_chapters.pop_back();
-    weight *= 0.99;
   }
   m_chapters.clear();
 }
 
 void Ai::SetPayoff(const int chapter, const double payoff)
 {
+  assert(payoff >= 0.0);
   assert(chapter >= 0);
   assert(chapter < static_cast<int>(m_payoffs.size()));
   m_payoffs[chapter] = payoff;
 }
 
-#ifndef NDEBUG
-void Ai::Test() noexcept
+void Ai::SolveGame()
 {
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
+  std::cout << "SOLVING THE GAME" << std::endl;;
+
   Ai * const ai = new Ai;
-  const int rng_seed{43};
+  const int rng_seed{44};
   Dice::Get()->SetSeed(rng_seed);
 
   for (int i=1; ; ++i)
   {
     //if i equals 1,10,100,1000,etc...
-    if (i % 100000 == 0)
+    if (i % 10000 == 0)
     //if (static_cast<int>(std::log10(i)) != static_cast<int>(std::log10(i-1)))
     {
-      std::cout << "i: " << i << '\n';
+      std::cout << "i: " << i << std::endl;
       CreateGraph(ai);
       std::cout << "DONE\n";
     }
@@ -153,6 +163,16 @@ void Ai::Test() noexcept
   std::cout << "FINISHED THE GAME, CREATING GRAPH" << std::endl;
   CreateGraph(ai);
   delete ai;
+}
+
+#ifndef NDEBUG
+void Ai::Test() noexcept
+{
+  {
+    static bool is_tested{false};
+    if (is_tested) return;
+    is_tested = true;
+  }
 }
 #endif
 

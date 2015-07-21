@@ -34,7 +34,12 @@ void CreateGraph(const Ai * const ai)
       }
       f << i
         << "["
-        << "label =\"" << std::to_string(chapter.GetChapterNumber()) << "\""
+        << "label =\""
+        << std::to_string(chapter.GetChapterNumber())
+      ;
+      if (ai) f << " (" << ai->GetPayoff(i) <<  ")";
+      f
+        << "\""
         << ",color=\"" << node_color << "\""
       ;
       if (ai)
@@ -112,11 +117,15 @@ void CreateGraph(const Ai * const ai)
   std::clog << "Creating graph..." << std::endl;
   if (!ai)
   {
-    std::system("dot -Tpng Graph.dot > Graph.png");
+    const int error{std::system("dot -Tpng Graph.dot > Graph.png")};
+    assert(!error);
+    if (error) {;}
   }
   else
   {
-    std::system("dot -Tpng Payoffs.dot > Payoffs.png");
+    const int error{std::system("dot -Tpng Payoffs.dot > Payoffs.png")};
+    assert(!error);
+    if (error) {;}
   }
   std::clog << "Graph created" << std::endl;
 }
@@ -133,6 +142,14 @@ std::vector<std::string> FileToVector(const std::string& filename)
     v.push_back(s);
   }
   return v;
+}
+
+bool IsBetween(const double x, const double a, const double b)
+{
+  // a < x < b
+  if (a <= x && x <= b) return true;
+  if (b <= x && x <= a) return true;
+  return false;
 }
 
 bool IsInt(const std::string& s) noexcept
