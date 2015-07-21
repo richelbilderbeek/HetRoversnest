@@ -13,7 +13,8 @@ int main()
   #endif
 
   #ifndef NDEBUG
-  for (int rng_seed = 0; ; ++rng_seed)
+  std::random_device rd_test;
+  for (int rng_seed = static_cast<int>(rd_test()); ; ++rng_seed)
   {
     Dice::Get()->SetSeed(rng_seed);
 

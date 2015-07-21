@@ -1,8 +1,4 @@
-You walk back into the shop; behind the counter 
-you find a small wooden money box. Inside it are 11 
-gold pieces, which you put into your backpack. You 
-decide that it is time to leave the shop and head 
-north. 
+You walk back into the shop. Behind the counter you find a small wooden money box. Inside it are 11 gold pieces, which you put into your backpack. You decide that it is time to leave the shop and head north. 
 @999
 change gold 11
 goto 93

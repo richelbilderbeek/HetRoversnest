@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include "chapter.h"
 #include "dice.h"
+#include "game.h"
 #include "item.h"
 #include "specialchapter.h"
 
@@ -499,6 +500,32 @@ void Test()
     {
       std::cout << e.what() << std::endl;
     }
+  }
+  //Test if game runs identically twice with same RNG seed
+  {
+    const int seed{123456};
+    Dice::Get()->SetSeed(seed);
+
+    Character character1(
+      Dice::Get()->Throw(),
+      Dice::Get()->Throw() + Dice::Get()->Throw(),
+      Dice::Get()->Throw(),
+      Item::luck_potion
+    );
+
+    const Game game1(seed,character1,true);
+
+    Dice::Get()->SetSeed(seed);
+
+    Character character2(
+      Dice::Get()->Throw(),
+      Dice::Get()->Throw() + Dice::Get()->Throw(),
+      Dice::Get()->Throw(),
+      Item::luck_potion
+    );
+
+    const Game game2(seed,character2,true);
+    assert(character1.GetChapters() == character2.GetChapters());
   }
 
   //Create graph
