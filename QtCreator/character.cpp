@@ -179,8 +179,9 @@ bool Character::HasFought(const std::string& monster_name) const
 
 bool Character::HasItem(const Item item) const
 {
-  const int n{
-    std::count(std::begin(m_items),std::end(m_items),item)
+  const int n{static_cast<int>(
+      std::count(std::begin(m_items),std::end(m_items),item)
+    )
   };
   assert(n == 0 || n == 1);
   return n;
