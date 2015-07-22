@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 
-#include "showtextmode.h"
-
 struct Ai;
 
 void CreateGraph(const Ai * const ai);
@@ -35,10 +33,6 @@ std::string ReadText(std::stringstream& s);
 
 ///Strip only the first character of the first line
 std::vector<std::string> StripFirstChar(std::vector<std::string> v);
-
-void ShowText(const std::string& text, const ShowTextMode auto_play);
-
-void SpeakText(const std::string& text, const ShowTextMode text_mode);
 
 #ifndef NDEBUG
 void Test();

@@ -51,8 +51,8 @@ void Character::AddItem(const Item item)
   {
     #ifndef NDEBUG
     std::cerr << "WARNING: adding item " << item << " for the second time!" << std::endl;
+    std::cerr << ShowInventory() << std::endl;
     #endif
-    ShowInventory(ShowTextMode::debug);
     assert(!"Should not get here");
   }
   m_items.push_back(item);
@@ -257,9 +257,8 @@ void Character::SetChapter(const int chapter)
     {
       #ifndef NDEBUG
       std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
+      std::cerr << ShowInventory() << std::endl;
       #endif
-      ShowInventory(ShowTextMode::debug);
-
       std::ofstream f("Path.txt");
       const auto v = GetChapters();
       std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
@@ -272,7 +271,7 @@ void Character::SetChapter(const int chapter)
   m_chapters.push_back(chapter);
 }
 
-void Character::ShowInventory(const ShowTextMode text_mode)
+std::string Character::ShowInventory()
 {
   std::stringstream s;
   s
@@ -352,7 +351,7 @@ void Character::ShowInventory(const ShowTextMode text_mode)
     s << " * " << monster_name << '\n';
   }
 
-  ShowText(s.str(),text_mode);
+  return s.str();
 }
 
 bool Character::TestDexterity() noexcept

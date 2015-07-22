@@ -19,6 +19,7 @@ struct OptionsChapter
   Options GetValidOptions(const Character& character) const noexcept;
 
   private:
+
   Options m_options;
 };
 

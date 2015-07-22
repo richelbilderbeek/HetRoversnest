@@ -2,11 +2,13 @@
 
 #include <sstream>
 
+#include "chapter.h"
 #include "character.h"
 #include "helper.h"
 
-LuckChapter::LuckChapter()
+LuckChapter::LuckChapter(Chapter& chapter)
   :
+    m_chapter{chapter},
     m_luck_consequence{},
     m_luck_text{},
     m_no_luck_consequence{},
@@ -15,32 +17,19 @@ LuckChapter::LuckChapter()
 
 }
 
-void LuckChapter::Do(Character& character, const ShowTextMode text_mode) const
+void LuckChapter::Do(Character& character) const
 {
-  {
-    std::stringstream s;
-    s << "You test your luck..." << std::endl;
-    ShowText(s.str(),text_mode);
-    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
-  }
+  m_chapter.m_signal_show_text("You test your luck...\n");
+  m_chapter.m_signal_wait();
 
   if (character.TestLuck())
   {
-    std::stringstream s;
-    s << "Luck!\n"
-      << GetLuckText() << std::endl
-    ;
-    ShowText(s.str(),text_mode);
+    m_chapter.m_signal_show_text("Luck!\n" + GetLuckText() + "\n");
     character.SetChapter(GetLuckChapter());
   }
   else
   {
-    std::stringstream s;
-    s << "No luck!\n"
-      << GetNoLuckText() << std::endl
-    ;
-    ShowText(s.str(),text_mode);
+    m_chapter.m_signal_show_text("No luck!\n" + GetNoLuckText() + "\n");
     character.SetChapter(GetNoLuckChapter());
   }
 }

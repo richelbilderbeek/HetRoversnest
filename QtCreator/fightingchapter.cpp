@@ -4,12 +4,16 @@
 #include <sstream>
 #include <iostream>
 
+#include <boost/lexical_cast.hpp>
+
 #include "character.h"
+#include "chapter.h"
 #include "dice.h"
 #include "helper.h"
 
-FightingChapter::FightingChapter()
-  : m_escape_chapter{-1},
+FightingChapter::FightingChapter(Chapter& chapter)
+  : m_chapter{chapter},
+    m_escape_chapter{-1},
     m_fight_sequentially{true},
     m_monsters{},
     m_rounds_to_escape{1000}
@@ -22,16 +26,16 @@ void FightingChapter::AddMonster(const Monster& monster)
   m_monsters.push_back(monster);
 }
 
-void FightingChapter::Do(Character& character, const ShowTextMode text_mode) const
+void FightingChapter::Do(Character& character) const
 {
 
   if (DoFightSequentially())
   {
-    DoFight(GetMonsters(),character,text_mode);
+    DoFight(GetMonsters(),character);
   }
   else
   {
-    DoFightTwoMonsters(GetMonsters(),character,text_mode);
+    DoFightTwoMonsters(GetMonsters(),character);
   }
   if (character.HasItem(Item::silver_scorpion_brooch))
   {
@@ -39,35 +43,26 @@ void FightingChapter::Do(Character& character, const ShowTextMode text_mode) con
   }
 }
 
-void DoFight(
-  std::vector<Monster> monsters,
-  Character& character,
-  const ShowTextMode text_mode
-)
+void FightingChapter::DoFight(std::vector<Monster> monsters, Character& character) const
 {
   for (auto monster: monsters)
   {
-    DoFight(monster,character,text_mode);
+    DoFight(monster,character);
     if (character.IsDead()) return;
   }
 }
 
-void DoFightTwoMonsters(
-  std::vector<Monster> monsters,
-  Character& character,
-  const ShowTextMode text_mode
-)
+void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character& character) const
 {
   //Fight both
   assert(monsters.size() == 2);
   for (int round=0; ; ++round)
   {
-
     if (character.IsDead()) { return; }
     if (monsters[0].IsDead())
     {
+      m_chapter.m_signal_show_text("You defeated the " + monsters[0].GetName() + "!\n");
       character.AddHasFought(monsters[0].GetName());
-      assert(character.HasFought(monsters[0].GetName()));
       break;
     }
 
@@ -90,7 +85,7 @@ void DoFightTwoMonsters(
         << "Fight round #" << round
         << '\n'
       ;
-      ShowText(s.str(),text_mode);
+      m_chapter.m_signal_show_text(s.str());
     }
 
     {
@@ -99,46 +94,46 @@ void DoFightTwoMonsters(
       if (player_attack > monster_attack)
       {
         const int damage{2};
+        monsters[0].ChangeStamina(-damage);
+        m_chapter.m_signal_show_text("You hit the " + monsters[0].GetName() + ".\n");
+        m_chapter.m_signal_show_text("Do you want to use luck?\n");
+
+        while (1)
         {
-          std::stringstream s;
-          s << "You hit the " << monsters[0].GetName() << ".\n";
-          ShowText(s.str(),text_mode);
-        }
-        if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-        {
-          //std::cout << "Do you want to use luck?" << std::endl;
-          //assert(!"TODO");
-          monsters[0].ChangeStamina(-damage);
-        }
-        else
-        {
-          monsters[0].ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("[0] No\n");
+          m_chapter.m_signal_show_text("[1] Yes\n");
+          const std::string input{*m_chapter.m_signal_request_input()};
+          if (input != "0" && input != "1") { m_chapter.m_signal_show_text("Please enter 0 or 1"); }
+          if (input == "1")
+          {
+            const bool has_luck{character.TestLuck()};
+            monsters[0].ChangeStamina( (damage/2) * (has_luck ? -1 : 1) );
+          }
         }
       }
       else if (player_attack < monster_attack)
       {
         const int damage{monsters[0].GetAttackDamage()};
+        character.ChangeStamina(-damage);
+        m_chapter.m_signal_show_text("You were hit by the " + monsters[0].GetName() + ".\n");
+        m_chapter.m_signal_show_text("Do you want to use luck?\n");
+
+        while (1)
         {
-          std::stringstream s;
-          s << "You were hit by the " << monsters[0].GetName() << "\n.";
-          ShowText(s.str(),text_mode);
-        }
-        if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-        {
-          //std::cout << "Do you want to use luck?" << std::endl;
-          //assert(!"TODO");
-          character.ChangeStamina(-damage);
-        }
-        else
-        {
-          character.ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("[0] No\n");
+          m_chapter.m_signal_show_text("[1] Yes\n");
+          const std::string input{*m_chapter.m_signal_request_input()};
+          if (input != "0" && input != "1") { m_chapter.m_signal_show_text("Please enter 0 or 1"); }
+          if (input == "1")
+          {
+            const bool has_luck{character.TestLuck()};
+            character.ChangeStamina( (damage/2) * (has_luck ? 1 : -1) );
+          }
         }
       }
       else
       {
-        std::stringstream s;
-        s << "No damage was dealt.\n";
-        ShowText(s.str(),text_mode);
+        m_chapter.m_signal_show_text("No damage was dealt.\n");
       }
     }
     //Second monster
@@ -147,51 +142,38 @@ void DoFightTwoMonsters(
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack >= monster_attack)
       {
-        std::stringstream s;
-        s << "You resisted the " << monsters[1].GetName() << ".\n";
-        ShowText(s.str(),text_mode);
+        m_chapter.m_signal_show_text("You resisted the " + monsters[1].GetName() + ".\n");
       }
       else if (player_attack < monster_attack)
       {
         const int damage{monsters[1].GetAttackDamage()};
+        character.ChangeStamina(-damage);
+        m_chapter.m_signal_show_text("You were hit by the " + monsters[1].GetName() + ".\n");
+        m_chapter.m_signal_show_text("Do you want to use luck?\n");
+
+        while (1)
         {
-          std::stringstream s;
-          s<< "You were hit by the " << monsters[1].GetName() << "\n.";
-          ShowText(s.str(),text_mode);
-        }
-        if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-        {
-          //std::cout << "Do you want to use luck?" << std::endl;
-          //assert(!"TODO");
-          character.ChangeStamina(-damage);
-        }
-        else
-        {
-          character.ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("[0] No\n");
+          m_chapter.m_signal_show_text("[1] Yes\n");
+          const std::string input{*m_chapter.m_signal_request_input()};
+          if (input != "0" && input != "1") { m_chapter.m_signal_show_text("Please enter 0 or 1"); }
+          if (input == "1")
+          {
+            const bool has_luck{character.TestLuck()};
+            character.ChangeStamina( (damage/2) * (has_luck ? 1 : -1) );
+          }
         }
       }
     }
-    if (text_mode == ShowTextMode::debug) { Wait(0.1); }
-    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
+    m_chapter.m_signal_wait();
   }
-  {
-    std::stringstream s;
-    s << "You defeated the " << monsters[0].GetName() << "!\n";
-    ShowText(s.str(),text_mode);
-  }
-  //character.AddHasFought(monsters[0].GetName());
 
   //Fight the remaining monster normally
-  DoFight(monsters[1],character,text_mode);
-  if (character.IsDead()) return;
+  DoFight(monsters[1],character);
 }
 
 
-void DoFight(
-  Monster monster,
-  Character& character,
-  const ShowTextMode text_mode
-)
+void FightingChapter::DoFight(Monster monster,Character& character) const
 {
   for (int round = 1; ; ++round)
   {
@@ -216,7 +198,7 @@ void DoFight(
         << monster.GetStamina() << "/"
         << monster.GetInitialStamina() << '\n'
       ;
-      ShowText(s.str(),text_mode);
+      m_chapter.m_signal_show_text(s.str());
     }
 
     const int monster_attack{monster.CalcAttackStrength()};
@@ -228,221 +210,113 @@ void DoFight(
         << "You attack with strength " << player_attack << '\n'
         << monster.GetName() << " attacks with strength " << monster_attack << '\n'
       ;
-      ShowText(s.str(),text_mode);
+      m_chapter.m_signal_show_text(s.str());
     }
 
     if (player_attack > monster_attack)
     {
+      m_chapter.m_signal_show_text("You hit the " + monster.GetName() + ".\n");
+      m_chapter.m_signal_show_text("Do you want to use luck?\n");
+      while (1)
       {
-        std::stringstream s;
-        s << "You hit the " << monster.GetName() << "." << '\n';
-        ShowText(s.str(),text_mode);
-      }
-      const int damage = 2;
-      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-      {
-        //std::cout
-        //  << "Do you want to use luck? [1] Yes [2] No\n"
-        //  << std::endl
-        //;
-        //assert(!"TODO");
-        monster.ChangeStamina(-damage);
-      }
-      else
-      {
-        monster.ChangeStamina(-damage);
+        m_chapter.m_signal_show_text("[0] No\n");
+        m_chapter.m_signal_show_text("[1] Yes\n");
+        const std::string input{*m_chapter.m_signal_request_input()};
+        if (input != "0" && input != "1") { m_chapter.m_signal_show_text("Please enter 0 or 1"); }
+        if (input == "0")
+        {
+          const int damage{2};
+          monster.ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("You did the " + monster.GetName()
+            + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
+          );
+          break;
+        }
+        else if (input == "1")
+        {
+          const bool has_luck{character.TestLuck()};
+          const int damage{2 + ((damage/2) * (has_luck ? 1 : -1))};
+          monster.ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("You did the " + monster.GetName()
+            + " " + std::to_string(damage) + " points of damage \n"
+          );
+          break;
+        }
       }
     }
     else if (player_attack < monster_attack)
     {
+      m_chapter.m_signal_show_text("You were hit by the " + monster.GetName() + ".\n");
+      m_chapter.m_signal_show_text("Do you want to use luck?\n");
+
+      while (1)
       {
-        std::stringstream s;
-        s << "You were hit by the " << monster.GetName() << "." << '\n';
-        ShowText(s.str(),text_mode);
-      }
-      const int damage{monster.GetAttackDamage()};
-      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-      {
-        //std::cout << "Do you want to use luck?" << std::endl;
-        //assert(!"TODO");
-        character.ChangeStamina(-damage);
-      }
-      else
-      {
-        character.ChangeStamina(-damage);
+        m_chapter.m_signal_show_text("[0] No\n");
+        m_chapter.m_signal_show_text("[1] Yes\n");
+        const std::string input{*m_chapter.m_signal_request_input()};
+        if (input != "0" && input != "1") { m_chapter.m_signal_show_text("Please enter 0 or 1"); }
+        if (input == "0")
+        {
+          const int damage{monster.GetAttackDamage()};
+          character.ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("The " + monster.GetName()
+            + " did " + std::to_string(damage) + " points of damage \n"
+          );
+          break;
+        }
+        else if (input == "1")
+        {
+          const bool has_luck{character.TestLuck()};
+          const int damage{
+            monster.GetAttackDamage()
+            + ( (monster.GetAttackDamage()/2) * (has_luck ? -1 : 1) )
+          };
+          character.ChangeStamina(-damage);
+          m_chapter.m_signal_show_text("The " + monster.GetName()
+            + " did " + std::to_string(damage) + " points of damage \n"
+          );
+          break;
+        }
       }
     }
     else
     {
-      std::stringstream s;
-      s << "No damage was dealt.\n";
-      ShowText(s.str(),text_mode);
+      m_chapter.m_signal_show_text("No damage was dealt.\n");
     }
 
-    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
+    m_chapter.m_signal_wait();
 
     if (character.IsDead()) break;
 
     //Fire breath
     if (monster.HasFireBreath())
     {
-      {
-        std::stringstream s;
-        s << "The monster uses its fiery breath....\n";
-        ShowText(s.str(),text_mode);
-        if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-        if (text_mode == ShowTextMode::normal) { Wait(1.0); }
-      }
+      m_chapter.m_signal_show_text("The monster uses its fiery breath....\n");
+      m_chapter.m_signal_wait();
       if (Dice::Get()->Throw() <= 3)
       {
-        std::stringstream s;
-        s << "The fire hits you!\n";
-        ShowText(s.str(),text_mode);
-        if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-        if (text_mode == ShowTextMode::normal) { Wait(1.0); }
+        m_chapter.m_signal_show_text("The fire hits you!\n");
+        m_chapter.m_signal_wait();
         character.ChangeStamina(-2);
       }
       else
       {
-        std::stringstream s;
-        s << "The fire missed you!\n";
-        ShowText(s.str(),text_mode);
-        if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-        if (text_mode == ShowTextMode::normal) { Wait(1.0); }
+        m_chapter.m_signal_show_text("The fire missed you!\n");
+        m_chapter.m_signal_wait();
       }
     }
   }
 
   if (character.IsDead())
   {
-    std::stringstream s;
-    s << "\nThe " << monster.GetName() << " defeated you.\n";
-    ShowText(s.str(),text_mode);
-    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
+    m_chapter.m_signal_show_text("The " + monster.GetName() + " defeated you.\n");
+    m_chapter.m_signal_wait();
   }
   else
   {
-    std::stringstream s;
-    s << "\nYou defeated the " << monster.GetName() << "!\n";
-    ShowText(s.str(),text_mode);
-    if (text_mode == ShowTextMode::debug ) { Wait(0.1); }
-    if (text_mode == ShowTextMode::normal) { Wait(1.0); }
+    m_chapter.m_signal_show_text("You defeated the " + monster.GetName() + "!\n");
+    m_chapter.m_signal_wait();
   }
-}
-
-void DoFightWithTime(std::stringstream& s, int& chapter, Character& character, const ShowTextMode text_mode)
-{
-  assert(1==2);
-  //TODO: Should be called
-  const bool verbose{false};
-  Parse(s,'@');
-
-  //Name monster
-  std::string name;
-  {
-    while (1)
-    {
-      char c = '*';
-      s >> c;
-      assert(c != '*');
-      if (c == ' ' || c == '\n') continue;
-      if (c == '@') break;
-      name += c;
-    }
-  }
-  if (verbose) { std::cout << "Monster name: " << name << std::endl; }
-  //Skill monster
-  int monster_dexterity = -1;
-  {
-    s >> monster_dexterity;
-    assert(monster_dexterity != -1);
-  }
-  if (verbose) { std::cout << "Monster dexterity: " << monster_dexterity << std::endl; }
-  //Condition monster
-  int monster_stamina = -1;
-  {
-    Parse(s,'@');
-    s >> monster_stamina;
-    assert(monster_stamina != -1);
-  }
-  if (verbose) { std::cout << "Monster stamina: " << monster_stamina << std::endl; }
-  //Number of rounds
-  int number_of_rounds = -1;
-  {
-    Parse(s,'@');
-    s >> number_of_rounds;
-    assert(number_of_rounds > -1);
-  }
-  if (verbose) { std::cout << "Number of rounds: " << number_of_rounds << std::endl; }
-  //New chapter after time limit
-  int new_chapter_after_time_limit = -1;
-  {
-    Parse(s,'@');
-    s >> new_chapter_after_time_limit;
-    assert(new_chapter_after_time_limit > -1);
-  }
-  if (verbose) { std::cout << "New chapter after time limit: " << new_chapter_after_time_limit << std::endl; }
-  //New chapter after time limit
-  int new_chapter_within_time_limit = -1;
-  {
-    Parse(s,'@');
-    s >> new_chapter_within_time_limit;
-    assert(new_chapter_within_time_limit > -1);
-  }
-  if (verbose) { std::cout << "New chapter within time limit: " << new_chapter_within_time_limit << std::endl; }
-  for (int i=0; i!=number_of_rounds; ++i)
-  {
-    const int monster_attack = Dice::Get()->Throw() + Dice::Get()->Throw();
-    const int player_attack = Dice::Get()->Throw() + Dice::Get()->Throw();
-    if (player_attack > monster_attack)
-    {
-      std::cout << "You hit the monster." << std::endl;
-      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-      {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
-      }
-      else
-      {
-        monster_stamina -= 2;
-      }
-    }
-    else if (player_attack < monster_attack)
-    {
-      std::cout << "You were hit by the monster." << std::endl;
-      if (text_mode == ShowTextMode::debug || text_mode == ShowTextMode::normal)
-      {
-        std::cout << "Do you want to use luck?" << std::endl;
-        assert(!"TODO");
-      }
-      else
-      {
-        character.ChangeStamina(-2);
-      }
-    }
-    else
-    {
-      std::cout << "No damage was dealt." << std::endl;
-    }
-    if (character.GetStamina() < 1)
-    {
-
-      std::cout
-        << "The monster defeated you.\n"
-        << "\n";
-      return;
-    }
-    else if (monster_stamina < 1)
-    {
-      std::cout << "You defeated the monster." << std::endl;
-      chapter = new_chapter_within_time_limit;
-      return;
-    }
-  }
-  std::cout << "You did not make it within the time limit." << std::endl;
-  chapter = new_chapter_after_time_limit;
 }
 
 void FightingChapter::SetEscapeToChapter(const int escape_to_chapter)

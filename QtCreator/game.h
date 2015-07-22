@@ -9,10 +9,10 @@ struct Game
 {
   Game(
     const int rng_seed,
-    const Character& character,
-    Ai * const ai = nullptr
+    const Character& character
   );
 
+  void DoChapter();
   const Character& GetCharacter() const noexcept { return m_character; }
   bool HasLost() const noexcept { return m_has_lost; }
   bool HasWon() const noexcept { return m_has_won; }

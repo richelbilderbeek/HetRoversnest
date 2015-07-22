@@ -17,8 +17,7 @@
 
 Game::Game(
   const int rng_seed,
-  const Character& character,
-  Ai * const ai
+  const Character& character
 )
   : m_character{character},
     m_has_lost{false},
@@ -32,40 +31,22 @@ Game::Game(
     f << rng_seed;
   }
   #endif
+}
 
+void Game::DoChapter()
+{
+  if (m_has_lost || m_has_won) return;
 
-  while (1)
+  const int chapter_number{m_character.GetCurrentChapter()};
+  if (chapter_number == 400)
   {
-    const int chapter_number{m_character.GetCurrentChapter()};
-    if (chapter_number == 400)
-    {
-      m_has_won = true;
-      break;
-    }
-
-    #ifndef NDEBUG
-    const ShowTextMode text_mode{
-      ai ? ShowTextMode::silent : ShowTextMode::debug
-    };
-    #else
-    const ShowTextMode text_mode{ai ? ShowTextMode::silent : ShowTextMode::normal};
-    #endif
-
-    if (text_mode == ShowTextMode::debug)
-    {
-      std::cout << '\n'
-        << std::string(60,'-') << '\n'
-        << chapter_number << '\n'
-        << std::string(60,'-') << '\n'
-      ;
-    }
-    const Chapter chapter(chapter_number);
-    chapter.Do(m_character,text_mode,ai);
-    if (m_character.IsDead())
-    {
-      m_has_lost = true;
-      DoGameOver(text_mode);
-      return;
-    }
+    m_has_won = true;
+    return;
   }
+
+
+  const Chapter chapter(chapter_number);
+  chapter.Do(m_character);
+
+  if (m_character.IsDead()) { m_has_lost = true; }
 }

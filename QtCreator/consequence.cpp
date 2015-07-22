@@ -1,5 +1,6 @@
 #include "consequence.h"
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 
@@ -152,7 +153,7 @@ void Consequence::Apply(Character& character) const
     if (item == Item::random_item_or_one_gold)
     {
       //if (verbose) { std::clog << "Removing random item or 1 gold" << std::endl; }
-      const auto items = character.GetItems();
+      auto items = character.GetItems();
       const int n_items{static_cast<int>(items.size())};
       if (n_items == 0) continue;
       if (n_items == 0 || Dice::Get()->Throw() <= 3)
@@ -169,11 +170,9 @@ void Consequence::Apply(Character& character) const
       }
       else
       {
-        auto iter = items.cbegin();
-        const int item_index{(std::rand() >> 4) % n_items};
-        for (int j=0; j!=item_index; ++j) { ++iter; }
-        if (verbose) { std::clog << "Removed item " << ToPrettyStr(*iter) << std::endl; }
-        character.RemoveItem(*iter);
+        std::shuffle(std::begin(items),std::end(items),Dice::Get()->GetEngine());
+        assert(!items.empty());
+        character.RemoveItem(items.back());
       }
       continue;
     }

@@ -182,7 +182,7 @@ void Parse(std::stringstream& s, const char expected_char)
 
 char ReadChar(std::stringstream& s)
 {
-  char c;
+  char c = '\0';
   assert(!s.eof());
   s >> c;
   assert(!s.eof());
@@ -220,55 +220,15 @@ std::string ReadText(std::stringstream& s)
     s >> c;
     if (c == '@')
     {
-      break; //Now the options must be parsed
+      break;
     }
     if (c == '\n') c = ' '; //Convert a newline to space, so input files do not require a space after every line
-    //if (c == ' ' && pos == 0) continue; //Een nieuwe regel begint niet met een spatie
     if (c == ' ' && prev_c == ' ') continue; //Tweede spatie overslaan
-    //if (c == '[') { text << '\n'; pos = 0; }
     text += c;
     prev_c = c;
-    //++pos;
-    //if (pos > line_length && c == ' ')
-    //{
-    //  text += '\n';
-    //  pos = 0;
-    //}
   }
   s << std::skipws; //Obligatory
   return text;
-}
-
-void ShowText(const std::string& text, const ShowTextMode mode)
-{
-  if (mode == ShowTextMode::silent) return;
-  int pos = 0;
-  for (const char c: text)
-  {
-    //if (c == '[') std::cout << '\n';
-    if (c == '\n') pos = -1;
-    if (c == ' ' && pos > 60) { pos = 0; std::cout << '\n'; continue; }
-    std::cout << c;
-    ++pos;
-    switch (mode)
-    {
-      case ShowTextMode::silent: assert(!"Should not get here");
-      case ShowTextMode::auto_play: break;
-      case ShowTextMode::debug: std::cout.flush(); break;
-      case ShowTextMode::normal: std::cout.flush(); Wait(0.01); break;
-    }
-  }
-}
-
-void SpeakText(const std::string& text, const ShowTextMode text_mode)
-{
-  if (text_mode == ShowTextMode::silent) return;
-  std::ofstream f("espeak.txt");
-  f << text;
-  f.close();
-  const int error{std::system("espeak -f espeak.txt")};
-  assert(!error);
-  if (error) {;}
 }
 
 

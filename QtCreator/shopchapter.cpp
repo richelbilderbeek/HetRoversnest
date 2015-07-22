@@ -4,11 +4,12 @@
 #include <iostream>
 #include <sstream>
 
+#include "chapter.h"
 #include "character.h"
 #include "helper.h"
 
-ShopChapter::ShopChapter()
-  : m_items{}
+ShopChapter::ShopChapter(Chapter * const chapter)
+  : m_chapter{chapter}, m_items{}
 {
 }
 
@@ -17,10 +18,8 @@ void ShopChapter::AddItem(const Item item, const int price)
   m_items.push_back(std::make_pair(item,price));
 }
 
-void ShopChapter::Do(Character& character, const ShowTextMode text_mode) const
+void ShopChapter::Do(Character& character) const
 {
-  assert(text_mode == ShowTextMode::silent);
-
   //Must be a copy, as the copy can get cleared
   std::vector<std::pair<Item,int>> items = this->GetItems();
 
@@ -28,16 +27,10 @@ void ShopChapter::Do(Character& character, const ShowTextMode text_mode) const
   {
     if (items.empty())
     {
-      std::stringstream s;
-      s << "There are no more items to buy.\n";
-      ShowText(s.str(),text_mode);
+      m_chapter->m_signal_show_text("There are no more items to buy.\n");
       break;
     }
-    {
-      std::stringstream s;
-      s << "[0] Leave shop\n";
-      ShowText(s.str(),text_mode);
-    }
+    m_chapter->m_signal_show_text("[0] Leave shop\n");
     const int n_items{static_cast<int>(items.size())};
     bool can_buy{false};
     for (int i=0; i!=n_items; ++i)
@@ -47,41 +40,21 @@ void ShopChapter::Do(Character& character, const ShowTextMode text_mode) const
         << ToStr(items[i].first) << " for "
         << items[i].second << " gold pieces\n"
       ;
-      ShowText(s.str(),text_mode);
+      m_chapter->m_signal_show_text(s.str());
       if (items[i].second <= character.GetGold()) { can_buy = true; }
     }
     if (!can_buy)
     {
-      std::stringstream s;
-      s << "You do not have enough money to buy anything.\n";
-      ShowText(s.str(),text_mode);
-      break;
-    }
-
-    if (text_mode == ShowTextMode::auto_play || text_mode == ShowTextMode::silent)
-    {
-      for (int i=0; i < static_cast<int>(items.size()); ++i)
-      {
-        if (items[i].second <= character.GetGold())
-        {
-          ShowText("You bough " + ToStr(items[i].first),text_mode);
-          character.AddItem(items[i].first);
-          character.ChangeGold(-items[i].second);
-          std::swap(items[i],items.back());
-          items.pop_back();
-          --i;
-        }
-      }
+      m_chapter->m_signal_show_text("You do not have enough money to buy anything.\n");
       break;
     }
 
     //Shop
-    std::string s;
-    std::getline(std::cin,s);
+    const std::string s{*m_chapter->m_signal_request_input()};
     if (s.empty()) continue;
     if (!IsInt(s))
     {
-      std::cout << "Invalid command\n";
+      m_chapter->m_signal_show_text("Invalid command, please enter a number.\n");
       continue;
     }
     const int command = std::stoi(s);
@@ -89,17 +62,17 @@ void ShopChapter::Do(Character& character, const ShowTextMode text_mode) const
     const int i = command - 1;
     if (i < 0 || i >= static_cast<int>(items.size()))
     {
-      std::cout << "Invalid number, choose zero to leave the shop or an item number to buy it.\n";
+      m_chapter->m_signal_show_text("Invalid number. Choose zero to leave the shop or an item number to buy it.\n");
       continue;
     }
     assert(i >= 0);
     assert(i < static_cast<int>(items.size()));
     if (character.GetGold() < items[i].second)
     {
-      std::cout << "Cannot buy this item: not enough gold\n";
+      m_chapter->m_signal_show_text("Cannot buy this item: not enough gold\n");
       continue;
     }
-    std::cout << "You bough " << ToStr(items[i].first) << std::endl;
+    m_chapter->m_signal_show_text("You bough " + ToStr(items[i].first) + "\n");
     character.AddItem(items[i].first);
     character.ChangeGold(-items[i].second);
     std::swap(items[i],items.back());
@@ -107,9 +80,9 @@ void ShopChapter::Do(Character& character, const ShowTextMode text_mode) const
   }
 }
 
-ShopChapter ParseShopChapter(std::stringstream& s)
+ShopChapter ParseShopChapter(std::stringstream& s, Chapter * const chapter)
 {
-  ShopChapter c;
+  ShopChapter c(chapter);
   while (1)
   {
     const std::string what{ReadString(s)};

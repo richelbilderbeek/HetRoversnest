@@ -13,6 +13,7 @@ int main()
   Test();
   #endif
 
+  if (1==2)
   {
     std::unique_ptr<Ai> ai(new Ai);
     ai->SolveGame();
@@ -21,6 +22,12 @@ int main()
   //Play the game
   std::random_device rd;
   const int seed{static_cast<int>(rd())};
-  Character character(12,12,12,Item::luck_potion);
-  Game(seed,character);
+  const Character character(12,12,12,Item::luck_potion);
+  Game game(seed,character);
+  while (1)
+  {
+    game.DoChapter();
+    if (game.HasWon() || game.HasLost()) break;
+  }
+
 }

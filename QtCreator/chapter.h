@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/signals2.hpp>
+
 #include "chaptertype.h"
 #include "character.h"
 #include "fightingchapter.h"
@@ -13,6 +15,9 @@
 #include "shopchapter.h"
 #include "skillchapter.h"
 #include "consequence.h"
+#include "ballgamechapter.h"
+#include "dicegamechapter.h"
+#include "pillgamechapter.h"
 
 struct Ai;
 
@@ -21,7 +26,7 @@ struct Chapter
   Chapter(const int chapter_number);
 
   ///Let the player do this chapter
-  void Do(Character& character, const ShowTextMode text_mode = ShowTextMode::debug, Ai * const ai = nullptr) const;
+  void Do(Character& character) const;
 
   ///The text displayed at the end of the chapter
   const std::string& GetByeText() const noexcept { return m_bye_text; }
@@ -54,7 +59,19 @@ struct Chapter
 
   ChapterType GetType() const noexcept { return m_chapter_type; }
 
+  //If the Chapter wants an input
+  mutable boost::signals2::signal<std::string()> m_signal_request_input;
+
+  //If the Chapter want the dialog to display something
+  mutable boost::signals2::signal<void(const std::string& text)> m_signal_show_text;
+
+  //If the Chapter wants the dialog to wait
+  mutable boost::signals2::signal<void()> m_signal_wait;
+
   private:
+
+  BallGameChapter m_ball_game_chapter;
+
   ///The text displayed at the end of the chapter
   std::string m_bye_text;
 
@@ -65,6 +82,8 @@ struct Chapter
 
   ChapterType m_chapter_type;
 
+  DiceGameChapter m_dice_game_chapter;
+
   FightingChapter m_fighting_chapter;
 
   LuckChapter m_luck_chapter;
@@ -73,11 +92,17 @@ struct Chapter
 
   PawnShopChapter m_pawn_shop_chapter;
 
+  PillGameChapter m_pill_game_chapter;
+
   ShopChapter m_shop_chapter;
 
   SkillChapter m_skill_chapter;
 
   std::string m_text;
+
+  #ifndef NDEBUG
+  static void Test() noexcept;
+  #endif
 };
 
 std::ostream& operator<<(std::ostream& os, const Chapter& chapter);

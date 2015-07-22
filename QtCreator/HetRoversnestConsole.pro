@@ -51,47 +51,7 @@ CONFIG(release, debug|release) {
   DEFINES += NDEBUG NTRACE_BILDERBIKKEL
 }
 
-SOURCES += main.cpp \
-    helper.cpp \
-    character.cpp \
-    item.cpp \
-    test.cpp \
-    monster.cpp \
-    chapter.cpp \
-    option.cpp \
-    chaptertype.cpp \
-    fightingchapter.cpp \
-    optionschapter.cpp \
-    condition.cpp \
-    consequence.cpp \
-    luckchapter.cpp \
-    skillchapter.cpp \
-    shopchapter.cpp \
-    pawnshopchapter.cpp \
-    game.cpp \
-    specialchapter.cpp \
-    dice.cpp \
-    ai.cpp \
-    showtextmode.cpp
+include(HetRoversnestConsole.pri)
 
-HEADERS += \
-    helper.h \
-    character.h \
-    item.h \
-    monster.h \
-    chapter.h \
-    option.h \
-    chaptertype.h \
-    fightingchapter.h \
-    optionschapter.h \
-    condition.h \
-    consequence.h \
-    luckchapter.h \
-    skillchapter.h \
-    shopchapter.h \
-    pawnshopchapter.h \
-    game.h \
-    specialchapter.h \
-    dice.h \
-    ai.h \
-    showtextmode.h
+SOURCES += main.cpp
+

@@ -3,17 +3,17 @@
 
 #include <string>
 #include "consequence.h"
-#include "showtextmode.h"
 
+struct Chapter;
 struct Character;
 
 ///Chapter in which you have to test your luck
 struct LuckChapter
 {
-  LuckChapter();
+  LuckChapter(Chapter& chapter);
 
   ///Let the character undergo this chapter
-  void Do(Character& character, const ShowTextMode text_mode) const;
+  void Do(Character& character) const;
 
   const std::string& GetLuckText() const noexcept { return m_luck_text; }
   const std::string& GetNoLuckText() const noexcept { return m_no_luck_text; }
@@ -28,6 +28,8 @@ struct LuckChapter
   void SetNoLuckConsequence(const Consequence& no_luck_consequence) noexcept { m_no_luck_consequence = no_luck_consequence; }
 
   private:
+
+  Chapter& m_chapter;
 
   Consequence m_luck_consequence;
   std::string m_luck_text;

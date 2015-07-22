@@ -13,18 +13,28 @@
 
 Chapter::Chapter(const int chapter_number)
   :
+    m_signal_request_input{},
+    m_signal_show_text{},
+    m_signal_wait{},
+    m_ball_game_chapter{*this},
     m_bye_text{},
     m_consequence{},
     m_chapter_number{chapter_number},
     m_chapter_type{ChapterType::normal},
-    m_fighting_chapter{},
-    m_luck_chapter{},
+    m_dice_game_chapter{*this},
+    m_fighting_chapter{FightingChapter(*this)},
+    m_luck_chapter(*this),
     m_options_chapter{},
-    m_pawn_shop_chapter{},
-    m_shop_chapter{},
-    m_skill_chapter{},
+    m_pawn_shop_chapter(this),
+    m_pill_game_chapter{*this},
+    m_shop_chapter{this},
+    m_skill_chapter{*this},
     m_text{}
 {
+  #ifndef NDEBUG
+  Test();
+  #endif
+
   const std::string filename{"../Files/" + std::to_string(chapter_number) + ".txt"};
   if (!IsRegularFile(filename))
   {
@@ -262,12 +272,12 @@ Chapter::Chapter(const int chapter_number)
     else if (str == "Sell_items" || str == "sell_items")
     {
       m_chapter_type = ChapterType::pawn_shop;
-      m_pawn_shop_chapter = ParsePawnShopChapter(s);
+      m_pawn_shop_chapter = ParsePawnShopChapter(s,this);
     }
     else if (str == "Shop_items" || str == "shop_items")
     {
       m_chapter_type = ChapterType::shop;
-      m_shop_chapter = ParseShopChapter(s);
+      m_shop_chapter = ParseShopChapter(s,this);
     }
     else if (str == "Skill" || str == "skill")
     {
@@ -309,13 +319,19 @@ Chapter::Chapter(const int chapter_number)
   }
 }
 
-void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const ai) const
+void Chapter::Do(Character& character) const
 {
-  //Display the text line by line
-  ShowText(m_text,text_mode);
-  //SpeakText(m_text,text_mode);
+  #ifndef NDEBUG
+  m_signal_show_text(
+      "\n"
+    + std::string(60,'-') + "\n"
+    + std::to_string(GetChapterNumber()) + "\n"
+    + std::string(60,'-') + "\n"
+  );
+  #endif
 
-  ShowText("\n",text_mode);
+  //Display the text line by line
+  m_signal_show_text(m_text + "\n");
 
   if (GetType() == ChapterType::game_lost)
   {
@@ -328,19 +344,18 @@ void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const 
   }
   else if (GetType() == ChapterType::play_dice)
   {
-    DoPlayDice(character,text_mode);
+    m_dice_game_chapter.Do(character);
     m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::play_ball)
   {
-    DoPlayBall(character,text_mode);
+    m_ball_game_chapter.Do(character);
     m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::play_pill)
   {
-    DoPlayPill(character,text_mode);
+    m_pill_game_chapter.Do(character);
     if (character.IsDead()) return;
-    ShowText("\n",text_mode);
     m_consequence.Apply(character);
   }
   //Options
@@ -368,26 +383,14 @@ void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const 
       assert(!options.empty());
       const int n_options{static_cast<int>(options.size())};
       {
-        std::stringstream ss;
+        std::stringstream text;
         for (int i=0; i!=n_options; ++i)
         {
           const auto option = options[i];
-          ss << '[' << (i+1) << "] " << option.GetText() << '\n';
+          text << '[' << (i+1) << "] " << option.GetText() << '\n';
         }
-        ss << "[0] Status and inventory\n";
-        ShowText(ss.str(),text_mode);
-      }
-      //Chose an options
-      if (ai)
-      {
-        const int option_index{ai->Select(options)};
-        ShowText("AUTOPLAY: chose option " + std::to_string(option_index),text_mode);
-        assert(option_index >= 0);
-        assert(option_index < static_cast<int>(options.size()));
-        options[option_index].GetConsequence().Apply(character);
-        //m_consequence = options[0].GetConsequence();
-        //options[0].DoChoose(character);
-        break;
+        text << "[0] Status and inventory\n";
+        m_signal_show_text(text.str());
       }
       //Only one option
       if (options.size() == 1)
@@ -397,12 +400,11 @@ void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const 
       }
 
       //Process command
-      std::string s;
-      std::getline(std::cin,s);
+      const std::string s{*m_signal_request_input()};
       if (s.empty()) continue;
       if (!IsInt(s))
       {
-        ShowText("Please enter a number",text_mode);
+        m_signal_show_text("Please enter a number");
         continue;
       }
       const int chosen_option_number{std::stoi(s)};
@@ -410,15 +412,14 @@ void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const 
         && (chosen_option_number < 1 || chosen_option_number > static_cast<int>(options.size()))
       )
       {
-        std::stringstream ss;
-        ss << "Please enter a number from 1 to " << options.size() << " or 0 for inventory\n";
-        ShowText(ss.str(),text_mode);
+        std::stringstream text;
+        text << "Please enter a number from 1 to " << options.size() << " or 0 for inventory\n";
+        m_signal_show_text(text.str());
         continue;
       }
       if (chosen_option_number == 0)
       {
-        character.ShowInventory(text_mode);
-        ShowText("\n",text_mode);
+        m_signal_show_text(character.ShowInventory() + "\n");
         continue;
       }
       const int chosen_option_index{chosen_option_number-1};
@@ -432,29 +433,29 @@ void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const 
   }
   else if (GetType() == ChapterType::fight)
   {
-    m_fighting_chapter.Do(character,text_mode);
+    m_fighting_chapter.Do(character);
     assert(m_consequence.GetNextChapter() > 0);
     m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::test_your_luck)
   {
-    GetLuck().Do(character,text_mode);
+    GetLuck().Do(character);
     //m_consequence.Apply(character); Applies its own consequences
 
   }
   else if (GetType() == ChapterType::test_your_skill)
   {
-    GetSkill().Do(character,text_mode);
+    GetSkill().Do(character);
     //m_consequence.Apply(character); Applies its own consequences
   }
   else if (GetType() == ChapterType::shop)
   {
-    GetShop().Do(character,text_mode);
+    GetShop().Do(character);
     m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::pawn_shop)
   {
-    GetPawnShop().Do(character,text_mode);
+    GetPawnShop().Do(character);
     m_consequence.Apply(character);
   }
   else if (GetType() == ChapterType::normal)
@@ -469,7 +470,7 @@ void Chapter::Do(Character& character, const ShowTextMode text_mode, Ai * const 
 
   if (character.IsDead()) return;
 
-  ShowText(m_bye_text,text_mode);
+  m_signal_show_text(m_bye_text);
 }
 
 std::ostream& operator<<(std::ostream& os, const Chapter& chapter)

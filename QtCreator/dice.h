@@ -3,6 +3,7 @@
 
 #include <random>
 
+///A Singleton
 struct Dice
 {
   static Dice * Get();
@@ -17,6 +18,10 @@ struct Dice
 
   std::uniform_int_distribution<int> m_distribution;
   std::mt19937 m_engine;
+
+  #ifndef NDEBUG
+  static void Test() noexcept;
+  #endif
 };
 
 #endif // DICE_H

@@ -4,17 +4,19 @@
 #include <vector>
 
 #include "monster.h"
-#include "showtextmode.h"
+
+struct Chapter;
 struct Character;
 
 ///A chapter in which a fight takes place
+///FightingChapter is a State of Chapter
 struct FightingChapter
 {
-  FightingChapter();
+  FightingChapter(Chapter& chapter);
 
   void AddMonster(const Monster& monster);
 
-  void Do(Character& character, const ShowTextMode text_mode) const;
+  void Do(Character& character) const;
 
   ///Battle the monsters one by one
   bool DoFightSequentially() const noexcept { return m_fight_sequentially; }
@@ -35,6 +37,8 @@ struct FightingChapter
 
   private:
 
+  Chapter& m_chapter;
+
   ///If the player escapes a monster fight, to which chapter?
   int m_escape_chapter;
 
@@ -42,35 +46,14 @@ struct FightingChapter
   bool m_fight_sequentially;
 
   std::vector<Monster> m_monsters;
+
   int m_rounds_to_escape;
+
+
+  void DoFight(std::vector<Monster> monsters,Character& character) const;
+  void DoFight(Monster monster,Character& character) const;
+  void DoFightTwoMonsters(std::vector<Monster> monsters,Character& character) const;
 };
 
-///Fight multiple monsters after each other
-void DoFight(
-  std::vector<Monster> monsters,
-  Character& character,
-  const ShowTextMode text_mode
-);
-
-///Fight multiple monsters at the same time
-void DoFightTwoMonsters(
-  std::vector<Monster> monsters,
-  Character& character,
-  const ShowTextMode text_mode
-);
-
-///Fight single monster
-void DoFight(
-  Monster monster,
-  Character& character,
-  const ShowTextMode text_mode
-);
-
-void DoFightWithTime(
-  std::stringstream& s,
-  int& chapter,
-  Character& character,
-  const ShowTextMode text_mode
-);
 
 #endif // FIGHTINGCHAPTER_H

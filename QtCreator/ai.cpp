@@ -90,7 +90,7 @@ void Ai::SetFinalPayoff(const double final_payoff)
   double weight{1.0};
   for (int i=0; ; ++i)
   {
-    weight *= 0.5;
+    weight *= 0.1;
 
     if (m_chapters.empty()) break;
     const int chapter{m_chapters.back()};
@@ -147,7 +147,12 @@ void Ai::SolveGame()
       Item::luck_potion
     );
 
-    const Game game(rng_seed,character,ai);
+    Game game(rng_seed,character);
+    while (1)
+    {
+      game.DoChapter();
+      if (game.HasLost() || game.HasWon()) break;
+    }
 
     const double final_payoff{
         character.HasItem(Item::black_pearls) ? 2.0 : 0.0
