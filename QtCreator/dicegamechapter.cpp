@@ -27,12 +27,9 @@ void DiceGameChapter::Do(Character& character) const
       "[2] No\n"
     );
 
-    const std::string s{*m_chapter.m_signal_request_input()};
-    if (s == "2") { return; }
-    if (s == "1") { break; }
-    {
-      m_chapter.m_signal_show_text("Please enter either '1' or '2'.\n");
-    }
+    const int s{*m_chapter.m_signal_request_input( {1,2} )};
+    if (s == 2) { return; }
+    if (s == 1) { break; }
   }
 
 
@@ -87,12 +84,9 @@ void DiceGameChapter::Do(Character& character) const
         "[1] Yes\n"
         "[2] No\n"
       );
-      const std::string s{*m_chapter.m_signal_request_input()};
-      if (s == "2") { return; }
-      if (s == "1") { break; }
-      {
-        m_chapter.m_signal_show_text("Please enter either '1' or '2'.\n");
-      }
+      const int s{*m_chapter.m_signal_request_input( {1,2} )};
+      if (s == 2) { return; }
+      if (s == 1) { break; }
     }
   }
 }

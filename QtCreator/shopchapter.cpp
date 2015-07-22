@@ -30,34 +30,34 @@ void ShopChapter::Do(Character& character) const
       m_chapter->m_signal_show_text("There are no more items to buy.\n");
       break;
     }
+    std::vector<int> user_inputs;
+
     m_chapter->m_signal_show_text("[0] Leave shop\n");
+    user_inputs.push_back(0);
+
     const int n_items{static_cast<int>(items.size())};
-    bool can_buy{false};
     for (int i=0; i!=n_items; ++i)
     {
+      const auto item = items[i];
       std::stringstream s;
-      s << '[' << (i+1) << "] Buy "
+      s << '['
+        << (item.second <= character.GetGold() ? std::to_string(i+1) : " ")
+        << "] Buy "
         << ToStr(items[i].first) << " for "
         << items[i].second << " gold pieces\n"
       ;
+      if (item.second <= character.GetGold()) { user_inputs.push_back(i + 1); }
       m_chapter->m_signal_show_text(s.str());
-      if (items[i].second <= character.GetGold()) { can_buy = true; }
     }
-    if (!can_buy)
+    assert(!user_inputs.empty());
+    if (user_inputs.size() == 1)
     {
       m_chapter->m_signal_show_text("You do not have enough money to buy anything.\n");
       break;
     }
 
     //Shop
-    const std::string s{*m_chapter->m_signal_request_input()};
-    if (s.empty()) continue;
-    if (!IsInt(s))
-    {
-      m_chapter->m_signal_show_text("Invalid command, please enter a number.\n");
-      continue;
-    }
-    const int command = std::stoi(s);
+    const int command{*m_chapter->m_signal_request_input(user_inputs)};
     if (command == 0) break;
     const int i = command - 1;
     if (i < 0 || i >= static_cast<int>(items.size()))

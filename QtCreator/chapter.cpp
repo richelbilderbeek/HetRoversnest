@@ -321,6 +321,10 @@ Chapter::Chapter(const int chapter_number)
 
 void Chapter::Do(Character& character) const
 {
+  assert(m_signal_request_input.num_slots() > 0);
+  assert(m_signal_wait.num_slots() > 0);
+  assert(m_signal_request_input.num_slots() > 0);
+
   #ifndef NDEBUG
   m_signal_show_text(
       "\n"
@@ -382,14 +386,17 @@ void Chapter::Do(Character& character) const
       const auto options = GetOptions().GetValidOptions(character);
       assert(!options.empty());
       const int n_options{static_cast<int>(options.size())};
+      std::vector<int> user_options;
       {
         std::stringstream text;
         for (int i=0; i!=n_options; ++i)
         {
           const auto option = options[i];
           text << '[' << (i+1) << "] " << option.GetText() << '\n';
+          user_options.push_back(i+1);
         }
         text << "[0] Status and inventory\n";
+        user_options.push_back(0);
         m_signal_show_text(text.str());
       }
       //Only one option
@@ -400,14 +407,7 @@ void Chapter::Do(Character& character) const
       }
 
       //Process command
-      const std::string s{*m_signal_request_input()};
-      if (s.empty()) continue;
-      if (!IsInt(s))
-      {
-        m_signal_show_text("Please enter a number");
-        continue;
-      }
-      const int chosen_option_number{std::stoi(s)};
+      const int chosen_option_number{*m_signal_request_input(user_options)};
       if (chosen_option_number != 0
         && (chosen_option_number < 1 || chosen_option_number > static_cast<int>(options.size()))
       )

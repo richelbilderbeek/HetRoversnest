@@ -25,37 +25,30 @@ void PawnShopChapter::Do(Character& character) const
 
   while (1)
   {
-    bool can_sell{false};
+    std::vector<int> user_options;
+    std::stringstream s;
+    s << "[0] Leave shop\n";
+    user_options.push_back(0);
+    const int n_items{static_cast<int>(items.size())};
+    for (int i=0; i!=n_items; ++i)
     {
-      std::stringstream s;
-      s << "[0] Leave shop\n";
-      const int n_items{static_cast<int>(items.size())};
-      for (int i=0; i!=n_items; ++i)
-      {
-        s
-          << '[' << (character.HasItem(items[i].first) ? std::to_string(i+1) : " ") << "] Sell "
-          << ToStr(items[i].first) << " for "
-          << items[i].second << " gold pieces\n"
-        ;
-        if (character.HasItem(items[i].first)) { can_sell = true; }
-      }
-      m_chapter->m_signal_show_text(s.str());
+      s
+        << '[' << (character.HasItem(items[i].first) ? std::to_string(i+1) : " ") << "] Sell "
+        << ToStr(items[i].first) << " for "
+        << items[i].second << " gold pieces\n"
+      ;
+      if (character.HasItem(items[i].first)) { user_options.push_back(i + 1); }
     }
-    if (!can_sell)
+    m_chapter->m_signal_show_text(s.str());
+
+    if (user_options.size() == 1)
     {
       m_chapter->m_signal_show_text("You do not have any items to sell.\n");
       break;
     }
 
     //Pawn shop
-    const std::string s{*m_chapter->m_signal_request_input()};
-    if (s.empty()) continue;
-    if (!IsInt(s))
-    {
-      m_chapter->m_signal_show_text("Invalid command, please enter a number.\n");
-      continue;
-    }
-    const int command = std::stoi(s);
+    const int command{*m_chapter->m_signal_request_input(user_options)};
     if (command == 0) break;
     const int i = command - 1;
     if (i < 0 || i >= static_cast<int>(items.size()))

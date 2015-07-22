@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <string>
+#include <vector>
 
 struct Chapter;
 
@@ -11,13 +12,14 @@ struct Dialog
   Dialog();
 
   void ConnectTo(const Chapter& chapter);
+  void DisconnectFrom(const Chapter& chapter);
 
 
   void SpeakText(const std::string& text);
 
 
-  std::string SlotRequestInput();
-  void SlotShowText(const std::string& text);
+  int SlotRequestInput(const std::vector<int> valid_inputs);
+  void SlotShowText(const std::string text);
   void SlotWait();
 
   private:

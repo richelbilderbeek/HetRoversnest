@@ -10,6 +10,7 @@
 
 #include "ai.h"
 #include "character.h"
+#include "dialog.h"
 #include "dice.h"
 #include "helper.h"
 #include "chapter.h"
@@ -35,6 +36,10 @@ Game::Game(
 
 void Game::DoChapter()
 {
+  //assert(m_signal_request_input.num_slots() > 0);
+  //assert(m_signal_wait.num_slots() > 0);
+  //assert(m_signal_request_input.num_slots() > 0);
+
   if (m_has_lost || m_has_won) return;
 
   const int chapter_number{m_character.GetCurrentChapter()};
@@ -44,8 +49,20 @@ void Game::DoChapter()
     return;
   }
 
-
+  Dialog d;
   const Chapter chapter(chapter_number);
+  d.ConnectTo(chapter);
+  /*
+  chapter.m_signal_request_input.connect(
+    boost::bind(&Dialog::SlotRequestInput,this,_1)
+  );
+  chapter.m_signal_wait.connect(
+    boost::bind(&Dialog::SlotWait,this)
+  );
+  chapter.m_signal_show_text.connect(
+    boost::bind(&Dialog::SlotShowText,this,_1)
+  );
+  */
   chapter.Do(m_character);
 
   if (m_character.IsDead()) { m_has_lost = true; }

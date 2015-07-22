@@ -60,10 +60,10 @@ struct Chapter
   ChapterType GetType() const noexcept { return m_chapter_type; }
 
   //If the Chapter wants an input
-  mutable boost::signals2::signal<std::string()> m_signal_request_input;
+  mutable boost::signals2::signal<int(const std::vector<int> valid_inputs)> m_signal_request_input;
 
   //If the Chapter want the dialog to display something
-  mutable boost::signals2::signal<void(const std::string& text)> m_signal_show_text;
+  mutable boost::signals2::signal<void(const std::string text)> m_signal_show_text;
 
   //If the Chapter wants the dialog to wait
   mutable boost::signals2::signal<void()> m_signal_wait;
