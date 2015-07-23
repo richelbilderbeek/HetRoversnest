@@ -4,13 +4,15 @@
 #include <memory>
 #include "ai.h"
 #include "dice.h"
+#include "dialog.h"
 #include "helper.h"
 #include "game.h"
+#include "walkthrough.h"
 
 int main()
 {
   #ifndef NDEBUG
-  Test();
+  TestHelperFunctions();
   #endif
 
   if (1==2)
@@ -19,11 +21,23 @@ int main()
     ai->SolveGame();
   }
 
+
   //Play the game
   std::random_device rd;
   const int seed{static_cast<int>(rd())};
-  const Character character(12,12,12,Item::luck_potion);
+  const Character character(6,12,6,Item::luck_potion);
+  #ifndef NDEBUG
+  if (1==2)
+  {
+    Walkthrough walkthrough(seed,character);
+    walkthrough.Start();
+    assert(!"Walkthrough worked");
+  }
+  #endif
+
+  Dialog d;
   Game game(seed,character);
+  d.ConnectTo(game);
   while (1)
   {
     game.DoChapter();

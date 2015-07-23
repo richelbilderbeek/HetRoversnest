@@ -7,11 +7,14 @@
 #include <boost/lambda/lambda.hpp>
 
 #include "chapter.h"
+#include "game.h"
 #include "helper.h"
 
 Dialog::Dialog()
   :
+    m_auto_play{false},
     n_chars{60},
+    m_silent{false},
 #ifndef NDEBUG
     m_wait_character_msec{0.0},
     m_wait_suspense{0.0}
@@ -36,54 +39,58 @@ void Dialog::ConnectTo(const Chapter& chapter)
   );
 }
 
-void Dialog::DisconnectFrom(const Chapter& chapter)
+void Dialog::ConnectTo(const Game& game)
 {
-  chapter.m_signal_request_input.disconnect(
+  game.m_signal_request_input.connect(
     boost::bind(&Dialog::SlotRequestInput,this,_1)
   );
-  chapter.m_signal_wait.disconnect(
+  game.m_signal_wait.connect(
     boost::bind(&Dialog::SlotWait,this)
   );
-  chapter.m_signal_show_text.disconnect(
+  game.m_signal_show_text.connect(
     boost::bind(&Dialog::SlotShowText,this,_1)
   );
 }
 
-int Dialog::SlotRequestInput(const std::vector<int> valid_inputs)
+int Dialog::SlotRequestInput(const std::vector<int>& valid_inputs)
 {
-  #ifndef NDEBUG
-  assert(valid_inputs.size() >= 2);
-  //for (const int s: valid_inputs) { std::cerr << s << " "; }
-  //std::cerr << std::endl;
-  return valid_inputs[0] == 0 ? valid_inputs[1] : valid_inputs[0];
-  #else
-  while (1)
+  if (m_auto_play)
   {
-    std::string s;
-    std::getline(std::cin,s);
-    if (!IsInt(s))
-    {
-      SlotShowText("Please enter an integer\n");
-      continue;
-    }
-    const int i{std::stoi(s)};
-    const auto iter = std::find(std::begin(valid_inputs),std::end(valid_inputs),i);
-    if (iter == std::end(valid_inputs))
-    {
-      std::stringstream t;
-      std::copy(std::begin(valid_inputs),std::end(valid_inputs),std::ostream_iterator<int>(t,", "));
-      std::string u{t.str()};
-      u.pop_back(); u.pop_back(); //Pop the tailing comma and space
-      SlotShowText("Please enter a valid input: " + u + "\n");
-      continue;
-    }
-    return *iter;
+    assert(valid_inputs.size() >= 2);
+    //for (const int s: valid_inputs) { std::cerr << s << " "; }
+    //std::cerr << std::endl;
+    return valid_inputs[0] == 0 ? valid_inputs[1] : valid_inputs[0];
   }
-  #endif
+  else
+  {
+    while (1)
+    {
+      std::string s;
+      std::getline(std::cin,s);
+      if (!IsInt(s))
+      {
+        SlotShowText("Please enter an integer\n");
+        continue;
+      }
+      const int i{std::stoi(s)};
+      const auto iter = std::find(std::begin(valid_inputs),std::end(valid_inputs),i);
+      if (iter == std::end(valid_inputs))
+      {
+        std::stringstream t;
+        std::copy(std::begin(valid_inputs),std::end(valid_inputs),std::ostream_iterator<int>(t,", "));
+        std::string u{t.str()};
+        u.pop_back(); u.pop_back(); //Pop the tailing comma and space
+        SlotShowText("Please enter a valid input: " + u + "\n");
+        continue;
+      }
+      return *iter;
+    }
+  }
 }
 
-void Dialog::SlotShowText(const std::string text)
+void Dialog::SlotShowText(const std::string& text)
 {
+  if (m_silent) return;
   int pos = 0;
   for (const char c: text)
   {

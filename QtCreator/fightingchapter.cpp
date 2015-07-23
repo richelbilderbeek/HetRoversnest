@@ -56,13 +56,15 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
 {
   //Fight both
   assert(monsters.size() == 2);
+  const std::string monster_name_0{ToPretty(monsters[0].GetName())};
+  const std::string monster_name_1{ToPretty(monsters[1].GetName())};
   for (int round=0; ; ++round)
   {
     if (character.IsDead()) { return; }
     if (monsters[0].IsDead())
     {
-      m_chapter.m_signal_show_text("You defeated the " + monsters[0].GetName() + "!\n");
-      character.AddHasFought(monsters[0].GetName());
+      m_chapter.m_signal_show_text("You defeated the " + monster_name_0 + "!\n");
+      character.AddHasFought(monsters[0].GetName()); //Must be raw name
       break;
     }
 
@@ -74,11 +76,11 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         << "You " << character.GetDexterity() << " "
         << character.GetStamina() << "/"
         << character.GetInitialStamina() << '\n'
-        << monsters[0].GetName() << " "
+        << monster_name_0 << " "
         << monsters[0].GetDexterity() << " "
         << monsters[0].GetStamina() << "/"
         << monsters[0].GetInitialStamina() << '\n'
-        << monsters[1].GetName() << " "
+        << monster_name_1 << " "
         << monsters[1].GetDexterity() << " "
         << monsters[1].GetStamina() << "/"
         << monsters[1].GetInitialStamina() << '\n'
@@ -93,7 +95,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack > monster_attack)
       {
-        m_chapter.m_signal_show_text("You hit the " + monsters[0].GetName() + ".\n");
+        m_chapter.m_signal_show_text("You hit the " + monster_name_0 + ".\n");
         m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
         while (1)
@@ -110,7 +112,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           }
           monsters[0].ChangeStamina(-damage);
           m_chapter.m_signal_show_text(
-            "You did the " + monsters[0].GetName()
+            "You did the " + monster_name_0
             + " " + std::to_string(damage) + " points of damage \n"
           );
           break;
@@ -118,7 +120,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       }
       else if (player_attack < monster_attack)
       {
-        m_chapter.m_signal_show_text("You were hit by the " + monsters[0].GetName() + ".\n");
+        m_chapter.m_signal_show_text("You were hit by the " + monster_name_0 + ".\n");
         m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
         while (1)
@@ -134,7 +136,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           }
           character.ChangeStamina(-damage);
           m_chapter.m_signal_show_text(
-            "The " + monsters[0].GetName()
+            "The " + monster_name_0
             + " hit you with " + std::to_string(damage) + " points of damage \n"
           );
           break;
@@ -151,11 +153,11 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack >= monster_attack)
       {
-        m_chapter.m_signal_show_text("You resisted the " + monsters[1].GetName() + ".\n");
+        m_chapter.m_signal_show_text("You resisted the " + monster_name_1 + ".\n");
       }
       else if (player_attack < monster_attack)
       {
-        m_chapter.m_signal_show_text("You were hit by the " + monsters[1].GetName() + ".\n");
+        m_chapter.m_signal_show_text("You were hit by the " + monster_name_1 + ".\n");
         m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
         while (1)
@@ -171,7 +173,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           }
           character.ChangeStamina(-damage);
           m_chapter.m_signal_show_text(
-            "The " + monsters[1].GetName()
+            "The " + monster_name_1
             + " hit you with " + std::to_string(damage) + " points of damage \n"
           );
           break;
@@ -188,6 +190,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
 
 void FightingChapter::DoFight(Monster monster,Character& character) const
 {
+  const std::string monster_name{ToPretty(monster.GetName())};
 
   for (int round = 1; ; ++round)
   {
@@ -207,7 +210,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         << "You " << character.GetDexterity() << " "
         << character.GetStamina() << "/"
         << character.GetInitialStamina() << '\n'
-        << monster.GetName() << " "
+        << monster_name << " "
         << monster.GetDexterity() << " "
         << monster.GetStamina() << "/"
         << monster.GetInitialStamina() << '\n'
@@ -222,14 +225,14 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       std::stringstream s;
       s
         << "You attack with strength " << player_attack << '\n'
-        << monster.GetName() << " attacks with strength " << monster_attack << '\n'
+        << monster_name << " attacks with strength " << monster_attack << '\n'
       ;
       m_chapter.m_signal_show_text(s.str());
     }
 
     if (player_attack > monster_attack)
     {
-      m_chapter.m_signal_show_text("You hit the " + monster.GetName() + ".\n");
+      m_chapter.m_signal_show_text("You hit the " + monster_name + ".\n");
       m_chapter.m_signal_show_text("Do you want to use luck?\n");
       while (1)
       {
@@ -244,7 +247,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
           damage += has_luck ? 1 : -1;
         }
         monster.ChangeStamina(-damage);
-        m_chapter.m_signal_show_text("You did the " + monster.GetName()
+        m_chapter.m_signal_show_text("You did the " + monster_name
           + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
         );
         break;
@@ -252,7 +255,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
     }
     else if (player_attack < monster_attack)
     {
-      m_chapter.m_signal_show_text("You were hit by the " + monster.GetName() + ".\n");
+      m_chapter.m_signal_show_text("You were hit by the " + monster_name + ".\n");
       m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
       while (1)
@@ -267,7 +270,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
           damage += ( (damage / 2 ) * (has_luck ? -1 : 1) );
         };
         character.ChangeStamina(-damage);
-        m_chapter.m_signal_show_text("The " + monster.GetName()
+        m_chapter.m_signal_show_text("The " + monster_name
           + " did " + std::to_string(damage) + " points of damage \n"
         );
         break;
@@ -303,12 +306,12 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
 
   if (character.IsDead())
   {
-    m_chapter.m_signal_show_text("The " + monster.GetName() + " defeated you.\n");
+    m_chapter.m_signal_show_text("The " + monster_name + " defeated you.\n");
     m_chapter.m_signal_wait();
   }
   else
   {
-    m_chapter.m_signal_show_text("You defeated the " + monster.GetName() + "!\n");
+    m_chapter.m_signal_show_text("You defeated the " + monster_name + "!\n");
     m_chapter.m_signal_wait();
   }
 }

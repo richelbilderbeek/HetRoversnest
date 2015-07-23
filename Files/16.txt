@@ -1,7 +1,4 @@
-The bag holds 12 gold pieces. Add 1 luck point. 
-You leave the house quickly before the owner dis- 
-covers you are not who you say you are. You then 
-walk further north along Stable Street.
+The bag holds 12 gold pieces. Add 1 luck point. You leave the house quickly before the owner discovers you are not who you say you are. You then walk further north along Stable Street.
 @999
 change luck 1
 change gold 12

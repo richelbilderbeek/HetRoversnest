@@ -35,7 +35,7 @@ std::string ReadText(std::stringstream& s);
 std::vector<std::string> StripFirstChar(std::vector<std::string> v);
 
 #ifndef NDEBUG
-void Test();
+void TestHelperFunctions();
 #endif // NDEBUG
 
 ///Replace 'two_words' by 'two words'

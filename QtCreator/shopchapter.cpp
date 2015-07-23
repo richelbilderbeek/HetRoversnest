@@ -43,7 +43,7 @@ void ShopChapter::Do(Character& character) const
       s << '['
         << (item.second <= character.GetGold() ? std::to_string(i+1) : " ")
         << "] Buy "
-        << ToStr(items[i].first) << " for "
+        << ToPrettyStr(items[i].first) << " for "
         << items[i].second << " gold pieces\n"
       ;
       if (item.second <= character.GetGold()) { user_inputs.push_back(i + 1); }
@@ -72,7 +72,7 @@ void ShopChapter::Do(Character& character) const
       m_chapter->m_signal_show_text("Cannot buy this item: not enough gold\n");
       continue;
     }
-    m_chapter->m_signal_show_text("You bough " + ToStr(items[i].first) + "\n");
+    m_chapter->m_signal_show_text("You bough " + ToPrettyStr(items[i].first) + "\n");
     character.AddItem(items[i].first);
     character.ChangeGold(-items[i].second);
     std::swap(items[i],items.back());

@@ -34,7 +34,7 @@ void PawnShopChapter::Do(Character& character) const
     {
       s
         << '[' << (character.HasItem(items[i].first) ? std::to_string(i+1) : " ") << "] Sell "
-        << ToStr(items[i].first) << " for "
+        << ToPrettyStr(items[i].first) << " for "
         << items[i].second << " gold pieces\n"
       ;
       if (character.HasItem(items[i].first)) { user_options.push_back(i + 1); }
@@ -63,7 +63,7 @@ void PawnShopChapter::Do(Character& character) const
       m_chapter->m_signal_show_text("You do not possess this item.\n");
       continue;
     }
-    m_chapter->m_signal_show_text("You sold " + ToStr(items[i].first) + "\n");
+    m_chapter->m_signal_show_text("You sold " + ToPrettyStr(items[i].first) + "\n");
     character.RemoveItem(items[i].first);
     character.ChangeGold(items[i].second);
     std::swap(items[i],items.back());

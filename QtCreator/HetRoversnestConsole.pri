@@ -2,7 +2,6 @@ SOURCES += \
     helper.cpp \
     character.cpp \
     item.cpp \
-    test.cpp \
     monster.cpp \
     chapter.cpp \
     option.cpp \
@@ -26,7 +25,9 @@ SOURCES += \
     pillgamechapter.cpp \
     dialog.cpp \
     gamewonchapter.cpp \
-    chapter_test.cpp
+    chapter_test.cpp \
+    walkthrough.cpp \
+    helper_test.cpp
 
 HEADERS += \
     helper.h \
@@ -54,4 +55,8 @@ HEADERS += \
     ballgamechapter.h \
     dicegamechapter.h \
     pillgamechapter.h \
-    gamewonchapter.h
+    gamewonchapter.h \
+    walkthrough.h
+
+
+
