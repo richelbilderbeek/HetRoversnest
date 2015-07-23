@@ -1,6 +1,8 @@
 #ifndef CHAPTERTYPE_H
 #define CHAPTERTYPE_H
 
+#include <string>
+
 enum class ChapterType
 {
   fight,
@@ -15,5 +17,15 @@ enum class ChapterType
   test_your_luck,
   test_your_skill
 };
+
+std::string ToPrettyStr(const ChapterType item);
+std::string ToStr(const ChapterType item);
+
+ChapterType ToChapterType(const std::string& item_name);
+bool IsChapterType(const std::string& item_name);
+std::ostream& operator<<(std::ostream& os, const ChapterType item);
+
+ChapterType ReadChapterType(std::stringstream& s);
+
 
 #endif // CHAPTERTYPE_H

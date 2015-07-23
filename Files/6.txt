@@ -1,7 +1,4 @@
-Her tone becomes unpleasant and she tells you to 
-get out of her house because there are certainly no 
-rags in it, nor any other kind of jumble for that 
-matter.
-@999
+Her tone becomes unpleasant and she tells you to get out of her house because there are certainly no rags in it, nor any other kind of jumble for that matter. @
+normal
 option If you wish to obey her, leave the house and head further north along Stable Street@ goto 333
 option If you wish to go through the curtains and see who is being so rude to you@ goto 88

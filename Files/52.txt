@@ -1,5 +1,5 @@
-Behind the next stall is a young man selling small weapons and items of equipment. The prices of his wares are chalked up on a slate.
-@999
+Behind the next stall is a young man selling small weapons and items of equipment. The prices of his wares are chalked up on a slate. @
+shop
 shop_items 
   throwing_knife 4
   climbing_rope 2

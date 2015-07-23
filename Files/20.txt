@@ -1,5 +1,4 @@
-The pirate's pockets contain nothing apart from a 
-piece of stale bread. You leave him to start a search 
-of the wooden boxes and barrels on the ship's deck.
-@999
+The pirate's pockets contain nothing apart from a piece of stale bread. You leave him to start a search of the wooden boxes and barrels on the ship's deck. @
+normal
+change add stale_bread
 goto 84

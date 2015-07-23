@@ -55,30 +55,23 @@ Chapter::Chapter(const int chapter_number)
   m_text = ReadText(s);
 
   //Parse(s,'@'); //Read by ReadText
-  const int chapter_type = ReadInt(s);
+  try
+  {
+    m_chapter_type = ReadChapterType(s);
+  }
+  catch (std::runtime_error& e)
+  {
+    m_chapter_type = ChapterType::normal;
+    std::cerr << "WARNING: error in parsing " << filename << std::endl;
+  }
+  //const std::string chapter_type_str{ReadString(s)};
+  //const int chapter_type = ReadInt(s);
 
-
-  if (chapter_type == 5)
+  switch (m_chapter_type)
   {
-    m_chapter_type = ChapterType::game_lost;
-    return;
-  }
-  if (chapter_type == 11)
-  {
-    m_chapter_type = ChapterType::game_won;
-    return;
-  }
-  if (chapter_type == 14)
-  {
-    m_chapter_type = ChapterType::play_dice;
-  }
-  if (chapter_type == 15)
-  {
-    m_chapter_type = ChapterType::play_pill;
-  }
-  if (chapter_type == 16)
-  {
-    m_chapter_type = ChapterType::play_ball;
+    case ChapterType::game_lost: return;
+    case ChapterType::game_won: return;
+    default: break;
   }
 
   while (!s.eof())
@@ -116,7 +109,7 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "Luck" || str == "luck")
     {
-      this->m_chapter_type = ChapterType::test_your_luck;
+      assert(this->m_chapter_type == ChapterType::test_your_luck);
       const std::string luck_text{ReadText(s)};
       assert(!luck_text.empty());
       GetLuck().SetLuckText(luck_text);
@@ -138,6 +131,7 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "No_luck" || str == "no_luck")
     {
+      assert(this->m_chapter_type == ChapterType::test_your_luck);
       //s << std::noskipws; //Obligatory
       //Parse(s,' '); //You expect a space after a word
       const std::string no_luck_text{ReadText(s)};
@@ -161,6 +155,7 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "No_skill" || str == "no_skill")
     {
+      assert(this->m_chapter_type == ChapterType::test_your_skill);
       //Parse(s,' '); //You expect a space after a word
       const std::string no_skill_text{ReadText(s)};
       assert(!no_skill_text.empty());
@@ -271,16 +266,19 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "Sell_items" || str == "sell_items")
     {
-      m_chapter_type = ChapterType::pawn_shop;
+      assert(this->m_chapter_type == ChapterType::pawn_shop);
+      //m_chapter_type = ChapterType::pawn_shop;
       m_pawn_shop_chapter = ParsePawnShopChapter(s,this);
     }
     else if (str == "Shop_items" || str == "shop_items")
     {
-      m_chapter_type = ChapterType::shop;
+      assert(this->m_chapter_type == ChapterType::shop);
+      //m_chapter_type = ChapterType::shop;
       m_shop_chapter = ParseShopChapter(s,this);
     }
     else if (str == "Skill" || str == "skill")
     {
+      assert(this->m_chapter_type == ChapterType::test_your_skill);
       this->m_chapter_type = ChapterType::test_your_skill;
       //Parse(s,' '); //You expect a space after a word
       const std::string skill_text{ReadText(s)};
@@ -439,12 +437,14 @@ void Chapter::Do(Character& character) const
   }
   else if (GetType() == ChapterType::test_your_luck)
   {
+    m_signal_show_text("Test your luck...\n");
     GetLuck().Do(character);
     //m_consequence.Apply(character); Applies its own consequences
 
   }
   else if (GetType() == ChapterType::test_your_skill)
   {
+    m_signal_show_text("Test your skill...\n");
     GetSkill().Do(character);
     //m_consequence.Apply(character); Applies its own consequences
   }

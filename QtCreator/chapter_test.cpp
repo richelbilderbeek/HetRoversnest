@@ -235,6 +235,7 @@ void Chapter::Test() noexcept
   //Chapter 15: Luck chapter must be parsed correctly
   {
     const Chapter chapter(15);
+    assert(chapter.GetType() == ChapterType::test_your_luck);
     assert(!chapter.GetLuck().GetLuckText().empty());
     assert(!chapter.GetLuck().GetNoLuckText().empty());
     assert(chapter.GetLuck().GetLuckChapter() > 1);
@@ -243,6 +244,8 @@ void Chapter::Test() noexcept
   //Chapter 15: Luck chapter must be parsed correctly
   {
     const Chapter chapter(15);
+    assert(chapter.GetType() == ChapterType::test_your_luck);
+
     Character character(10,10,10,Item::luck_potion);
 
     d.ConnectTo(chapter);
@@ -254,6 +257,8 @@ void Chapter::Test() noexcept
   //Chapter 18: Skill chapter must be parsed correctly
   {
     const Chapter chapter(18);
+    assert(chapter.GetType() == ChapterType::test_your_skill);
+
     assert(!chapter.GetSkill().GetSkillText().empty());
     assert(!chapter.GetSkill().GetNoSkillText().empty());
     assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 102);

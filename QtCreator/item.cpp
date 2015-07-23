@@ -4,7 +4,7 @@
 
 #include "helper.h"
 
-boost::bimap<Item,std::string> CreateBimap()
+boost::bimap<Item,std::string> CreateItemBimap()
 {
   static boost::bimap<Item,std::string> m;
   {
@@ -97,7 +97,7 @@ boost::bimap<Item,std::string> CreateBimap()
 
 bool IsItem(const std::string& item_name)
 {
-  const auto m = CreateBimap();
+  const auto m = CreateItemBimap();
   return m.right.find(item_name) != m.right.end();
 }
 
@@ -112,7 +112,7 @@ Item ReadItem(std::stringstream& s)
 
 Item ToItem(const std::string& item_name)
 {
-  const auto m = CreateBimap();
+  const auto m = CreateItemBimap();
   assert(IsItem(item_name));
   return m.right.find(item_name)->second;
 }
@@ -124,7 +124,7 @@ std::string ToPrettyStr(const Item item)
 
 std::string ToStr(const Item item)
 {
-  const auto m = CreateBimap();
+  const auto m = CreateItemBimap();
   assert(m.left.find(item) != m.left.end());
   return m.left.find(item)->second;
 }
