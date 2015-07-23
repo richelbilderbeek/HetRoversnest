@@ -176,6 +176,7 @@ Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
     }
   }
   assert(!"Should not get here");
+  return options[1];
 }
 
 void Walkthrough::SlotShowText(const std::string& text)

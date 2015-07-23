@@ -124,8 +124,8 @@ void Game::Test() noexcept
   //Can the game be won?
   {
     const int seed{0};
-    //Use a strong character
-    const Character character(6+6,12+6,6+6,Item::luck_potion);
+    //Use a maxed-out character
+    const Character character(9,12,12,Item::luck_potion);
     Walkthrough walkthrough(seed,character);
     walkthrough.Start();
   }

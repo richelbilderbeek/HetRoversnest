@@ -301,11 +301,11 @@ Chapter::Chapter(const int chapter_number)
 void Chapter::Do(Character& character) const
 {
   assert(m_signal_request_option.num_slots() > 0);
+  m_signal_show_text("\n");
 
   #ifndef NDEBUG
   m_signal_show_text(
-      "\n"
-    + std::string(60,'-') + "\n"
+      std::string(60,'-') + "\n"
     + std::to_string(GetChapterNumber()) + "\n"
     + std::string(60,'-') + "\n"
   );
