@@ -5,7 +5,9 @@ should not help him, but they insist that you bribe
 them or else you too will be taken to the jail. They 
 say they are interested in any of the following items: 
 magic armour, magic rings or magic potions. 
-@999
+@
+normal
+
 option If you wish to give them a luck potion @ if luck_potion change remove luck_potion goto 260
 option If you wish to give them a stamina potion @ if stamina_potion change remove stamina_potion goto 260
 option If you wish to give them a dexterity potion @ if dexterity_potion change remove dexterity_potion goto 260

@@ -1,4 +1,6 @@
 The food stalls are selling fruit, vegetables, meat and hot soup, corn and chestnuts for hungry shoppers. You may eat some hot food if you wish: pay 1 Gold Piece and increase your stamina by 2 points.
-@999
+@
+normal
+
 option Eat some food @ if gold 2 goto 412
 option Walk on @ goto 413

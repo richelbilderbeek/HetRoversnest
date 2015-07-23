@@ -2,7 +2,9 @@ To your left you see a large wooden barn set back
 from the houses. Two horses are tied to a post 
 outside the barn, and smoke rises from a crooked 
 chimney on top of its low flat roof. 
-@999
+@
+normal
+
 option If you wish to walk through the barn doors@ goto 25
 option If you would rather continue north@ goto 115
 

@@ -1,5 +1,7 @@
 The goblin's pockets contain 2 gold Pieces, a clove of garlic and some old knucklebones. You head east again along Clog Street.
-@999
+@
+normal
+
 change gold 2
 change add garlic
 change add knucklebones

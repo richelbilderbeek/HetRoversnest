@@ -1,5 +1,7 @@
 You fall to the floor, unconscious. You lose 3 stamina points. 
-@999
+@
+normal
+
 change remove all_silver_items
 change stamina -3
 goto 199

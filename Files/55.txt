@@ -3,7 +3,9 @@ of the dead dogs. On contact with blood the petals
 sparkle and make a popping noise. On the floor are 
 10 gold pieces. You pick up the gold and walk back 
 up the alleyway to Harbour Street. 
-@999
+@
+normal
+
 change gold 10
 change remove gold_flower
 goto 180

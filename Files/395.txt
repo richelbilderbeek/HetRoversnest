@@ -1,4 +1,6 @@
 The blacksmith was a good man. Lose 4 luck points. Feeling extremely guilty, you have stable and continue north.
-@999
+@
+normal
+
 change luck -4
 goto 115

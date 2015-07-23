@@ -1,5 +1,7 @@
 You cut the pouch from round the pirate's neck and open it. Inside you find six black pearls. Add 2 luck points. You leave the room with your valuable treasure. Outside in the corridor you may either
-@999
+@
+normal
+
 change luck 2
 change add black_pearls
 option open the other door @ if has_not opened_pirate_captain_door goto 232

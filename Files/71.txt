@@ -4,7 +4,9 @@ for years. Rummaging through the jumble, you find
 a polished wooden box with a hand made of white 
 shell inlaid on the lid. The box is locked and you 
 cannot find the key to open it. 
-@999
+@
+normal
+
 option If you wish to smash it open with your sword@ goto 324
 option If you wish to 
 leave the house to continue north, without trying to 

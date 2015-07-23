@@ -1,4 +1,6 @@
 In the next stall area there is a small, brightly coloured tent. Attached to it is a small sign which reads, 'Madame Star, Clairvoyant'. 
-@999
+@
+normal
+
 option If you wish to enter the tent @ goto 394
 option If you would rather continue north @ goto 117

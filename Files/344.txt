@@ -1,4 +1,6 @@
 You step out into the middle of the street and wait. Suddenly a pair of horses come galloping into view pulling an ornate gold carriage. The driver sees you and, cracking his whip, yells. 'Make way for Lord Azzur!' 
-@999
+@
+normal
+
 option If you wish to step out of the path of the oncoming carriage @ goto 58
 option If you wish to stay where you are @ goto 252

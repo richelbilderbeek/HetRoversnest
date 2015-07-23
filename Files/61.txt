@@ -7,6 +7,8 @@ draw your sword. Then the snake's mouth opens
 and a forked tongue darts in and out as the Serpent 
 Queen asks to see the flowers sent to her by Lord 
 Azzur. Do you have a (bunch of) flower(s)?
-@999
+@
+normal
+
 option Yes, you have a golden flower@ if gold_flower goto 172
 option No, you do not have a (bunch of) flower(s)@ ifnot gold_flower goto 350

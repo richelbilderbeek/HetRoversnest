@@ -1,5 +1,7 @@
 You grimace as you feel the poison creep up your arm. Lose 4 stamina points and 1 skill point. You may:
-@999
+@
+normal
+
 change stamina -4
 change dexterity -1
 change add lifted_goblet_a

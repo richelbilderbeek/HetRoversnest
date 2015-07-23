@@ -1,5 +1,7 @@
 She explains that she has just picked one of her golden flowers. There are ten golden petals on the flower, and you are told that if dipped in dog's blood, each petal, plucked and thrown on the ground, will change into a gold piece. Mrs Pipe asks for any magic item, piece of armour or two provisions in exchange for the golden flower.
-@999
+@
+normal
+
 option Buy the flower for an invisibility ring @ if invisibility_ring change remove invisibility_ring goto 24
 option Buy the flower for a ring of ice @ if ring_of_ice change remove ring_of_ice goto 24
 option Buy the flower for a ring of fire @ if ring_of_fire change remove ring_of_fire goto 24

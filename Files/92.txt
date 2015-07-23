@@ -3,6 +3,8 @@ when your hand comes into contact with a smooth
 flat object. You pull it out and see that you are 
 holding a mirror. You pack it away and walk back to 
 the entrance hole.
-@999
+@
+normal
+
 change add mirror
 goto 174

@@ -1,4 +1,6 @@
 What will you do?
-@999
+@
+normal
+
 option If you wish to grope your way into the room @ goto 391
 option If you wish to walk back to the staircase to climb to the next floor @ goto 65

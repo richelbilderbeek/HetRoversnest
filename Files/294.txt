@@ -1,4 +1,6 @@
 At the top of the gangplank stands one of the ship's crew. On seeing you he draws his cutlass and tells you to get off the ship. 
-@999
+@
+normal
+
 option If you wish to walk back down the gangplank, along the jetty and tum left up Harbour Street @ goto 78
 option If you wish to draw your sword to deal with this pirate @ goto 386

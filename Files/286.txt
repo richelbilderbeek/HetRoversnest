@@ -1,3 +1,5 @@
 You point the ring at the advancing mummy and rub the jewel. A jet of fire flies out of the ring and the mummy is consumed by flames. It drops to the floor and in a few moments there is nothing left but a few charred fragments.
-@999
+@
+normal
+
 goto 163

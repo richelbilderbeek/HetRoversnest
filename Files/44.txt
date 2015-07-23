@@ -7,6 +7,8 @@ before they reach you. If you do not have
 a Throwing Knife you will have to fight all three 
 With your sword.
 Do you have a throwing knife?
-@999
+@
+normal
+
 option You have a throwing knife@ if throwing_knife goto 18
 option You do not have a throwing knife@ ifnot throwing_knife goto 225

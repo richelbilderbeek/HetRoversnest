@@ -1,3 +1,5 @@
 The key fits the lock and the handle turns.
-@999
+@
+normal
+
 Next_chapter 159

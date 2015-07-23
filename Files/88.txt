@@ -8,7 +8,9 @@ neck. You are caught somewhat off-balance by the
 serpent queen and suffer the loss of 4 stamina 
 points and 1 skill point before you can draw your 
 sword to defend yourself. 
-@999
+@
+normal
+
 change dexterity -1
 change stamina -1
 goto 418

@@ -1,6 +1,8 @@
 There is an iron ladder secured to the rim of a hole, 
 descending into a tunnel below. It is dark, and a 
 unpleasant smell rises up from below. 
-@999
+@
+normal
+
 option If you wish to climb down the ladder@ goto 321
 option If you wish to replace the manhole cover and continue@ goto 205

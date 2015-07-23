@@ -1,4 +1,6 @@
 You may 
-@999
+@
+normal
+
 option Escape by throwing your shield (you will lose 1 skill point due to this) at Fatnose and run off west along Mill Street @ if has shield change remove shield goto 239
 option Fight Fatnose @ goto 403

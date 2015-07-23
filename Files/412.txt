@@ -1,4 +1,6 @@
 You eat the food. Your stamina is increased by 2 points. 
-@999
+@
+normal
+
 change stamina 2
 goto 413

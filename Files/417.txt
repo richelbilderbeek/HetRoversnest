@@ -1,4 +1,6 @@
 Do you have enough gold (20 gold pieces) to buy a tattoo from Ben?
-@999
+@
+normal
+
 option Yes @ if gold 20 goto 316
 option No, you will have to come back later. You leave the allay and continue along Mill street @ goto 307

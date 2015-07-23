@@ -1,4 +1,6 @@
 You climb up to the third floor and see another door at the end of the landing. 
-@999
+@
+normal
+
 option If you wish to open the door @ goto 263
 option If you wish to climb to the next floor @ goto 65

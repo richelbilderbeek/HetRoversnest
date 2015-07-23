@@ -10,6 +10,8 @@ no doubt she could not wait to cook some of the
 rats she had killed. Despite your repulsion you are 
 excited about having gained one of the items necessary to defeat the Night Prince. You throw the Hag 
 into the sewer and walk back to the entrance hole.
-@999
+@
+normal
+
 change add hags_hair
 goto 104

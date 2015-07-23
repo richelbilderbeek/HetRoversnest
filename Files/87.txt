@@ -6,6 +6,8 @@ around, and one of the ship's crew stands on guard
 at the top of the gangplank. In the centre of the deck 
 there is a small cabin with an open door. Through 
 the door you see stairs leading down to the lower decks. 
-@999
+@
+normal
+
 option If you wish to inspect any of the wooden boxes and barrels, you will have to deal with the pirate on guard@ goto 120
 option If you wish to creep along the deck to the stairs@ goto 50

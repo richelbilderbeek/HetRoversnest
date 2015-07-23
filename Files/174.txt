@@ -1,4 +1,6 @@
 Back at the entrance hole you may either:
-@999
+@
+normal
+
 option Climb up the ladder to the street in order to continue east @ goto 205
 option Walk north along the sewer @ if has_not followed_sewer_north goto 356

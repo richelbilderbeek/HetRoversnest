@@ -7,6 +7,8 @@ as he is feeling particularly grateful he will grant you
 another wish. With your strength returned you feel 
 you can now deal with Zanbar Bone and ask the 
 little man of his whereabouts.
-@999
+@
+normal
+
 change stamina 6
 goto 234

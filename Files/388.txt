@@ -1,3 +1,5 @@
 You try with all your might to bend the bars securing the glass cupboard but you are unable to open it. Finding nothing else of interest in the shop, you walk outside and continue east.
-@999
+@
+normal
+
 goto 100

@@ -1,4 +1,6 @@
 Do you have the ring of the golden eye?
-@999
+@
+normal
+
 option Yes @ if has ring_of_the_golden_eye goto 385
 option No @ ifnot ring_of_the_golden_eye goto 70

@@ -1,4 +1,6 @@
 Walking towards you down the street are two town guards. They stop in front of you and demand to see your papers. Do you have a merchant's pass?
-@999
+@
+normal
+
 option Yes @ if has merchant_pass goto 255
 option No @ ifnot merchant_pass goto 99

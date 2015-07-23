@@ -1,5 +1,7 @@
 Although many of the items in the room are extremely valuable, they are not of much use to you on your quest. However, something strange catches your eye. On a mahogany card table lie three upturned silver goblets. One is inscribed with the letter A, another with B and another with C. Will you: 
-@999
+@
+normal
+
 option Pick up goblet A? @ goto 175
 option Pick up goblet B? @ goto 209
 option Pick up goblet C? @ goto 43

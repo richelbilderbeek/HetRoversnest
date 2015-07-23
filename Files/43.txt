@@ -1,5 +1,7 @@
 You cry out in pain as the goblet changes into a burning coal in your hand. You are badly burnt. Lose 2 skill and 2 luck points. 
-@999
+@
+normal
+
 change stamina -2
 change luck -2
 change add lifted_goblet_c

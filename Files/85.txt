@@ -3,6 +3,8 @@ makes a silver arrow for you. Finally he presents
 you with it and assures you that it will be completely 
 accurate in flight. You thank him for his trouble and 
 leave his shop. Outside you set off east once again. 
-@999
+@
+normal
+
 change add silver_arrow
 goto 100

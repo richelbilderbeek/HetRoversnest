@@ -1,5 +1,7 @@
 The man hands you the gold and puts the gems under the counter. 
-@999
+@
+normal
+
 change remove two_gems
 change gold 9
 option If you now wish to inquire about the price of his rings @ goto 36

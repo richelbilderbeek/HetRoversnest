@@ -1,4 +1,6 @@
 You draw your sword to defend yourself.
-@999
+@
+normal
+
 monster serpent_queen 9 7 2
 goto 295

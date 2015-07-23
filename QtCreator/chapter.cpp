@@ -54,18 +54,7 @@ Chapter::Chapter(const int chapter_number)
 
   m_text = ReadText(s);
 
-  //Parse(s,'@'); //Read by ReadText
-  try
-  {
-    m_chapter_type = ReadChapterType(s);
-  }
-  catch (std::runtime_error& e)
-  {
-    m_chapter_type = ChapterType::normal;
-    std::cerr << "WARNING: error in parsing " << filename << std::endl;
-  }
-  //const std::string chapter_type_str{ReadString(s)};
-  //const int chapter_type = ReadInt(s);
+  m_chapter_type = ReadChapterType(s);
 
   switch (m_chapter_type)
   {

@@ -1,4 +1,6 @@
 You throw your shield at Fatnose.
-@999
+@
+normal
+
 change remove shield
 goto 239

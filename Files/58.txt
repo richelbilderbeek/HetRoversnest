@@ -3,6 +3,8 @@ you with his whip. Lose 1 stamina point. You
 curse the driver of the carriage as it races out of 
 view, rubbing your neck where the whip has raised 
 a weal. You set off west again.
-@999
+@
+normal
+
 change stamina -1
 goto 171

@@ -5,5 +5,7 @@ called Market Street. Looking north you see a crowd
 of people walking up the street cheering loudly and 
 waving their arms in the air. You decide to follow 
 them.
-@999
+@
+normal
+
 goto 148
