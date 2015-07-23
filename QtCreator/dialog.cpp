@@ -31,6 +31,9 @@ void Dialog::ConnectTo(const Chapter& chapter)
   chapter.m_signal_request_input.connect(
     boost::bind(&Dialog::SlotRequestInput,this,_1)
   );
+  chapter.m_signal_request_option.connect(
+    boost::bind(&Dialog::SlotRequestOption,this,_1)
+  );
   chapter.m_signal_wait.connect(
     boost::bind(&Dialog::SlotWait,this)
   );
@@ -44,6 +47,9 @@ void Dialog::ConnectTo(const Game& game)
   game.m_signal_request_input.connect(
     boost::bind(&Dialog::SlotRequestInput,this,_1)
   );
+  game.m_signal_request_option.connect(
+    boost::bind(&Dialog::SlotRequestOption,this,_1)
+  );
   game.m_signal_wait.connect(
     boost::bind(&Dialog::SlotWait,this)
   );
@@ -52,13 +58,32 @@ void Dialog::ConnectTo(const Game& game)
   );
 }
 
+Option Dialog::SlotRequestOption(const std::vector<Option>& options)
+{
+  const int n_options{static_cast<int>(options.size())};
+  while (1)
+  {
+    std::vector<int> valid_indices;
+    std::stringstream text;
+    for (int i=0; i!=n_options; ++i)
+    {
+      valid_indices.push_back(i);
+      text << "[" << i << "] " << options[i].GetText() << '\n';
+    }
+    SlotShowText(text.str());
+    const int chosen_index{SlotRequestInput(valid_indices)};
+    assert(chosen_index >= 0);
+    assert(chosen_index < n_options);
+    return options[chosen_index];
+  }
+}
+
 int Dialog::SlotRequestInput(const std::vector<int>& valid_inputs)
 {
   if (m_auto_play)
   {
-    assert(valid_inputs.size() >= 2);
-    //for (const int s: valid_inputs) { std::cerr << s << " "; }
-    //std::cerr << std::endl;
+    assert(!valid_inputs.empty());
+    if (valid_inputs.size() == 1) { return valid_inputs[0]; }
     return valid_inputs[0] == 0 ? valid_inputs[1] : valid_inputs[0];
   }
   else

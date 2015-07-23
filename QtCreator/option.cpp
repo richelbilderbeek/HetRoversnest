@@ -24,6 +24,12 @@ bool Option::CanChoose(const Character& character) const
   return m_condition.IsSatisfied(character);
 }
 
+void Option::DoChoose(Character& character) const
+{
+  assert(CanChoose(character));
+  GetConsequence().Apply(character);
+}
+
 void Option::SetCondition(const Condition& condition)
 {
   m_condition = condition;

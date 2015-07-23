@@ -24,6 +24,9 @@ struct Option
 
   bool CanChoose(const Character& character) const;
 
+  void DoChoose(Character& character) const;
+
+
   const Condition& GetCondition() const noexcept { return m_condition; }
 
   const Consequence& GetConsequence() const noexcept { return m_consequence; }

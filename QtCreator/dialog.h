@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "option.h"
+
 struct Chapter;
 struct Game;
 
@@ -21,6 +23,7 @@ struct Dialog
 
 
   int SlotRequestInput(const std::vector<int>& valid_inputs);
+  Option SlotRequestOption(const std::vector<Option>& valid_inputs);
   void SlotShowText(const std::string& text);
   void SlotWait();
 

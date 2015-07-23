@@ -15,7 +15,7 @@ void Chapter::Test() noexcept
 
   Dialog d;
   d.SetAutoPlay(true);
-  d.SetSilent(true);
+  d.SetSilent(false);
 
 
   //Sequential fight

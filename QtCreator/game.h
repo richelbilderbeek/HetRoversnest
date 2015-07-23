@@ -1,9 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "character.h"
-
 #include <boost/signals2.hpp>
+
+#include "character.h"
+#include "option.h"
+
 
 struct Game
 {
@@ -21,6 +23,9 @@ struct Game
   //If the Game wants an input
   mutable boost::signals2::signal<int(const std::vector<int>& valid_inputs)> m_signal_request_input;
 
+  //If the Game wants an Option
+  mutable boost::signals2::signal<Option(const std::vector<Option>& valid_options)> m_signal_request_option;
+
   //If the Game want the dialog to display something
   mutable boost::signals2::signal<void(const std::string text)> m_signal_show_text;
 
@@ -34,6 +39,7 @@ struct Game
   bool m_has_won;
 
   int SlotRequestInput(const std::vector<int>& valid_inputs);
+  Option SlotRequestOption(const std::vector<Option>& valid_inputs);
   void SlotShowText(const std::string& text);
   void SlotWait();
 

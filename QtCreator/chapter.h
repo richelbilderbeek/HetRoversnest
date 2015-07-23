@@ -59,6 +59,7 @@ struct Chapter
 
   //If the Chapter wants an input
   mutable boost::signals2::signal<int(const std::vector<int>& valid_inputs)> m_signal_request_input;
+  mutable boost::signals2::signal<Option(const std::vector<Option>& valid_option)> m_signal_request_option;
 
   //If the Chapter want the dialog to display something
   mutable boost::signals2::signal<void(const std::string& text)> m_signal_show_text;

@@ -14,6 +14,7 @@
 Chapter::Chapter(const int chapter_number)
   :
     m_signal_request_input{},
+    m_signal_request_option{},
     m_signal_show_text{},
     m_signal_wait{},
     m_ball_game_chapter{*this},
@@ -72,16 +73,7 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "Bye" || str == "bye")
     {
-      s << std::noskipws; //Obligatory
-      //Parse(s,' '); //You expect a space after a word
-      while (1)
-      {
-        char c = '*';
-        s >> c;
-        if (c == '@') break;
-        m_bye_text += c;
-      }
-      s << std::skipws; //Obligatory
+      m_bye_text = ReadText(s);
     }
     else if (str == "Change" || str == "change")
     {
@@ -311,6 +303,7 @@ void Chapter::Do(Character& character) const
   assert(m_signal_request_input.num_slots() > 0);
   assert(m_signal_wait.num_slots() > 0);
   assert(m_signal_request_input.num_slots() > 0);
+  assert(m_signal_request_option.num_slots() > 0);
 
   #ifndef NDEBUG
   m_signal_show_text(
@@ -367,54 +360,9 @@ void Chapter::Do(Character& character) const
         std::cerr << option << std::endl;
       }
     }
-    while (1)
-    {
-      //Show options
-      const auto options = GetOptions().GetValidOptions(character);
-      assert(!options.empty());
-      const int n_options{static_cast<int>(options.size())};
-      std::vector<int> user_options;
-      {
-        std::stringstream text;
-        for (int i=0; i!=n_options; ++i)
-        {
-          const auto option = options[i];
-          text << '[' << (i+1) << "] " << option.GetText() << '\n';
-          user_options.push_back(i+1);
-        }
-        text << "[0] Status and inventory\n";
-        user_options.push_back(0);
-        m_signal_show_text(text.str());
-      }
-      //Only one option
-      if (options.size() == 1)
-      {
-        options[0].GetConsequence().Apply(character);
-        break;
-      }
-
-      //Process command
-      const int chosen_option_number{*m_signal_request_input(user_options)};
-      if (chosen_option_number != 0
-        && (chosen_option_number < 1 || chosen_option_number > static_cast<int>(options.size()))
-      )
-      {
-        std::stringstream text;
-        text << "Please enter a number from 1 to " << options.size() << " or 0 for inventory\n";
-        m_signal_show_text(text.str());
-        continue;
-      }
-      if (chosen_option_number == 0)
-      {
-        m_signal_show_text(character.ShowInventory() + "\n");
-        continue;
-      }
-      const int chosen_option_index{chosen_option_number-1};
-      assert(chosen_option_index >= 0);
-      assert(chosen_option_index < static_cast<int>(options.size()));
-      options[chosen_option_index].GetConsequence().Apply(character);
-      break;
-    }
+    //Let the use choose a valid option
+    const auto options = GetOptions().GetValidOptions(character);
+    (*m_signal_request_option(options)).DoChoose(character);
     assert(m_consequence.GetNextChapter() == -1);
     m_consequence.Apply(character);
   }

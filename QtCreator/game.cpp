@@ -21,6 +21,7 @@ Game::Game(
 )
   :
     m_signal_request_input{},
+    m_signal_request_option{},
     m_signal_show_text{},
     m_signal_wait{},
     m_character{character},
@@ -54,6 +55,9 @@ void Game::DoChapter()
   chapter.m_signal_request_input.connect(
     boost::bind(&Game::SlotRequestInput,this,_1)
   );
+  chapter.m_signal_request_option.connect(
+    boost::bind(&Game::SlotRequestOption,this,_1)
+  );
   chapter.m_signal_wait.connect(
     boost::bind(&Game::SlotWait,this)
   );
@@ -73,6 +77,11 @@ int Game::GetCurrentChapterNumber() const noexcept
 int Game::SlotRequestInput(const std::vector<int>& valid_inputs)
 {
   return *m_signal_request_input(valid_inputs);
+}
+
+Option Game::SlotRequestOption(const std::vector<Option>& valid_options)
+{
+  return *m_signal_request_option(valid_options);
 }
 
 void Game::SlotShowText(const std::string& text)
