@@ -98,49 +98,44 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         m_chapter.m_signal_show_text("You hit the " + monster_name_0 + ".\n");
         m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
-        while (1)
+        const auto options = CreateYesNoOptions();
+        const Option selected_option{*m_chapter.m_signal_request_option(options)};
+        assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+          || selected_option.GetConsequence().GetType() == ConsequenceType::no
+        );
+        int damage = 2;
+        if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
         {
-          m_chapter.m_signal_show_text("[0] No\n");
-          m_chapter.m_signal_show_text("[1] Yes\n");
-          //const std::vector<int> user_options = {1,2};
-          const int input{*m_chapter.m_signal_request_input( {0,1} )};
-          int damage = 2;
-          if (input == 1)
-          {
-            const bool has_luck{character.TestLuck()};
-            damage += (has_luck ? -1 : 1);
-          }
-          monsters[0].ChangeStamina(-damage);
-          m_chapter.m_signal_show_text(
-            "You did the " + monster_name_0
-            + " " + std::to_string(damage) + " points of damage \n"
-          );
-          break;
+          const bool has_luck{character.TestLuck()};
+          damage += (has_luck ? -1 : 1);
         }
+        monsters[0].ChangeStamina(-damage);
+        m_chapter.m_signal_show_text(
+          "You did the " + monster_name_0
+          + " " + std::to_string(damage) + " points of damage \n"
+        );
       }
       else if (player_attack < monster_attack)
       {
         m_chapter.m_signal_show_text("You were hit by the " + monster_name_0 + ".\n");
         m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
-        while (1)
+        const auto options = CreateYesNoOptions();
+        const Option selected_option{*m_chapter.m_signal_request_option(options)};
+        assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+          || selected_option.GetConsequence().GetType() == ConsequenceType::no
+        );
+        int damage{monsters[0].GetAttackDamage()};
+        if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
         {
-          m_chapter.m_signal_show_text("[0] No\n");
-          m_chapter.m_signal_show_text("[1] Yes\n");
-          const int input{*m_chapter.m_signal_request_input( {0,1} )};
-          int damage{monsters[0].GetAttackDamage()};
-          if (input == 1)
-          {
-            const bool has_luck{character.TestLuck()};
-            damage += ( (damage/2) * (has_luck ? 1 : -1) );
-          }
-          character.ChangeStamina(-damage);
-          m_chapter.m_signal_show_text(
-            "The " + monster_name_0
-            + " hit you with " + std::to_string(damage) + " points of damage \n"
-          );
-          break;
+          const bool has_luck{character.TestLuck()};
+          damage += ( (damage/2) * (has_luck ? 1 : -1) );
         }
+        character.ChangeStamina(-damage);
+        m_chapter.m_signal_show_text(
+          "The " + monster_name_0
+          + " hit you with " + std::to_string(damage) + " points of damage \n"
+        );
       }
       else
       {
@@ -160,24 +155,23 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         m_chapter.m_signal_show_text("You were hit by the " + monster_name_1 + ".\n");
         m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
-        while (1)
+        const auto options = CreateYesNoOptions();
+        const Option selected_option{*m_chapter.m_signal_request_option(options)};
+        assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+          || selected_option.GetConsequence().GetType() == ConsequenceType::no
+        );
+
+        int damage{monsters[1].GetAttackDamage()};
+        if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
         {
-          m_chapter.m_signal_show_text("[0] No\n");
-          m_chapter.m_signal_show_text("[1] Yes\n");
-          const int input{*m_chapter.m_signal_request_input( {0,1} )};
-          int damage{monsters[1].GetAttackDamage()};
-          if (input == 1)
-          {
-            const bool has_luck{character.TestLuck()};
-            damage += ( (damage/2) * (has_luck ? -1 : 1) );
-          }
-          character.ChangeStamina(-damage);
-          m_chapter.m_signal_show_text(
-            "The " + monster_name_1
-            + " hit you with " + std::to_string(damage) + " points of damage \n"
-          );
-          break;
+          const bool has_luck{character.TestLuck()};
+          damage += ( (damage/2) * (has_luck ? -1 : 1) );
         }
+        character.ChangeStamina(-damage);
+        m_chapter.m_signal_show_text(
+          "The " + monster_name_1
+          + " hit you with " + std::to_string(damage) + " points of damage \n"
+        );
       }
     }
     m_chapter.m_signal_wait();
@@ -234,47 +228,43 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
     {
       m_chapter.m_signal_show_text("You hit the " + monster_name + ".\n");
       m_chapter.m_signal_show_text("Do you want to use luck?\n");
-      while (1)
+      const auto options = CreateYesNoOptions();
+      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+        || selected_option.GetConsequence().GetType() == ConsequenceType::no
+      );
+      int damage{2};
+      if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
       {
-        m_chapter.m_signal_show_text("[0] No\n");
-        m_chapter.m_signal_show_text("[1] Yes\n");
-        assert(m_chapter.m_signal_request_input.num_slots() > 0);
-        const int input{*m_chapter.m_signal_request_input( {0,1} )};
-        int damage{2};
-        if (input == 1)
-        {
-          const bool has_luck{character.TestLuck()};
-          damage += has_luck ? 1 : -1;
-        }
-        monster.ChangeStamina(-damage);
-        m_chapter.m_signal_show_text("You did the " + monster_name
-          + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
-        );
-        break;
+        const bool has_luck{character.TestLuck()};
+        damage += has_luck ? 1 : -1;
       }
+      monster.ChangeStamina(-damage);
+      m_chapter.m_signal_show_text("You did the " + monster_name
+        + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
+      );
     }
     else if (player_attack < monster_attack)
     {
       m_chapter.m_signal_show_text("You were hit by the " + monster_name + ".\n");
       m_chapter.m_signal_show_text("Do you want to use luck?\n");
 
-      while (1)
+      const auto options = CreateYesNoOptions();
+      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+        || selected_option.GetConsequence().GetType() == ConsequenceType::no
+      );
+
+      int damage{monster.GetAttackDamage()};
+      if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
       {
-        m_chapter.m_signal_show_text("[0] No\n");
-        m_chapter.m_signal_show_text("[1] Yes\n");
-        const int input{*m_chapter.m_signal_request_input( {0,1} )};
-        int damage{monster.GetAttackDamage()};
-        if (input == 1)
-        {
-          const bool has_luck{character.TestLuck()};
-          damage += ( (damage / 2 ) * (has_luck ? -1 : 1) );
-        };
-        character.ChangeStamina(-damage);
-        m_chapter.m_signal_show_text("The " + monster_name
-          + " did " + std::to_string(damage) + " points of damage \n"
-        );
-        break;
-      }
+        const bool has_luck{character.TestLuck()};
+        damage += ( (damage / 2 ) * (has_luck ? -1 : 1) );
+      };
+      character.ChangeStamina(-damage);
+      m_chapter.m_signal_show_text("The " + monster_name
+        + " did " + std::to_string(damage) + " points of damage \n"
+      );
     }
     else
     {

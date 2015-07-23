@@ -19,19 +19,12 @@ void DiceGameChapter::Do(Character& character) const
     return;
   }
 
-  while (1)
+  m_chapter.m_signal_show_text("Do you want to play?\n");
   {
-    m_chapter.m_signal_show_text(
-      "Do you want to play?\n"
-      "[1] Yes\n"
-      "[2] No\n"
-    );
-
-    const int s{*m_chapter.m_signal_request_input( {1,2} )};
-    if (s == 2) { return; }
-    if (s == 1) { break; }
+    const auto options = CreateYesNoOptions();
+    const auto chosen = *m_chapter.m_signal_request_option(options);
+    if (chosen.GetConsequence().GetType() == ConsequenceType::no) { return; }
   }
-
 
   const int n_rounds{4};
   for (int round = 0; round != 4; ++round)
@@ -70,23 +63,18 @@ void DiceGameChapter::Do(Character& character) const
 
     if (character.GetGold() < 2)
     {
-      m_chapter.m_signal_show_text("You cannot afford to play another round.");
+      m_chapter.m_signal_show_text("You cannot afford to play another round.\n");
       break;
     }
 
     if (round == 3) break;
 
     //Play again?
-    while (1)
     {
-      m_chapter.m_signal_show_text(
-        "Do you want to play another round?\n"
-        "[1] Yes\n"
-        "[2] No\n"
-      );
-      const int s{*m_chapter.m_signal_request_input( {1,2} )};
-      if (s == 2) { return; }
-      if (s == 1) { break; }
+      m_chapter.m_signal_show_text("Do you want to play another round?\n");
+      const auto options = CreateYesNoOptions();
+      const auto chosen = *m_chapter.m_signal_request_option(options);
+      if (chosen.GetConsequence().GetType() == ConsequenceType::no) { return; }
     }
   }
 }

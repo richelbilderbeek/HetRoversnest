@@ -27,7 +27,8 @@ SOURCES += \
     gamewonchapter.cpp \
     chapter_test.cpp \
     walkthrough.cpp \
-    helper_test.cpp
+    helper_test.cpp \
+    consequencetype.cpp
 
 HEADERS += \
     helper.h \
@@ -56,7 +57,8 @@ HEADERS += \
     dicegamechapter.h \
     pillgamechapter.h \
     gamewonchapter.h \
-    walkthrough.h
+    walkthrough.h \
+    consequencetype.h
 
 
 

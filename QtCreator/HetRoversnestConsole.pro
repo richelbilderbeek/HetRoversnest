@@ -55,3 +55,5 @@ include(HetRoversnestConsole.pri)
 
 SOURCES += main.cpp
 
+HEADERS +=
+

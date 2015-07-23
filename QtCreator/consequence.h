@@ -4,6 +4,7 @@
 #include <iosfwd>
 #include <vector>
 
+#include "consequencetype.h"
 #include "item.h"
 
 struct Character;
@@ -49,6 +50,8 @@ struct Consequence
 
   int GetNextChapter() const noexcept { return m_next_chapter; }
 
+  ConsequenceType GetType() const noexcept { return m_type; }
+
   void SetChangeArrows(const int n_arrows) noexcept { m_change_arrows = n_arrows; }
   void SetChangeDexterity(const int dex) noexcept { m_change_dex = dex; }
   void SetChangeGold(const int gold) noexcept { m_change_gold = gold; }
@@ -57,6 +60,7 @@ struct Consequence
   void SetChangeStamina(const int sta) noexcept { m_change_sta = sta; }
 
   void SetNextChapter(const int next_chapter) noexcept;
+  void SetType(const ConsequenceType type) noexcept { m_type = type; }
 
   private:
 
@@ -86,8 +90,15 @@ struct Consequence
 
   ///Which items are removed to the player's inventory?
   Items m_remove_items;
+
+  ConsequenceType m_type;
 };
 
 Consequence ParseConsequence(std::stringstream& s);
+
+Consequence CreateLeaveConsequence();
+Consequence CreateShowInventoryConsequence();
+Consequence CreateYesConsequence();
+Consequence CreateNoConsequence();
 
 #endif // CONSEQUENCE_H

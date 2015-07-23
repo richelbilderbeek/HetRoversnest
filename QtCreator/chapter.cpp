@@ -13,7 +13,7 @@
 
 Chapter::Chapter(const int chapter_number)
   :
-    m_signal_request_input{},
+    //m_signal_request_input{},
     m_signal_request_option{},
     m_signal_show_text{},
     m_signal_wait{},
@@ -300,9 +300,6 @@ Chapter::Chapter(const int chapter_number)
 
 void Chapter::Do(Character& character) const
 {
-  assert(m_signal_request_input.num_slots() > 0);
-  assert(m_signal_wait.num_slots() > 0);
-  assert(m_signal_request_input.num_slots() > 0);
   assert(m_signal_request_option.num_slots() > 0);
 
   #ifndef NDEBUG
@@ -374,14 +371,12 @@ void Chapter::Do(Character& character) const
   }
   else if (GetType() == ChapterType::test_your_luck)
   {
-    m_signal_show_text("Test your luck...\n");
     GetLuck().Do(character);
     //m_consequence.Apply(character); Applies its own consequences
 
   }
   else if (GetType() == ChapterType::test_your_skill)
   {
-    m_signal_show_text("Test your skill...\n");
     GetSkill().Do(character);
     //m_consequence.Apply(character); Applies its own consequences
   }

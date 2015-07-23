@@ -27,56 +27,38 @@ void ShopChapter::Do(Character& character) const
   {
     if (items.empty())
     {
-      m_chapter->m_signal_show_text("There are no more items to buy.\n");
+      m_chapter->m_signal_show_text("There are no more items to buy, so you leave the shop.\n");
       break;
     }
-    std::vector<int> user_inputs;
+    std::vector<Option> options;
+    options.push_back(CreateLeaveOption());
 
-    m_chapter->m_signal_show_text("[0] Leave shop\n");
-    user_inputs.push_back(0);
-
-    const int n_items{static_cast<int>(items.size())};
-    for (int i=0; i!=n_items; ++i)
+    for (const auto& item: items)
     {
-      const auto item = items[i];
-      std::stringstream s;
-      s << '['
-        << (item.second <= character.GetGold() ? std::to_string(i+1) : " ")
-        << "] Buy "
-        << ToPrettyStr(items[i].first) << " for "
-        << items[i].second << " gold pieces\n"
+      if (item.second > character.GetGold()) continue;
+      if (character.HasItem(item.first)) continue;
+      std::stringstream text;
+      text
+        << "Buy "
+        << ToPrettyStr(item.first) << " for "
+        << item.second << " gold pieces\n"
       ;
-      if (item.second <= character.GetGold()) { user_inputs.push_back(i + 1); }
-      m_chapter->m_signal_show_text(s.str());
-    }
-    assert(!user_inputs.empty());
-    if (user_inputs.size() == 1)
-    {
-      m_chapter->m_signal_show_text("You do not have enough money to buy anything.\n");
-      break;
+      Consequence consequence;
+      consequence.AddItemToAdd(item.first);
+      consequence.SetChangeGold(-item.second);
+      Option option(text.str(),consequence);
+      options.push_back(option);
     }
 
     //Shop
-    const int command{*m_chapter->m_signal_request_input(user_inputs)};
-    if (command == 0) break;
-    const int i = command - 1;
-    if (i < 0 || i >= static_cast<int>(items.size()))
-    {
-      m_chapter->m_signal_show_text("Invalid number. Choose zero to leave the shop or an item number to buy it.\n");
-      continue;
-    }
-    assert(i >= 0);
-    assert(i < static_cast<int>(items.size()));
-    if (character.GetGold() < items[i].second)
-    {
-      m_chapter->m_signal_show_text("Cannot buy this item: not enough gold\n");
-      continue;
-    }
-    m_chapter->m_signal_show_text("You bough " + ToPrettyStr(items[i].first) + "\n");
-    character.AddItem(items[i].first);
-    character.ChangeGold(-items[i].second);
-    std::swap(items[i],items.back());
-    items.pop_back();
+    const Option chosen{*m_chapter->m_signal_request_option(options)};
+    if (chosen.GetConsequence().GetType() == ConsequenceType::leave) { break; }
+
+    assert(!chosen.GetConsequence().GetItemsToAdd().empty());
+    const Item item_bought{chosen.GetConsequence().GetItemsToAdd()[0]};
+
+    m_chapter->m_signal_show_text("You bough " + ToPrettyStr(item_bought) + "\n");
+    chosen.GetConsequence().Apply(character);
   }
 }
 

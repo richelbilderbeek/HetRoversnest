@@ -44,3 +44,35 @@ std::ostream& operator<<(std::ostream& os, const Option& option)
   ;
   return os;
 }
+
+Option CreateLeaveOption()
+{
+  Option option("Leave",CreateLeaveConsequence());
+  return option;
+}
+
+Option CreateShowInventoryOption()
+{
+  Option option("Inventory",CreateShowInventoryConsequence());
+  return option;
+}
+
+Option CreateYesOption()
+{
+  Option option("Yes",CreateYesConsequence());
+  return option;
+}
+
+Option CreateNoOption()
+{
+  Option option("No",CreateNoConsequence());
+  return option;
+}
+
+std::vector<Option> CreateYesNoOptions()
+{
+  std::vector<Option> options;
+  options.push_back(CreateNoOption());
+  options.push_back(CreateYesOption());
+  return options;
+}

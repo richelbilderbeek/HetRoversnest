@@ -20,9 +20,6 @@ struct Game
   bool HasWon() const noexcept { return m_has_won; }
   int GetCurrentChapterNumber() const noexcept;
 
-  //If the Game wants an input
-  mutable boost::signals2::signal<int(const std::vector<int>& valid_inputs)> m_signal_request_input;
-
   //If the Game wants an Option
   mutable boost::signals2::signal<Option(const std::vector<Option>& valid_options)> m_signal_request_option;
 
@@ -38,7 +35,6 @@ struct Game
   bool m_has_lost;
   bool m_has_won;
 
-  int SlotRequestInput(const std::vector<int>& valid_inputs);
   Option SlotRequestOption(const std::vector<Option>& valid_inputs);
   void SlotShowText(const std::string& text);
   void SlotWait();

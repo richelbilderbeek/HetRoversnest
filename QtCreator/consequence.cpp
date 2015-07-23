@@ -18,7 +18,8 @@ Consequence::Consequence()
     m_change_provisions{0},
     m_change_sta{0},
     m_next_chapter{-1},
-    m_remove_items{}
+    m_remove_items{},
+    m_type{ConsequenceType::normal}
 {
 
 }
@@ -287,4 +288,32 @@ Consequence ParseConsequence(std::stringstream &s)
     assert(!"Should not get here");
   }
   return consequence;
+}
+
+Consequence CreateLeaveConsequence()
+{
+  Consequence c;
+  c.SetType(ConsequenceType::leave);
+  return c;
+}
+
+Consequence CreateShowInventoryConsequence()
+{
+  Consequence c;
+  c.SetType(ConsequenceType::show_inventory);
+  return c;
+}
+
+Consequence CreateYesConsequence()
+{
+  Consequence c;
+  c.SetType(ConsequenceType::yes);
+  return c;
+}
+
+Consequence CreateNoConsequence()
+{
+  Consequence c;
+  c.SetType(ConsequenceType::no);
+  return c;
 }

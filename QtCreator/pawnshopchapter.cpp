@@ -25,49 +25,33 @@ void PawnShopChapter::Do(Character& character) const
 
   while (1)
   {
-    std::vector<int> user_options;
-    std::stringstream s;
-    s << "[0] Leave shop\n";
-    user_options.push_back(0);
-    const int n_items{static_cast<int>(items.size())};
-    for (int i=0; i!=n_items; ++i)
+    std::vector<Option> options;
+    options.push_back(CreateLeaveOption());
+
+    for (const auto& item: items)
     {
-      s
-        << '[' << (character.HasItem(items[i].first) ? std::to_string(i+1) : " ") << "] Sell "
-        << ToPrettyStr(items[i].first) << " for "
-        << items[i].second << " gold pieces\n"
+      if (!character.HasItem(item.first)) continue;
+      std::stringstream text;
+      text
+        << "Sell "
+        << ToPrettyStr(item.first) << " for "
+        << item.second << " gold pieces\n"
       ;
-      if (character.HasItem(items[i].first)) { user_options.push_back(i + 1); }
+      Consequence consequence;
+      consequence.AddItemToRemove(item.first);
+      consequence.SetChangeGold(item.second);
+      Option option(text.str(),consequence);
+      options.push_back(option);
     }
-    m_chapter->m_signal_show_text(s.str());
-
-    if (user_options.size() == 1)
-    {
-      m_chapter->m_signal_show_text("You do not have any items to sell.\n");
-      break;
-    }
-
     //Pawn shop
-    const int command{*m_chapter->m_signal_request_input(user_options)};
-    if (command == 0) break;
-    const int i = command - 1;
-    if (i < 0 || i >= static_cast<int>(items.size()))
-    {
-      m_chapter->m_signal_show_text("Invalid number. Choose zero to leave the shop or an item number to buy it.\n");
-      continue;
-    }
-    assert(i >= 0);
-    assert(i < static_cast<int>(items.size()));
-    if (!character.HasItem(items[i].first))
-    {
-      m_chapter->m_signal_show_text("You do not possess this item.\n");
-      continue;
-    }
-    m_chapter->m_signal_show_text("You sold " + ToPrettyStr(items[i].first) + "\n");
-    character.RemoveItem(items[i].first);
-    character.ChangeGold(items[i].second);
-    std::swap(items[i],items.back());
-    items.pop_back();
+    const Option chosen{*m_chapter->m_signal_request_option(options)};
+    if (chosen.GetConsequence().GetType() == ConsequenceType::leave) { break; }
+
+    assert(!chosen.GetConsequence().GetItemsToRemove().empty());
+    const Item item_sold{chosen.GetConsequence().GetItemsToRemove()[0]};
+
+    m_chapter->m_signal_show_text("You sold " + ToPrettyStr(item_sold) + "\n");
+    chosen.GetConsequence().Apply(character);
   }
 }
 

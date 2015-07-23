@@ -28,9 +28,6 @@ Dialog::Dialog()
 
 void Dialog::ConnectTo(const Chapter& chapter)
 {
-  chapter.m_signal_request_input.connect(
-    boost::bind(&Dialog::SlotRequestInput,this,_1)
-  );
   chapter.m_signal_request_option.connect(
     boost::bind(&Dialog::SlotRequestOption,this,_1)
   );
@@ -44,9 +41,6 @@ void Dialog::ConnectTo(const Chapter& chapter)
 
 void Dialog::ConnectTo(const Game& game)
 {
-  game.m_signal_request_input.connect(
-    boost::bind(&Dialog::SlotRequestInput,this,_1)
-  );
   game.m_signal_request_option.connect(
     boost::bind(&Dialog::SlotRequestOption,this,_1)
   );
@@ -143,4 +137,3 @@ void Dialog::SpeakText(const std::string& text)
   assert(!error);
   if (error) {;}
 }
-

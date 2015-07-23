@@ -26,7 +26,6 @@ struct Option
 
   void DoChoose(Character& character) const;
 
-
   const Condition& GetCondition() const noexcept { return m_condition; }
 
   const Consequence& GetConsequence() const noexcept { return m_consequence; }
@@ -45,5 +44,11 @@ struct Option
 };
 
 std::ostream& operator<<(std::ostream& os, const Option& option);
+
+Option CreateLeaveOption();
+Option CreateShowInventoryOption();
+Option CreateYesOption();
+Option CreateNoOption();
+std::vector<Option> CreateYesNoOptions();
 
 #endif // OPTION_H

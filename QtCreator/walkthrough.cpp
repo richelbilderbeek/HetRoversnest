@@ -11,8 +11,8 @@ Walkthrough::Walkthrough(
     const Character& character
   ) : m_game(seed,character)
 {
-  m_game.m_signal_request_input.connect(
-    boost::bind(&Walkthrough::SlotRequestInput,this,_1)
+  m_game.m_signal_request_option.connect(
+    boost::bind(&Walkthrough::SlotRequestOption,this,_1)
   );
   m_game.m_signal_wait.connect(
     boost::bind(&Walkthrough::SlotWait,this)
@@ -32,9 +32,23 @@ void Walkthrough::Start()
   assert(m_game.HasWon());
 }
 
-int Walkthrough::SlotRequestInput(const std::vector<int>& valid_inputs)
+Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
 {
-  return valid_inputs[1];
+  //If at [index], select option to go to [second]
+  std::vector<int> solution(450,0);
+  const int chapter_number{
+    m_game.GetCurrentChapterNumber()
+  };
+  assert(solution[chapter_number] != 0);
+  const int target_chapter{solution[chapter_number]};
+  for (const auto option: options)
+  {
+    if (option.GetConsequence().GetNextChapter() == target_chapter)
+    {
+      return option;
+    }
+  }
+  assert(!"Should not get here");
 }
 
 void Walkthrough::SlotShowText(const std::string& text)
