@@ -29,6 +29,7 @@ void Walkthrough::Start()
     m_game.DoChapter();
     if (m_game.HasWon() || m_game.HasLost()) break;
   }
+  assert(m_game.HasWon());
 }
 
 int Walkthrough::SlotRequestInput(const std::vector<int>& valid_inputs)
