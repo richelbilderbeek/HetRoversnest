@@ -1,6 +1,4 @@
-In the middle of the street you see a large manhole cover. 
-@
+In the middle of the street you see a large manhole cover. @
 normal
-
-option If you wish to lift the manhole cover to see where it leads to @ goto 48
-option If you wish to keep walking east @ goto 205
+option Lift the manhole cover to see where it leads to @ goto 48
+option Keep walking east @ goto 205

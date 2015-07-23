@@ -2,7 +2,7 @@ The two guards lead you into the guardhouse and take you immediately downstairs 
 @
 normal
 
-option If you wish to give the old man 10 gold pieces@ if gold 10 goto 351 
-option If you would rather ignore the old man@ goto 29
+option Give the old man 10 gold pieces@ if gold 10 goto 351 
+option Ignore the old man@ goto 29
 change remove carralifs_sword
 change remove shield

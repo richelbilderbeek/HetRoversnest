@@ -2,5 +2,5 @@ The darts are poison-tipped. Lose 4 stamina points and 1 skill point. @
 normal
 change stamina -4
 change dexterity -1
-option If you wish to continue picking the lock@ goto 340
-option If you rather leave the room and climb the stairs to the floor above@ goto 60
+option Continue picking the lock@ goto 340
+option Leave the room and climb the stairs to the floor above@ goto 60

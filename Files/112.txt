@@ -1,6 +1,4 @@
-While most of the houses in the street are small, cramped and dark, you see one ahead that stands alone and is painted bright red. The door has a 'Welcome' sign hanging from it. 
-@
+While most of the houses in the street are small, cramped and dark, you see one ahead that stands alone and is painted bright red. The door has a 'Welcome' sign hanging from it. @
 normal
-
-option If you wish to enter the house@ goto 154
-option It you prefer to keep walking north@ goto 334
+option Enter the house@ goto 154
+option Keep walking north@ goto 334

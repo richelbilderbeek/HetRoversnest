@@ -1,8 +1,5 @@
-You walk quietly back to the staircase and climb up 
-to the second floor. Again there is a door at the end 
-of the landing. 
+You walk quietly back to the staircase and climb up to the second floor. Again there is a door at the end of the landing. 
 @
 normal
-
-option If you wish to open the door@ goto 292
-option If you wish to climb up to the third floor@ goto 310
+option Open the door @ goto 292
+option Climb up to the third floor @ goto 310

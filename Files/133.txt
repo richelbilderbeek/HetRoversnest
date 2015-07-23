@@ -1,6 +1,5 @@
 The street ends at a junction with Mill Street, which runs east and west along the city wall. Looking east you see a group of town guards marching towards you and you decide to walk quickly west along Mill Street. On your left you see a narrow lane and ahead you see a young lad coming towards you pushing a barrow laden with fruit. 
 @
 normal
-
-option If you wish to walk down the lane @ goto 182
-option If you wish to buy some fruit from the barrow-boy @ goto 160
+option Walk down the lane @ goto 182
+option Buy some fruit from the barrow-boy @ goto 160

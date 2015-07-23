@@ -2,5 +2,5 @@ The smell by the water's edge is terrible. Above, you hear the sound of footstep
 @
 normal
 
-option If you wish to walk west down Harbour Street @ goto 91
-option If you wish to turn east down Candle Street @ goto 238
+option Walk west down Harbour Street @ goto 91
+option Turn east down Candle Street @ goto 238

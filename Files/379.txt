@@ -1,8 +1,6 @@
-Lose 2 stamina points. Despite the pain in your arm you must act quickly to escape the advancing suit of armour.
-@
+Lose 2 stamina points. Despite the pain in your arm you must act quickly to escape the advancing suit of armour. @
 normal
-
 change stamina -2
-option If you wish to open the door in front of you @ if has_not_fought first_zombie goto 122
-option If you wish to run back to the staircase to climb up to the next floor @ if has_not_fought first_death_hawk goto 207
-option If you wish to run back to the staircase to do down @ goto 65
+option Open the door in front of you @ if has_not_fought first_zombie goto 122
+option Run back to the staircase to climb up to the next floor @ if has_not_fought first_death_hawk goto 207
+option Run back to the staircase to do down @ goto 65

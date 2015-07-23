@@ -1,7 +1,4 @@
-On the right-hand side of the street you see a tavern 
-called the Spotted Dog. 
-@
+On the right-hand side of the street you see a tavern called the Spotted Dog. @
 normal
-
-option If you wish to enter the tavern@ goto 62
-option If you would rather continue north@ goto 296
+option Enter the tavern @ goto 62
+option Continue north @ goto 296

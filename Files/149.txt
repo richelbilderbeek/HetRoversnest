@@ -1,7 +1,5 @@
-The dart is poison-tipped. Lose 2 stamina points. 
-@
+The dart is poison-tipped. You lose 2 stamina points. @
 normal
-
 change stamina -2
-option If you wish to continue picking the lock @ goto 340
-option It you would rather leave the room and climb the stairs to the floor above @ goto 60
+option Continue picking the lock @ goto 340
+option Leave the room and climb the stairs to the floor above @ goto 60

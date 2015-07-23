@@ -1,8 +1,4 @@
-On the left side of the street you see a large iron key 
-hanging over the doorway of a small shop. A sign in 
-the window reads 'J. B. Wraggins, Locksmith'. 
-@
+On the left side of the street you see a large iron key hanging over the doorway of a small shop. A sign in the window reads 'J. B. Wraggins, Locksmith'. @
 normal
-
-option If you want to enter the shop@ goto 224
-option If you would rather continue walking west@ goto 300
+option Enter the shop @ goto 224
+option Ignore the shop and continue walking west @ goto 300

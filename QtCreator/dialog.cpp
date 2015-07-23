@@ -54,7 +54,9 @@ void Dialog::ConnectTo(const Game& game)
 
 Option Dialog::SlotRequestOption(const std::vector<Option>& options)
 {
+  assert(!options.empty());
   const int n_options{static_cast<int>(options.size())};
+
   while (1)
   {
     std::vector<int> valid_indices;
@@ -74,10 +76,10 @@ Option Dialog::SlotRequestOption(const std::vector<Option>& options)
 
 int Dialog::SlotRequestInput(const std::vector<int>& valid_inputs)
 {
+  assert(!valid_inputs.empty());
+  if (valid_inputs.size() == 1) { return valid_inputs[0]; }
   if (m_auto_play)
   {
-    assert(!valid_inputs.empty());
-    if (valid_inputs.size() == 1) { return valid_inputs[0]; }
     return valid_inputs[0] == 0 ? valid_inputs[1] : valid_inputs[0];
   }
   else

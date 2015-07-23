@@ -41,4 +41,4 @@ option Give them the dexterity potion @ if has dexterity_potion change remove de
 option Give them the silver chalice @ if has silver_chalice change remove silver_chalice goto 141
 option Give them the silver spoon @ if has silver_spoon change remove silver_spoon goto 141
 option Give them the coloured candle @ if has coloured_candle change remove coloured_candle goto 141
-option If you would rather leave these strange old ladies and continue east@ goto 375
+option Leave these strange old ladies and continue east@ goto 375

@@ -1,6 +1,4 @@
-The soup tastes absolutely disgusting. 
-@
+The soup tastes absolutely disgusting. @
 normal
-
-option If you wish to swallow it@ goto 380
-option If you wish to spit it out@ goto 262
+option Swallow it@ goto 380
+option Spit it out@ goto 262

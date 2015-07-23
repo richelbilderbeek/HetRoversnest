@@ -1,8 +1,6 @@
 Fortunately, the contents of the jar are as the label 
-reads, although the strength of the mixture is unpredictable. 
-@
+reads, although the strength of the mixture is unpredictable. @
 normal
-
 change stamina random[1-6]
-option If you wish to continue searching the shop @ goto 322
-option If you would rather leave the shop to head north @ goto 93
+option Continue searching the shop @ goto 322
+option Leave the shop to head north @ goto 93
