@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 
+#include <boost/algorithm/string/trim.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/timer.hpp>
 
@@ -228,6 +229,8 @@ std::string ReadText(std::stringstream& s)
     prev_c = c;
   }
   s << std::skipws; //Obligatory
+
+  boost::algorithm::trim(text); //Remove the space between text and @
   return text;
 }
 

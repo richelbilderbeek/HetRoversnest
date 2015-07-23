@@ -14,7 +14,6 @@ struct Dialog
   void ConnectTo(const Chapter& chapter);
   void DisconnectFrom(const Chapter& chapter);
 
-
   void SpeakText(const std::string& text);
 
 

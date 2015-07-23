@@ -11,14 +11,43 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>HetRoversnest</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+  background-color: black;
+  border: 1px solid black
+}
+
+QPlainTextEdit {
+  font: 18px  monospace;
+  color: lime;
+  background-color: black
+}
+
+QLineEdit {
+  font: 18px  monospace;
+  color: lime;
+  background-color: black
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPlainTextEdit" name="plainTextEdit"/>
+    <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string/>
+     </property>
+    </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
