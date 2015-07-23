@@ -4,4 +4,4 @@ normal
 
 option If you have a skeleton key, you may try it @ if skeleton_key goto 228
 option You may pull the cord hanging down in front of the door @ goto 4
-option attempt to charge the door open with vour shoulder @ goto 365
+option attempt to charge the door open with your shoulder @ goto 365

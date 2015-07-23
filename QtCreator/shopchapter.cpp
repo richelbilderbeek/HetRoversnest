@@ -41,7 +41,7 @@ void ShopChapter::Do(Character& character) const
       text
         << "Buy "
         << ToPrettyStr(item.first) << " for "
-        << item.second << " gold pieces\n"
+        << item.second << " gold pieces"
       ;
       Consequence consequence;
       consequence.AddItemToAdd(item.first);

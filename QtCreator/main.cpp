@@ -25,15 +25,7 @@ int main()
   //Play the game
   std::random_device rd;
   const int seed{static_cast<int>(rd())};
-  const Character character(6,12,6,Item::luck_potion);
-  #ifndef NDEBUG
-  if (1==2)
-  {
-    Walkthrough walkthrough(seed,character);
-    walkthrough.Start();
-    assert(!"Walkthrough worked");
-  }
-  #endif
+  const Character character(6+6,12+6,6+6,Item::luck_potion);
 
   Dialog d;
   Game game(seed,character);

@@ -14,6 +14,7 @@
 #include "helper.h"
 #include "chapter.h"
 #include "specialchapter.h"
+#include "walkthrough.h"
 
 Game::Game(
   const int rng_seed,
@@ -119,6 +120,14 @@ void Game::Test() noexcept
 
     const Game game2(seed,character2);
     assert(character1.GetChapters() == character2.GetChapters());
+  }
+  //Can the game be won?
+  {
+    const int seed{0};
+    //Use a strong character
+    const Character character(6+6,12+6,6+6,Item::luck_potion);
+    Walkthrough walkthrough(seed,character);
+    walkthrough.Start();
   }
 }
 #endif

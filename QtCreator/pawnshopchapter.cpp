@@ -35,7 +35,7 @@ void PawnShopChapter::Do(Character& character) const
       text
         << "Sell "
         << ToPrettyStr(item.first) << " for "
-        << item.second << " gold pieces\n"
+        << item.second << " gold pieces"
       ;
       Consequence consequence;
       consequence.AddItemToRemove(item.first);
