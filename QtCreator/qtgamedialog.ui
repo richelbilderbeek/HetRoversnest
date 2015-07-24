@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
-    <height>559</height>
+    <width>731</width>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>City of Thieves</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {
@@ -59,7 +59,7 @@ QLabel {
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="HetRoversnest.qrc">:/images/HoofdZanbarBeen.png</pixmap>
+         <pixmap resource="HetRoversnest.qrc">:/images/ZanbarBone.jpg</pixmap>
         </property>
        </widget>
       </item>
