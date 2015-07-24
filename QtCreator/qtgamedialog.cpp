@@ -33,6 +33,7 @@ void QtGameDialog::keyPressEvent(QKeyEvent * e)
 {
   assert(m_options.size() < 8);
   int key_pressed = e->key();
+  if (key_pressed == Qt::Key_Escape) close();
   if (m_options.size() > 0 && key_pressed == Qt::Key_0) { m_key_pressed = 0; return; }
   if (m_options.size() > 1 && key_pressed == Qt::Key_1) { m_key_pressed = 1; return; }
   if (m_options.size() > 2 && key_pressed == Qt::Key_2) { m_key_pressed = 2; return; }
@@ -40,7 +41,6 @@ void QtGameDialog::keyPressEvent(QKeyEvent * e)
   if (m_options.size() > 4 && key_pressed == Qt::Key_4) { m_key_pressed = 4; return; }
   if (m_options.size() > 5 && key_pressed == Qt::Key_5) { m_key_pressed = 5; return; }
   if (m_options.size() > 6 && key_pressed == Qt::Key_6) { m_key_pressed = 6; return; }
-  if (m_key_pressed == Qt::Key_Escape) close();
 }
 
 void QtGameDialog::Start()
@@ -49,15 +49,7 @@ void QtGameDialog::Start()
   {
     UpdateStats();
 
-    if (m_has_lost || m_has_won) return;
-
     const int chapter_number{m_character.GetCurrentChapter()};
-    if (chapter_number == 400)
-    {
-      m_has_won = true;
-      return;
-    }
-
     const Chapter chapter(chapter_number);
 
     chapter.m_signal_request_option.connect(
@@ -72,7 +64,9 @@ void QtGameDialog::Start()
 
     chapter.Do(m_character);
 
-    if (m_character.IsDead()) { m_has_lost = true; }
+    if (chapter.GetType() == ChapterType::game_won) { m_has_won = true; }
+    if (m_character.IsDead())  { m_has_lost = true; }
+    if (m_has_lost || m_has_won) return;
   }
 }
 
