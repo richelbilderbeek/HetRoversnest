@@ -78,11 +78,6 @@ bool Condition::IsSatisfied(const Character &character) const
         || !character.HasItem(Item::silver_arrow)
       )
       {
-        std::cerr << "Has tattoo: " << character.HasItem(Item::tattoo) << std::endl;
-        std::cerr << "Has lotus_flowers: " << character.HasItem(Item::lotus_flower) << std::endl;
-        std::cerr << "Has baclk_pearls: " << character.HasItem(Item::black_pearls) << std::endl;
-        std::cerr << "Has hags_hair: " << character.HasItem(Item::hags_hair) << std::endl;
-        std::cerr << "Has silver_arrow: " << character.HasItem(Item::silver_arrow) << std::endl;
         return false;
       }
     }

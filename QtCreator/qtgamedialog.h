@@ -31,6 +31,8 @@ private:
 
   int m_key_pressed;
 
+  std::vector<Option> m_options;
+
   void DoChapter();
 
   void SlotWait();
@@ -38,7 +40,7 @@ private:
   void SlotShowText(const std::string& text);
   Option SlotRequestOption(const std::vector<Option>& options);
 
-
+  void UpdateStats();
 };
 
 #endif // QTGAMEDIALOG_H
