@@ -23,7 +23,7 @@ QPlainTextEdit {
   font: 32px  &quot;URW Chancery L&quot;;
   color: lime;
   background-color: black;
-  border: 1px solid lime
+  border: 1px solid green
 }
 
 QLabel {
