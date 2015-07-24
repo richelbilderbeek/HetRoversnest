@@ -1,10 +1,10 @@
 #include <QApplication>
-#include "qtdialog.h"
+#include "qtgamedialog.h"
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
-  QtDialog w;
+  QtGameDialog w;
   w.setWindowState(Qt::WindowFullScreen);
   w.show();
   return a.exec();
