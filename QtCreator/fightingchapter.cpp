@@ -39,7 +39,7 @@ void FightingChapter::Do(Character& character) const
   }
   if (character.HasItem(Item::silver_scorpion_brooch))
   {
-    character.ChangeStamina(1);
+    character.ChangeCondition(1);
   }
 }
 
@@ -73,17 +73,17 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       s
         << '\n'
         << "Fight round #" << round << '\n'
-        << "You " << character.GetDexterity() << " "
-        << character.GetStamina() << "/"
-        << character.GetInitialStamina() << '\n'
+        << "You " << character.GetSkill() << " "
+        << character.GetCondition() << "/"
+        << character.GetInitialCondition() << '\n'
         << monster_name_0 << " "
-        << monsters[0].GetDexterity() << " "
-        << monsters[0].GetStamina() << "/"
-        << monsters[0].GetInitialStamina() << '\n'
+        << monsters[0].GetSkill() << " "
+        << monsters[0].GetCondition() << "/"
+        << monsters[0].GetInitialCondition() << '\n'
         << monster_name_1 << " "
-        << monsters[1].GetDexterity() << " "
-        << monsters[1].GetStamina() << "/"
-        << monsters[1].GetInitialStamina() << '\n'
+        << monsters[1].GetSkill() << " "
+        << monsters[1].GetCondition() << "/"
+        << monsters[1].GetInitialCondition() << '\n'
         << "Fight round #" << round
         << '\n'
       ;
@@ -109,7 +109,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           const bool has_luck{character.TestLuck()};
           damage += (has_luck ? -1 : 1);
         }
-        monsters[0].ChangeStamina(-damage);
+        monsters[0].ChangeCondition(-damage);
         m_chapter.m_signal_show_text(
           "You did the " + monster_name_0
           + " " + std::to_string(damage) + " points of damage \n"
@@ -131,7 +131,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           const bool has_luck{character.TestLuck()};
           damage += ( (damage/2) * (has_luck ? 1 : -1) );
         }
-        character.ChangeStamina(-damage);
+        character.ChangeCondition(-damage);
         m_chapter.m_signal_show_text(
           "The " + monster_name_0
           + " hit you with " + std::to_string(damage) + " points of damage \n"
@@ -167,7 +167,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           const bool has_luck{character.TestLuck()};
           damage += ( (damage/2) * (has_luck ? -1 : 1) );
         }
-        character.ChangeStamina(-damage);
+        character.ChangeCondition(-damage);
         m_chapter.m_signal_show_text(
           "The " + monster_name_1
           + " hit you with " + std::to_string(damage) + " points of damage \n"
@@ -201,13 +201,13 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       s
         << '\n'
         << "Fight round #" << round << '\n'
-        << "You " << character.GetDexterity() << " "
-        << character.GetStamina() << "/"
-        << character.GetInitialStamina() << '\n'
+        << "You " << character.GetSkill() << " "
+        << character.GetCondition() << "/"
+        << character.GetInitialCondition() << '\n'
         << monster_name << " "
-        << monster.GetDexterity() << " "
-        << monster.GetStamina() << "/"
-        << monster.GetInitialStamina() << '\n'
+        << monster.GetSkill() << " "
+        << monster.GetCondition() << "/"
+        << monster.GetInitialCondition() << '\n'
       ;
       m_chapter.m_signal_show_text(s.str());
     }
@@ -239,7 +239,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         const bool has_luck{character.TestLuck()};
         damage += has_luck ? 1 : -1;
       }
-      monster.ChangeStamina(-damage);
+      monster.ChangeCondition(-damage);
       m_chapter.m_signal_show_text("You did the " + monster_name
         + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
       );
@@ -261,7 +261,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         const bool has_luck{character.TestLuck()};
         damage += ( (damage / 2 ) * (has_luck ? -1 : 1) );
       };
-      character.ChangeStamina(-damage);
+      character.ChangeCondition(-damage);
       m_chapter.m_signal_show_text("The " + monster_name
         + " did " + std::to_string(damage) + " points of damage \n"
       );
@@ -284,7 +284,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       {
         m_chapter.m_signal_show_text("The fire hits you!\n");
         m_chapter.m_signal_wait();
-        character.ChangeStamina(-2);
+        character.ChangeCondition(-2);
       }
       else
       {

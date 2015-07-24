@@ -11,23 +11,23 @@
 #include "helper.h"
 
 Character::Character(
-  const int dexterity, //NL: Behendigheid
+  const int skill, //NL: Behendigheid
   const int condition, //NL: Conditie
   const int luck, //NL: Geluk
   const Item initial_item
 )
   : m_chapters{std::vector<int>(1,1)},
     m_arrows{0},
-    m_dexterity{dexterity},
+    m_skill{skill},
     m_fought{},
     m_gold{30},
-    m_initial_dexterity{dexterity},
+    m_initial_skill{skill},
     m_initial_luck{luck},
-    m_initial_stamina{condition},
+    m_initial_condition{condition},
     m_items{},
     m_luck{luck},
     m_provisions{10},
-    m_stamina{condition}
+    m_condition{condition}
 {
   m_items.push_back(Item::shield);
   m_items.push_back(Item::carralifs_sword);
@@ -66,7 +66,7 @@ int Character::CalcAttackStrength() const noexcept
   else if (HasItem(Item::magnificent_shield)) { shield_value = 1; }
   else if (HasItem(Item::shield)) { shield_value = 0; }
 
-  return GetDexterity()
+  return GetSkill()
     + (HasItem(Item::magic_helmet) ? 1 : 0)
     + shield_value
     + (Dice::Get()->Throw())
@@ -85,10 +85,10 @@ void Character::ChangeArrows(const int change)
 }
 
 
-void Character::ChangeDexterity(const int change)
+void Character::ChangeSkill(const int change)
 {
-  m_dexterity += change;
-  m_dexterity = std::min(m_dexterity,m_initial_dexterity);
+  m_skill += change;
+  m_skill = std::min(m_skill,m_initial_skill);
 }
 
 void Character::ChangeGold(const int change)
@@ -110,13 +110,13 @@ void Character::ChangeProvisions(const int change)
   //Provisions can become less than zero, due to chapter 42
 }
 
-void Character::ChangeStamina(const int change)
+void Character::ChangeCondition(const int change)
 {
-  m_stamina += change;
-  m_stamina = std::min(m_stamina,m_initial_stamina);
-  if (m_stamina < 0)
+  m_condition += change;
+  m_condition = std::min(m_condition,m_initial_condition);
+  if (m_condition < 0)
   {
-    m_stamina = 0;
+    m_condition = 0;
     this->SetIsDead();
   }
 }
@@ -127,7 +127,7 @@ void Character::ChangeLuck(const int change)
   m_luck = std::min(m_luck,m_initial_luck);
 }
 
-int Character::GetDexterity() const noexcept
+int Character::GetSkill() const noexcept
 {
   int shield_value = 0;
   if (HasItem(Item::shield_with_tower_crest)) { shield_value = -1; } //Cursed
@@ -141,7 +141,7 @@ int Character::GetDexterity() const noexcept
   else if (HasItem(Item::carralifs_sword)) { sword_value = 2; }
 
   return
-    GetDexterityBase()
+    GetSkillBase()
     + (this->HasItem(Item::magic_elven_boots) ? 1 : 0)
     + shield_value
     + (this->HasItem(Item::chainmail_coat) ? 2 : 0)
@@ -149,9 +149,9 @@ int Character::GetDexterity() const noexcept
   ;
 }
 
-int Character::GetDexterityBase() const noexcept
+int Character::GetSkillBase() const noexcept
 {
-  return m_dexterity;
+  return m_skill;
 }
 
 int Character::GetLuck() const noexcept
@@ -275,8 +275,8 @@ std::string Character::ShowInventory()
 {
   std::stringstream s;
   s
-    << "dexterity:\n"
-    << " * base: " << GetDexterityBase() << "/" << GetInitialDexterity() << '\n'
+    << "skill:\n"
+    << " * base: " << GetSkillBase() << "/" << GetInitialSkill() << '\n'
   ;
 
   //Shield
@@ -317,8 +317,8 @@ std::string Character::ShowInventory()
   if (HasItem(Item::magic_elven_boots)) { s << " * " << ToPrettyStr(Item::magic_elven_boots) << ": +1\n"; }
   if (HasItem(Item::chainmail_coat)) { s << " * " << ToPrettyStr(Item::chainmail_coat) << ": +2\n"; }
   s
-    << " * total: " << GetDexterity() << "/" << GetInitialDexterity() << '\n'
-    << "stamina: " << GetStamina() << "/" << GetInitialStamina() << '\n'
+    << " * total: " << GetSkill() << "/" << GetInitialSkill() << '\n'
+    << "condition: " << GetCondition() << "/" << GetInitialCondition() << '\n'
     << "luck:\n"
     << " * base: " << GetLuckBase() << "/" << GetInitialLuck() << '\n'
   ;
@@ -327,7 +327,7 @@ std::string Character::ShowInventory()
   //Note: the copper brooch decreases luck with 1, but this is not shown on purpose
   //I cannot avoid that it will be easy to see that base luck and total luck don't match
   s
-    << " * total: " << GetLuck() << "/" << GetInitialDexterity() << '\n'
+    << " * total: " << GetLuck() << "/" << GetInitialSkill() << '\n'
     << "gold pieces: " << GetGold() << '\n'
     << "provisions: " << GetProvisions() << '\n'
     << '\n'
@@ -350,7 +350,7 @@ std::string Character::ShowInventory()
   s << "monsters fought: \n";
   for (const auto monster_name: m_fought)
   {
-    s << " * " << monster_name << '\n';
+    s << " * " << ToPretty(monster_name) << '\n';
   }
   if (m_fought.empty())
   {
@@ -360,13 +360,13 @@ std::string Character::ShowInventory()
   return s.str();
 }
 
-bool Character::TestDexterity() noexcept
+bool Character::TestSkill() noexcept
 {
   const int dice{
       Dice::Get()->Throw()
     + Dice::Get()->Throw()
   };
-  return dice < GetDexterity();
+  return dice < GetSkill();
 }
 
 bool Character::TestLuck() noexcept

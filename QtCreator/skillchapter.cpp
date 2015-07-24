@@ -22,7 +22,7 @@ void SkillChapter::Do(Character& character) const
   m_chapter.m_signal_show_text("You test your skill...\n");
   m_chapter.m_signal_wait();
 
-  if (character.TestDexterity())
+  if (character.TestSkill())
   {
     m_chapter.m_signal_show_text("Skill!\n" + GetSkillText() + "\n");
     GetSkillConsequence().Apply(character);

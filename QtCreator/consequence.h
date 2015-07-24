@@ -33,8 +33,8 @@ struct Consequence
   ///How much will the number of arrows in the character his/her body change?
   int GetChangeArrows() const noexcept { return m_change_arrows; }
 
-  ///How will the dexterity of the character change in this chapter?
-  int GetChangeDexterity() const noexcept { return m_change_dex; }
+  ///How will the skill of the character change in this chapter?
+  int GetChangeSkill() const noexcept { return m_change_dex; }
 
   ///How will the gold of the character change in this chapter?
   int GetChangeGold() const noexcept { return m_change_gold; }
@@ -45,19 +45,19 @@ struct Consequence
   ///How will the provisions of the character change in this chapter?
   int GetChangeProvisions() const noexcept { return m_change_provisions; }
 
-  ///How will the stamina of the character change in this chapter?
-  int GetChangeStamina() const noexcept { return m_change_sta; }
+  ///How will the condition of the character change in this chapter?
+  int GetChangeCondition() const noexcept { return m_change_sta; }
 
   int GetNextChapter() const noexcept { return m_next_chapter; }
 
   ConsequenceType GetType() const noexcept { return m_type; }
 
   void SetChangeArrows(const int n_arrows) noexcept { m_change_arrows = n_arrows; }
-  void SetChangeDexterity(const int dex) noexcept { m_change_dex = dex; }
+  void SetChangeSkill(const int dex) noexcept { m_change_dex = dex; }
   void SetChangeGold(const int gold) noexcept { m_change_gold = gold; }
   void SetChangeLuck(const int luck) noexcept { m_change_luck = luck; }
   void SetChangeProvisions(const int n_provisions) noexcept { m_change_provisions = n_provisions; }
-  void SetChangeStamina(const int sta) noexcept { m_change_sta = sta; }
+  void SetChangeCondition(const int sta) noexcept { m_change_sta = sta; }
 
   void SetNextChapter(const int next_chapter) noexcept;
   void SetType(const ConsequenceType type) noexcept { m_type = type; }
@@ -70,7 +70,7 @@ struct Consequence
   ///How much will the number of arrows in the character his/her body change?
   int m_change_arrows;
 
-  ///How much will the dexterity of the character change?
+  ///How much will the skill of the character change?
   int m_change_dex;
 
   ///How much will the gold of the character change?
@@ -82,7 +82,7 @@ struct Consequence
   ///How much will the provisions of the character change?
   int m_change_provisions;
 
-  ///How much will the stamina of the character change?
+  ///How much will the condition of the character change?
   int m_change_sta;
 
   ///What will the next chapter be?

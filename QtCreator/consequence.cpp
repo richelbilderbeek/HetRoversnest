@@ -74,26 +74,26 @@ void Consequence::Apply(Character& character) const
     {
       if (verbose) { std::clog << "Changing arrows by " << change_arrows << std::endl; }
       character.ChangeArrows(change_arrows);
-      const int delta_stamina{-3 * change_arrows}; //Each arrow damages three stamina
-      if (verbose) { std::clog << "Changing stamina due to arrows by " << delta_stamina << std::endl; }
-      character.ChangeStamina(delta_stamina);
+      const int delta_condition{-3 * change_arrows}; //Each arrow damages three condition
+      if (verbose) { std::clog << "Changing condition due to arrows by " << delta_condition << std::endl; }
+      character.ChangeCondition(delta_condition);
     }
     else if (change_arrows < 0)
     {
       if (verbose) { std::clog << "Changing arrows by " << character.GetArrows() << std::endl; }
       character.ChangeArrows(-character.GetArrows());
-      const int delta_stamina{2 * character.GetArrows()}; //Each arrow is healed by two stamina
-      if (verbose) { std::clog << "Changing stamina due to arrows by " << delta_stamina << std::endl; }
-      character.ChangeStamina(delta_stamina);
+      const int delta_condition{2 * character.GetArrows()}; //Each arrow is healed by two condition
+      if (verbose) { std::clog << "Changing condition due to arrows by " << delta_condition << std::endl; }
+      character.ChangeCondition(delta_condition);
     }
   }
   //Dex
   {
-    const int change_dex{GetChangeDexterity()};
+    const int change_dex{GetChangeSkill()};
     if (change_dex != 0)
     {
-      if (verbose) { std::clog << "Changing dexterity by " << change_dex << std::endl; }
-      character.ChangeDexterity(change_dex);
+      if (verbose) { std::clog << "Changing skill by " << change_dex << std::endl; }
+      character.ChangeSkill(change_dex);
     }
   }
   //Gold
@@ -123,13 +123,13 @@ void Consequence::Apply(Character& character) const
       character.ChangeProvisions(change_provisions);
     }
   }
-  //Stamina
+  //Condition
   {
-    const int change_sta{GetChangeStamina()};
+    const int change_sta{GetChangeCondition()};
     if (change_sta != 0)
     {
-      if (verbose) { std::clog << "Changing stamina by " << change_sta << std::endl; }
-      character.ChangeStamina(change_sta);
+      if (verbose) { std::clog << "Changing condition by " << change_sta << std::endl; }
+      character.ChangeCondition(change_sta);
     }
   }
   for (const auto item: this->GetItemsToAdd())
@@ -238,10 +238,10 @@ Consequence ParseConsequence(std::stringstream &s)
       assert(!"Should not get here");
     }
   }
-  else if (what == "dexterity" || what == "dex")
+  else if (what == "skill" || what == "dexterity")
   {
     const int change_dex{ReadInt(s)};
-    consequence.SetChangeDexterity(change_dex);
+    consequence.SetChangeSkill(change_dex);
   }
   else if (what == "gold")
   {
@@ -269,17 +269,17 @@ Consequence ParseConsequence(std::stringstream &s)
     const Item item{ToItem(item_name)};
     consequence.AddItemToRemove(item);
   }
-  else if (what == "stamina" || what == "sta")
+  else if (what == "condition" || what == "stamina")
   {
     const std::string value{ReadString(s)};
     if (IsInt(value))
     {
-      consequence.SetChangeStamina(std::stoi(value));
+      consequence.SetChangeCondition(std::stoi(value));
     }
     else
     {
       assert(value == "random[1-6]");
-      consequence.SetChangeStamina(Dice::Get()->Throw());
+      consequence.SetChangeCondition(Dice::Get()->Throw());
     }
   }
   else

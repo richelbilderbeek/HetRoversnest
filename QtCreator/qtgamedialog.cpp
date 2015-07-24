@@ -104,7 +104,9 @@ void QtGameDialog::SlotShowText(const std::string& text)
   {
     const std::string s{boost::lexical_cast<std::string>(c)};
     d.insertText(s.c_str());
-    Wait(0.001);
+    #ifdef NDEBUG
+    Wait(0.001); //Only have suspense in release mode
+    #endif
     ui->plainTextEdit->moveCursor(QTextCursor::End);
     qApp->processEvents();
   }
@@ -113,7 +115,9 @@ void QtGameDialog::SlotShowText(const std::string& text)
 
 void QtGameDialog::SlotWait()
 {
-  return;
+  #ifdef NDEBUG
+  Wait(1.0); //Only have suspense in release mode
+  #endif
 }
 
 QtGameDialog::~QtGameDialog()
@@ -126,17 +130,17 @@ void QtGameDialog::UpdateStats()
   ui->label_condition->setText(
     (
       std::string("Condition: ")
-    + std::to_string(m_character.GetStamina())
+    + std::to_string(m_character.GetCondition())
     + "/"
-    + std::to_string(m_character.GetInitialStamina())
+    + std::to_string(m_character.GetInitialCondition())
     ).c_str()
   );
   ui->label_skill->setText(
     (
       std::string("Skill: ")
-    + std::to_string(m_character.GetDexterity())
+    + std::to_string(m_character.GetSkill())
     + "/"
-    + std::to_string(m_character.GetInitialDexterity())
+    + std::to_string(m_character.GetInitialSkill())
     ).c_str()
   );
   ui->label_luck->setText(

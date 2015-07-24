@@ -28,7 +28,7 @@ enum class Item
   gold_flower = 20,
   skeleton_key = 21,
   iron_key = 22,
-  silver_scorpion_brooch = 23, //Heals one stamina after each battle
+  silver_scorpion_brooch = 23, //Heals one condition after each battle
   ring_of_the_golden_eye = 24,
   glass_ball = 26,
   ivory_skull_on_a_silver_chain = 27,

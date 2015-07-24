@@ -188,14 +188,14 @@ void Chapter::Test() noexcept
     const Chapter chapter(11);
     Character character(10,10,10,Item::luck_potion);
     assert(character.HasItem(Item::shield));
-    const int dex_before{character.GetDexterity()};
+    const int dex_before{character.GetSkill()};
 
     d.ConnectTo(chapter);
     chapter.Do(character);
 
 
     assert(!character.HasItem(Item::shield));
-    const int dex_after{character.GetDexterity()};
+    const int dex_after{character.GetSkill()};
     assert(dex_after < dex_before); //Due to losing shield
     assert(!character.HasItem(Item::shield));
   }
@@ -204,7 +204,7 @@ void Chapter::Test() noexcept
     const Chapter chapter(11);
     Character character(10,10,10,Item::luck_potion);
     character.AddItem(Item::chainmail_coat);
-    const int dex_before{character.GetDexterity()};
+    const int dex_before{character.GetSkill()};
     assert(character.HasItem(Item::shield));
 
     d.ConnectTo(chapter);
@@ -212,7 +212,7 @@ void Chapter::Test() noexcept
 
 
     assert(!character.HasItem(Item::shield));
-    const int dex_after{character.GetDexterity()};
+    const int dex_after{character.GetSkill()};
     assert(dex_after == dex_before - 1); //Due to losing shield
   }
   //Chapter 19: 2 options and status change
@@ -220,15 +220,15 @@ void Chapter::Test() noexcept
     const Chapter chapter(19);
     assert(chapter.GetOptions().GetOptions().size() == 2);
     Character character(10,10,10,Item::luck_potion);
-    const int dex_before{character.GetDexterity()};
-    const int sta_before{character.GetStamina()};
+    const int dex_before{character.GetSkill()};
+    const int sta_before{character.GetCondition()};
 
     d.ConnectTo(chapter);
     chapter.Do(character);
 
 
-    const int dex_after{character.GetDexterity()};
-    const int sta_after{character.GetStamina()};
+    const int dex_after{character.GetSkill()};
+    const int sta_after{character.GetCondition()};
     assert(dex_after == dex_before - 1);
     assert(sta_after == sta_before - 4);
   }
