@@ -13,7 +13,6 @@
 
 Chapter::Chapter(const int chapter_number)
   :
-    //m_signal_request_input{},
     m_signal_request_option{},
     m_signal_show_text{},
     m_signal_wait{},
@@ -349,19 +348,19 @@ void Chapter::Do(Character& character) const
         << std::endl
         << "Options:\n"
       ;
-      std::clog << "character.HasItem(Item::silver_arrow): " << character.HasItem(Item::silver_arrow) << std::endl;
       assert(GetOptions().GetOptions().size() == 2);
-      //assert(GetOptions().GetOptions()[0].
-      for (const auto option: GetOptions().GetOptions())
-      {
-        std::cerr << option << std::endl;
-      }
     }
     //Let the use choose a valid option
-    const auto options = GetOptions().GetValidOptions(character);
-    (*m_signal_request_option(options)).DoChoose(character);
+    auto options = GetOptions().GetValidOptions(character);
+    if (options.size() > 1) { options.push_back(CreateShowInventoryOption()); } //Add to show the inventory
+    const auto chosen = *m_signal_request_option(options);
+    chosen.DoChoose(character);
     assert(m_consequence.GetNextChapter() == -1);
     m_consequence.Apply(character);
+    if (chosen.GetConsequence().GetType() == ConsequenceType::show_inventory)
+    {
+      this->m_signal_show_text(character.ShowInventory());
+    }
   }
   else if (GetType() == ChapterType::fight)
   {

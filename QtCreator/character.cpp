@@ -341,14 +341,20 @@ std::string Character::ShowInventory()
   s << "items: \n";
   for (const Item item: GetItems())
   {
-    s << " * " << ToPrettyStr(item) << '\n';
+    if (static_cast<int>(item) < 70) //Only concrete objects
+    {
+      s << " * " << ToPrettyStr(item) << '\n';
+    }
   }
 
   s << "monsters fought: \n";
-
   for (const auto monster_name: m_fought)
   {
     s << " * " << monster_name << '\n';
+  }
+  if (m_fought.empty())
+  {
+    s << " * (none yet)\n";
   }
 
   return s.str();
