@@ -5,9 +5,7 @@
 #include <string>
 #include <vector>
 
-struct Ai;
-
-void CreateGraph(const Ai * const ai);
+void CreateGraph();
 
 ///FileToVector reads a file and converts it to a std::vector<std::string>
 ///From http://www.richelbilderbeek.nl/CppFileToVector.htm

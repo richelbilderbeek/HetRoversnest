@@ -12,11 +12,12 @@
 #include "chapter.h"
 #include "chaptertype.h"
 
-void CreateGraph(const Ai * const ai)
+void CreateGraph()
 {
-  std::clog << "Creating dot file..." << std::endl;
-  const std::string filename{ai ? "Payoffs.dot" : "Graph.dot"};
-  std::ofstream f(filename);
+  const std::string filename_base{"Graph"};
+  const std::string dot_filename{filename_base + ".dot"};
+  const std::string png_filename{filename_base + ".png"};
+  std::ofstream f(dot_filename);
 
   f << "digraph CityOfThieves {\n";
   for (int i=1; i!=450; ++i)
@@ -37,42 +38,14 @@ void CreateGraph(const Ai * const ai)
         << "["
         << "label =\""
         << std::to_string(chapter.GetChapterNumber())
-      ;
-      if (ai) f << " (" << ai->GetPayoff(i) <<  ")";
-      f
-        << "\""
-        << ",color=\"" << node_color << "\""
-      ;
-      if (ai)
-      {
-        std::string fill_color{"#ffffff"};
-        const double payoff{ai->GetPayoff(i)};
-        if      (payoff < 0.00000001 ) { fill_color = "#ffffff"; }
-        else if (payoff < 0.0000001) { fill_color = "#444444"; }
-        else if (payoff < 0.000001) { fill_color = "#555555"; }
-        else if (payoff < 0.00001) { fill_color = "#666666"; }
-        else if (payoff < 0.0001) { fill_color = "#777777"; }
-        else if (payoff < 0.001) { fill_color = "#888888"; }
-        else if (payoff < 0.01) { fill_color = "#997777"; }
-        else if (payoff < 0.1) { fill_color = "#aaaa88"; }
-        else if (payoff <  1) { fill_color = "#99bb99"; }
-        else if (payoff <  2) { fill_color = "#aacccc"; }
-        else if (payoff <  4) { fill_color = "#bbbbdd"; }
-        else if (payoff <  8) { fill_color = "#eeccee"; }
-        else if (payoff < 16) { fill_color = "#ffffff"; }
-        f << ",style=filled,fillcolor=\"" << fill_color << "\"";
-      }
-      f
         << "];\n"
       ;
-
       if (chapter.GetNextChapter() != -1)
       {
         f << i << "->" << chapter.GetNextChapter() << ";\n";
       }
       else if (!chapter.GetFighting().GetMonsters().empty())
       {
-
         if (chapter.GetFighting().GetEscapeToChapter() != -1)
         {
           f << i << "->" << chapter.GetFighting().GetEscapeToChapter() << " [ label = \"Escape\"];\n";
@@ -115,20 +88,13 @@ void CreateGraph(const Ai * const ai)
   }
   f << "}\n";
   f.close();
-  std::clog << "Creating graph..." << std::endl;
-  if (!ai)
   {
-    const int error{std::system("dot -Tpng Graph.dot > Graph.png")};
+    std::stringstream cmd;
+    cmd << "dot -Tpng " << dot_filename << " > " << png_filename;
+    const int error{std::system(cmd.str().c_str())};
     assert(!error);
     if (error) {;}
   }
-  else
-  {
-    const int error{std::system("dot -Tpng Payoffs.dot > Payoffs.png")};
-    assert(!error);
-    if (error) {;}
-  }
-  std::clog << "Graph created" << std::endl;
 }
 
 std::vector<std::string> FileToVector(const std::string& filename)

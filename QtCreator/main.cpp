@@ -15,12 +15,11 @@ int main()
   TestHelperFunctions();
   #endif
 
-  if (1==2)
+  if (1==1)
   {
-    std::unique_ptr<Ai> ai(new Ai);
-    ai->SolveGame();
+    Ai ai;
+    ai.Start();
   }
-
 
   //Play the game
   std::random_device rd;
