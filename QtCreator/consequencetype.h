@@ -3,11 +3,11 @@
 
 enum class ConsequenceType
 {
-  normal, //Change stats
+  normal,
   show_inventory,
   yes,
   no,
-  leave, //Leave shop
+  leave, //Leave shop or pawn_shop
   eat_provision,
   drink_potion
 };

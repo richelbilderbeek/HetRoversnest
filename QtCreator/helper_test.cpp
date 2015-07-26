@@ -11,7 +11,6 @@
 #include "dice.h"
 #include "game.h"
 #include "item.h"
-#include "specialchapter.h"
 
 #ifndef NDEBUG
 void TestHelperFunctions()

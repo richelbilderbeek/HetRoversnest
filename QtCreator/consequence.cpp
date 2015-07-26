@@ -202,7 +202,6 @@ void Consequence::Apply(Character& character) const
       }
       continue;
     }
-    //if (verbose) { std::clog << "Removing item " << ToStr(item) << std::endl; }
     if (verbose) { std::clog << "Removed item " << ToPrettyStr(item) << std::endl; }
     character.RemoveItem(item);
   }

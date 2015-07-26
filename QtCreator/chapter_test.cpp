@@ -15,7 +15,7 @@ void Chapter::Test() noexcept
 
   Terminal d;
   d.SetAutoPlay(true);
-  d.SetSilent(false);
+  d.SetSilent(true);
 
 
   //Sequential fight

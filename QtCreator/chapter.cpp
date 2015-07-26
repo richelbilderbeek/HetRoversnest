@@ -8,7 +8,6 @@
 
 #include "ai.h"
 #include "dice.h"
-#include "specialchapter.h"
 #include "helper.h"
 
 Chapter::Chapter(const int chapter_number)
@@ -316,8 +315,8 @@ void Chapter::Do(Character& character) const
 
   if (GetType() == ChapterType::game_lost)
   {
-    //character.SetIsDead();
     m_game_lost_chapter.Do(character);
+    assert(character.IsDead());
     return;
   }
   else if (GetType() == ChapterType::game_won)
@@ -428,13 +427,10 @@ void Chapter::Do(Character& character) const
   else if (GetType() == ChapterType::test_your_luck)
   {
     GetLuck().Do(character);
-    //m_consequence.Apply(character); Applies its own consequences
-
   }
   else if (GetType() == ChapterType::test_your_skill)
   {
     GetSkill().Do(character);
-    //m_consequence.Apply(character); Applies its own consequences
   }
   else if (GetType() == ChapterType::shop)
   {

@@ -15,10 +15,8 @@ SOURCES += \
     shopchapter.cpp \
     pawnshopchapter.cpp \
     game.cpp \
-    specialchapter.cpp \
     dice.cpp \
     ai.cpp \
-    showtextmode.cpp \
     gamelostchapter.cpp \
     ballgamechapter.cpp \
     dicegamechapter.cpp \
@@ -50,10 +48,8 @@ HEADERS += \
     shopchapter.h \
     pawnshopchapter.h \
     game.h \
-    specialchapter.h \
     dice.h \
     ai.h \
-    showtextmode.h \
     gamelostchapter.h \
     ballgamechapter.h \
     dicegamechapter.h \

@@ -1,4 +1,0 @@
-#ifndef SPECIALCHAPTER_H
-#define SPECIALCHAPTER_H
-
-#endif // DOCHAPTER_H

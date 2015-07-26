@@ -1,4 +1,0 @@
-#ifndef SHOWTEXTMODE_H
-#define SHOWTEXTMODE_H
-
-#endif // SHOWTEXTMODE_H

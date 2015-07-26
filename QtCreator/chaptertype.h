@@ -9,7 +9,7 @@ enum class ChapterType
   game_lost,
   game_won,
   normal,
-  pawn_shop, //
+  pawn_shop, //Chapter 354
   play_ball, //Chapter 378
   play_dice, //Chapter 206
   play_pill, //Chapter 223

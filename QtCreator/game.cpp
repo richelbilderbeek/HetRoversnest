@@ -13,7 +13,6 @@
 #include "dice.h"
 #include "helper.h"
 #include "chapter.h"
-#include "specialchapter.h"
 #include "walkthrough.h"
 
 Game::Game(

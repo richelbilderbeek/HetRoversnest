@@ -319,7 +319,6 @@ void Ai::Start()
   }
   std::cout << "FINISHED THE GAME, CREATING GRAPH" << std::endl;
   this->CreateGraph();
-  assert(1==2);
 }
 
 #ifndef NDEBUG
