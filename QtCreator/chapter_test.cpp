@@ -509,21 +509,31 @@ void Chapter::Test() noexcept
     assert(not_fought_chapter != yes_fought_chapter);
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 65);
   }
-  //Doing chapter 271 multiple time should add status opened_pirate_crew_door once
-  if (1==2)
+
+  //Chapter 343: Lose all silver items
   {
-    const Chapter chapter(271);
-    Character character(100,100,100,Item::luck_potion);
+    const Chapter chapter(343);
+    Character character(10,10,10,Item::luck_potion);
+    character.AddItem(Item::silver_arrow);
+    character.AddItem(Item::silver_chalice);
+    character.AddItem(Item::silver_flute);
+    character.AddItem(Item::silver_insect_bracelet);
+    character.AddItem(Item::silver_scorpion_brooch);
+    character.AddItem(Item::silver_spoon);
+    character.AddItem(Item::two_silver_goblets);
+    character.AddItem(Item::ivory_skull_on_a_silver_chain);
+
     d.ConnectTo(chapter);
     chapter.Do(character);
-    chapter.Do(character);
-    chapter.Do(character);
-    chapter.Do(character);
-    chapter.Do(character);
-    chapter.Do(character);
-    chapter.Do(character);
-    chapter.Do(character);
-    assert(1==2);
+
+    assert(!character.HasItem(Item::silver_arrow));
+    assert(!character.HasItem(Item::silver_chalice));
+    assert(!character.HasItem(Item::silver_flute));
+    assert(!character.HasItem(Item::silver_insect_bracelet));
+    assert(!character.HasItem(Item::silver_scorpion_brooch));
+    assert(!character.HasItem(Item::silver_spoon));
+    assert(!character.HasItem(Item::two_silver_goblets));
+    assert(!character.HasItem(Item::ivory_skull_on_a_silver_chain));
   }
 
   //Parse chapters using Chapter

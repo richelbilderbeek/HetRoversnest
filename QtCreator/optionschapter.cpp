@@ -23,7 +23,7 @@ std::vector<Option> OptionsChapter::GetValidOptions(const Character& character) 
     std::begin(m_options),
     std::end(m_options),
     std::back_inserter(valid_options),
-    [character](const Option& option)
+    [&character](const Option& option)
     {
       return option.CanChoose(character);
     }

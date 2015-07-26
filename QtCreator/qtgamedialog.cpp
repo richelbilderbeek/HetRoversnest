@@ -8,15 +8,16 @@
 
 #include "ui_qtgamedialog.h"
 #include "chapter.h"
+#include "menudialog.h"
 #include "helper.h"
 #include "dice.h"
 
 QtGameDialog::QtGameDialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::QtGameDialog),
-  m_character(6,12,12,Item::luck_potion),
-  m_has_lost{false},
-  m_has_won{false},
+  //m_character(6,12,12,Item::luck_potion),
+  //m_has_lost{false},
+  //m_has_won{false},
   m_key_pressed{-1},
   m_options{}
 {
@@ -31,7 +32,6 @@ QtGameDialog::QtGameDialog(QWidget *parent) :
 
 void QtGameDialog::keyPressEvent(QKeyEvent * e)
 {
-  assert(m_options.size() < 8);
   int key_pressed = e->key();
   if (key_pressed == Qt::Key_Escape) close();
   if (m_options.size() > 0 && key_pressed == Qt::Key_0) { m_key_pressed = 0; return; }
@@ -41,33 +41,29 @@ void QtGameDialog::keyPressEvent(QKeyEvent * e)
   if (m_options.size() > 4 && key_pressed == Qt::Key_4) { m_key_pressed = 4; return; }
   if (m_options.size() > 5 && key_pressed == Qt::Key_5) { m_key_pressed = 5; return; }
   if (m_options.size() > 6 && key_pressed == Qt::Key_6) { m_key_pressed = 6; return; }
+  if (m_options.size() > 7 && key_pressed == Qt::Key_7) { m_key_pressed = 7; return; }
+  if (m_options.size() > 8 && key_pressed == Qt::Key_8) { m_key_pressed = 8; return; }
+  if (m_options.size() > 9 && key_pressed == Qt::Key_9) { m_key_pressed = 9; return; }
+  assert(m_options.size() < 10);
 }
 
 void QtGameDialog::Start()
 {
-  while (1)
-  {
-    UpdateStats();
+  MenuDialog menu;
 
-    const int chapter_number{m_character.GetCurrentChapter()};
-    const Chapter chapter(chapter_number);
+  menu.m_signal_request_option.connect(
+    boost::bind(&QtGameDialog::SlotRequestOption,this,_1)
+  );
+  menu.m_signal_wait.connect(
+    boost::bind(&QtGameDialog::SlotWait,this)
+  );
+  menu.m_signal_show_text.connect(
+    boost::bind(&QtGameDialog::SlotShowText,this,_1)
+  );
 
-    chapter.m_signal_request_option.connect(
-      boost::bind(&QtGameDialog::SlotRequestOption,this,_1)
-    );
-    chapter.m_signal_wait.connect(
-      boost::bind(&QtGameDialog::SlotWait,this)
-    );
-    chapter.m_signal_show_text.connect(
-      boost::bind(&QtGameDialog::SlotShowText,this,_1)
-    );
+  menu.Execute();
 
-    chapter.Do(m_character);
-
-    if (chapter.GetType() == ChapterType::game_won) { m_has_won = true; }
-    if (m_character.IsDead())  { m_has_lost = true; }
-    if (m_has_lost || m_has_won) return;
-  }
+  close();
 }
 
 Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
@@ -127,6 +123,7 @@ QtGameDialog::~QtGameDialog()
 
 void QtGameDialog::UpdateStats()
 {
+  /*
   ui->label_condition->setText(
     (
       std::string("Condition: ")
@@ -163,5 +160,5 @@ void QtGameDialog::UpdateStats()
     + std::to_string(m_character.GetProvisions())
     ).c_str()
   );
-
+  */
 }

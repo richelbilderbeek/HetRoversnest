@@ -76,6 +76,8 @@ Character MenuDialog::CreateCharacter() const noexcept
 
 void MenuDialog::Execute()
 {
+  m_signal_show_text("City Of Thieves\n");
+  m_signal_show_text("\n");
   while (1)
   {
     m_signal_show_text("\n");

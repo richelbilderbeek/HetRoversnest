@@ -47,13 +47,16 @@ CONFIG(release, debug|release) {
 include(HetRoversnestConsole.pri)
 
 SOURCES += qtmain.cpp \
-    qtgamedialog.cpp
+    qtgamedialog.cpp \
+    qtmenudialog.cpp
 
 FORMS += \
-    qtgamedialog.ui
+    qtgamedialog.ui \
+    qtmenudialog.ui
 
 HEADERS += \
-    qtgamedialog.h
+    qtgamedialog.h \
+    qtmenudialog.h
 
 RESOURCES += \
     HetRoversnest.qrc

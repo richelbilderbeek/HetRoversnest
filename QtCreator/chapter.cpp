@@ -23,6 +23,8 @@ Chapter::Chapter(const int chapter_number)
     m_chapter_type{ChapterType::normal},
     m_dice_game_chapter{*this},
     m_fighting_chapter{FightingChapter(*this)},
+    m_game_lost_chapter{this},
+    m_game_won_chapter{this},
     m_luck_chapter(*this),
     m_options_chapter{},
     m_pawn_shop_chapter(this),
@@ -309,11 +311,13 @@ void Chapter::Do(Character& character) const
 
   if (GetType() == ChapterType::game_lost)
   {
-    character.SetIsDead();
+    //character.SetIsDead();
+    m_game_lost_chapter.Do(character);
     return;
   }
   else if (GetType() == ChapterType::game_won)
   {
+    m_game_won_chapter.Do(character);
     return;
   }
   else if (GetType() == ChapterType::play_dice)
@@ -401,7 +405,10 @@ void Chapter::Do(Character& character) const
     assert(!"Should not get here");
   }
 
-  if (character.IsDead()) return;
+  if (character.IsDead())
+  {
+    m_game_lost_chapter.Do(character);
+  }
 
   m_signal_show_text(m_bye_text);
 }

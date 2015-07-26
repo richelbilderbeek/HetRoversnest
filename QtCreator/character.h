@@ -4,6 +4,7 @@
 #include <vector>
 #include "item.h"
 
+#include <boost/signals2.hpp>
 
 struct Character
 {
@@ -11,11 +12,14 @@ struct Character
   using MonsterNames = std::vector<std::string>;
 
   Character(
-    const int skill, //NL: Behendigheid
-    const int condition, //NL: Conditie
-    const int luck, //NL: Geluk
+    const int skill,
+    const int condition,
+    const int luck,
     const Item initial_item
   );
+
+  Character(const Character& other);
+  Character& operator=(const Character& other) = delete; //Not needed yet
 
   void AddHasFought(const std::string& monster_name);
   void AddItem(const Item item);
@@ -53,21 +57,32 @@ struct Character
   bool TestSkill() noexcept;
   bool TestLuck() noexcept;
 
+  mutable boost::signals2::signal<void(const Character&)> m_signal_has_changed;
+
   private:
-  std::vector<int> m_chapters;
 
   ///How much arrows does the character have sticking out his/her body?
   int m_arrows;
-  int m_skill; //NL: Behendigheid
+
+  std::vector<int> m_chapters;
+  int m_condition;
   MonsterNames m_fought;
-  int m_gold; //NL: Goud
-  const int m_initial_skill; //NL: Behendigheid
-  const int m_initial_luck; //NL: Geluk
-  const int m_initial_condition; //NL: Conditie
-  Items m_items; //NL: Voorwerpen
-  int m_luck; //NL: Geluk
-  int m_provisions; //NL: Proviant
-  int m_condition; //NL: Conditie
+  int m_gold;
+  const int m_initial_condition;
+  const int m_initial_luck;
+  const int m_initial_skill;
+  Items m_items;
+  int m_luck;
+  int m_provisions;
+  int m_skill;
+
+  #ifndef NDEBUG
+  static void Test() noexcept;
+  #endif
+
+  friend bool operator==(const Character& lhs, const Character& rhs);
 };
+
+bool operator==(const Character& lhs, const Character& rhs);
 
 #endif // CHARACTER_H

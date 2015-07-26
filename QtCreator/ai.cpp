@@ -294,7 +294,7 @@ void Ai::Start()
       std::cout << "DONE\n";
     }
 
-    const Character character(6+6,12+6,6+6,Item::luck_potion);
+    Character character(6+6,12+6,6+6,Item::luck_potion);
     Game game(42,character);
     m_game = &game;
 

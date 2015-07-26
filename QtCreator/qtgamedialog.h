@@ -25,9 +25,9 @@ private slots:
 private:
   Ui::QtGameDialog *ui;
 
-  Character m_character;
-  bool m_has_lost;
-  bool m_has_won;
+  //Character m_character;
+  //bool m_has_lost;
+  //bool m_has_won;
 
   int m_key_pressed;
 

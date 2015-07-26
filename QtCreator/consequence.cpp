@@ -177,7 +177,7 @@ void Consequence::Apply(Character& character) const
       }
       continue;
     }
-    if (item == Item::two_random_items)
+    else if (item == Item::two_random_items)
     {
       //if (verbose) { std::clog << "Removing two random items" << std::endl; }
       for (int i=0; i!=2; ++i)
@@ -190,6 +190,15 @@ void Consequence::Apply(Character& character) const
         for (int j=0; j!=item_index; ++j) { ++iter; }
         if (verbose) { std::clog << "Lost  " << ToPrettyStr(*iter) << std::endl; }
         character.RemoveItem(*iter);
+      }
+      continue;
+    }
+    else if (item == Item::all_silver_items)
+    {
+      const auto items = character.GetItems();
+      for (const auto item: items)
+      {
+        if (IsSilver(item)) character.RemoveItem(item);
       }
       continue;
     }

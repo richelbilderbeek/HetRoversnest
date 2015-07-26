@@ -71,9 +71,7 @@ boost::bimap<Item,std::string> CreateItemBimap()
   m.insert(Pair(Item::all_provisions,"all_provisions"));
   m.insert(Pair(Item::all_gold,"all_gold"));
   m.insert(Pair(Item::random_item_or_one_gold,"random_item_or_one_gold"));
-  m.insert(Pair(Item::any_item,"any_item"));
   m.insert(Pair(Item::all_silver_items,"all_silver_items"));
-  m.insert(Pair(Item::some_piece_of_armor,"some piece of armor"));
   m.insert(Pair(Item::two_random_items,"two_random_items"));
   m.insert(Pair(Item::two_magic_items,"two_magic_items"));
   m.insert(Pair(Item::something_magic,"something magic"));
@@ -101,6 +99,36 @@ bool IsItem(const std::string& item_name)
 {
   const auto m = CreateItemBimap();
   return m.right.find(item_name) != m.right.end();
+}
+
+bool IsMagic(const Item item)
+{
+  return
+       item == Item::magic_elven_boots
+    || item == Item::magic_helmet
+    || item == Item::silver_scorpion_brooch
+    || item == Item::golden_scorpion_brooch
+    || item == Item::copper_scorpion_brooch
+    || item == Item::invisibility_ring
+    || item == Item::ring_of_fire
+    || item == Item::ring_of_ice
+    || item == Item::ring_of_the_golden_eye
+    || item == Item::silver_insect_bracelet
+  ;
+}
+
+bool IsSilver(const Item item)
+{
+  return
+       item == Item::ivory_skull_on_a_silver_chain
+    || item == Item::silver_arrow
+    || item == Item::silver_chalice
+    || item == Item::silver_flute
+    || item == Item::silver_insect_bracelet
+    || item == Item::silver_scorpion_brooch
+    || item == Item::silver_spoon
+    || item == Item::two_silver_goblets
+  ;
 }
 
 Item ReadItem(std::stringstream& s)

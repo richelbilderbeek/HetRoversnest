@@ -14,6 +14,8 @@
 #include "pawnshopchapter.h"
 #include "shopchapter.h"
 #include "skillchapter.h"
+#include "gamelostchapter.h"
+#include "gamewonchapter.h"
 #include "consequence.h"
 #include "ballgamechapter.h"
 #include "dicegamechapter.h"
@@ -83,6 +85,10 @@ struct Chapter
   DiceGameChapter m_dice_game_chapter;
 
   FightingChapter m_fighting_chapter;
+
+  GameLostChapter m_game_lost_chapter;
+
+  GameWonChapter m_game_won_chapter;
 
   LuckChapter m_luck_chapter;
 

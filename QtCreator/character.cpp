@@ -10,25 +10,52 @@
 #include "dice.h"
 #include "helper.h"
 
+Character::Character(const Character& other)
+  :
+    m_signal_has_changed{},
+
+    m_arrows{other.m_arrows},
+    m_chapters{other.m_chapters},
+    m_condition{other.m_condition},
+    m_fought{other.m_fought},
+    m_gold{other.m_gold},
+    m_initial_condition{other.m_initial_condition},
+    m_initial_luck{other.m_initial_luck},
+    m_initial_skill{other.m_initial_skill},
+    m_items{other.m_items},
+    m_luck{other.m_luck},
+    m_provisions{other.m_provisions},
+    m_skill{other.m_skill}
+{
+
+}
+
+
 Character::Character(
   const int skill,
   const int condition,
   const int luck,
   const Item initial_item
 )
-  : m_chapters{std::vector<int>(1,1)},
+  :
+    m_signal_has_changed{},
     m_arrows{0},
-    m_skill{skill},
+    m_chapters{std::vector<int>(1,1)},
+    m_condition{condition},
     m_fought{},
     m_gold{30},
-    m_initial_skill{skill},
-    m_initial_luck{luck},
     m_initial_condition{condition},
+    m_initial_luck{luck},
+    m_initial_skill{skill},
     m_items{},
     m_luck{luck},
     m_provisions{10},
-    m_condition{condition}
+    m_skill{skill}
 {
+  #ifndef NDEBUG
+  Test();
+  #endif
+
   m_items.push_back(Item::shield);
   m_items.push_back(Item::carralifs_sword);
   assert(
@@ -387,4 +414,36 @@ bool Character::TestLuck() noexcept
   const bool has_luck{dice < GetLuck()};
   --m_luck;
   return has_luck;
+}
+
+#ifndef NDEBUG
+void Character::Test() noexcept
+{
+  {
+    static bool is_tested{false};
+    if (is_tested) return;
+    is_tested = true;
+  }
+  Character a(1,2,3,Item::luck_potion);
+  Character b(a);
+  assert(a==b);
+}
+#endif
+
+bool operator==(const Character& lhs, const Character& rhs)
+{
+  return
+       lhs.m_chapters == rhs.m_chapters
+    && lhs.m_arrows == rhs.m_arrows
+    && lhs.m_skill ==  rhs.m_skill
+    && lhs.m_fought == rhs.m_fought
+    && lhs.m_gold == rhs.m_gold
+    && lhs.m_initial_skill == rhs.m_initial_skill
+    && lhs.m_initial_luck && rhs.m_initial_luck
+    && lhs.m_initial_condition == rhs.m_initial_condition
+    && lhs.m_items == rhs.m_items
+    && lhs.m_luck == rhs.m_luck
+    && lhs.m_provisions == rhs.m_provisions
+    && lhs.m_condition == rhs.m_condition
+  ;
 }
