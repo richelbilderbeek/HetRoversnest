@@ -4,7 +4,7 @@
 #include <iosfwd>
 #include <random>
 #include <set>
-
+#include <map>
 #include "option.h"
 #include "game.h"
 
@@ -19,11 +19,14 @@ struct Ai
   Ai(const Ai& ai) = delete;
   Ai& operator=(const Ai& ai) = delete;
 
+  Payoff CalcFinalPayoff(const Character& character) const noexcept;
+
   ///Create a graph that shows the payoffs
   void CreateGraph() const noexcept;
 
   //Chapter of current sequence
   const auto& GetChapters() const noexcept { return m_keys; }
+
 
   //Payoff for each chapter
   const auto& GetPayoffs() const noexcept { return m_payoffs; }
@@ -49,6 +52,10 @@ struct Ai
   //Payoff for each key
   mutable std::vector<PayoffPair> m_payoffs;
 
+  bool m_silent;
+
+  mutable std::map<Item,double> m_tally;
+
   Option SlotRequestOption(const std::vector<Option>& options);
   void SlotShowText(const std::string& text);
   void SlotWait();
@@ -57,6 +64,8 @@ struct Ai
   static void Test() noexcept;
   #endif
 };
+
+void SolveGame();
 
 std::ostream& operator<<(std::ostream& os, const Ai& ai);
 

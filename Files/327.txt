@@ -2,5 +2,5 @@ You feel like a pincushion and although the pain is almost unbearable, you manag
 @
 normal
 option Enter the house @ goto 126
-option Continue walking north @ goto 164
+option Continue walking north, following Key Street @ goto 164
 

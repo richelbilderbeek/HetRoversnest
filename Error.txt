@@ -1,0 +1,46 @@
+WARNING: entering chapter 352 for the second time!
+skill:
+ * base: 12/12
+ * Carralif's sword: +2 (equipped) 
+ * total: 14/12
+condition: 18/18
+luck:
+ * base: 10/12
+ * total: 10/12
+gold pieces: 28
+provisions: 10
+
+items: 
+ * tattoo
+ * Carralif's sword
+ * luck potion
+ * climbing rope
+ * iron spike
+ * golden owl
+ * black pearls
+ * silver arrow
+ * hags hair
+ * lotus flower
+monsters fought: 
+ * first thief
+ * second thief
+ * first wild dog
+ * second wild dog
+ * first rat
+ * second rat
+ * third rat
+ * hag
+ * first robber
+ * second robber
+ * leaf beasts
+ * ape man
+ * first moon dog
+ * second moon dog
+ * first zombie
+ * second zombie
+ * first death hawk
+ * second death hawk
+
+Path taken: 1 202 276 267 74 116 93 296 147 105 304 148 287 413 398 378 52 200 117 31 329 91 332 124 326 184 308 180 34 171 399 87 50 271 162 7 78 256 320 216 317 280 213 248 85 100 246 98 363 48 321 356 28 265 390 144 303 104 205 127 177 51 325 348 251 269 30 76 115 90 199 222 370 14 191 133 182 279 307 11 408 358 108 201 431 138 312 217 259 4 339 77 310 263 153 65 197 122 361 297 207 314 94 234 96 319 352 106 231 96 319 231 96 319 231 96 319 231 96 319 
+HetRoversnestConsole: ../QtCreator/character.cpp:267: void Character::SetChapter(int): Assertion `!"Should not get here"' failed.
+Press <RETURN> to close this window...

@@ -11,6 +11,7 @@
 #include "dice.h"
 #include "game.h"
 #include "helper.h"
+#include "option.h"
 
 Ai::Ai()
   :
@@ -18,39 +19,18 @@ Ai::Ai()
     m_engine(0),
     m_game{nullptr},
     m_keys{},
-    m_payoffs{}
+    m_payoffs{},
+    m_silent{true},
+    m_tally{}
 {
   #ifndef NDEBUG
   Test();
   #endif
-
-  //Collect all hashes of all options
-  /*
-  for (int i=1; i!=450; ++i)
-  {
-    try
-    {
-      Chapter chapter(i);
-      for (const auto option: chapter.GetOptions().GetOptions())
-      {
-        const std::string text{option.GetText()};
-        m_payoffs.push_back(PayoffPair(text,1.0));
-      }
-    }
-    catch (std::runtime_error& e)
-    {
-      std::cout << e.what() << std::endl;
-    }
-  }
-
-  m_payoffs.push_back(PayoffPair(CreateShowInventoryOption().GetText(),0.0));
-  m_payoffs.push_back(PayoffPair(CreateYesOption().GetText(),0.0));
-  m_payoffs.push_back(PayoffPair(CreateNoOption().GetText(),1.0));
-  m_payoffs.push_back(PayoffPair(CreateLeaveOption().GetText(),1.0));
-
-  //Check
-  //std::cout << (*this) << std::endl;
-  */
+  m_tally[Item::black_pearls] = 0;
+  m_tally[Item::hags_hair] = 0;
+  m_tally[Item::lotus_flower] = 0;
+  m_tally[Item::silver_arrow] = 0;
+  m_tally[Item::tattoo] = 0;
 }
 
 
@@ -76,11 +56,24 @@ void Ai::CreateGraph() const noexcept
         case ChapterType::test_your_skill: node_color = "green"; break;
         default: break; //OK
       }
+      //Shape for special chapter
+      std::string shape{"ellipse"};
+      switch (i)
+      {
+        case 7: case 111: //Black pearls
+        case 191: case 237: //Lotus flower
+        case 82: case 303: //Hag's hair
+        case 42: case 85: //Silver arrow
+        case 279: //Tattoo
+          shape = "doublecircle";
+        default: break;
+      }
       f << i
         << "["
         << "label =\""
         << std::to_string(chapter.GetChapterNumber())
-        << "\"];\n"
+        << "\", shape = " << shape
+        << "];\n"
       ;
 
       if (chapter.GetNextChapter() != -1)
@@ -144,8 +137,83 @@ void Ai::CreateGraph() const noexcept
   }
 }
 
+double Ai::CalcFinalPayoff(const Character& character) const noexcept
+{
+  assert(character.GetChapters().size() > 1 && "Cannot die in chapter 1");
+
+  if (character.HasItem(Item::black_pearls)) ++m_tally[Item::black_pearls];
+  if (character.HasItem(Item::silver_arrow)) ++m_tally[Item::silver_arrow];
+  if (character.HasItem(Item::hags_hair)) ++m_tally[Item::hags_hair];
+  if (character.HasItem(Item::lotus_flower)) ++m_tally[Item::lotus_flower];
+  if (character.HasItem(Item::tattoo)) ++m_tally[Item::tattoo];
+
+  //The rarer an item is discovered, the higher its value
+  const int sum{
+    std::accumulate(std::begin(m_tally),std::end(m_tally),0,
+    [](const int sum,const auto& p) { return sum + p.second; }
+    )
+  };
+  const double average{static_cast<double>(sum) / 5.0 };
+
+  std::map<Item,double> values;
+  values[Item::black_pearls] = average  / static_cast<double>(m_tally[Item::black_pearls]);
+  values[Item::silver_arrow] = average  / static_cast<double>(m_tally[Item::silver_arrow]);
+  values[Item::hags_hair] = average  / static_cast<double>(m_tally[Item::hags_hair]);
+  values[Item::lotus_flower] = average  / static_cast<double>(m_tally[Item::lotus_flower]);
+  values[Item::tattoo] = average  / static_cast<double>(m_tally[Item::tattoo]);
+
+  if (1==2)
+  {
+    std::clog
+      << character.HasItem(Item::black_pearls) << ":" << m_tally[Item::black_pearls] << " " << values[Item::black_pearls] << " "
+      << character.HasItem(Item::silver_arrow) << ":" << m_tally[Item::silver_arrow] << " " << values[Item::silver_arrow] << " "
+      << character.HasItem(Item::hags_hair) << ":" << m_tally[Item::hags_hair] << " " << values[Item::hags_hair] << " "
+      << character.HasItem(Item::lotus_flower) << ":" << m_tally[Item::lotus_flower] << " " << values[Item::lotus_flower] << " "
+      << character.HasItem(Item::tattoo) << ":" << m_tally[Item::tattoo] << " " << values[Item::tattoo] << " "
+      << std::endl;
+  }
+
+  const double final_payoff{
+    std::pow(
+        (character.HasItem(Item::black_pearls) ? values[Item::black_pearls] : 0.0)
+      + (character.HasItem(Item::lotus_flower) ? values[Item::lotus_flower] : 0.0)
+      + (character.HasItem(Item::hags_hair)    ? values[Item::hags_hair] : 0.0)
+      + (character.HasItem(Item::tattoo)       ? values[Item::tattoo] : 0.0)
+      + (character.HasItem(Item::silver_arrow) ? values[Item::silver_arrow] : 0.0)
+      + (character.GetCurrentChapter() == 400  ? 1.0 : 0.0) //Won the game
+    ,2.0)
+  };
+  if (character.GetCurrentChapter() == 400) { std::clog << "Finished game" << std::endl; }
+
+  /*
+  if (!character.HasItem(Item::black_pearls)) return 0.0;
+  //if (!character.HasItem(Item::potion_of_mind_control)) return 4.0;
+  if (!character.HasItem(Item::silver_arrow)) return 4.0;
+  if (!character.HasItem(Item::hags_hair)) return 16.0;
+  if (!character.HasItem(Item::lotus_flower)) return 64.0;
+  if (!character.HasItem(Item::tattoo)) return 256.0;
+  if (!character.GetCurrentChapter() == 400) return 1024.0;
+  return 4096.0;
+  */
+  /*
+  const double final_payoff{
+    std::pow(
+        (character.HasItem(Item::black_pearls) ? 1.0 : 0.0)
+      + (character.HasItem(Item::lotus_flower) ? 1.0 : 0.0)
+      + (character.HasItem(Item::hags_hair)    ? 1.0 : 0.0)
+      + (character.HasItem(Item::tattoo)       ? 1.0 : 0.0)
+      + (character.HasItem(Item::silver_arrow) ? 1.0 : 0.0)
+      + (character.GetCurrentChapter() == 400  ? 1.0 : 0.0) //Won the game
+    ,2.0)
+  };
+  */
+  return final_payoff;
+}
+
 double Ai::GetPayoff(const std::string& option_text) const noexcept
 {
+  if (option_text == CreateShowInventoryOption().GetText()) return 0.0;
+
   const auto iter
    = std::find_if(
        std::begin(m_payoffs),
@@ -167,6 +235,7 @@ double Ai::GetPayoff(const std::string& option_text) const noexcept
 
 void Ai::SetFinalPayoff(const Payoff& final_payoff)
 {
+  const bool verbose{false};
   assert(!m_keys.empty());
   double weight{1.0};
   for (int i=0; ; ++i)
@@ -178,16 +247,14 @@ void Ai::SetFinalPayoff(const Payoff& final_payoff)
     const double new_chapter_payoff{
       current_key_payoff + (weight * (final_payoff - current_key_payoff))
     };
-    if (!IsBetween(new_chapter_payoff,current_key_payoff,final_payoff))
-    {
-      std::cerr
-        << "Now: " << current_key_payoff << '\n'
-        << "Final: " << final_payoff << '\n'
-        << "Weight: " << weight<< '\n'
-        << "New: " << new_chapter_payoff << '\n'
-      ;
-    }
     assert(IsBetween(new_chapter_payoff,current_key_payoff,final_payoff));
+    if (verbose)
+    {
+      std::clog << "Assign payoff to key: " << key << std::endl;
+      std::clog << " * Final payoff: " << final_payoff << std::endl;
+      std::clog << " * Previous payoff: " << current_key_payoff << std::endl;
+      std::clog << " * New payoff: " << new_chapter_payoff << std::endl;
+    }
     SetPayoff(key,new_chapter_payoff);
     m_keys.pop_back();
     if (m_keys.empty()) break;
@@ -221,8 +288,9 @@ void Ai::Start()
     //if (i % 10000 == 0)
     if (static_cast<int>(std::log10(i)) != static_cast<int>(std::log10(i-1)))
     {
+
       std::cout << "i: " << i << std::endl;
-      //this->CreateGraph();
+      if (i > 100) this->CreateGraph();
       std::cout << "DONE\n";
     }
 
@@ -246,15 +314,7 @@ void Ai::Start()
       if (game.HasLost() || game.HasWon()) break;
     }
 
-    const double final_payoff{
-        character.HasItem(Item::black_pearls) ? 2.0 : 0.0
-      + character.HasItem(Item::lotus_flower) ? 2.0 : 0.0
-      + character.HasItem(Item::hags_hair) ? 2.0 : 0.0
-      + character.HasItem(Item::tattoo) ? 2.0 : 0.0
-      + character.HasItem(Item::silver_arrow) ? 2.0 : 0.0
-      + game.HasWon() ? 2.0 : 0.0
-    };
-    SetFinalPayoff(final_payoff);
+    SetFinalPayoff(CalcFinalPayoff(game.GetCharacter()));
     if (game.HasWon()) { break; }
   }
   std::cout << "FINISHED THE GAME, CREATING GRAPH" << std::endl;
@@ -269,6 +329,56 @@ void Ai::Test() noexcept
     static bool is_tested{false};
     if (is_tested) return;
     is_tested = true;
+  }
+  //See that payoffs increase
+  if (1==2)
+  {
+    Ai ai;
+    Character character(6+6,12+6,6+6,Item::luck_potion);
+    character.SetChapter(2); //Make the Character have travelled a bit
+    character.SetChapter(3); //Make the Character have travelled a bit
+    const double a{ai.CalcFinalPayoff(character)};
+    character.AddItem(Item::black_pearls);
+    const double b{ai.CalcFinalPayoff(character)};
+    assert(b > a);
+    character.AddItem(Item::lotus_flower);
+    const double c{ai.CalcFinalPayoff(character)};
+    assert(c > b);
+    character.AddItem(Item::hags_hair);
+    const double d{ai.CalcFinalPayoff(character)};
+    assert(d > c);
+    character.AddItem(Item::tattoo);
+    const double e{ai.CalcFinalPayoff(character)};
+    assert(e > d);
+    character.AddItem(Item::silver_arrow);
+    const double f{ai.CalcFinalPayoff(character)};
+    assert(f > e);
+    character.SetChapter(400);
+    const double g{ai.CalcFinalPayoff(character)};
+    assert(g > f);
+  }
+  //Do one run
+  {
+    Ai ai;
+    const Character character(6+6,12+6,6+6,Item::luck_potion);
+    Game game(42,character);
+
+    game.m_signal_request_option.connect(
+      boost::bind(&Ai::SlotRequestOption,&ai,_1)
+    );
+    game.m_signal_wait.connect(
+      boost::bind(&Ai::SlotWait,&ai)
+    );
+    game.m_signal_show_text.connect(
+      boost::bind(&Ai::SlotShowText,&ai,_1)
+    );
+
+    while (1)
+    {
+      game.DoChapter();
+      if (game.HasLost() || game.HasWon()) break;
+    }
+    ai.SetFinalPayoff(ai.CalcFinalPayoff(game.GetCharacter()));
   }
 }
 #endif
@@ -353,6 +463,8 @@ Option Ai::SlotRequestOption(const std::vector<Option>& options)
 
 void Ai::SlotShowText(const std::string& text)
 {
+  if (m_silent) { return; }
+
   const int n_chars{60};
   int pos = 0;
   for (const char c: text)
@@ -369,4 +481,11 @@ void Ai::SlotShowText(const std::string& text)
 void Ai::SlotWait()
 {
   //Continue
+}
+
+
+void SolveGame()
+{
+  Ai ai;
+  ai.Start();
 }

@@ -44,7 +44,8 @@ boost::bimap<Item,std::string> CreateItemBimap()
   m.insert(Pair(Item::golden_owl,"golden_owl"));
   m.insert(Pair(Item::potion_of_mind_control,"potion_of_mind_control"));
   m.insert(Pair(Item::set_of_keys,"set_of_keys"));
-  m.insert(Pair(Item::stale_bread,"stale_bread"));
+  m.insert(Pair(Item::stale_white_bread,"stale_white_bread"));
+  m.insert(Pair(Item::stale_brown_bread,"stale_brown_bread"));
   m.insert(Pair(Item::two_gems,"two_gems"));
   m.insert(Pair(Item::magnificent_shield,"magnificent_shield"));
   m.insert(Pair(Item::two_silver_goblets,"two_silver_goblets"));
@@ -64,6 +65,8 @@ boost::bimap<Item,std::string> CreateItemBimap()
   m.insert(Pair(Item::stamina_potion,"stamina_potion"));
   m.insert(Pair(Item::dexterity_potion,"dexterity_potion"));
   m.insert(Pair(Item::coloured_candle,"coloured_candle"));
+  m.insert(Pair(Item::cursed_white_silk_glove,"cursed_white_silk_glove"));
+
   m.insert(Pair(Item::any_scorpion_brooch,"any_scorpion_brooch"));
   m.insert(Pair(Item::all_provisions,"all_provisions"));
   m.insert(Pair(Item::all_gold,"all_gold"));
@@ -74,7 +77,6 @@ boost::bimap<Item,std::string> CreateItemBimap()
   m.insert(Pair(Item::two_random_items,"two_random_items"));
   m.insert(Pair(Item::two_magic_items,"two_magic_items"));
   m.insert(Pair(Item::something_magic,"something magic"));
-  //m.insert(Pair(Item::fought_ape_man,"fought_ape_man"));
   m.insert(Pair(Item::followed_sewer_north,"followed_sewer_north"));
   m.insert(Pair(Item::followed_sewer_south,"followed_sewer_south"));
   m.insert(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));

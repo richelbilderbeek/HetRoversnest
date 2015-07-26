@@ -1,38 +1,21 @@
-#include <ctime>
-#include <fstream>
-#include <iterator>
-#include <memory>
-#include "ai.h"
-#include "dice.h"
-#include "dialog.h"
-#include "helper.h"
-#include "game.h"
-#include "walkthrough.h"
+#include "terminal.h"
+#include "menudialog.h"
 
 int main()
 {
-  #ifndef NDEBUG
-  TestHelperFunctions();
-  #endif
+  Terminal dialog;
+  MenuDialog menu;
+  menu.m_signal_request_option.connect(
+    boost::bind(&Terminal::SlotRequestOption,dialog,_1)
+  );
+  menu.m_signal_wait.connect(
+    boost::bind(&Terminal::SlotWait,dialog)
+  );
+  menu.m_signal_show_text.connect(
+    boost::bind(&Terminal::SlotShowText,dialog,_1)
+  );
 
-  if (1==1)
-  {
-    Ai ai;
-    ai.Start();
-  }
+  menu.ShowZanbarBone();
 
-  //Play the game
-  std::random_device rd;
-  const int seed{static_cast<int>(rd())};
-  const Character character(6+6,12+6,6+6,Item::luck_potion);
-
-  Dialog d;
-  Game game(seed,character);
-  d.ConnectTo(game);
-  while (1)
-  {
-    game.DoChapter();
-    if (game.HasWon() || game.HasLost()) break;
-  }
-
+  menu.Execute();
 }

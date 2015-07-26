@@ -97,6 +97,20 @@ void CreateGraph()
   }
 }
 
+std::string FileToString(const std::string& filename)
+{
+  if (!IsRegularFile(filename))
+  {
+    std::stringstream msg;
+    msg << __func__ << ": ERROR: File " << filename << " does not exist";
+    throw std::runtime_error(msg.str());
+  }
+  const std::vector<std::string> lines = FileToVector(filename);
+  std::stringstream s;
+  std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
+  return s.str();
+}
+
 std::vector<std::string> FileToVector(const std::string& filename)
 {
   assert(IsRegularFile(filename));

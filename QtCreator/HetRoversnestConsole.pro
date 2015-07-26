@@ -54,6 +54,3 @@ CONFIG(release, debug|release) {
 include(HetRoversnestConsole.pri)
 
 SOURCES += main.cpp
-
-HEADERS +=
-

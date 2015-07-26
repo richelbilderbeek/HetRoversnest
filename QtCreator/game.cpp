@@ -9,7 +9,7 @@
 
 #include "ai.h"
 #include "character.h"
-#include "dialog.h"
+#include "terminal.h"
 #include "dice.h"
 #include "helper.h"
 #include "chapter.h"

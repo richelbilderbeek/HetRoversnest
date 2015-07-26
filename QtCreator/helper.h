@@ -7,6 +7,10 @@
 
 void CreateGraph();
 
+///FileToString reads a file and converts it to a std::string
+std::string FileToString(const std::string& filename);
+
+
 ///FileToVector reads a file and converts it to a std::vector<std::string>
 ///From http://www.richelbilderbeek.nl/CppFileToVector.htm
 std::vector<std::string> FileToVector(const std::string& filename);

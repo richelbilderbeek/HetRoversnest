@@ -23,14 +23,17 @@ SOURCES += \
     ballgamechapter.cpp \
     dicegamechapter.cpp \
     pillgamechapter.cpp \
-    dialog.cpp \
     gamewonchapter.cpp \
     chapter_test.cpp \
     walkthrough.cpp \
     helper_test.cpp \
-    consequencetype.cpp
+    consequencetype.cpp \
+    menudialog.cpp \
+    terminal.cpp
+
 
 HEADERS += \
+    menudialog.h \
     helper.h \
     character.h \
     item.h \
@@ -51,14 +54,13 @@ HEADERS += \
     dice.h \
     ai.h \
     showtextmode.h \
-    dialog.h \
     gamelostchapter.h \
     ballgamechapter.h \
     dicegamechapter.h \
     pillgamechapter.h \
     gamewonchapter.h \
     walkthrough.h \
-    consequencetype.h
-
+    consequencetype.h \
+    terminal.h
 
 

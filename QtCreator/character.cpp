@@ -11,9 +11,9 @@
 #include "helper.h"
 
 Character::Character(
-  const int skill, //NL: Behendigheid
-  const int condition, //NL: Conditie
-  const int luck, //NL: Geluk
+  const int skill,
+  const int condition,
+  const int luck,
   const Item initial_item
 )
   : m_chapters{std::vector<int>(1,1)},
@@ -142,6 +142,7 @@ int Character::GetSkill() const noexcept
 
   return
     GetSkillBase()
+    + (this->HasItem(Item::cursed_white_silk_glove) ? -2 : 0)
     + (this->HasItem(Item::magic_elven_boots) ? 1 : 0)
     + shield_value
     + (this->HasItem(Item::chainmail_coat) ? 2 : 0)
@@ -259,11 +260,11 @@ void Character::SetChapter(const int chapter)
       std::cerr << "WARNING: entering chapter " << chapter << " for the second time!" << std::endl;
       std::cerr << ShowInventory() << std::endl;
       #endif
-      std::ofstream f("Path.txt");
       const auto v = GetChapters();
-      std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(f," "));
-      f.close();
-      assert(!"Time to inspect path.txt");
+      std::cerr << "Path taken: ";
+      std::copy(std::begin(v),std::end(v),std::ostream_iterator<int>(std::cerr," "));
+      std::cerr << std::endl;
+      assert(!"Should not get here");
     }
   }
 
@@ -304,6 +305,7 @@ std::string Character::ShowInventory()
     if (HasItem(Item::shield)) { s << " * " << ToPrettyStr(Item::shield) << ": +1 (equipped)\n"; }
   }
 
+  //Sword
   if (HasItem(Item::carralifs_sword))
   {
     s << " * " << ToPrettyStr(Item::carralifs_sword) << ": +2 (equipped) \n";
@@ -314,8 +316,15 @@ std::string Character::ShowInventory()
     if (HasItem(Item::ordinary_sword)) { s << " * " << ToPrettyStr(Item::ordinary_sword) << ": +1 (equipped)\n"; }
   }
 
-  if (HasItem(Item::magic_elven_boots)) { s << " * " << ToPrettyStr(Item::magic_elven_boots) << ": +1\n"; }
-  if (HasItem(Item::chainmail_coat)) { s << " * " << ToPrettyStr(Item::chainmail_coat) << ": +2\n"; }
+  //Boots
+  if (HasItem(Item::magic_elven_boots)) { s << " * " << ToPrettyStr(Item::magic_elven_boots) << ": +1 (equipped)\n"; }
+
+  //Chainmail coat
+  if (HasItem(Item::chainmail_coat)) { s << " * " << ToPrettyStr(Item::chainmail_coat) << ": +2 (equipped)\n"; }
+
+  //Cursed gloves
+  if (HasItem(Item::cursed_white_silk_glove)) { s << " * " << ToPrettyStr(Item::cursed_white_silk_glove) << ": -2 (equipped, cursed)\n"; }
+
   s
     << " * total: " << GetSkill() << "/" << GetInitialSkill() << '\n'
     << "condition: " << GetCondition() << "/" << GetInitialCondition() << '\n'

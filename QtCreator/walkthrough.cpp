@@ -104,13 +104,13 @@ Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
   solution[372] = 131; //Enter serpent queen house
   solution[131] = 179; //Tell you are a tax collector
   solution[179] = 16; //Open the bag
-  solution[76] = 25; //Enter barn
-  solution[25] = 169; //Talk to blacksmith
-  solution[169] = 46; //Buy chainmail coat
-  solution[115] = 90; //Cut through chain
+  solution[76] = 25;   //Enter barn
+  solution[25] = 169;  //Talk to blacksmith
+  solution[169] = 46;  //Buy chainmail coat
+  solution[115] = 90;  //Cut through chain
   solution[90] = 199 ; //Tell them you caught him
   solution[222] = 370; //Go into gardens
-  solution[370] = 14; //Pluck the flower
+  solution[370] = 14;  //Pluck the flower
   ///Mill Street
   solution[133] = 182; //Go down alley
   solution[182] = 279; //Buy tattoo
@@ -119,17 +119,17 @@ Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
   solution[393] = 156; //Merchant pass: allow to be kicked out
   solution[335] = 367; //No merchant pass: allow to be kicked out
   //Zanbar Bone's tower
-  solution[259] = 4; //Ring the bell
-  solution[4] = 339; //Tell you are a lost traveller
-  solution[339] = 77; //Explore the tower, go to second floor
-  solution[77] = 310; //Go to third floor
-  solution[310] = 65; //Go to the fourth floor
-  solution[65] = 319; //Enter white door
+  solution[259] = 4;   //Ring the bell
+  solution[4] = 339;   //Tell you are a lost traveller
+  solution[339] = 77;  //Explore the tower, go to second floor
+  solution[77] = 310;  //Go to third floor
+  solution[310] = 65;  //Go to the fourth floor
+  solution[65] = 319;  //Enter white door
   solution[319] = 352; //Open sarcophagus
   solution[352] = 106; //Throw the lantern
   solution[106] = 163; //Inspect the sarcophagus
-  solution[231] = 96; //Enter black door
-  solution[96] = 257; //Open the chest
+  solution[231] = 96;  //Enter black door
+  solution[96] = 257;  //Open the chest
   solution[244] = 337; //Use correct mixture
 
   const int chapter_number{

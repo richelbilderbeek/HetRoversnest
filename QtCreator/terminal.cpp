@@ -1,4 +1,4 @@
-#include "dialog.h"
+#include "terminal.h"
 
 #include <cassert>
 #include <fstream>
@@ -10,10 +10,10 @@
 #include "game.h"
 #include "helper.h"
 
-Dialog::Dialog()
+Terminal::Terminal()
   :
     m_auto_play{false},
-    n_chars{60},
+    m_n_chars{60},
     m_silent{false},
 #ifndef NDEBUG
     m_wait_character_msec{0.0},
@@ -26,33 +26,33 @@ Dialog::Dialog()
 
 }
 
-void Dialog::ConnectTo(const Chapter& chapter)
+void Terminal::ConnectTo(const Chapter& chapter)
 {
   chapter.m_signal_request_option.connect(
-    boost::bind(&Dialog::SlotRequestOption,this,_1)
+    boost::bind(&Terminal::SlotRequestOption,this,_1)
   );
   chapter.m_signal_wait.connect(
-    boost::bind(&Dialog::SlotWait,this)
+    boost::bind(&Terminal::SlotWait,this)
   );
   chapter.m_signal_show_text.connect(
-    boost::bind(&Dialog::SlotShowText,this,_1)
+    boost::bind(&Terminal::SlotShowText,this,_1)
   );
 }
 
-void Dialog::ConnectTo(const Game& game)
+void Terminal::ConnectTo(const Game& game)
 {
   game.m_signal_request_option.connect(
-    boost::bind(&Dialog::SlotRequestOption,this,_1)
+    boost::bind(&Terminal::SlotRequestOption,this,_1)
   );
   game.m_signal_wait.connect(
-    boost::bind(&Dialog::SlotWait,this)
+    boost::bind(&Terminal::SlotWait,this)
   );
   game.m_signal_show_text.connect(
-    boost::bind(&Dialog::SlotShowText,this,_1)
+    boost::bind(&Terminal::SlotShowText,this,_1)
   );
 }
 
-Option Dialog::SlotRequestOption(const std::vector<Option>& options)
+Option Terminal::SlotRequestOption(const std::vector<Option>& options)
 {
   assert(!options.empty());
   const int n_options{static_cast<int>(options.size())};
@@ -74,7 +74,7 @@ Option Dialog::SlotRequestOption(const std::vector<Option>& options)
   }
 }
 
-int Dialog::SlotRequestInput(const std::vector<int>& valid_inputs)
+int Terminal::SlotRequestInput(const std::vector<int>& valid_inputs)
 {
   assert(!valid_inputs.empty());
   if (valid_inputs.size() == 1) { return valid_inputs[0]; }
@@ -109,15 +109,15 @@ int Dialog::SlotRequestInput(const std::vector<int>& valid_inputs)
   }
 }
 
-void Dialog::SlotShowText(const std::string& text)
+void Terminal::SlotShowText(const std::string& text)
 {
   if (m_silent) return;
   int pos = 0;
   for (const char c: text)
   {
     if (c == '\n') pos = -1;
-    else if (c == ' ' && pos > n_chars) { pos = 0; std::cout << '\n'; continue; }
-    else if (c == ' ' && pos == 0) { continue; }
+    else if (c == ' ' && pos > m_n_chars) { pos = 0; std::cout << '\n'; continue; }
+    //else if (c == ' ' && pos == 0) { continue; }
     std::cout << c;
     ++pos;
     std::cout.flush();
@@ -125,12 +125,12 @@ void Dialog::SlotShowText(const std::string& text)
   }
 }
 
-void Dialog::SlotWait()
+void Terminal::SlotWait()
 {
   Wait(m_wait_suspense);
 }
 
-void Dialog::SpeakText(const std::string& text)
+void Terminal::SpeakText(const std::string& text)
 {
   std::ofstream f("espeak.txt");
   f << text;

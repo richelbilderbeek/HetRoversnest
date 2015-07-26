@@ -3,7 +3,7 @@
 #include <fstream>
 
 #include "chapter.h"
-#include "dialog.h"
+#include "terminal.h"
 
 void Chapter::Test() noexcept
 {
@@ -13,7 +13,7 @@ void Chapter::Test() noexcept
     is_tested = true;
   }
 
-  Dialog d;
+  Terminal d;
   d.SetAutoPlay(true);
   d.SetSilent(true);
 
@@ -509,7 +509,22 @@ void Chapter::Test() noexcept
     assert(not_fought_chapter != yes_fought_chapter);
     assert(chapter.GetOptions().GetValidOptions(character)[0].GetNextChapter() == 65);
   }
-
+  //Doing chapter 271 multiple time should add status opened_pirate_crew_door once
+  if (1==2)
+  {
+    const Chapter chapter(271);
+    Character character(100,100,100,Item::luck_potion);
+    d.ConnectTo(chapter);
+    chapter.Do(character);
+    chapter.Do(character);
+    chapter.Do(character);
+    chapter.Do(character);
+    chapter.Do(character);
+    chapter.Do(character);
+    chapter.Do(character);
+    chapter.Do(character);
+    assert(1==2);
+  }
 
   //Parse chapters using Chapter
   {

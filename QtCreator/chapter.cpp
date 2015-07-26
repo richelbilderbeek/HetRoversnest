@@ -42,12 +42,6 @@ Chapter::Chapter(const int chapter_number)
     msg << __func__ << ": ERROR: File " << filename << " does not exist";
     throw std::runtime_error(msg.str());
   }
-  if (!IsRegularFile(filename))
-  {
-    std::stringstream msg;
-    //msg << __func__ << ": ERROR: File " << filename << " does not exist";
-    throw std::runtime_error(msg.str());
-  }
   const std::vector<std::string> lines = FileToVector(filename);
   std::stringstream s;
   std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
@@ -353,13 +347,21 @@ void Chapter::Do(Character& character) const
     //Let the use choose a valid option
     auto options = GetOptions().GetValidOptions(character);
     if (options.size() > 1) { options.push_back(CreateShowInventoryOption()); } //Add to show the inventory
-    const auto chosen = *m_signal_request_option(options);
-    chosen.DoChoose(character);
-    assert(m_consequence.GetNextChapter() == -1);
-    m_consequence.Apply(character);
-    if (chosen.GetConsequence().GetType() == ConsequenceType::show_inventory)
+    while (1)
     {
-      this->m_signal_show_text(character.ShowInventory());
+      const auto chosen = *m_signal_request_option(options);
+      if (chosen.GetConsequence().GetType() == ConsequenceType::show_inventory)
+      {
+        //Showing the inventory is trivial
+        this->m_signal_show_text(character.ShowInventory());
+        continue;
+      }
+      chosen.DoChoose(character);
+      assert(m_consequence.GetNextChapter() == -1);
+
+      //Only apply these consequences once
+      m_consequence.Apply(character);
+      break;
     }
   }
   else if (GetType() == ChapterType::fight)

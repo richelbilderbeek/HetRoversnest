@@ -49,6 +49,7 @@ Option CreateLeaveOption();
 Option CreateShowInventoryOption();
 Option CreateYesOption();
 Option CreateNoOption();
+std::vector<Option> CreateInitialPotionOptions();
 std::vector<Option> CreateYesNoOptions();
 
 #endif // OPTION_H

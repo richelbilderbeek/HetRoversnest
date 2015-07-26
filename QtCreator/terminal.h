@@ -1,5 +1,5 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef TERMINAL_H
+#define TERMINAL_H
 
 #include <string>
 #include <vector>
@@ -10,15 +10,18 @@ struct Chapter;
 struct Game;
 
 ///Shows the Game
-struct Dialog
+struct Terminal
 {
-  Dialog();
+  Terminal();
 
   void ConnectTo(const Chapter& chapter);
   void ConnectTo(const Game& chapter);
 
   void SetAutoPlay(const bool auto_play) { m_auto_play = auto_play; }
   void SetSilent(const bool silent) { m_silent = silent; }
+
+  void SetNumberOfCharsPerLine(const int n_chars) { m_n_chars = n_chars; }
+
   void SpeakText(const std::string& text);
 
 
@@ -32,7 +35,7 @@ struct Dialog
   bool m_auto_play;
 
   ///Number of characters per line
-  int n_chars;
+  int m_n_chars;
 
   bool m_silent;
 
@@ -43,4 +46,4 @@ struct Dialog
   double m_wait_suspense;
 };
 
-#endif // DIALOG_H
+#endif // TERMINAL_H

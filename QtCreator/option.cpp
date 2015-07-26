@@ -45,6 +45,30 @@ std::ostream& operator<<(std::ostream& os, const Option& option)
   return os;
 }
 
+std::vector<Option> CreateInitialPotionOptions()
+{
+  std::vector<Option> options;
+  {
+    Consequence consequence;
+    consequence.AddItemToAdd(Item::stamina_potion);
+    Option option("Stamina potion",consequence);
+    options.push_back(option);
+  }
+  {
+    Consequence consequence;
+    consequence.AddItemToAdd(Item::dexterity_potion);
+    Option option("Dexterity potion",consequence);
+    options.push_back(option);
+  }
+  {
+    Consequence consequence;
+    consequence.AddItemToAdd(Item::luck_potion);
+    Option option("Luck potion",consequence);
+    options.push_back(option);
+  }
+  return options;
+}
+
 Option CreateLeaveOption()
 {
   Option option("Leave",CreateLeaveConsequence());
@@ -68,6 +92,7 @@ Option CreateNoOption()
   Option option("No",CreateNoConsequence());
   return option;
 }
+
 
 std::vector<Option> CreateYesNoOptions()
 {

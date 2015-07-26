@@ -24,7 +24,8 @@ option Give them the ivory skull on a silver chain @ if has ivory_skull_on_a_sil
 option Give them the garlic @ if has garlic change remove garlic goto 141
 option Give them the potion of mind control @ if has potion_of_mind_control change remove potion_of_mind_control goto 141
 option Give them the set of keys @ if has set_of_keys change remove set_of_keys goto 141
-option Give them the stale bread @ if has stale_bread change remove stale_bread goto 141
+option Give them the stale white bread @ if has stale_white_bread change remove stale_white_bread goto 141
+option Give them the stale brown bread @ if has stale_brown_bread change remove stale_brown_bread goto 141
 option Give them the two gems @ if has two_gems change remove two_gems goto 141
 option Give them the magnificent shield @ if has magnificent_shield change remove magnificent_shield goto 141
 option Give them the two silver goblets @ if has two_silver_goblets change remove two_silver_goblets goto 141

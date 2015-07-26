@@ -37,7 +37,7 @@ enum class Item
   golden_owl = 31,
   potion_of_mind_control = 32, //Obtained at 359
   set_of_keys = 33, //Obtained at 285
-  stale_bread = 34,
+  stale_white_bread = 34,
   two_gems = 35,
   magnificent_shield = 36, //Found in chapter 340, raises attack strength by 1
   two_silver_goblets = 37, //Chapter 220
@@ -47,7 +47,6 @@ enum class Item
   magic_elven_boots = 42,
   piece_of_chalk = 43,
   shield_with_unicorn_crest = 44, //Found in chapter 374
-  shield_with_tower_crest = 54, //Found in chapter 125
   copper_scorpion_brooch = 45, //Lose 1 luck without knowing
   carralifs_sword = 46, //Present at start, can lose it at 126
   ordinary_sword = 47, //Obtain it at 126
@@ -57,6 +56,9 @@ enum class Item
   silver_chalice = 51, //Chapter 220
   silver_spoon = 52, //Chapter 220
   coloured_candle = 53, //Chapter 241
+  shield_with_tower_crest = 54, //Found in chapter 125
+  cursed_white_silk_glove = 55,
+  stale_brown_bread = 56,
   //Abstract items
   any_scorpion_brooch = 89,
   all_gold = 90, //For chapter 42
