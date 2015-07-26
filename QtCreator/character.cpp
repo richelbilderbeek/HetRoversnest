@@ -12,7 +12,7 @@
 
 Character::Character(const Character& other)
   :
-    m_signal_has_changed{},
+    m_signal_character_has_changed{},
 
     m_arrows{other.m_arrows},
     m_chapters{other.m_chapters},
@@ -38,7 +38,7 @@ Character::Character(
   const Item initial_item
 )
   :
-    m_signal_has_changed{},
+    m_signal_character_has_changed{},
     m_arrows{0},
     m_chapters{std::vector<int>(1,1)},
     m_condition{condition},
@@ -70,6 +70,7 @@ void Character::AddHasFought(const std::string& monster_name)
 {
   assert(!HasFought(monster_name));
   m_fought.push_back(monster_name);
+  m_signal_character_has_changed(*this);
 }
 
 void Character::AddItem(const Item item)
@@ -83,6 +84,7 @@ void Character::AddItem(const Item item)
     assert(!"Should not get here");
   }
   m_items.push_back(item);
+  m_signal_character_has_changed(*this);
 }
 
 int Character::CalcAttackStrength() const noexcept
@@ -109,13 +111,23 @@ void Character::ChangeArrows(const int change)
     std::cerr << "WARNING: Character's number of arrows in his/her body is negative" << std::endl;
     assert(m_arrows >= 0);
   }
+  if (change != 0)
+  {
+    m_signal_character_has_changed(*this);
+  }
 }
 
 
 void Character::ChangeSkill(const int change)
 {
+  const int skill_before{m_skill};
   m_skill += change;
   m_skill = std::min(m_skill,m_initial_skill);
+  const int skill_after{m_skill};
+  if (skill_before != skill_after)
+  {
+    m_signal_character_has_changed(*this);
+  }
 }
 
 void Character::ChangeGold(const int change)
@@ -129,16 +141,25 @@ void Character::ChangeGold(const int change)
     m_gold = 0;
     //assert(m_gold >= 0);
   }
+  if (change != 0)
+  {
+    m_signal_character_has_changed(*this);
+  }
 }
 
 void Character::ChangeProvisions(const int change)
 {
   m_provisions += change;
-  //Provisions can become less than zero, due to chapter 42
+  assert(m_provisions >= 0);
+  if (change != 0)
+  {
+    m_signal_character_has_changed(*this);
+  }
 }
 
 void Character::ChangeCondition(const int change)
 {
+  const int condition_before{m_condition};
   m_condition += change;
   m_condition = std::min(m_condition,m_initial_condition);
   if (m_condition < 0)
@@ -146,12 +167,23 @@ void Character::ChangeCondition(const int change)
     m_condition = 0;
     this->SetIsDead();
   }
+  const int condition_after{m_condition};
+  if (condition_before != condition_after)
+  {
+    m_signal_character_has_changed(*this);
+  }
 }
 
 void Character::ChangeLuck(const int change)
 {
+  const int luck_before{m_luck};
   m_luck += change;
   m_luck = std::min(m_luck,m_initial_luck);
+  const int luck_after{m_luck};
+  if (luck_before != luck_after)
+  {
+    m_signal_character_has_changed(*this);
+  }
 }
 
 int Character::GetSkill() const noexcept
@@ -255,6 +287,7 @@ void Character::RemoveItem(Item item)
   assert(iter != std::end(m_items));
   std::swap(*iter,m_items.back());
   m_items.pop_back();
+  m_signal_character_has_changed(*this);
 }
 
 void Character::SetChapter(const int chapter)
@@ -297,6 +330,7 @@ void Character::SetChapter(const int chapter)
 
   //assert(std::find(std::begin(m_chapters),std::end(m_chapters),chapter) == std::end(m_chapters));
   m_chapters.push_back(chapter);
+  m_signal_character_has_changed(*this);
 }
 
 std::string Character::ShowInventory()
@@ -358,12 +392,11 @@ std::string Character::ShowInventory()
     << "luck:\n"
     << " * base: " << GetLuckBase() << "/" << GetInitialLuck() << '\n'
   ;
-
   if (HasItem(Item::golden_scorpion_brooch)) { s << " * " << ToPrettyStr(Item::golden_scorpion_brooch) << ": +2\n"; }
   //Note: the copper brooch decreases luck with 1, but this is not shown on purpose
   //I cannot avoid that it will be easy to see that base luck and total luck don't match
   s
-    << " * total: " << GetLuck() << "/" << GetInitialSkill() << '\n'
+    << " * total: " << GetLuck() << "/" << GetInitialLuck() << '\n'
     << "gold pieces: " << GetGold() << '\n'
     << "provisions: " << GetProvisions() << '\n'
     << '\n'
@@ -413,6 +446,7 @@ bool Character::TestLuck() noexcept
   };
   const bool has_luck{dice < GetLuck()};
   --m_luck;
+  m_signal_character_has_changed(*this);
   return has_luck;
 }
 

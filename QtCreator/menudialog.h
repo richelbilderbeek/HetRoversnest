@@ -11,6 +11,9 @@ struct MenuDialog
 
   void Execute();
 
+  //If the MenuDialog changed the character
+  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
+
   //If the MenuDialog wants an input
   mutable boost::signals2::signal<Option(const std::vector<Option>& valid_option)> m_signal_request_option;
 
@@ -43,6 +46,7 @@ struct MenuDialog
   void ShowTeaser();
   void ShowHints();
 
+  void SlotCharacterChanged(const Character& character);
   Option SlotRequestOption(const std::vector<Option>& valid_inputs);
   void SlotShowText(const std::string& text);
   void SlotWait();

@@ -59,6 +59,10 @@ struct Chapter
 
   ChapterType GetType() const noexcept { return m_chapter_type; }
 
+
+  //If the Chapter changed the character
+  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
+
   //If the Chapter wants an input
   mutable boost::signals2::signal<Option(const std::vector<Option>& valid_option)> m_signal_request_option;
 
@@ -103,6 +107,8 @@ struct Chapter
   SkillChapter m_skill_chapter;
 
   std::string m_text;
+
+  void SlotCharacterChanged(const Character& character) const;
 
   #ifndef NDEBUG
   static void Test() noexcept;

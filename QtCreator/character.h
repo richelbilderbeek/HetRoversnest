@@ -57,7 +57,7 @@ struct Character
   bool TestSkill() noexcept;
   bool TestLuck() noexcept;
 
-  mutable boost::signals2::signal<void(const Character&)> m_signal_has_changed;
+  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
 
   private:
 

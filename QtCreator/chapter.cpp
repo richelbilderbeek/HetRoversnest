@@ -13,6 +13,7 @@
 
 Chapter::Chapter(const int chapter_number)
   :
+    m_signal_character_has_changed{},
     m_signal_request_option{},
     m_signal_show_text{},
     m_signal_wait{},
@@ -295,6 +296,10 @@ Chapter::Chapter(const int chapter_number)
 
 void Chapter::Do(Character& character) const
 {
+  character.m_signal_character_has_changed.connect(
+    boost::bind(&Chapter::SlotCharacterChanged,this,_1)
+  );
+
   assert(m_signal_request_option.num_slots() > 0);
   m_signal_show_text("\n");
 
@@ -411,6 +416,11 @@ void Chapter::Do(Character& character) const
   }
 
   m_signal_show_text(m_bye_text);
+}
+
+void Chapter::SlotCharacterChanged(const Character& character) const
+{
+  m_signal_character_has_changed(character);
 }
 
 std::ostream& operator<<(std::ostream& os, const Chapter& chapter)

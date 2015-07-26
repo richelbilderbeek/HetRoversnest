@@ -16,6 +16,7 @@
 
 MenuDialog::MenuDialog()
   :
+    m_signal_character_has_changed{},
     m_signal_request_option{},
     m_signal_show_text{},
     m_signal_wait{}
@@ -171,6 +172,9 @@ void MenuDialog::StartGame()
 
   Game game(seed,character);
 
+  game.m_signal_character_has_changed.connect(
+    boost::bind(&MenuDialog::SlotCharacterChanged,this,_1)
+  );
   game.m_signal_request_option.connect(
     boost::bind(&MenuDialog::SlotRequestOption,this,_1)
   );
@@ -181,11 +185,18 @@ void MenuDialog::StartGame()
     boost::bind(&MenuDialog::SlotShowText,this,_1)
   );
 
+  m_signal_character_has_changed(game.GetCharacter()); //Show initial status
+
   while (1)
   {
     game.DoChapter();
     if (game.HasWon() || game.HasLost()) break;
   }
+}
+
+void MenuDialog::SlotCharacterChanged(const Character& character)
+{
+  m_signal_character_has_changed(character);
 }
 
 Option MenuDialog::SlotRequestOption(const std::vector<Option>& valid_options)

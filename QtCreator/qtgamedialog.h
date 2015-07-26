@@ -35,6 +35,7 @@ private:
 
   void DoChapter();
 
+  void SlotCharacterChanged(const Character& character);
   void SlotWait();
 
   void SlotShowText(const std::string& text);

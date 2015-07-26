@@ -25,6 +25,7 @@ struct Terminal
   void SpeakText(const std::string& text);
 
 
+  void SlotCharacterChanged(const Character& character);
   int SlotRequestInput(const std::vector<int>& valid_inputs);
   Option SlotRequestOption(const std::vector<Option>& valid_inputs);
   void SlotShowText(const std::string& text);

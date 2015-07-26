@@ -28,6 +28,9 @@ Terminal::Terminal()
 
 void Terminal::ConnectTo(const Chapter& chapter)
 {
+  chapter.m_signal_character_has_changed.connect(
+    boost::bind(&Terminal::SlotCharacterChanged,this,_1)
+  );
   chapter.m_signal_request_option.connect(
     boost::bind(&Terminal::SlotRequestOption,this,_1)
   );
@@ -41,6 +44,9 @@ void Terminal::ConnectTo(const Chapter& chapter)
 
 void Terminal::ConnectTo(const Game& game)
 {
+  game.m_signal_character_has_changed.connect(
+    boost::bind(&Terminal::SlotCharacterChanged,this,_1)
+  );
   game.m_signal_request_option.connect(
     boost::bind(&Terminal::SlotRequestOption,this,_1)
   );
@@ -50,6 +56,13 @@ void Terminal::ConnectTo(const Game& game)
   game.m_signal_show_text.connect(
     boost::bind(&Terminal::SlotShowText,this,_1)
   );
+}
+
+void Terminal::SlotCharacterChanged(const Character& /* character */)
+{
+  #ifndef NDEBUG
+  SlotShowText("Character has changed");
+  #endif
 }
 
 Option Terminal::SlotRequestOption(const std::vector<Option>& options)

@@ -15,9 +15,6 @@
 QtGameDialog::QtGameDialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::QtGameDialog),
-  //m_character(6,12,12,Item::luck_potion),
-  //m_has_lost{false},
-  //m_has_won{false},
   m_key_pressed{-1},
   m_options{}
 {
@@ -26,8 +23,11 @@ QtGameDialog::QtGameDialog(QWidget *parent) :
   Dice::Get()->SetSeed(42);
 
   QTimer::singleShot(100,Qt::VeryCoarseTimer,this,SLOT(Start()));
+}
 
-  UpdateStats();
+QtGameDialog::~QtGameDialog()
+{
+  delete ui;
 }
 
 void QtGameDialog::keyPressEvent(QKeyEvent * e)
@@ -44,26 +44,55 @@ void QtGameDialog::keyPressEvent(QKeyEvent * e)
   if (m_options.size() > 7 && key_pressed == Qt::Key_7) { m_key_pressed = 7; return; }
   if (m_options.size() > 8 && key_pressed == Qt::Key_8) { m_key_pressed = 8; return; }
   if (m_options.size() > 9 && key_pressed == Qt::Key_9) { m_key_pressed = 9; return; }
-  assert(m_options.size() < 10);
+  if (m_options.size() > 10 && key_pressed == Qt::Key_A) { m_key_pressed = 10; return; }
+  if (m_options.size() > 11 && key_pressed == Qt::Key_B) { m_key_pressed = 11; return; }
+  if (m_options.size() > 12 && key_pressed == Qt::Key_C) { m_key_pressed = 12; return; }
+  if (m_options.size() > 13 && key_pressed == Qt::Key_D) { m_key_pressed = 13; return; }
+  if (m_options.size() > 14 && key_pressed == Qt::Key_E) { m_key_pressed = 14; return; }
+  if (m_options.size() > 15 && key_pressed == Qt::Key_F) { m_key_pressed = 15; return; }
+  if (m_options.size() > 16 && key_pressed == Qt::Key_G) { m_key_pressed = 16; return; }
+  if (m_options.size() > 17 && key_pressed == Qt::Key_H) { m_key_pressed = 17; return; }
+  assert(m_options.size() < 19);
 }
 
-void QtGameDialog::Start()
+void QtGameDialog::SlotCharacterChanged(const Character &character)
 {
-  MenuDialog menu;
-
-  menu.m_signal_request_option.connect(
-    boost::bind(&QtGameDialog::SlotRequestOption,this,_1)
+  ui->label_condition->setText(
+    (
+      std::string("Condition: ")
+    + std::to_string(character.GetCondition())
+    + "/"
+    + std::to_string(character.GetInitialCondition())
+    ).c_str()
   );
-  menu.m_signal_wait.connect(
-    boost::bind(&QtGameDialog::SlotWait,this)
+  ui->label_skill->setText(
+    (
+      std::string("Skill: ")
+    + std::to_string(character.GetSkill())
+    + "/"
+    + std::to_string(character.GetInitialSkill())
+    ).c_str()
   );
-  menu.m_signal_show_text.connect(
-    boost::bind(&QtGameDialog::SlotShowText,this,_1)
+  ui->label_luck->setText(
+    (
+      std::string("Luck: ")
+    + std::to_string(character.GetLuck())
+    + "/"
+    + std::to_string(character.GetInitialLuck())
+    ).c_str()
   );
-
-  menu.Execute();
-
-  close();
+  ui->label_gold->setText(
+    (
+      std::string("Gold: ")
+    + std::to_string(character.GetGold())
+    ).c_str()
+  );
+  ui->label_provisions->setText(
+    (
+      std::string("Provisions: ")
+    + std::to_string(character.GetProvisions())
+    ).c_str()
+  );
 }
 
 Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
@@ -106,7 +135,6 @@ void QtGameDialog::SlotShowText(const std::string& text)
     ui->plainTextEdit->moveCursor(QTextCursor::End);
     qApp->processEvents();
   }
-  UpdateStats();
 }
 
 void QtGameDialog::SlotWait()
@@ -116,49 +144,25 @@ void QtGameDialog::SlotWait()
   #endif
 }
 
-QtGameDialog::~QtGameDialog()
+void QtGameDialog::Start()
 {
-  delete ui;
-}
+  MenuDialog menu;
 
-void QtGameDialog::UpdateStats()
-{
-  /*
-  ui->label_condition->setText(
-    (
-      std::string("Condition: ")
-    + std::to_string(m_character.GetCondition())
-    + "/"
-    + std::to_string(m_character.GetInitialCondition())
-    ).c_str()
+  menu.m_signal_character_has_changed.connect(
+    boost::bind(&QtGameDialog::SlotCharacterChanged,this,_1)
   );
-  ui->label_skill->setText(
-    (
-      std::string("Skill: ")
-    + std::to_string(m_character.GetSkill())
-    + "/"
-    + std::to_string(m_character.GetInitialSkill())
-    ).c_str()
+
+  menu.m_signal_request_option.connect(
+    boost::bind(&QtGameDialog::SlotRequestOption,this,_1)
   );
-  ui->label_luck->setText(
-    (
-      std::string("Luck: ")
-    + std::to_string(m_character.GetLuck())
-    + "/"
-    + std::to_string(m_character.GetInitialLuck())
-    ).c_str()
+  menu.m_signal_wait.connect(
+    boost::bind(&QtGameDialog::SlotWait,this)
   );
-  ui->label_gold->setText(
-    (
-      std::string("Gold: ")
-    + std::to_string(m_character.GetGold())
-    ).c_str()
+  menu.m_signal_show_text.connect(
+    boost::bind(&QtGameDialog::SlotShowText,this,_1)
   );
-  ui->label_provisions->setText(
-    (
-      std::string("Provisions: ")
-    + std::to_string(m_character.GetProvisions())
-    ).c_str()
-  );
-  */
+
+  menu.Execute();
+
+  close();
 }

@@ -12,10 +12,6 @@ void GameLostChapter::Do(Character& character) const
 {
   character.SetIsDead();
   m_chapter->m_signal_show_text(
-    "*************\n"
-    "*           *\n"
-    "* GAME OVER *\n"
-    "*           *\n"
-    "*************\n"
+    "GAME OVER\n"
   );
 }

@@ -7,4 +7,5 @@ option Give them an invisibility ring @ if invisibility_ring change remove invis
 option Give them a ring of ice @ if ring_of_ice change remove ring_of_ice goto 260
 option Give them a ring of fire @ if ring_of_fire change remove ring_of_fire goto 260
 option Give them the elven boots @ if magic_elven_boots change remove magic_elven_boots goto 260
+option Give them the magic helmet @ if magic_helmet change remove magic_helmet goto 260
 option You do not have any of the items that the guards require @ goto 341

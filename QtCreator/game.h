@@ -20,6 +20,9 @@ struct Game
   bool HasWon() const noexcept { return m_has_won; }
   int GetCurrentChapterNumber() const noexcept;
 
+  //If the Game changed the character
+  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
+
   //If the Game wants an Option
   mutable boost::signals2::signal<Option(const std::vector<Option>& valid_options)> m_signal_request_option;
 
@@ -35,6 +38,7 @@ struct Game
   bool m_has_lost;
   bool m_has_won;
 
+  void SlotCharacterChanged(const Character& character);
   Option SlotRequestOption(const std::vector<Option>& valid_inputs);
   void SlotShowText(const std::string& text);
   void SlotWait();
