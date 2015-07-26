@@ -1,5 +1,7 @@
 # Het Roversnest
 
+(English version: see below)
+
 Het Roversnest is een Nederlands tekstavontuur boek, een vertaling van 'City of Thieves' van Ian Livingstone.
 
  * [Wikipedia](https://nl.wikipedia.org/wiki/Het_Roversnest)
@@ -59,4 +61,27 @@ Hier:
 
  * [Mooie kaart van Graham Parker](KaartZwartzand.pdf)
  * [Simpele kaart van Nick Folley](Kaart.jpg)
+
+
+
+
+# City Of Thieves
+
+City Of Thieves is a text adventure game after the English gamebook with the same name by Ian Livingstone. 
+
+ * [Wikipedia](https://en.wikipedia.org/wiki/City_of_Thieves_%28gamebook%29)
+
+## I want to help!
+
+Great!
+
+There is need for some testing and spelling corrections. Create a new Issue or email @richelbilderbeek.
+
+## Wat are all those files in the folder `Files`?
+
+Those files contain the story of 'City Of Thieves'.
+
+## Why are all those files in the folder `Bestanden`?
+
+This game is intended to work on Arduino. An Arduino does not have enough memory to store an entire book. A mini-SD, however, will have no problem with that. Therefore, the idea is that the game text can be copied on an SD card, which itself will be put on an SD card shield, so the Arduino code will only have to do the game logic.
 
