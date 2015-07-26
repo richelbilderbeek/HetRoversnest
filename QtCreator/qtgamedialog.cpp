@@ -93,6 +93,19 @@ void QtGameDialog::SlotCharacterChanged(const Character &character)
     + std::to_string(character.GetProvisions())
     ).c_str()
   );
+  {
+    std::stringstream text;
+    text << "Items:\n";
+    for (const auto item: character.GetItems())
+    {
+      if (static_cast<int>(item) < 100)
+      {
+        text << " * " << ToPrettyStr(item) << "\n";
+      }
+    }
+    std::string s{text.str()}; s.pop_back(); //Remove newline at end
+    ui->label_items->setText(s.c_str());
+  }
 }
 
 Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
@@ -107,6 +120,7 @@ Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
     text << "[" << i << "] " << options[i].GetText() << '\n';
   }
   SlotShowText(text.str());
+  if (n_options == 1) { return options[0]; }
 
   while(1)
   {

@@ -376,6 +376,17 @@ void Chapter::Do(Character& character) const
       {
         character.ChangeProvisions(-1);
         character.ChangeCondition(4);
+
+        //Remove option if no more provisions
+        if (character.GetProvisions() == 0)
+        {
+          const auto iter = std::find_if(std::begin(options),std::end(options),
+            [](const Option& option) { return option.GetConsequence().GetType() == ConsequenceType::eat_provision; }
+          );
+          assert(iter != std::end(options));
+          std::swap(*iter,options.back());
+          options.pop_back();
+        }
         continue;
       }
       if (chosen.GetConsequence().GetType() == ConsequenceType::drink_potion)
