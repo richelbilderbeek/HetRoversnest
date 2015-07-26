@@ -61,7 +61,7 @@ void Terminal::ConnectTo(const Game& game)
 void Terminal::SlotCharacterChanged(const Character& /* character */)
 {
   #ifndef NDEBUG
-  SlotShowText("Character has changed");
+  SlotShowText("Character has changed\n");
   #endif
 }
 

@@ -45,10 +45,12 @@ struct Option
 
 std::ostream& operator<<(std::ostream& os, const Option& option);
 
+Option CreateDrinkPotionOption();
+Option CreateEatProvisionOption();
 Option CreateLeaveOption();
+Option CreateNoOption();
 Option CreateShowInventoryOption();
 Option CreateYesOption();
-Option CreateNoOption();
 std::vector<Option> CreateInitialPotionOptions();
 std::vector<Option> CreateYesNoOptions();
 

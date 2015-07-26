@@ -96,9 +96,11 @@ struct Consequence
 
 Consequence ParseConsequence(std::stringstream& s);
 
+Consequence CreateDrinkPotionConsequence();
+Consequence CreateEatProvisionConsequence();
 Consequence CreateLeaveConsequence();
+Consequence CreateNoConsequence();
 Consequence CreateShowInventoryConsequence();
 Consequence CreateYesConsequence();
-Consequence CreateNoConsequence();
 
 #endif // CONSEQUENCE_H

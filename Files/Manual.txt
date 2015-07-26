@@ -38,7 +38,7 @@ over).
 
 ESCAPING 
 
-On some pages you may be given the option of running away from a battle should things be going badly for you. However, if you do run away, the creature automatically gets in one wound on you (subtract 2 condition points) as you flee [TODO]. Such is the price of cowardice. Note that you may use luck on this wound in the normal way (see below). You may only escape if that option is specifically given to you on the page. 
+On some pages you may be given the option of running away from a battle should things be going badly for you. However, if you do run away, the creature automatically gets in one wound on you (subtract 2 condition points) as you flee. Such is the price of cowardice. Note that you may use luck on this wound in the normal way (see below). You may only escape if that option is specifically given to you on the page. 
 
 It is possible to come across more than one creature. Sometimes 
 you will fight them as a single monster, sometimes you will fight each one in turn and sometimes that have simultaneous attacks.

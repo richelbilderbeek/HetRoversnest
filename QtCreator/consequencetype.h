@@ -7,7 +7,9 @@ enum class ConsequenceType
   show_inventory,
   yes,
   no,
-  leave //Leave shop
+  leave, //Leave shop
+  eat_provision,
+  drink_potion
 };
 
 #endif // CONSEQUENCETYPE_H

@@ -13,7 +13,6 @@
 Character::Character(const Character& other)
   :
     m_signal_character_has_changed{},
-
     m_arrows{other.m_arrows},
     m_chapters{other.m_chapters},
     m_condition{other.m_condition},
@@ -186,6 +185,31 @@ void Character::ChangeLuck(const int change)
   }
 }
 
+void Character::DrinkPotion()
+{
+  assert(HasPotion());
+  if (HasItem(Item::dexterity_potion))
+  {
+    m_skill = m_initial_skill;
+    RemoveItem(Item::dexterity_potion);
+  }
+  else if (HasItem(Item::stamina_potion))
+  {
+    m_condition = m_initial_condition;
+    RemoveItem(Item::stamina_potion);
+  }
+  else if (HasItem(Item::luck_potion))
+  {
+    ++m_initial_luck;
+    ChangeCondition(GetInitialLuck() - GetLuckBase());
+    RemoveItem(Item::luck_potion);
+  }
+  else
+  {
+    assert(!"Should not get here");
+  }
+}
+
 int Character::GetSkill() const noexcept
 {
   int shield_value = 0;
@@ -228,7 +252,7 @@ int Character::GetLuckBase() const noexcept
   return m_luck;
 }
 
-bool Character::HasFought(const std::string& monster_name) const
+bool Character::HasFought(const std::string& monster_name) const noexcept
 {
   return std::count(
     std::begin(m_fought),
@@ -245,6 +269,14 @@ bool Character::HasItem(const Item item) const
   };
   assert(n == 0 || n == 1);
   return n;
+}
+
+bool Character::HasPotion() const noexcept
+{
+  return HasItem(Item::stamina_potion)
+    || HasItem(Item::dexterity_potion)
+    || HasItem(Item::luck_potion)
+  ;
 }
 
 void Character::RemoveItem(Item item)

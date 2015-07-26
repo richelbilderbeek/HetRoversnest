@@ -69,6 +69,19 @@ std::vector<Option> CreateInitialPotionOptions()
   return options;
 }
 
+Option CreateDrinkPotionOption()
+{
+  Option option("Drink potion",CreateDrinkPotionConsequence());
+  return option;
+}
+
+Option CreateEatProvisionOption()
+{
+  Option option("Eat provision",CreateEatProvisionConsequence());
+  return option;
+}
+
+
 Option CreateLeaveOption()
 {
   Option option("Leave",CreateLeaveConsequence());

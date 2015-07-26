@@ -355,7 +355,15 @@ void Chapter::Do(Character& character) const
     }
     //Let the use choose a valid option
     auto options = GetOptions().GetValidOptions(character);
-    if (options.size() > 1) { options.push_back(CreateShowInventoryOption()); } //Add to show the inventory
+
+    //If there are options, add (1) showing inventory (2) eating provision (3) drinking potion
+    if (options.size() > 1)
+    {
+      //Add to show the inventory
+      options.push_back(CreateShowInventoryOption());
+      if (character.GetProvisions() > 0) { options.push_back(CreateEatProvisionOption()); }
+      if (character.HasPotion()) { options.push_back(CreateDrinkPotionOption()); }
+    }
     while (1)
     {
       const auto chosen = *m_signal_request_option(options);
@@ -365,6 +373,25 @@ void Chapter::Do(Character& character) const
         this->m_signal_show_text(character.ShowInventory());
         continue;
       }
+      if (chosen.GetConsequence().GetType() == ConsequenceType::eat_provision)
+      {
+        character.ChangeProvisions(-1);
+        character.ChangeCondition(4);
+        continue;
+      }
+      if (chosen.GetConsequence().GetType() == ConsequenceType::drink_potion)
+      {
+        character.DrinkPotion();
+        //Remove option
+        const auto iter = std::find_if(std::begin(options),std::end(options),
+          [](const Option& option) { return option.GetConsequence().GetType() == ConsequenceType::drink_potion; }
+        );
+        assert(iter != std::end(options));
+        std::swap(*iter,options.back());
+        options.pop_back();
+        continue;
+      }
+
       chosen.DoChoose(character);
       assert(m_consequence.GetNextChapter() == -1);
 
@@ -375,9 +402,28 @@ void Chapter::Do(Character& character) const
   }
   else if (GetType() == ChapterType::fight)
   {
+    const int n_chapters_before{static_cast<int>(character.GetChapters().size())};
     m_fighting_chapter.Do(character);
     assert(m_consequence.GetNextChapter() > 0);
-    m_consequence.Apply(character);
+    const int n_chapters_after{static_cast<int>(character.GetChapters().size())};
+    if (n_chapters_after != n_chapters_before)
+    {
+      //Player has escaped
+
+      //Check that there are no other consequences that need to be applied
+      assert(m_consequence.GetChangeArrows() == 0);
+      assert(m_consequence.GetChangeCondition() == 0);
+      assert(m_consequence.GetChangeGold() == 0);
+      assert(m_consequence.GetChangeLuck() == 0);
+      assert(m_consequence.GetChangeProvisions() == 0);
+      assert(m_consequence.GetChangeSkill() == 0);
+      assert(m_consequence.GetItemsToAdd().empty());
+      assert(m_consequence.GetItemsToRemove().empty());
+    }
+    else
+    {
+      m_consequence.Apply(character);
+    }
   }
   else if (GetType() == ChapterType::test_your_luck)
   {

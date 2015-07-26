@@ -299,6 +299,21 @@ Consequence ParseConsequence(std::stringstream &s)
   return consequence;
 }
 
+Consequence CreateDrinkPotionConsequence()
+{
+  Consequence c;
+  c.SetType(ConsequenceType::drink_potion);
+  return c;
+}
+
+Consequence CreateEatProvisionConsequence()
+{
+  Consequence c;
+  c.SetType(ConsequenceType::eat_provision);
+  return c;
+}
+
+
 Consequence CreateLeaveConsequence()
 {
   Consequence c;

@@ -47,7 +47,17 @@ void FightingChapter::DoFight(std::vector<Monster> monsters, Character& characte
 {
   for (auto monster: monsters)
   {
+    const int n_chapters_before{static_cast<int>(character.GetChapters().size())};
+
     DoFight(monster,character);
+
+    const int n_chapters_after{static_cast<int>(character.GetChapters().size())};
+    if (n_chapters_after != n_chapters_before)
+    {
+      //Character escaped
+      return;
+    }
+
     if (character.IsDead()) return;
   }
 }
@@ -175,6 +185,24 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       }
     }
     m_chapter.m_signal_wait();
+
+    if (round >= this->m_rounds_to_escape)
+    {
+      m_chapter.m_signal_show_text("Do you want to escape?\n");
+      const auto options = CreateYesNoOptions();
+      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+        || selected_option.GetConsequence().GetType() == ConsequenceType::no
+      );
+      if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
+      {
+        m_chapter.m_signal_show_text("You escaped and took 2 damage.\n");
+        assert(m_escape_chapter > -1);
+        character.SetChapter(m_escape_chapter);
+        character.ChangeCondition(-2);
+        return;
+      }
+    }
   }
 
   //Fight the remaining monster normally
@@ -290,6 +318,23 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       {
         m_chapter.m_signal_show_text("The fire missed you!\n");
         m_chapter.m_signal_wait();
+      }
+    }
+    if (round >= this->m_rounds_to_escape)
+    {
+      m_chapter.m_signal_show_text("Do you want to escape?\n");
+      const auto options = CreateYesNoOptions();
+      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
+        || selected_option.GetConsequence().GetType() == ConsequenceType::no
+      );
+      if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
+      {
+        assert(m_escape_chapter > -1);
+        character.ChangeCondition(-2);
+        m_chapter.m_signal_show_text("You escaped and took 2 damage.\n");
+        character.SetChapter(m_escape_chapter);
+        return;
       }
     }
   }

@@ -33,6 +33,7 @@ struct Character
   void ChangeProvisions(const int change);
   void ChangeCondition(const int change);
   void ChangeLuck(const int change);
+  void DrinkPotion();
   int GetArrows() const noexcept { return m_arrows; }
   const std::vector<int>& GetChapters() const noexcept { return m_chapters; }
   int GetCurrentChapter() const noexcept { return m_chapters.back(); }
@@ -47,8 +48,9 @@ struct Character
   int GetLuckBase() const noexcept;
   int GetProvisions() const noexcept { return m_provisions; }
   int GetCondition() const noexcept { return m_condition; }
-  bool HasFought(const std::string& monster_name) const;
+  bool HasFought(const std::string& monster_name) const noexcept;
   bool HasItem(const Item item) const;
+  bool HasPotion() const noexcept;
   bool IsDead() const noexcept { return m_condition <= 0; }
   void RemoveItem(const Item item);
   void SetChapter(const int chapter);
@@ -69,7 +71,7 @@ struct Character
   MonsterNames m_fought;
   int m_gold;
   const int m_initial_condition;
-  const int m_initial_luck;
+  int m_initial_luck;
   const int m_initial_skill;
   Items m_items;
   int m_luck;
