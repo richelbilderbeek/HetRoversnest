@@ -62,7 +62,7 @@ have inflicted a severe wound and may subtract an
 extra 2 points from the creature's condition score. 
 However, if you are unlucky, the wound was a 
 mere graze and you must restore 1 point to the 
-creature's Stamina (that is, instead of scoring the normal 2 points of damage, you have now scored only 1)
+creature's condition (that is, instead of scoring the normal 2 points of damage, you have now scored only 1)
 
 If the creature has just wounded you, you may Test 
 your Luck to try to minimize the wound. If you are 
@@ -74,13 +74,13 @@ blow and 1 extra condition point will be subtracted.
 
 Remember that you must subtract 1 point from your own luck score each time you Test your Luck. 
 
-RESTORING SKILL, STAMINA AND LUCK
+RESTORING SKILL, CONDITION AND LUCK
 
 You skill score consists out of a base skill level and skill added by equipment. Your base skill score will not change much during your adventure. Occasionally, an event may increase or decrease your skill score. Your base skill score can never excited its initial value. Drinking the potion of skill (see later) will restore your base skill to its initial level at any time.
 
 Equipment adds additional skill points. For example, a magic weapon may increase your skill, but remember that only one weapon can be used at a time! You cannot claim 2 skill bonuses for carrying two magic swords. The character automatically equips the best equipment, unless the equipment has been cursed. In the inventory screen you can see the effect of your equipment on your skill level.
 
-STAMINA AND PROVISIONS 
+CONDITION AND PROVISIONS 
 
 Your condition score will change a lot during your adventure as you fight monsters and undertake arduous tasks. As you near your goal, your condition level may be dangerously low and battles may be particularly risky, so be careful! 
 

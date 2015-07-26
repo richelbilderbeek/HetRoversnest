@@ -1,6 +1,4 @@
-You eat the food. Your stamina is increased by 2 points. 
-@
+You eat the food. Your condition is increased by 2 points.  @
 normal
-
-change stamina 2
+change condition 2
 goto 413

@@ -201,7 +201,7 @@ void Character::DrinkPotion()
   else if (HasItem(Item::luck_potion))
   {
     ++m_initial_luck;
-    ChangeCondition(GetInitialLuck() - GetLuckBase());
+    m_luck = m_initial_luck;
     RemoveItem(Item::luck_potion);
   }
   else
@@ -436,7 +436,7 @@ std::string Character::ShowInventory()
 
   if (GetArrows() != 0)
   {
-    s << "You got " << GetArrows() << " sticking in your body\n";
+    s << "You got " << GetArrows() << " arrows sticking in your body\n";
   }
 
   s << "items: \n";

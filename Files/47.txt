@@ -1,7 +1,4 @@
-The lightning bolt slams into your chest and knocks 
-you to the floor. Lose 3 stamina points.
-@
+The lightning bolt slams into your chest and knocks you to the floor. Lose 3 condition points. @
 normal
-
-change stamina -3
+change condition -3
 goto 430

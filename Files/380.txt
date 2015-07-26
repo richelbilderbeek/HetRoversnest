@@ -1,6 +1,4 @@
-Despite its rotten taste, the soup includes herbs blended in an ancient tradition which are beneficial to health. Add 4 stamina points. Feeling somewhat revitalized you decide to leave the ladies to their argument and head east.
-@
+Despite its rotten taste, the soup includes herbs blended in an ancient tradition which are beneficial to health. Add 4 condition points. Feeling somewhat revitalized you decide to leave the ladies to their argument and head east. @
 normal
-
-change stamina 4
+change condition 4
 goto 375
