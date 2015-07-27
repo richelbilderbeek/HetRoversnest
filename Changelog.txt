@@ -9,6 +9,7 @@
  * Do not show the bye text, nor apply the consequence when dead (thanks to Carmen Ijsebaart)
  * Can create graph (in debug mode)
  * Graph shows vital items in double circle
+ * Chainmail coat only adds two skill points once
 2015-07-26: Version 1.1
  * Chainmail coat should really cost 20 gold pieces, instead of being free (thanks to Carmen Ijsebaart)
  * When the silver scorpion brooch is put on your leather tunic, it is really added to the inventory (thanks to Carmen Ijsebaart)
