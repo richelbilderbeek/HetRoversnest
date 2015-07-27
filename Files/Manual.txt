@@ -84,11 +84,7 @@ CONDITION AND PROVISIONS
 
 Your condition score will change a lot during your adventure as you fight monsters and undertake arduous tasks. As you near your goal, your condition level may be dangerously low and battles may be particularly risky, so be careful! 
 
-Your backpack contains enough provisions for ten 
-meals. You may rest and eat at any time except 
-when engaged in a battle [TODO]. Eating a meal restores 4 
-condition points. Remember that you have a 
-long way to go, so use your provisions wisely! 
+Your backpack contains enough provisions for ten meals. You may rest and eat at any time except when engaged in a battle. Eating a meal restores 4 condition points. Remember that you have a long way to go, so use your provisions wisely! 
 
 Remember also that your condition score may never exceed its Initial value. Drinking the potion of strength (see later) will restore your condition to its initial level at any time. 
 
