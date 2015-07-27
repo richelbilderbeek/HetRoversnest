@@ -1,0 +1,17 @@
+2015-07-27: Version 1.2
+ * Can buy gold flower from miss Pipe for two provisions
+ * Can buy gold flower from miss Pipe for two provisions, when really still having two provisions
+ * Gold flower is really put in the inventory
+ * When giving the silver scorpion brooch to the serpent queen, the silver scorpion broochis given, instead of the silver insect bracelet
+ * Changed all fonts to monospace
+ * Desktop version: show items in list
+ * Can only encounter the mummy once
+ * Do not show the bye text, nor apply the consequence when dead (thanks to Carmen Ijsebaart)
+ * Can create graph (in debug mode)
+ * Graph shows vital items in double circle
+2015-07-26: Version 1.1
+ * Chainmail coat should really cost 20 gold pieces, instead of being free (thanks to Carmen Ijsebaart)
+ * When the silver scorpion brooch is put on your leather tunic, it is really added to the inventory (thanks to Carmen Ijsebaart)
+ * Create zip file with correct structure (thanks to Greg Fivash)
+2015-07-26: Version 1.0
+ * First release

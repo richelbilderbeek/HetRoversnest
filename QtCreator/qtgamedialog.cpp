@@ -93,18 +93,20 @@ void QtGameDialog::SlotCharacterChanged(const Character &character)
     + std::to_string(character.GetProvisions())
     ).c_str()
   );
+  ui->list_items->clear();
   {
-    std::stringstream text;
-    text << "Items:\n";
+    //std::stringstream text;
+    //text << "Items:\n";
     for (const auto item: character.GetItems())
     {
       if (static_cast<int>(item) < 100)
       {
-        text << " * " << ToPrettyStr(item) << "\n";
+        ui->list_items->addItem(ToPrettyStr(item).c_str());
+        //text << " * " << ToPrettyStr(item) << "\n";
       }
     }
-    std::string s{text.str()}; s.pop_back(); //Remove newline at end
-    ui->label_items->setText(s.c_str());
+    //std::string s{text.str()}; s.pop_back(); //Remove newline at end
+    //ui->label_items->setText(s.c_str());
   }
 }
 

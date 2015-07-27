@@ -78,7 +78,6 @@ Character MenuDialog::CreateCharacter() const noexcept
 void MenuDialog::Execute()
 {
   m_signal_show_text("City Of Thieves\n");
-  m_signal_show_text("\n");
   while (1)
   {
     m_signal_show_text("\n");
@@ -162,7 +161,7 @@ void MenuDialog::ShowZanbarBone()
 void MenuDialog::StartGame()
 {
   #ifndef NDEBUG
-  const int seed{42};
+  const int seed{43};
   #else
   std::random_device rd;
   const int seed{static_cast<int>(rd())};

@@ -77,7 +77,8 @@ enum class Item
   opened_pirate_captain_door = 207, //Chapter
   opened_pirate_crew_door   = 208, //Chapter 176
   picked_up_golden_scorpion = 209,
-  picked_up_silver_scorpion = 210
+  picked_up_silver_scorpion = 210,
+  seen_mummy = 211
 };
 
 std::string ToPrettyStr(const Item item);

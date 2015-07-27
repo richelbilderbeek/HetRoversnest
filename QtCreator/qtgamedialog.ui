@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>712</width>
-    <height>579</height>
+    <width>808</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
 }
 
 QPlainTextEdit {
-  font: 32px  &quot;URW Chancery L&quot;;
+  font: 32px  monospace;
   color: lime;
   background-color: black;
   border: 1px solid green
@@ -32,6 +32,14 @@ QLabel {
   color: lime;
   background-color: black
 }
+
+QListWidget{
+  font: 18px  monospace;
+  border: 1px solid lime;
+  color: lime;
+  background-color: black
+}
+
 
 QScrollBar {
   color: lime;
@@ -47,6 +55,12 @@ QScrollBar::handle {
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>100</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
@@ -72,59 +86,38 @@ QScrollBar::handle {
    </item>
    <item row="0" column="1">
     <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="label_condition">
+      <item row="2" column="0" colspan="2">
+       <widget class="QLabel" name="label_luck">
         <property name="text">
-         <string>Condition: ?</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QLabel" name="label_provisions">
-        <property name="text">
-         <string>Provisions: ?</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLabel" name="label_skill">
-        <property name="text">
-         <string>Skill: ?</string>
+         <string>Luck:</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0" colspan="2">
        <widget class="QLabel" name="label_gold">
         <property name="text">
-         <string>Gold:  ?</string>
+         <string>Gold: </string>
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QLabel" name="label_luck">
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_condition">
         <property name="text">
-         <string>Luck: ?</string>
+         <string>Condition:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="7" column="0" colspan="2">
+      <item row="6" column="0" colspan="2">
        <widget class="QLabel" name="image">
         <property name="text">
          <string/>
@@ -137,11 +130,27 @@ QScrollBar::handle {
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_items">
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="label_skill">
         <property name="text">
-         <string>Items: ?</string>
+         <string>Skill:</string>
         </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QLabel" name="label_provisions">
+        <property name="text">
+         <string>Provisions:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QListWidget" name="list_items">
+        <item>
+         <property name="text">
+          <string>(no items yet)</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>

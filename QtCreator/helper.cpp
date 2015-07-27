@@ -34,10 +34,24 @@ void CreateGraph()
         case ChapterType::test_your_skill: node_color = "green"; break;
         default: break; //OK
       }
+      //Shape for special chapter
+      std::string shape{"ellipse"};
+      switch (i)
+      {
+        case 7: case 111: //Black pearls
+        case 191: case 237: //Lotus flower
+        case 82: case 303: //Hag's hair
+        case 42: case 85: //Silver arrow
+        case 279: //Tattoo
+        case 163: //Ring of the golden eye
+          shape = "doublecircle";
+        default: break;
+      }
       f << i
         << "["
         << "label =\""
         << std::to_string(chapter.GetChapterNumber())
+        << "\", shape = " << shape
         << "];\n"
       ;
       if (chapter.GetNextChapter() != -1)

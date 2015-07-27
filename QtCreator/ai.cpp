@@ -65,6 +65,7 @@ void Ai::CreateGraph() const noexcept
         case 82: case 303: //Hag's hair
         case 42: case 85: //Silver arrow
         case 279: //Tattoo
+        case 163: //Ring of the golden eye
           shape = "doublecircle";
         default: break;
       }

@@ -312,9 +312,10 @@ void Character::RemoveItem(Item item)
   const auto iter = std::find(std::begin(m_items),std::end(m_items),item);
   if (iter == std::end(m_items))
   {
-    std::cerr << "Warning:: attempted to remove item " << ToStr(item) << " which is not possessed\n";
+    std::stringstream error;
+    error << "Attempted to remove item " << ToStr(item) << " which is not possessed\n";
+    std::cerr << error.str();
     assert(!"Should not get here");
-    return;
   }
   assert(iter != std::end(m_items));
   std::swap(*iter,m_items.back());

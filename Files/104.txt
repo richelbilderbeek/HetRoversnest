@@ -1,6 +1,5 @@
-Back at the entrance hole you may 
+You are back at the entrance hole of the sewers.
 @
 normal
-
-option climb up the ladder to the street in order to continue east@ goto 205 
-option you may walk south along the sewer@ if has_not followed_sewer_south goto 118
+option Climb up the ladder to the street in order to continue east @ goto 205 
+option Walk south along the sewer @ if has_not followed_sewer_south goto 118

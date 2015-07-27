@@ -5,7 +5,7 @@ option Give the ivory skull on a silver chain to the serpent queen @ if has ivor
 option Give the silver chalice to the serpent queen @ if has silver_chalice change remove silver_chalice goto 328
 option Give the silver flute to the serpent queen @ if has silver_flute change remove silver_flute goto 328
 option Give the silver insect bracelet to the serpent queen @ if has silver_insect_bracelet change remove silver_insect_bracelet goto 328
-option Give the silver scorpion brooch to the serpent queen @ if has silver_scorpion_brooch change remove silver_insect_bracelet goto 328
+option Give the silver scorpion brooch to the serpent queen @ if has silver_scorpion_brooch change remove silver_scorpion_brooch goto 328
 option Give the silver spoon to the serpent queen @ if has silver_spoon change remove silver_spoon goto 328
 option Give the two silver goblets to the serpent queen @ if has two_silver_goblets change remove two_silver_goblets goto 328
 option You do not have a silver item you want to give to her @ goto 39
