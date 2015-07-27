@@ -1,5 +1,7 @@
 #!/bin/sh
 
+rm CityOfThieves.zip
+
 mkdir CityOfThieves
 
 # Go to folder /HetRoversnest/QtCreator/CityOfThieves
