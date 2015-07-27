@@ -22,4 +22,4 @@ zip -9 -r CityOfThieves.zip CityOfThieves
 
 rm -rf CityOfThieves
 
-mv CityOfThieves.zip ../CityOfThieves.zip
+mv CityOfThieves.zip ../GameCityOfThievesExe.zip
