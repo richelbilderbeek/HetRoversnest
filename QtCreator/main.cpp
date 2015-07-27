@@ -1,6 +1,9 @@
 #include "terminal.h"
 #include "menudialog.h"
 
+#include <iostream>
+#include <stdexcept>
+
 int main()
 {
   try
