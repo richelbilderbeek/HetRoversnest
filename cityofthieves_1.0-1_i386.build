@@ -6,8 +6,6 @@ dpkg-buildpackage: source changed by Richel Bilderbeek <richel@richelbilderbeek.
  dpkg-source --before-build cityofthieves
 dpkg-buildpackage: host architecture i386
  fakeroot debian/rules clean
-dh debian/_cdbs_buildflags.mk
-dh: Unknown sequence debian/_cdbs_buildflags.mk (choose from: binary binary-arch binary-indep build build-arch build-indep clean install install-arch install-indep)
 test -x debian/rules
 rm -f debian/stamp-makefile-build debian/stamp-makefile-install
 /usr/bin/make  -C .  -k distclean
@@ -16,8 +14,115 @@ make[1]: *** No rule to make target 'distclean'.
 make[1]: Leaving directory '/home/richel/GitHubs/HetRoversnest/cityofthieves'
 /usr/share/cdbs/1/class/makefile.mk:55: recipe for target 'makefile-clean' failed
 make: [makefile-clean] Error 2 (ignored)
-dh cleanbuilddir
-dh: Unknown sequence cleanbuilddir (choose from: binary binary-arch binary-indep build build-arch build-indep clean install install-arch install-indep)
-debian/rules:3: recipe for target 'cleanbuilddir' failed
-make: *** [cleanbuilddir] Error 255
-dpkg-buildpackage: error: fakeroot debian/rules clean gave error exit status 2
+dh_clean 
+rm -f ./Makefile ./.qmake.internal.cache
+ dpkg-source -b cityofthieves
+dpkg-source: info: using source format `3.0 (quilt)'
+dpkg-source: info: building cityofthieves using existing ./cityofthieves_1.0.orig.tar.gz
+dpkg-source: info: building cityofthieves in cityofthieves_1.0-1.debian.tar.xz
+dpkg-source: info: building cityofthieves in cityofthieves_1.0-1.dsc
+ debian/rules build
+test -x debian/rules
+mkdir -p "."
+cd . && qmake   'QMAKE_CC = cc' 'QMAKE_CXX = g++' 'QMAKE_CFLAGS_RELEASE = -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall' 'QMAKE_CXXFLAGS_RELEASE = -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security' 'QMAKE_LFLAGS_RELEASE = -Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now'
+Project MESSAGE: Console application, built for Linux
+/usr/bin/make  -C .  
+make[1]: Entering directory '/home/richel/GitHubs/HetRoversnest/cityofthieves'
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o ai.o ai.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o ballgamechapter.o ballgamechapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o chapter.o chapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o chapter_test.o chapter_test.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o chaptertype.o chaptertype.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o character.o character.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o condition.o condition.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o consequence.o consequence.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o consequencetype.o consequencetype.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o dice.o dice.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o dicegamechapter.o dicegamechapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o fightingchapter.o fightingchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o game.o game.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o gamelostchapter.o gamelostchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o gamewonchapter.o gamewonchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o helper.o helper.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o helper_test.o helper_test.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o item.o item.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o luckchapter.o luckchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o menudialog.o menudialog.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o monster.o monster.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o option.o option.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o optionschapter.o optionschapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o pawnshopchapter.o pawnshopchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o pillgamechapter.o pillgamechapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o shopchapter.o shopchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o skillchapter.o skillchapter.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o terminal.o terminal.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o walkthrough.o walkthrough.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+/usr/lib/i386-linux-gnu/qt5/bin/rcc -name CityOfThieves CityOfThieves.qrc -o qrc_CityOfThieves.cpp
+g++ -c -pipe -Werror -std=c++1y -Wall -Wextra -Weffc++ -D_FORTIFY_SOURCE=2 -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wall -W -D_REENTRANT -fPIE -DNDEBUG -DNTRACE_BILDERBIKKEL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -o qrc_CityOfThieves.o qrc_CityOfThieves.cpp
+g++ -Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now -o cityofthieves ai.o ballgamechapter.o chapter.o chapter_test.o chaptertype.o character.o condition.o consequence.o consequencetype.o dice.o dicegamechapter.o fightingchapter.o game.o gamelostchapter.o gamewonchapter.o helper.o helper_test.o item.o luckchapter.o menudialog.o monster.o option.o optionschapter.o pawnshopchapter.o pillgamechapter.o shopchapter.o skillchapter.o terminal.o walkthrough.o main.o qrc_CityOfThieves.o   -lQt5Gui -lQt5Core -lGL -lpthread 
+make[1]: Leaving directory '/home/richel/GitHubs/HetRoversnest/cityofthieves'
+touch debian/stamp-makefile-build
+DEB_MAKE_CHECK_TARGET unset, not running checks
+ fakeroot debian/rules binary
+test -x debian/rules
+dh_testroot
+dh_prep 
+dh_installdirs -A 
+mkdir -p "."
+DEB_MAKE_CHECK_TARGET unset, not running checks
+/usr/bin/make  -C .  install INSTALL_ROOT=/home/richel/GitHubs/HetRoversnest/cityofthieves/debian/cityofthieves/
+make[1]: Entering directory '/home/richel/GitHubs/HetRoversnest/cityofthieves'
+make[1]: Nothing to be done for 'install'.
+make[1]: Leaving directory '/home/richel/GitHubs/HetRoversnest/cityofthieves'
+touch debian/stamp-makefile-install
+Adding cdbs dependencies to debian/cityofthieves.substvars
+dh_installdirs -pcityofthieves 
+dh_installdocs -pcityofthieves 
+dh_installexamples -pcityofthieves 
+dh_installman -pcityofthieves  
+dh_installinfo -pcityofthieves  
+dh_installmenu -pcityofthieves 
+dh_installcron -pcityofthieves 
+dh_installinit -pcityofthieves  
+dh_installdebconf -pcityofthieves 
+dh_installemacsen -pcityofthieves   
+dh_installcatalogs -pcityofthieves 
+dh_installpam -pcityofthieves 
+dh_installlogrotate -pcityofthieves 
+dh_installlogcheck -pcityofthieves 
+dh_installchangelogs -pcityofthieves  
+dh_installudev -pcityofthieves 
+dh_lintian -pcityofthieves 
+dh_bugfiles -pcityofthieves 
+dh_install -pcityofthieves  
+dh_link -pcityofthieves  
+dh_installmime -pcityofthieves 
+dh_installgsettings -pcityofthieves 
+dh_strip -pcityofthieves  
+dh_compress -pcityofthieves  
+dh_fixperms -pcityofthieves  
+dh_makeshlibs -pcityofthieves  
+dh_installdeb -pcityofthieves 
+dh_perl -pcityofthieves 
+dh_shlibdeps -pcityofthieves    
+dh_gencontrol -pcityofthieves  
+dpkg-gencontrol: warning: Depends field of package cityofthieves: unknown substitution variable ${shlibs:Depends}
+# only call dh_scour for packages in main
+if grep -q '^Component:[[:space:]]*main' /CurrentlyBuilding 2>/dev/null; then dh_scour -pcityofthieves ; fi
+dh_md5sums -pcityofthieves 
+dh_builddeb -pcityofthieves 
+dpkg-deb: building package `cityofthieves' in `../cityofthieves_1.0-1_i386.deb'.
+ dpkg-genchanges  >../cityofthieves_1.0-1_i386.changes
+dpkg-genchanges: including full source code in upload
+ dpkg-source --after-build cityofthieves
+dpkg-buildpackage: full upload (original source is included)
+Now running lintian...
+E: cityofthieves source: missing-build-dependency cdbs
+W: cityofthieves source: ancient-standards-version 3.9.2 (current is 3.9.6)
+W: cityofthieves: wrong-bug-number-in-closes l3:#XXXXXX
+W: cityofthieves: new-package-should-close-itp-bug
+E: cityofthieves: copyright-file-contains-full-gpl-license
+E: cityofthieves: copyright-should-refer-to-common-license-file-for-gpl
+W: cityofthieves: empty-binary-package
+Finished running lintian.
