@@ -9,11 +9,11 @@ Build-Depends: debhelper (>= 9)
 Package-List:
  cityofthieves deb misc optional arch=any
 Checksums-Sha1:
- 09cb896d470a3352e2138ac59781add4bd87e600 16838 cityofthieves_1.0.orig.tar.gz
- 358e0bc2cd81d289c4aa2184c8eeaf2a47e61b65 15188 cityofthieves_1.0-1.debian.tar.xz
+ c58cf10a91f5140a7a44ce0edc853d39f6afbbba 254627 cityofthieves_1.0.orig.tar.gz
+ fb9477de14f34a184b2ba9e9e35b669f9b4d7839 16196 cityofthieves_1.0-1.debian.tar.xz
 Checksums-Sha256:
- f6e0524feaa60c3c91de41751c21ef36ab3f705cc67a68ac965f7dbc149240f2 16838 cityofthieves_1.0.orig.tar.gz
- f5f9fe02e29ac0711542509bc6ba0e90d425e1611b89b60e762d3395df1c6461 15188 cityofthieves_1.0-1.debian.tar.xz
+ b2d655bf160a9796961f1e0d1d4c27a3423c9a3c298a2556303ead15c9f2215c 254627 cityofthieves_1.0.orig.tar.gz
+ ebdac1f793732c382f66a338e532f407a966fd43080e774e1b06892318e067df 16196 cityofthieves_1.0-1.debian.tar.xz
 Files:
- 832a21e5913c7480a4d04f01973fde2b 16838 cityofthieves_1.0.orig.tar.gz
- 8b71cf4b558c306d85985925b2ef2a78 15188 cityofthieves_1.0-1.debian.tar.xz
+ 908b4b2f4b4f6ef4cd11fac9ed50dd3f 254627 cityofthieves_1.0.orig.tar.gz
+ 8df6d899a02ce08182a04fa244cb0d34 16196 cityofthieves_1.0-1.debian.tar.xz
