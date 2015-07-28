@@ -161,7 +161,7 @@ void MenuDialog::ShowZanbarBone()
 void MenuDialog::StartGame()
 {
   #ifndef NDEBUG
-  const int seed{43};
+  const int seed{49};
   #else
   std::random_device rd;
   const int seed{static_cast<int>(rd())};
