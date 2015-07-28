@@ -367,6 +367,7 @@ void Chapter::Do(Character& character) const
       }
 
       const auto chosen = *m_signal_request_option(options);
+      m_signal_show_text("\n");
       if (chosen.GetConsequence().GetType() == ConsequenceType::show_inventory)
       {
         //Showing the inventory is trivial

@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Tue, 28 Jul 2015 19:14:26 +0200
+Source: cityofthieves
+Binary: cityofthieves
+Architecture: source i386
+Version: 1.0-1
+Distribution: UNRELEASED
+Urgency: medium
+Maintainer: Richel Bilderbeek <richel@richelbilderbeek.nl>
+Changed-By: Richel Bilderbeek <richel@richelbilderbeek.nl>
+Description:
+ cityofthieves - greet user
+Changes:
+ cityofthieves (1.0-1) UNRELEASED; urgency=medium
+ .
+   * Initial release. (Closes: #XXXXXX)
+Checksums-Sha1:
+ a1233afdbb8d40728fa24a627fcb4207d5355840 822 cityofthieves_1.0-1.dsc
+ 09cb896d470a3352e2138ac59781add4bd87e600 16838 cityofthieves_1.0.orig.tar.gz
+ 358e0bc2cd81d289c4aa2184c8eeaf2a47e61b65 15188 cityofthieves_1.0-1.debian.tar.xz
+ 0a683a15de27dad1817c3e733250a48bf8d77cc0 12446 cityofthieves_1.0-1_i386.deb
+Checksums-Sha256:
+ 7c512464dbe7b287c771a3e756498e94b8098077c3f9e64dc78b361fb3081ff6 822 cityofthieves_1.0-1.dsc
+ f6e0524feaa60c3c91de41751c21ef36ab3f705cc67a68ac965f7dbc149240f2 16838 cityofthieves_1.0.orig.tar.gz
+ f5f9fe02e29ac0711542509bc6ba0e90d425e1611b89b60e762d3395df1c6461 15188 cityofthieves_1.0-1.debian.tar.xz
+ 7302f1b145fc48cb6eb307e49bde0df775e188139589013d9bb045f37731f5b7 12446 cityofthieves_1.0-1_i386.deb
+Files:
+ 46a86820ee820275530199263abf61d5 822 misc optional cityofthieves_1.0-1.dsc
+ 832a21e5913c7480a4d04f01973fde2b 16838 misc optional cityofthieves_1.0.orig.tar.gz
+ 8b71cf4b558c306d85985925b2ef2a78 15188 misc optional cityofthieves_1.0-1.debian.tar.xz
+ ba48e46066ad72f2d32d8047fb888b07 12446 misc optional cityofthieves_1.0-1_i386.deb
