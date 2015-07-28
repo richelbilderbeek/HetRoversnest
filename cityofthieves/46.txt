@@ -2,5 +2,4 @@ The blacksmith takes your money and walks over to some bales of hay in the corne
 @
 normal
 change add chainmail_coat
-change gold -20
 goto 115

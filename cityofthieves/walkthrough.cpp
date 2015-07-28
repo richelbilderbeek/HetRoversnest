@@ -114,6 +114,7 @@ Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
   ///Mill Street
   solution[133] = 182; //Go down alley
   solution[182] = 279; //Buy tattoo
+  solution[417] = 316; //Buy tattoo
   solution[307] = 290; //Walk past trolls
   solution[219] = 393; //Say no
   solution[393] = 156; //Merchant pass: allow to be kicked out
@@ -161,6 +162,33 @@ Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
       }
     }
   }
+
+  //Special chapters
+  if (chapter_number == 354)
+  {
+    ///Buy all needed
+    for (const auto option: options)
+    {
+      if (option.GetConsequence().GetItemsToRemove().empty()) continue;
+      assert(option.GetConsequence().GetItemsToRemove().size() == 1);
+      if (option.GetConsequence().GetItemsToRemove()[0] == Item::eye_patch)
+      {
+        return option;
+      }
+      if (option.GetConsequence().GetItemsToRemove()[0] == Item::silver_flute)
+      {
+        return option;
+      }
+    }
+    for (const auto option: options)
+    {
+      if (option.GetConsequence().GetType() == ConsequenceType::leave)
+      {
+        return option;
+      }
+    }
+  }
+
 
   if (solution[chapter_number] == 0)
   {
