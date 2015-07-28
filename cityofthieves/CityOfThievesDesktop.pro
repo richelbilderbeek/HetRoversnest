@@ -44,7 +44,7 @@ CONFIG(release, debug|release) {
   DEFINES += NDEBUG NTRACE_BILDERBIKKEL
 }
 
-include(HetRoversnestConsole.pri)
+include(CityOfThievesConsole.pri)
 
 SOURCES += qtmain.cpp \
     qtgamedialog.cpp
@@ -54,6 +54,3 @@ FORMS += \
 
 HEADERS += \
     qtgamedialog.h
-
-RESOURCES += \
-    HetRoversnest.qrc

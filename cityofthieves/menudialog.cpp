@@ -7,6 +7,8 @@
 #include <iterator>
 #include <memory>
 
+#include <QFile>
+
 #include "ai.h"
 #include "dice.h"
 #include "terminal.h"
@@ -115,47 +117,57 @@ std::vector<Option> MenuDialog::GetMenuOptions() const noexcept
 
 void MenuDialog::ShowAbout()
 {
-  const std::string text{FileToString("../Files/About.txt")};
+  const std::string filename{"About.txt"};
+  {
+    QFile qfile( (":/files/" + filename).c_str() );
+    qfile.copy( filename.c_str() );
+  }
+  const std::string text{FileToString(filename)};
   m_signal_show_text(text);
 }
 
 void MenuDialog::ShowIntroduction()
 {
-  const std::string text{FileToString("../Files/Introduction.txt")};
+  const std::string filename{"Introduction.txt"};
+  {
+    QFile qfile( (":/files/" + filename).c_str() );
+    qfile.copy( filename.c_str() );
+  }
+  const std::string text{FileToString(filename)};
   m_signal_show_text(text);
 }
 
 void MenuDialog::ShowManual()
 {
-  const std::string text{FileToString("../Files/Manual.txt")};
+  const std::string filename{"Manual.txt"};
+  {
+    QFile qfile( (":/files/" + filename).c_str() );
+    qfile.copy( filename.c_str() );
+  }
+  const std::string text{FileToString(filename)};
   m_signal_show_text(text);
 }
 
 void MenuDialog::ShowTeaser()
 {
-  const std::string text{FileToString("../Files/Teaser.txt")};
+  const std::string filename{"Teaser.txt"};
+  {
+    QFile qfile( (":/files/" + filename).c_str() );
+    qfile.copy( filename.c_str() );
+  }
+  const std::string text{FileToString(filename)};
   m_signal_show_text(text);
 }
 
 void MenuDialog::ShowHints()
 {
-  const std::string text{FileToString("../Files/Hints.txt")};
-  m_signal_show_text(text);
-}
-
-void MenuDialog::ShowZanbarBone()
-{
-  const std::string filename{"../Files/ZanbarBone59.txt"};
-  if (!IsRegularFile(filename))
+  const std::string filename{"Hints.txt"};
   {
-    std::stringstream msg;
-    msg << __func__ << ": ERROR: File " << filename << " does not exist";
-    throw std::runtime_error(msg.str());
+    QFile qfile( (":/files/" + filename).c_str() );
+    qfile.copy( filename.c_str() );
   }
-  const std::vector<std::string> lines = FileToVector(filename);
-  std::stringstream s;
-  std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s,"\n"));
-  m_signal_show_text(s.str());
+  const std::string text{FileToString(filename)};
+  m_signal_show_text(text);
 }
 
 void MenuDialog::StartGame()

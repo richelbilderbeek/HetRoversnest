@@ -23,8 +23,6 @@ struct MenuDialog
   //If the MenuDialog wants the dialog to wait
   mutable boost::signals2::signal<void()> m_signal_wait;
 
-  void ShowZanbarBone();
-
   private:
 
   Character CreateCharacter() const noexcept;
