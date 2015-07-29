@@ -174,6 +174,10 @@ double Ai::CalcFinalPayoff(const Character& character) const noexcept
       << std::endl;
   }
 
+  const auto visited = character.GetChapters();
+  const bool got_in_city{std::count(std::begin(visited),std::end(visited),74) == 1 ? true : false};
+  const bool got_in_forest{std::count(std::begin(visited),std::end(visited),201) == 1 ? true : false};
+
   const double final_payoff{
     std::pow(
         (character.HasItem(Item::black_pearls) ? values[Item::black_pearls] : 0.0)
@@ -182,6 +186,8 @@ double Ai::CalcFinalPayoff(const Character& character) const noexcept
       + (character.HasItem(Item::tattoo)       ? values[Item::tattoo] : 0.0)
       + (character.HasItem(Item::silver_arrow) ? values[Item::silver_arrow] : 0.0)
       + (character.GetCurrentChapter() == 400  ? 1.0 : 0.0) //Won the game
+      + (got_in_city ? 1.0 : 0.0)
+      + (got_in_forest ? 1.0 : 0.0)
     ,2.0)
   };
   if (character.GetCurrentChapter() == 400) { std::clog << "Finished game" << std::endl; }
@@ -286,17 +292,20 @@ void Ai::Start()
   for (int i=1; ; ++i)
   {
     //if i equals 1,10,100,1000,etc...
-    //if (i % 10000 == 0)
-    if (static_cast<int>(std::log10(i)) != static_cast<int>(std::log10(i-1)))
+    if (i % 10000 == 0)
+    //if (static_cast<int>(std::log10(i)) != static_cast<int>(std::log10(i-1)))
     {
 
       std::cout << "i: " << i << std::endl;
-      if (i > 100) this->CreateGraph();
+      this->CreateGraph();
       std::cout << "DONE\n";
     }
 
-    Character character(6+6,12+6,6+6,Item::luck_potion);
-    Game game(42,character);
+    const int skill = 3 + Dice::Get()->Throw();
+    const int condition = Dice::Get()->Throw() + Dice::Get()->Throw();
+    const int luck = 6 + Dice::Get()->Throw();
+    Character character(skill,condition,luck,Item::luck_potion);
+    Game game(50,character);
     m_game = &game;
 
     game.m_signal_request_option.connect(
@@ -316,10 +325,10 @@ void Ai::Start()
     }
 
     SetFinalPayoff(CalcFinalPayoff(game.GetCharacter()));
-    if (game.HasWon()) { break; }
+    //if (game.HasWon()) { break; }
   }
-  std::cout << "FINISHED THE GAME, CREATING GRAPH" << std::endl;
-  this->CreateGraph();
+  //std::cout << "FINISHED THE GAME, CREATING GRAPH" << std::endl;
+  //this->CreateGraph();
 }
 
 #ifndef NDEBUG

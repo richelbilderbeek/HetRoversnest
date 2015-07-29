@@ -433,5 +433,6 @@
         <file>Introduction.txt</file>
         <file>Manual.txt</file>
         <file>Teaser.txt</file>
+        <file>Changelog.txt</file>
     </qresource>
 </RCC>

@@ -12,8 +12,10 @@
 struct Ai
 {
   using Key = std::string;
+  using Keys = std::vector<Key>;
   using Payoff = double;
   using PayoffPair = std::pair<Key,Payoff>;
+  using PayoffPairs = std::vector<PayoffPair>;
 
   Ai();
   Ai(const Ai& ai) = delete;
@@ -25,11 +27,11 @@ struct Ai
   void CreateGraph() const noexcept;
 
   //Chapter of current sequence
-  const auto& GetChapters() const noexcept { return m_keys; }
+  const Keys& GetChapters() const noexcept { return m_keys; }
 
 
   //Payoff for each chapter
-  const auto& GetPayoffs() const noexcept { return m_payoffs; }
+  const PayoffPairs& GetPayoffs() const noexcept { return m_payoffs; }
 
   double GetPayoff(const std::string& option_text) const noexcept;
 
@@ -47,10 +49,10 @@ struct Ai
   Game * m_game;
 
   ///All the keys (option texts) that were chosen
-  std::vector<Key> m_keys;
+  Keys m_keys;
 
   //Payoff for each key
-  mutable std::vector<PayoffPair> m_payoffs;
+  mutable PayoffPairs m_payoffs;
 
   bool m_silent;
 

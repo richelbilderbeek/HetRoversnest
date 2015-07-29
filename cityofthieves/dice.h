@@ -6,9 +6,11 @@
 ///A Singleton
 struct Dice
 {
+  using Engine = std::mt19937;
+
   static Dice * Get();
 
-  auto& GetEngine() noexcept { return m_engine; }
+  Engine& GetEngine() noexcept { return m_engine; }
   void SetSeed(const int seed);
   int Throw() noexcept;
 
@@ -17,7 +19,7 @@ struct Dice
   static Dice * m_instance;
 
   std::uniform_int_distribution<int> m_distribution;
-  std::mt19937 m_engine;
+  Engine m_engine;
 
   #ifndef NDEBUG
   static void Test() noexcept;

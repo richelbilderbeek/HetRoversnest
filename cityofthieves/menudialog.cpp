@@ -117,13 +117,27 @@ std::vector<Option> MenuDialog::GetMenuOptions() const noexcept
 
 void MenuDialog::ShowAbout()
 {
-  const std::string filename{"About.txt"};
   {
-    QFile qfile( (":/files/" + filename).c_str() );
-    qfile.copy( filename.c_str() );
+    const std::string filename{"About.txt"};
+    {
+      QFile qfile( (":/files/" + filename).c_str() );
+      qfile.copy( filename.c_str() );
+    }
+    const std::string text{FileToString(filename)};
+    m_signal_show_text(text);
+    std::remove(filename.c_str());
   }
-  const std::string text{FileToString(filename)};
-  m_signal_show_text(text);
+  m_signal_show_text("\n");
+  {
+    const std::string filename{"Changelog.txt"};
+    {
+      QFile qfile( (":/files/" + filename).c_str() );
+      qfile.copy( filename.c_str() );
+    }
+    const std::string text{FileToString(filename)};
+    m_signal_show_text(text);
+    std::remove(filename.c_str());
+  }
 }
 
 void MenuDialog::ShowIntroduction()
@@ -135,6 +149,7 @@ void MenuDialog::ShowIntroduction()
   }
   const std::string text{FileToString(filename)};
   m_signal_show_text(text);
+  std::remove(filename.c_str());
 }
 
 void MenuDialog::ShowManual()
@@ -146,6 +161,7 @@ void MenuDialog::ShowManual()
   }
   const std::string text{FileToString(filename)};
   m_signal_show_text(text);
+  std::remove(filename.c_str());
 }
 
 void MenuDialog::ShowTeaser()
@@ -157,6 +173,7 @@ void MenuDialog::ShowTeaser()
   }
   const std::string text{FileToString(filename)};
   m_signal_show_text(text);
+  std::remove(filename.c_str());
 }
 
 void MenuDialog::ShowHints()
@@ -168,6 +185,7 @@ void MenuDialog::ShowHints()
   }
   const std::string text{FileToString(filename)};
   m_signal_show_text(text);
+  std::remove(filename.c_str());
 }
 
 void MenuDialog::StartGame()

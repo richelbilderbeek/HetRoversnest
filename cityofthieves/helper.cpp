@@ -121,7 +121,7 @@ std::string FileToString(const std::string& filename)
   }
   const std::vector<std::string> lines = FileToVector(filename);
   std::stringstream s;
-  std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
+  std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s,"\n"));
   return s.str();
 }
 

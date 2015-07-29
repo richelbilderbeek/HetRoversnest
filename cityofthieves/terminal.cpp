@@ -130,7 +130,6 @@ void Terminal::SlotShowText(const std::string& text)
   {
     if (c == '\n') pos = -1;
     else if (c == ' ' && pos > m_n_chars) { pos = 0; std::cout << '\n'; continue; }
-    //else if (c == ' ' && pos == 0) { continue; }
     std::cout << c;
     ++pos;
     std::cout.flush();
