@@ -11,6 +11,7 @@ Contributors:
  * Richel Bilderbeek: lead developer
  * Sander Kooi: Dutch translation
  * Same Drenth: Dutch translation
+ * Redmar van Sinderen: Dutch translation
  * Friedo Flache: Dutch translation
  * Carmen IJsebaart: testing
  * Greg Fivash: testing
