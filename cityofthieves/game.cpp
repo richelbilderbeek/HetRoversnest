@@ -73,6 +73,13 @@ int Game::GetCurrentChapterNumber() const noexcept
   return m_character.GetCurrentChapter();
 }
 
+#ifndef NDEBUG
+void Game::SetChapter(const int chapter)
+{
+  this->m_character.SetChapter(chapter);
+}
+#endif
+
 void Game::SlotCharacterChanged(const Character& character)
 {
   m_signal_character_has_changed(character);

@@ -305,7 +305,7 @@ void Ai::Start()
     const int condition = Dice::Get()->Throw() + Dice::Get()->Throw();
     const int luck = 6 + Dice::Get()->Throw();
     Character character(skill,condition,luck,Item::luck_potion);
-    Game game(50,character);
+    Game game(51,character);
     m_game = &game;
 
     game.m_signal_request_option.connect(
@@ -317,6 +317,7 @@ void Ai::Start()
     game.m_signal_show_text.connect(
       boost::bind(&Ai::SlotShowText,this,_1)
     );
+    //game.SetChapter(259);
 
     while (1)
     {

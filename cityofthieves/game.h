@@ -20,6 +20,10 @@ struct Game
   bool HasWon() const noexcept { return m_has_won; }
   int GetCurrentChapterNumber() const noexcept;
 
+  #ifndef NDEBUG
+  void SetChapter(const int chapter);
+  #endif
+
   //If the Game changed the character
   mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
 
