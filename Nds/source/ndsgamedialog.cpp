@@ -85,7 +85,7 @@ void NdsGameDialog::CharacterChanged(const Character &character)
     {
       if (static_cast<int>(item) < 100)
       {
-        std::cout << ToPrettyStr(item) << std::endl;
+        std::cout << " * " << ToPrettyStr(item) << std::endl;
       }
     }
   }
@@ -113,15 +113,20 @@ Option NdsGameDialog::RequestOption(const std::vector<Option>& options)
 
   while(1)
   {
-    swiWaitForVBlank();
+    ProcessEvents();
 
     if (m_key_pressed != -1)
     {
       int key_pressed = m_key_pressed;
-      assert(key_pressed >= 0);
-      assert(key_pressed < static_cast<int>(options.size()));
-      m_key_pressed = -1;
-      return options[key_pressed];
+      if (key_pressed >= 0 && key_pressed < static_cast<int>(options.size()))
+      {
+        m_key_pressed = -1;
+        return options[key_pressed];
+      }
+      else
+      {
+        m_key_pressed = -1;
+      }
     }
   }
 }
@@ -133,7 +138,7 @@ void NdsGameDialog::ShowText(const std::string& text)
   consoleSelect(&m_screen_bottom);
 
   const int n_chars{22};
-  const double wait_character_msec{0.01};
+  const double wait_character_msec{0.001};
   int pos = 0;
   for (const char c: text)
   {
@@ -174,9 +179,21 @@ void NdsGameDialog::ProcessEvents()
 {
   if (m_verbose) { std::cout << __func__ << std::endl; }
 
+  scanKeys(); //Don't forget!
+  const int keys_down = keysDown();
+  if (keys_down)
+  {
+    if (     keys_down & KEY_UP   ) { m_key_pressed = 0; }
+    else if (keys_down & KEY_RIGHT) { m_key_pressed = 1; }
+    else if (keys_down & KEY_DOWN ) { m_key_pressed = 2; }
+    else if (keys_down & KEY_LEFT ) { m_key_pressed = 3; }
+    else if (keys_down & KEY_B    ) { m_key_pressed = 4; }
+    else if (keys_down & KEY_A    ) { m_key_pressed = 5; }
+  }
+
   swiWaitForVBlank();
 
-  m_key_pressed = 0;
+
 }
 
 
