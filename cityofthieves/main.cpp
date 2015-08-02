@@ -11,7 +11,6 @@ int main()
     Terminal dialog;
     MenuDialog menu;
     menu.SetObserver(&dialog);
-
     menu.Execute();
   }
   catch (std::logic_error& e)

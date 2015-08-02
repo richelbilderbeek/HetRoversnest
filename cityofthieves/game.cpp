@@ -38,11 +38,6 @@ void Game::DoChapter()
   if (m_has_lost || m_has_won) return;
 
   const int chapter_number{GetCurrentChapterNumber()};
-  if (chapter_number == 400)
-  {
-    m_has_won = true;
-    return;
-  }
 
   const Chapter chapter(chapter_number);
   chapter.SetObserver(m_observer);
@@ -50,6 +45,7 @@ void Game::DoChapter()
   chapter.Do(m_character);
 
   if (m_character.IsDead()) { m_has_lost = true; }
+  if (chapter_number == 400) { m_has_won = true; }
 }
 
 int Game::GetCurrentChapterNumber() const noexcept

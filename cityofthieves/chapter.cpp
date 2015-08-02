@@ -325,7 +325,9 @@ void Chapter::Do(Character& character) const
   }
   else if (GetType() == ChapterType::game_won)
   {
+    ShowText("\n");
     m_game_won_chapter.Do(character);
+    ShowText("\n");
     return;
   }
   else if (GetType() == ChapterType::play_dice)
