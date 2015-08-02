@@ -44,13 +44,8 @@ CONFIG(release, debug|release) {
   DEFINES += NDEBUG NTRACE_BILDERBIKKEL
 }
 
-include(CityOfThievesConsole.pri)
 
-SOURCES += qtmain.cpp \
-    qtgamedialog.cpp
+SOURCES += qtmain.cpp
 
-FORMS += \
-    qtgamedialog.ui
-
-HEADERS += \
-    qtgamedialog.h
+include(../Classes/CityOfThievesConsole.pri)
+include(../QtClasses/CityOfThievesDesktop.pri)

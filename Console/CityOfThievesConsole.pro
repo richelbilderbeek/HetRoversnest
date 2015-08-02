@@ -1,3 +1,5 @@
+INCLUDEPATH += ../Classes
+
 win32 {
   # Windows only
   message("Console application, built for Windows")
@@ -42,6 +44,6 @@ CONFIG(release, debug|release) {
   DEFINES += NDEBUG NTRACE_BILDERBIKKEL
 }
 
-include(CityOfThievesConsole.pri)
+include(../Classes/CityOfThievesConsole.pri)
 
 SOURCES += main.cpp
