@@ -4,7 +4,6 @@
 #include <sstream>
 #include <iostream>
 
-#include <boost/lexical_cast.hpp>
 
 #include "character.h"
 #include "chapter.h"
@@ -269,7 +268,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       }
       monster.ChangeCondition(-damage);
       m_chapter.ShowText("You did the " + monster_name
-        + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
+        + " " + std::to_string(damage) + " points of damage \n"
       );
     }
     else if (player_attack < monster_attack)

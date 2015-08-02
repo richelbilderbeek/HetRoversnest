@@ -42,6 +42,10 @@ void TestHelperFunctions();
 ///Replace 'two_words' by 'two words'
 std::string ToPretty(std::string s);
 
+///Trim leading and trailing whitespace
+//From http://www.richelbilderbeek.nl/CppTrim.htm
+std::string Trim(const std::string& s);
+
 void Wait(const double n_secs) noexcept;
 
 #endif // HELPER_H

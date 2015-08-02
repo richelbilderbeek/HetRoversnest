@@ -1,10 +1,11 @@
 #include "terminal.h"
 
+#include <algorithm>
 #include <cassert>
 #include <fstream>
 #include <iostream>
-
-#include <boost/lambda/lambda.hpp>
+#include <iterator>
+#include <sstream>
 
 #include "chapter.h"
 #include "game.h"

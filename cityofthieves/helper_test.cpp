@@ -30,6 +30,6 @@ void TestHelperFunctions()
     const std::vector<std::string> expected = { "B", "CDEF" };
     assert(result == expected);
   }
-
+  assert(!IsInt("2+fire"));
 }
 #endif

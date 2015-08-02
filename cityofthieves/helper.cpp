@@ -1,12 +1,12 @@
 #include "helper.h"
 
+#include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <fstream>
 #include <iostream>
-
-#include <boost/algorithm/string/trim.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/timer.hpp>
+#include <iterator>
+#include <sstream>
 
 #include "ai.h"
 #include "chapter.h"
@@ -147,17 +147,18 @@ bool IsBetween(const double x, const double a, const double b)
   return false;
 }
 
+///IsInt determines if std::string can be converted to integer.
+///From http://www.richelbilderbeek.nl/CppIsInt.htm
 bool IsInt(const std::string& s) noexcept
 {
-  try
-  {
-    boost::lexical_cast<int>(s);
-    return true;
-  }
-  catch (boost::bad_lexical_cast&)
-  {
-    return false;
-  }
+  std::istringstream i(s);
+  int temp{0};
+  i >> temp;
+  if (!i) return false;
+  char c{'\0'}; //Should be at end, if not, the string contained more than just a number
+  i >> c;
+  if (i) return false;
+  return true;
 }
 
 
@@ -224,7 +225,7 @@ std::string ReadText(std::stringstream& s)
   }
   s << std::skipws; //Obligatory
 
-  boost::algorithm::trim(text); //Remove the space between text and @
+  text = Trim(text); //Remove the space between text and @
   return text;
 }
 
@@ -251,8 +252,37 @@ std::string ToPretty(std::string s)
   return s;
 }
 
+std::string Trim(const std::string& s)
+{
+  const int size{static_cast<int>(s.size())};
+  int pos_begin = -1;
+  int pos_end = size-1;
+  for (int i=0; i!=size; ++i)
+  {
+    if (s[i]!=' ' && s[i]!='\n' && s[i]!='\t')
+    {
+      pos_begin = i; break;
+    }
+  }
+  if (pos_begin == -1) return "";
+  for (int i=size-1; i!=-1; --i)
+  {
+    if (s[i]!=' ' && s[i]!='\n' && s[i]!='\t')
+    {
+      pos_end = i; break;
+    }
+  }
+  return s.substr(pos_begin,pos_end-pos_begin+1);
+}
+
 void Wait(const double n_secs) noexcept
 {
-  boost::timer t;
-  while (t.elapsed() < n_secs) {}
+  const std::chrono::system_clock::time_point t = std::chrono::system_clock::now();
+  while (1)
+  {
+    const std::chrono::system_clock::duration d = std::chrono::system_clock::now() - t;
+    const long long int n_msecs_passed{std::chrono::duration_cast<std::chrono::milliseconds>(d).count()};
+    const double secs_passed{static_cast<double>(n_msecs_passed) / 1000.0};
+    if (secs_passed > n_secs) return;
+  }
 }
