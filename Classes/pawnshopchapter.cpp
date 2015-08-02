@@ -57,14 +57,15 @@ void PawnShopChapter::Do(Character& character) const
 
 PawnShopChapter ParsePawnShopChapter(std::stringstream& s, Chapter * const chapter)
 {
+  const Helper h;
   PawnShopChapter c(chapter);
   while (1)
   {
-    const std::string what{ReadString(s)};
+    const std::string what{h.ReadString(s)};
     if (what == "@") break;
     assert(IsItem(what));
     const Item item{ToItem(what)};
-    const int price{ReadInt(s)};
+    const int price{h.ReadInt(s)};
     c.AddItem(item,price);
   }
   return c;

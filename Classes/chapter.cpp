@@ -31,23 +31,27 @@ Chapter::Chapter(const int chapter_number)
     m_skill_chapter{*this},
     m_text{}
 {
+  if (m_verbose) { std::clog << __func__ << std::endl; }
   #ifndef NDEBUG
   Test();
   #endif
+  Helper h;
 
+  if (m_verbose) { std::clog << __func__ << std::endl; }
 
-  const std::string filename{"../Files/" + std::to_string(chapter_number) + ".txt"};
-  if (!IsRegularFile(filename))
+  const std::string filename{h.GetFilesFolder() + h.ToStr(chapter_number) + ".txt"};
+  if (!h.IsRegularFile(filename))
   {
     std::stringstream msg;
     msg << __func__ << ": ERROR: File " << filename << " does not exist";
+    if (m_verbose) { std::cerr << msg.str(); }
     throw std::runtime_error(msg.str());
   }
-  const std::vector<std::string> lines = FileToVector(filename);
+  const std::vector<std::string> lines{h.FileToVector(filename)};
   std::stringstream s;
   std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
 
-  m_text = ReadText(s);
+  m_text = h.ReadText(s);
 
   m_chapter_type = ReadChapterType(s);
 
@@ -60,14 +64,14 @@ Chapter::Chapter(const int chapter_number)
 
   while (!s.eof())
   {
-    const std::string str{ReadString(s)};
+    const std::string str{h.ReadString(s)};
     if (str.empty())
     {
       break;
     }
     else if (str == "Bye" || str == "bye")
     {
-      m_bye_text = ReadText(s);
+      m_bye_text = h.ReadText(s);
     }
     else if (str == "Change" || str == "change")
     {
@@ -75,8 +79,8 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "Escape" || str == "escape")
     {
-      GetFighting().SetRoundsToEscape(ReadInt(s));
-      GetFighting().SetEscapeToChapter(ReadInt(s));
+      GetFighting().SetRoundsToEscape(h.ReadInt(s));
+      GetFighting().SetEscapeToChapter(h.ReadInt(s));
     }
     else if (str == "Fight_both" || str == "fight_both")
     {
@@ -85,12 +89,12 @@ Chapter::Chapter(const int chapter_number)
     else if (str == "Luck" || str == "luck")
     {
       assert(this->m_chapter_type == ChapterType::test_your_luck);
-      const std::string luck_text{ReadText(s)};
+      const std::string luck_text{h.ReadText(s)};
       assert(!luck_text.empty());
       GetLuck().SetLuckText(luck_text);
-      const std::string goto_str{ReadString(s)};
+      const std::string goto_str{h.ReadString(s)};
       assert(goto_str == "goto");
-      const int luck_chapter{ReadInt(s)};
+      const int luck_chapter{h.ReadInt(s)};
       assert(luck_chapter > 1);
       GetLuck().SetLuckChapter(luck_chapter);
     }
@@ -102,29 +106,29 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "Next_chapter" || str == "goto")
     {
-      m_consequence.SetNextChapter(ReadInt(s));
+      m_consequence.SetNextChapter(h.ReadInt(s));
     }
     else if (str == "No_luck" || str == "no_luck")
     {
       assert(this->m_chapter_type == ChapterType::test_your_luck);
       //s << std::noskipws; //Obligatory
       //Parse(s,' '); //You expect a space after a word
-      const std::string no_luck_text{ReadText(s)};
+      const std::string no_luck_text{h.ReadText(s)};
       assert(!no_luck_text.empty());
       GetLuck().SetNoLuckText(no_luck_text);
-      const std::string then{ReadString(s)};
+      const std::string then{h.ReadString(s)};
       if (then == "change")
       {
         const Consequence no_luck_consequence{ParseConsequence(s)};
         GetLuck().SetNoLuckConsequence(no_luck_consequence);
-        const std::string goto_str{ReadString(s)};
+        const std::string goto_str{h.ReadString(s)};
         assert(goto_str == "goto");
       }
       else
       {
         assert(then == "goto");
       }
-      const int no_luck_chapter{ReadInt(s)};
+      const int no_luck_chapter{h.ReadInt(s)};
       assert(no_luck_chapter > 1);
       GetLuck().SetNoLuckChapter(no_luck_chapter);
     }
@@ -132,22 +136,22 @@ Chapter::Chapter(const int chapter_number)
     {
       assert(this->m_chapter_type == ChapterType::test_your_skill);
       //Parse(s,' '); //You expect a space after a word
-      const std::string no_skill_text{ReadText(s)};
+      const std::string no_skill_text{h.ReadText(s)};
       assert(!no_skill_text.empty());
       GetSkill().SetNoSkillText(no_skill_text);
-      const std::string then_str{ReadString(s)};
+      const std::string then_str{h.ReadString(s)};
       Consequence consequence;
       if (then_str == "goto")
       {
-        consequence.SetNextChapter(ReadInt(s));
+        consequence.SetNextChapter(h.ReadInt(s));
       }
       else if (then_str == "change")
       {
         consequence = ParseConsequence(s);
         //Also read goto
-        const std::string goto_str{ReadString(s)};
+        const std::string goto_str{h.ReadString(s)};
         assert(goto_str == "goto");
-        consequence.SetNextChapter(ReadInt(s));
+        consequence.SetNextChapter(h.ReadInt(s));
       }
       else
       {
@@ -157,25 +161,25 @@ Chapter::Chapter(const int chapter_number)
     }
     else if (str == "Option" || str == "option")
     {
-      const std::string option_text{ReadText(s)};
-      const std::string t{ReadString(s)};
+      const std::string option_text{h.ReadText(s)};
+      const std::string t{h.ReadString(s)};
       if (t == "if")
       {
         const Condition condition{ParseCondition(s)};
 
-        const std::string then_str{ReadString(s)};
+        const std::string then_str{h.ReadString(s)};
         Consequence consequence;
         if (then_str == "goto")
         {
-          consequence.SetNextChapter(ReadInt(s));
+          consequence.SetNextChapter(h.ReadInt(s));
         }
         else if (then_str == "change")
         {
           consequence = ParseConsequence(s);
           //Also read goto
-          const std::string goto_str{ReadString(s)};
+          const std::string goto_str{h.ReadString(s)};
           assert(goto_str == "goto");
-          consequence.SetNextChapter(ReadInt(s));
+          consequence.SetNextChapter(h.ReadInt(s));
         }
         else
         {
@@ -188,7 +192,7 @@ Chapter::Chapter(const int chapter_number)
       else if (t == "ifnot")
       {
         Condition condition;
-        const std::string what{ReadString(s)};
+        const std::string what{h.ReadString(s)};
         if (IsItem(what))
         {
           const Item item_not_needed{ToItem(what)};
@@ -199,10 +203,10 @@ Chapter::Chapter(const int chapter_number)
           std::cerr << "Unknown item " << what << " in " << filename << std::endl;
           assert(!"Should not get here");
         }
-        const std::string str_goto{ReadString(s)};
+        const std::string str_goto{h.ReadString(s)};
         assert(str_goto == "goto");
         Consequence consequence;
-        consequence.SetNextChapter(ReadInt(s));
+        consequence.SetNextChapter(h.ReadInt(s));
         Option option(option_text,consequence);
         option.SetCondition(condition);
         GetOptions().AddOption(option);
@@ -210,16 +214,16 @@ Chapter::Chapter(const int chapter_number)
       else if (t == "goto")
       {
         Consequence consequence;
-        consequence.SetNextChapter(ReadInt(s));
+        consequence.SetNextChapter(h.ReadInt(s));
         const Option option(option_text,consequence);
         GetOptions().AddOption(option);
       }
-      else if (IsInt(t))
+      else if (h.IsInt(t))
       {
         std::clog << "WARNING: goto omitted in file " << filename << std::endl;
         //If no goto, just parse the number
         Consequence consequence;
-        consequence.SetNextChapter(std::stoi(t));
+        consequence.SetNextChapter(h.ToInt(t));
         const Option option(option_text,consequence);
         GetOptions().AddOption(option);
       }
@@ -256,22 +260,22 @@ Chapter::Chapter(const int chapter_number)
       assert(this->m_chapter_type == ChapterType::test_your_skill);
       this->m_chapter_type = ChapterType::test_your_skill;
       //Parse(s,' '); //You expect a space after a word
-      const std::string skill_text{ReadText(s)};
+      const std::string skill_text{h.ReadText(s)};
       assert(!skill_text.empty());
       GetSkill().SetSkillText(skill_text);
-      const std::string then_str{ReadString(s)};
+      const std::string then_str{h.ReadString(s)};
       Consequence consequence;
       if (then_str == "goto")
       {
-        consequence.SetNextChapter(ReadInt(s));
+        consequence.SetNextChapter(h.ReadInt(s));
       }
       else if (then_str == "change")
       {
         consequence = ParseConsequence(s);
         //Also read goto
-        const std::string goto_str{ReadString(s)};
+        const std::string goto_str{h.ReadString(s)};
         assert(goto_str == "goto");
-        consequence.SetNextChapter(ReadInt(s));
+        consequence.SetNextChapter(h.ReadInt(s));
       }
       else
       {
@@ -295,21 +299,29 @@ Chapter::Chapter(const int chapter_number)
 
 void Chapter::Do(Character& character) const
 {
+  if (m_verbose) { std::clog << __func__ << std::endl; }
+  Helper h;
+
   assert(m_observer);
   character.SetObserver(m_observer);
+
+  if (m_verbose) { std::clog << "The first text comes now" << std::endl; }
 
   ShowText("\n");
 
   #ifndef NDEBUG
   ShowText(
-      std::string(60,'-') + "\n"
-    + std::to_string(GetChapterNumber()) + "\n"
-    + std::string(60,'-') + "\n"
+      std::string(31,'-') + "\n"
+    + h.ToStr(GetChapterNumber()) + "\n"
+    + std::string(31,'-') + "\n"
   );
   #endif
 
   //Display the text line by line
   ShowText(m_text + "\n");
+
+  if (m_verbose) { std::clog << "The first text has been" << std::endl; }
+
 
   if (GetType() == ChapterType::game_lost)
   {
@@ -354,7 +366,8 @@ void Chapter::Do(Character& character) const
     }
     while (1)
     {
-      //Let the use choose a valid option
+      if (m_verbose) { std::clog << "Let the use choose a valid option" << std::endl; }
+
       auto options = GetOptions().GetValidOptions(character);
 
       //If there are options, add (1) showing inventory (2) eating provision (3) drinking potion
@@ -366,7 +379,13 @@ void Chapter::Do(Character& character) const
         if (character.HasPotion()) { options.push_back(CreateDrinkPotionOption()); }
       }
 
+      if (m_verbose) { std::clog << "Do the request" << std::endl; }
+
+      assert(m_observer);
       const auto chosen = m_observer->RequestOption(options);
+
+      if (m_verbose) { std::clog << "Done the request" << std::endl; }
+
       ShowText("\n");
       if (chosen.GetConsequence().GetType() == ConsequenceType::show_inventory)
       {
@@ -470,6 +489,9 @@ Option Chapter::RequestOption(const std::vector<Option>& options) const
 
 void Chapter::ShowText(const std::string& text) const
 {
+  if (m_verbose) { std::clog << __func__ << std::endl; }
+  if (m_verbose) { std::cout << __func__ << std::endl; }
+
   assert(m_observer);
   m_observer->ShowText(text);
 }

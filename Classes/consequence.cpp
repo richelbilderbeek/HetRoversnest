@@ -216,11 +216,12 @@ void Consequence::SetNextChapter(const int next_chapter) noexcept
 
 Consequence ParseConsequence(std::stringstream &s)
 {
+  const Helper h;
   Consequence consequence;
-  const std::string what{ReadString(s)};
+  const std::string what{h.ReadString(s)};
   if (what == "add")
   {
-    const std::string item_name{ReadString(s)};
+    const std::string item_name{h.ReadString(s)};
     if (!IsItem(item_name))
     {
       std::cerr << "Unknown item: " << item_name << std::endl;
@@ -231,7 +232,7 @@ Consequence ParseConsequence(std::stringstream &s)
   }
   else if (what == "arrows" || what == "arrow")
   {
-    const std::string value{ReadString(s)};
+    const std::string value{h.ReadString(s)};
     if (value == "random[1-6]")
     {
       const int n_arrows{Dice::Get()->Throw()};
@@ -248,27 +249,27 @@ Consequence ParseConsequence(std::stringstream &s)
   }
   else if (what == "skill" || what == "dexterity")
   {
-    const int change_dex{ReadInt(s)};
+    const int change_dex{h.ReadInt(s)};
     consequence.SetChangeSkill(change_dex);
   }
   else if (what == "gold")
   {
-    const int change_gold{ReadInt(s)};
+    const int change_gold{h.ReadInt(s)};
     consequence.SetChangeGold(change_gold);
   }
   else if (what == "luck")
   {
-    const int change_luck{ReadInt(s)};
+    const int change_luck{h.ReadInt(s)};
     consequence.SetChangeLuck(change_luck);
   }
   else if (what == "provision" || what == "provisions")
   {
-    const int change_provisions{ReadInt(s)};
+    const int change_provisions{h.ReadInt(s)};
     consequence.SetChangeProvisions(change_provisions);
   }
   else if (what == "remove")
   {
-    const std::string item_name{ReadString(s)};
+    const std::string item_name{h.ReadString(s)};
     if (!IsItem(item_name))
     {
       std::cerr << "Unknown item: " << item_name << std::endl;
@@ -279,10 +280,10 @@ Consequence ParseConsequence(std::stringstream &s)
   }
   else if (what == "condition" || what == "stamina")
   {
-    const std::string value{ReadString(s)};
-    if (IsInt(value))
+    const std::string value{h.ReadString(s)};
+    if (h.IsInt(value))
     {
-      consequence.SetChangeCondition(std::stoi(value));
+      consequence.SetChangeCondition(h.ToInt(value));
     }
     else
     {

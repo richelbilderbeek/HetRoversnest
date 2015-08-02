@@ -5,47 +5,60 @@
 #include <string>
 #include <vector>
 
-void CreateGraph();
+struct Helper
+{
+  Helper();
 
-///FileToString reads a file and converts it to a std::string
-std::string FileToString(const std::string& filename);
+  void CreateGraph() const;
 
-///FileToVector reads a file and converts it to a std::vector<std::string>
-///From http://www.richelbilderbeek.nl/CppFileToVector.htm
-std::vector<std::string> FileToVector(const std::string& filename);
+  ///FileToString reads a file and converts it to a std::string
+  std::string FileToString(const std::string& filename) const;
 
-///Is x between a and b?
-bool IsBetween(const double x, const double a, const double b);
+  ///FileToVector reads a file and converts it to a std::vector<std::string>
+  ///From http://www.richelbilderbeek.nl/CppFileToVector.htm
+  std::vector<std::string> FileToVector(const std::string& filename) const;
 
-bool IsInt(const std::string& s) noexcept;
+  ///What is the path of the files?
+  std::string GetFilesFolder() const;
 
-///Determines if a filename is a regular file
-///From http://www.richelbilderbeek.nl/CppIsRegularFile.htm
-bool IsRegularFile(const std::string& filename);
+  ///Is x between a and b?
+  bool IsBetween(const double x, const double a, const double b) const;
 
-void Parse(std::stringstream& s, const char expected_char);
+  bool IsInt(const std::string& s) const noexcept;
 
-char ReadChar(std::stringstream& s);
-int ReadInt(std::stringstream& s);
-std::string ReadString(std::stringstream& s);
+  ///Determines if a filename is a regular file
+  ///From http://www.richelbilderbeek.nl/CppIsRegularFile.htm
+  bool IsRegularFile(const std::string& filename) const;
 
-///Read text until @
-std::string ReadText(std::stringstream& s);
+  void Parse(std::stringstream& s, const char expected_char) const;
 
-///Strip only the first character of the first line
-std::vector<std::string> StripFirstChar(std::vector<std::string> v);
+  char ReadChar(std::stringstream& s) const;
+  int ReadInt(std::stringstream& s) const;
+  std::string ReadString(std::stringstream& s) const;
 
-#ifndef NDEBUG
-void TestHelperFunctions();
-#endif // NDEBUG
+  ///Read text until @
+  std::string ReadText(std::stringstream& s) const;
 
-///Replace 'two_words' by 'two words'
-std::string ToPretty(std::string s);
+  ///Strip only the first character of the first line
+  std::vector<std::string> StripFirstChar(std::vector<std::string> v) const;
 
-///Trim leading and trailing whitespace
-//From http://www.richelbilderbeek.nl/CppTrim.htm
-std::string Trim(const std::string& s);
+  #ifndef NDEBUG
+  static void Test() noexcept;
+  #endif // NDEBUG
 
-void Wait(const double n_secs) noexcept;
+  int ToInt(const std::string& s) const;
+
+  ///Replace 'two_words' by 'two words'
+  std::string ToPretty(std::string s) const;
+
+
+  std::string ToStr(const int i) const;
+
+  ///Trim leading and trailing whitespace
+  //From http://www.richelbilderbeek.nl/CppTrim.htm
+  std::string Trim(const std::string& s) const;
+
+  void Wait(const double n_secs) const noexcept;
+};
 
 #endif // HELPER_H

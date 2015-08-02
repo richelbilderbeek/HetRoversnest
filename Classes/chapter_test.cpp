@@ -15,12 +15,15 @@ void Chapter::Test() noexcept
     is_tested = true;
   }
 
+  const bool verbose{false};
+  if (verbose) { std::clog << __func__ << std::endl; }
+
   Terminal d;
   d.SetAutoPlay(true);
   d.SetSilent(true);
 
 
-  //Sequential fight
+  if (verbose) { std::clog << "Sequential fight" << std::endl; }
   {
     const Chapter chapter(5);
     assert(chapter.GetType() == ChapterType::fight);
@@ -32,12 +35,16 @@ void Chapter::Test() noexcept
     assert(!character.HasFought(monster_name));
 
     d.ConnectTo(chapter);
+
+    if (verbose) { std::clog << "Sequential fight, before do" << std::endl; }
+
     chapter.Do(character);
 
+    if (verbose) { std::clog << "Sequential fight, after do" << std::endl; }
 
     assert(character.HasFought(monster_name));
   }
-  //Chapter 326: Simulateous fight
+  if (verbose) { std::clog << "Chapter 326: Simulateous fight" << std::endl; }
   {
     const Chapter chapter(326);
     assert(!chapter.GetFighting().DoFightSequentially());

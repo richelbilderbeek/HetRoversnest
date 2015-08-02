@@ -12,7 +12,18 @@
 #include "chapter.h"
 #include "chaptertype.h"
 
-void CreateGraph()
+#ifdef ARM9
+#include <nds.h>
+#endif
+
+Helper::Helper()
+{
+  #ifndef NDEBUG
+  Test();
+  #endif
+}
+
+void Helper::CreateGraph() const
 {
   const std::string filename_base{"Graph"};
   const std::string dot_filename{filename_base + ".dot"};
@@ -50,7 +61,7 @@ void CreateGraph()
       f << i
         << "["
         << "label =\""
-        << std::to_string(chapter.GetChapterNumber())
+        << ToStr(chapter.GetChapterNumber())
         << "\", shape = " << shape
         << "];\n"
       ;
@@ -111,7 +122,7 @@ void CreateGraph()
   }
 }
 
-std::string FileToString(const std::string& filename)
+std::string Helper::FileToString(const std::string& filename) const
 {
   if (!IsRegularFile(filename))
   {
@@ -125,7 +136,7 @@ std::string FileToString(const std::string& filename)
   return s.str();
 }
 
-std::vector<std::string> FileToVector(const std::string& filename)
+std::vector<std::string> Helper::FileToVector(const std::string& filename) const
 {
   assert(IsRegularFile(filename));
   std::vector<std::string> v;
@@ -139,7 +150,16 @@ std::vector<std::string> FileToVector(const std::string& filename)
   return v;
 }
 
-bool IsBetween(const double x, const double a, const double b)
+std::string Helper::GetFilesFolder() const
+{
+  #ifndef ARM9
+  return "../Files/";
+  #else
+  return "";
+  #endif
+}
+
+bool Helper::IsBetween(const double x, const double a, const double b) const
 {
   // a < x < b
   if (a <= x && x <= b) return true;
@@ -149,7 +169,7 @@ bool IsBetween(const double x, const double a, const double b)
 
 ///IsInt determines if std::string can be converted to integer.
 ///From http://www.richelbilderbeek.nl/CppIsInt.htm
-bool IsInt(const std::string& s) noexcept
+bool Helper::IsInt(const std::string& s) const noexcept
 {
   std::istringstream i(s);
   int temp{0};
@@ -162,21 +182,21 @@ bool IsInt(const std::string& s) noexcept
 }
 
 
-bool IsRegularFile(const std::string& filename)
+bool Helper::IsRegularFile(const std::string& filename) const
 {
   std::fstream f;
   f.open(filename.c_str(),std::ios::in);
   return f.is_open();
 }
 
-void Parse(std::stringstream& s, const char expected_char)
+void Helper::Parse(std::stringstream& s, const char expected_char) const
 {
   const char c = ReadChar(s);
   if (c != expected_char) { std::cerr << "WARNING: expected character" << std::endl; }
   assert(c == expected_char);
 }
 
-char ReadChar(std::stringstream& s)
+char Helper::ReadChar(std::stringstream& s) const
 {
   char c = '\0';
   assert(!s.eof());
@@ -188,7 +208,7 @@ char ReadChar(std::stringstream& s)
 }
 
 
-int ReadInt(std::stringstream& s)
+int Helper::ReadInt(std::stringstream& s) const
 {
   int number = -9999;
   s >> number;
@@ -196,14 +216,14 @@ int ReadInt(std::stringstream& s)
   return number;
 }
 
-std::string ReadString(std::stringstream& s)
+std::string Helper::ReadString(std::stringstream& s) const
 {
   std::string str = "";
   s >> str;
   return str;
 }
 
-std::string ReadText(std::stringstream& s)
+std::string Helper::ReadText(std::stringstream& s) const
 {
   s << std::noskipws; //Obligatory
   //Show text until @
@@ -230,7 +250,7 @@ std::string ReadText(std::stringstream& s)
 }
 
 
-std::vector<std::string> StripFirstChar(std::vector<std::string> v)
+std::vector<std::string> Helper::StripFirstChar(std::vector<std::string> v) const
 {
   assert(!v.empty());
   assert(!v[0].empty());
@@ -238,11 +258,21 @@ std::vector<std::string> StripFirstChar(std::vector<std::string> v)
   return v;
 }
 
+int Helper::ToInt(const std::string& s) const
+{
+  #ifndef ARM9
+  return std::stoi(s);
+  #else
+  return std::atoi(s.c_str());
+  #endif
+}
 
-std::string ToPretty(std::string s)
+std::string Helper::ToPretty(std::string s) const
 {
   assert(!s.empty());
   if (s == "carralifs_sword") { return "Carralif's sword"; }
+  if (s == "fatnose") { return "troll named Fatnose"; }
+  if (s == "sourbelly") { return "troll named Sourbelly"; }
   std::replace(
     std::begin(s),
     std::end(s),
@@ -252,7 +282,18 @@ std::string ToPretty(std::string s)
   return s;
 }
 
-std::string Trim(const std::string& s)
+std::string Helper::ToStr(const int i) const
+{
+  #ifndef ARM9
+  return std::to_string(i);
+  #else
+  std::ostringstream s;
+  if (!(s << i)) throw std::logic_error("IntToStr failed");
+  return s.str();
+  #endif
+}
+
+std::string Helper::Trim(const std::string& s) const
 {
   const int size{static_cast<int>(s.size())};
   int pos_begin = -1;
@@ -275,14 +316,24 @@ std::string Trim(const std::string& s)
   return s.substr(pos_begin,pos_end-pos_begin+1);
 }
 
-void Wait(const double n_secs) noexcept
+void Helper::Wait(const double n_secs) const noexcept
 {
-  const std::chrono::system_clock::time_point t = std::chrono::system_clock::now();
+  const bool verbose{false};
+  if (verbose) { std::clog << __func__ << std::endl; }
+  #ifndef ARM9
+  const auto t = std::chrono::high_resolution_clock::now();
+
   while (1)
   {
-    const std::chrono::system_clock::duration d = std::chrono::system_clock::now() - t;
+    const auto d = std::chrono::high_resolution_clock::now() - t;
     const long long int n_msecs_passed{std::chrono::duration_cast<std::chrono::milliseconds>(d).count()};
     const double secs_passed{static_cast<double>(n_msecs_passed) / 1000.0};
     if (secs_passed > n_secs) return;
   }
+  #else
+  //std::chrono::high_resolution_clock does not work on NDS
+  const int n{static_cast<int>(n_secs * 100.0)};
+  for (int i=0; i!=n; ++i) { swiWaitForVBlank(); }
+  #endif
+
 }

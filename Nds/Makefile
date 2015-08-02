@@ -17,8 +17,8 @@ include $(DEVKITARM)/ds_rules
 #---------------------------------------------------------------------------------
 TARGET		 := $(shell basename $(CURDIR))
 BUILD		 := build
-SOURCES		 := gfx source data  
-INCLUDES	 := include build
+SOURCES		 := gfx source data ../Classes  
+INCLUDES	 := include build ../Classes
 NITRODATA	 := ../Files
 MAXMOD_SOUNDBANK := music
 #---------------------------------------------------------------------------------
@@ -32,8 +32,8 @@ CFLAGS	:=	-g -Wall -O2\
 			-ffast-math \
 			$(ARCH)
 
-CFLAGS	+=	$(INCLUDE) -DARM9
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fexceptions -std=c++1y
+CFLAGS	+=	$(INCLUDE) -DARM9 -DNDEBUG
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fexceptions -std=c++1y -DNDEBUG
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=ds_arm9.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)

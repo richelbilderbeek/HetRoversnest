@@ -111,6 +111,8 @@ struct Chapter
 
   std::string m_text;
 
+  static const bool m_verbose{false};
+
   void CharacterChanged(const Character& character) const;
 
   #ifndef NDEBUG

@@ -26,7 +26,7 @@ Character::Character(const Character& other)
     m_provisions{other.m_provisions},
     m_skill{other.m_skill}
 {
-
+  if (m_verbose) { std::clog << __func__ << std::endl; }
 }
 
 
@@ -462,7 +462,7 @@ std::string Character::ShowInventory()
   s << "monsters fought: \n";
   for (const auto monster_name: m_fought)
   {
-    s << " * " << ToPretty(monster_name) << '\n';
+    s << " * " << Helper().ToPretty(monster_name) << '\n';
   }
   if (m_fought.empty())
   {

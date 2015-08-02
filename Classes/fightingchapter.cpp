@@ -63,10 +63,11 @@ void FightingChapter::DoFight(std::vector<Monster> monsters, Character& characte
 
 void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character& character) const
 {
+  const Helper h;
   //Fight both
   assert(monsters.size() == 2);
-  const std::string monster_name_0{ToPretty(monsters[0].GetName())};
-  const std::string monster_name_1{ToPretty(monsters[1].GetName())};
+  const std::string monster_name_0{h.ToPretty(monsters[0].GetName())};
+  const std::string monster_name_1{h.ToPretty(monsters[1].GetName())};
   for (int round=0; ; ++round)
   {
     if (character.IsDead()) { return; }
@@ -121,7 +122,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         monsters[0].ChangeCondition(-damage);
         m_chapter.ShowText(
           "You did the " + monster_name_0
-          + " " + std::to_string(damage) + " points of damage \n"
+          + " " + h.ToStr(damage) + " points of damage \n"
         );
       }
       else if (player_attack < monster_attack)
@@ -143,7 +144,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         character.ChangeCondition(-damage);
         m_chapter.ShowText(
           "The " + monster_name_0
-          + " hit you with " + std::to_string(damage) + " points of damage \n"
+          + " hit you with " + h.ToStr(damage) + " points of damage \n"
         );
       }
       else
@@ -179,7 +180,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         character.ChangeCondition(-damage);
         m_chapter.ShowText(
           "The " + monster_name_1
-          + " hit you with " + std::to_string(damage) + " points of damage \n"
+          + " hit you with " + h.ToStr(damage) + " points of damage \n"
         );
       }
     }
@@ -211,7 +212,8 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
 
 void FightingChapter::DoFight(Monster monster,Character& character) const
 {
-  const std::string monster_name{ToPretty(monster.GetName())};
+  const Helper h;
+  const std::string monster_name{h.ToPretty(monster.GetName())};
 
   for (int round = 1; ; ++round)
   {
@@ -268,7 +270,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       }
       monster.ChangeCondition(-damage);
       m_chapter.ShowText("You did the " + monster_name
-        + " " + std::to_string(damage) + " points of damage \n"
+        + " " + h.ToStr(damage) + " points of damage \n"
       );
     }
     else if (player_attack < monster_attack)
@@ -290,7 +292,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       };
       character.ChangeCondition(-damage);
       m_chapter.ShowText("The " + monster_name
-        + " did " + std::to_string(damage) + " points of damage \n"
+        + " did " + h.ToStr(damage) + " points of damage \n"
       );
     }
     else

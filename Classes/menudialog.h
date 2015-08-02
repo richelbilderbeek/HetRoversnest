@@ -17,6 +17,8 @@ struct MenuDialog
 
   Observer * m_observer;
 
+  static const bool m_verbose{false};
+
   Character CreateCharacter() const noexcept;
 
   std::string GetAboutText() const noexcept { return "About"; }

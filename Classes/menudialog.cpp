@@ -5,6 +5,7 @@
 #include <ctime>
 #include <sstream>
 #include <fstream>
+#include <iostream>
 #include <iterator>
 #include <memory>
 
@@ -18,9 +19,11 @@
 MenuDialog::MenuDialog()
   : m_observer{nullptr}
 {
+  if (m_verbose) { std::clog << __func__ << std::endl; }
   #ifndef NDEBUG
   Test();
   #endif
+  if (m_verbose) { std::clog << "Finished " << __func__ << std::endl; }
 }
 
 Character MenuDialog::CreateCharacter() const noexcept
@@ -86,7 +89,7 @@ void MenuDialog::Execute()
     else if (chosen.GetText() == GetManualText()) { ShowManual(); }
     else if (chosen.GetText() == GetHintsText()) { ShowHints(); }
     else if (chosen.GetText() == GetAboutText()) { ShowAbout(); }
-    else if (chosen.GetText() == GetCreateGraphText()) { CreateGraph(); }
+    else if (chosen.GetText() == GetCreateGraphText()) { Helper().CreateGraph(); }
     else if (chosen.GetText() == GetSolveGameText()) { SolveGame(); }
     else if (chosen.GetText() == GetQuitText()) { return; }
     ShowText("\n");
@@ -113,15 +116,15 @@ std::vector<Option> MenuDialog::GetMenuOptions() const noexcept
 void MenuDialog::ShowAbout()
 {
   {
-    const std::string filename{"../Files/About.txt"};
-    const std::string text{FileToString(filename)};
+    const std::string filename{Helper().GetFilesFolder() + "About.txt"};
+    const std::string text{Helper().FileToString(filename)};
     ShowText(text);
     //
   }
   ShowText("\n");
   {
-    const std::string filename{"../Files/Changelog.txt"};
-    const std::string text{FileToString(filename)};
+    const std::string filename{Helper().GetFilesFolder() + "Changelog.txt"};
+    const std::string text{Helper().FileToString(filename)};
     ShowText(text);
 
   }
@@ -129,32 +132,32 @@ void MenuDialog::ShowAbout()
 
 void MenuDialog::ShowIntroduction()
 {
-  const std::string filename{"../Files/Introduction.txt"};
-  const std::string text{FileToString(filename)};
+  const std::string filename{Helper().GetFilesFolder() + "Introduction.txt"};
+  const std::string text{Helper().FileToString(filename)};
   ShowText(text);
 
 }
 
 void MenuDialog::ShowManual()
 {
-  const std::string filename{"../Files/Manual.txt"};
-  const std::string text{FileToString(filename)};
+  const std::string filename{Helper().GetFilesFolder() + "Manual.txt"};
+  const std::string text{Helper().FileToString(filename)};
   ShowText(text);
 
 }
 
 void MenuDialog::ShowTeaser()
 {
-  const std::string filename{"../Files/Teaser.txt"};
-  const std::string text{FileToString(filename)};
+  const std::string filename{Helper().GetFilesFolder() + "Teaser.txt"};
+  const std::string text{Helper().FileToString(filename)};
   ShowText(text);
 
 }
 
 void MenuDialog::ShowHints()
 {
-  const std::string filename{"../Files/Hints.txt"};
-  const std::string text{FileToString(filename)};
+  const std::string filename{Helper().GetFilesFolder() + "Hints.txt"};
+  const std::string text{Helper().FileToString(filename)};
   ShowText(text);
 
 }
@@ -214,15 +217,21 @@ void MenuDialog::Test() noexcept
     if (is_tested) return;
     is_tested = true;
   }
-  TestHelperFunctions();
+  if (m_verbose) { std::clog << __func__ << std::endl; }
+
+  Helper();
   const Character character(6+6,12+6,6+6,Item::luck_potion);
   const int seed{42};
   Game game(seed,character);
 
+  if (m_verbose) { std::clog << "Create terminal" << std::endl; }
+
   Terminal dialog;
 
-  MenuDialog menu;
-  //menu.Execute();
+  if (m_verbose) { std::clog << "Create menu dialog" << std::endl; }
 
+  MenuDialog menu;
+
+  if (m_verbose) { std::clog << "Finished " << __func__ << std::endl; }
 }
 #endif

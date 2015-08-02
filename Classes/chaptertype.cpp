@@ -43,7 +43,7 @@ bool IsChapterType(const std::string& item_name)
 
 ChapterType ReadChapterType(std::stringstream& s)
 {
-  const std::string t{ReadString(s)};
+  const std::string t{Helper().ReadString(s)};
   if (!IsChapterType(t))
   {
     std::stringstream error;
@@ -67,7 +67,7 @@ ChapterType ToChapterType(const std::string& item_name)
 
 std::string ToPrettyStr(const ChapterType item)
 {
-  return ToPretty(ToStr(item));
+  return Helper().ToPretty(ToStr(item));
 }
 
 std::string ToStr(const ChapterType item)

@@ -42,15 +42,16 @@ int Monster::CalcAttackStrength() const noexcept
 
 Monster ParseMonster(std::stringstream& s)
 {
-  const std::string name{ReadString(s)};
-  const int skill{ReadInt(s)};
-  const int condition{ReadInt(s)};
-  const std::string attack{ReadString(s)};
+  const Helper h;
+  const std::string name{h.ReadString(s)};
+  const int skill{h.ReadInt(s)};
+  const int condition{h.ReadInt(s)};
+  const std::string attack{h.ReadString(s)};
   int attack_strength{2};
   bool has_fire_breath{false};
-  if (IsInt(attack))
+  if (h.IsInt(attack))
   {
-    attack_strength = std::stoi(attack);
+    attack_strength = h.ToInt(attack);
   }
   else
   {
@@ -66,7 +67,7 @@ std::vector<Monster> ParseMonsters(std::stringstream& s)
   std::vector<Monster> monsters;
   while (1)
   {
-    const std::string what{ReadString(s)};
+    const std::string what{Helper().ReadString(s)};
     if (what == "@") break;
     assert(what == "monster");
     const Monster monster{ParseMonster(s)};

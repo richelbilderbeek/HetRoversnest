@@ -136,8 +136,9 @@ void Condition::SetProvisionsNeeded(const int provisions_needed)
 
 Condition ParseCondition(std::stringstream& s)
 {
+  const Helper h;
   Condition condition;
-  const std::string what{ReadString(s)};
+  const std::string what{h.ReadString(s)};
 
   if (what.empty())
   {
@@ -145,17 +146,17 @@ Condition ParseCondition(std::stringstream& s)
   }
   else if (what == "fought" || what == "has_fought")
   {
-    const std::string monster_name{ReadString(s)};
+    const std::string monster_name{h.ReadString(s)};
     condition.AddFought(monster_name);
   }
   else if (what == "gold")
   {
-    const int gold_amount{ReadInt(s)};
+    const int gold_amount{h.ReadInt(s)};
     condition.SetGoldNeeded(gold_amount);
   }
   else if (what == "has")
   {
-    const std::string item = ReadString(s);
+    const std::string item{h.ReadString(s)};
     if (!IsItem(item))
     {
       std::cerr << "Unknown item " << item << std::endl;
@@ -166,7 +167,7 @@ Condition ParseCondition(std::stringstream& s)
   }
   else if (what == "has_not" || what == "hasnot")
   {
-    const std::string item = ReadString(s);
+    const std::string item{h.ReadString(s)};
     if (!IsItem(item))
     {
       std::cerr << "Unknown item " << item << std::endl;
@@ -182,12 +183,12 @@ Condition ParseCondition(std::stringstream& s)
   }
   else if (what == "not_fought" || what == "has_not_fought")
   {
-    const std::string monster_name{ReadString(s)};
+    const std::string monster_name{h.ReadString(s)};
     condition.AddNotFought(monster_name);
   }
   else if (what == "provisions" || what == "provision")
   {
-    const int number_of_provisions{ReadInt(s)};
+    const int number_of_provisions{h.ReadInt(s)};
     condition.SetProvisionsNeeded(number_of_provisions);
   }
   else

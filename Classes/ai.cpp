@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <memory>
 
 #include "chapter.h"
@@ -72,7 +73,7 @@ void Ai::CreateGraph() const noexcept
       f << i
         << "["
         << "label =\""
-        << std::to_string(chapter.GetChapterNumber())
+        << Helper().ToStr(chapter.GetChapterNumber())
         << "\", shape = " << shape
         << "];\n"
       ;
@@ -254,7 +255,7 @@ void Ai::SetFinalPayoff(const Payoff& final_payoff)
     const double new_chapter_payoff{
       current_key_payoff + (weight * (final_payoff - current_key_payoff))
     };
-    assert(IsBetween(new_chapter_payoff,current_key_payoff,final_payoff));
+    assert(Helper().IsBetween(new_chapter_payoff,current_key_payoff,final_payoff));
     if (verbose)
     {
       std::clog << "Assign payoff to key: " << key << std::endl;

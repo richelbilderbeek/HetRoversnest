@@ -14,7 +14,11 @@
 Terminal::Terminal()
   :
     m_auto_play{false},
+#ifndef ARM9
     m_n_chars{60},
+#else
+    m_n_chars{31},
+#endif
     m_silent{false},
 #ifndef NDEBUG
     m_wait_character_msec{0.0},
@@ -24,7 +28,7 @@ Terminal::Terminal()
     m_wait_suspense{0.5}
 #endif
 {
-
+  if (m_verbose) { std::clog << __func__ << std::endl; }
 }
 
 void Terminal::ConnectTo(const Chapter& chapter)
@@ -80,12 +84,12 @@ int Terminal::SlotRequestInput(const std::vector<int>& valid_inputs)
     {
       std::string s;
       std::getline(std::cin,s);
-      if (!IsInt(s))
+      if (!Helper().IsInt(s))
       {
         ShowText("Please enter an integer\n");
         continue;
       }
-      const int i{std::stoi(s)};
+      const int i{Helper().ToInt(s)};
       const auto iter = std::find(std::begin(valid_inputs),std::end(valid_inputs),i);
       if (iter == std::end(valid_inputs))
       {
@@ -103,6 +107,7 @@ int Terminal::SlotRequestInput(const std::vector<int>& valid_inputs)
 
 void Terminal::ShowText(const std::string& text)
 {
+  if (m_verbose) { std::clog << "Terminal::ShowText: showing " << text << std::endl; }
   if (m_silent) return;
   int pos = 0;
   for (const char c: text)
@@ -112,13 +117,13 @@ void Terminal::ShowText(const std::string& text)
     std::cout << c;
     ++pos;
     std::cout.flush();
-    ::Wait(m_wait_character_msec);
+    Helper().Wait(m_wait_character_msec);
   }
 }
 
 void Terminal::Wait()
 {
-  ::Wait(m_wait_suspense);
+  Helper().Wait(m_wait_suspense);
 }
 
 void Terminal::SpeakText(const std::string& text)

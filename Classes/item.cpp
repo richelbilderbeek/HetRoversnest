@@ -155,7 +155,7 @@ Item ToItem(const std::string& item_name)
 
 std::string ToPrettyStr(const Item item)
 {
-  return ToPretty(ToStr(item));
+  return Helper().ToPretty(ToStr(item));
 }
 
 std::string ToStr(const Item item)
