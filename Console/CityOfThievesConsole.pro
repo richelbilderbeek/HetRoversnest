@@ -27,7 +27,7 @@ cross_compile {
 }
 
 
-# No use of QT, as the Nintendo DS does not support
+# No use of QT, as the Nintendo DS does not support Qt
 QT -= core gui
 
 CONFIG   += console
