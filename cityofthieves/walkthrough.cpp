@@ -1,8 +1,7 @@
 #include "walkthrough.h"
 
+#include <cassert>
 #include <iostream>
-
-#include <boost/signals2.hpp>
 
 #include "game.h"
 
@@ -11,15 +10,7 @@ Walkthrough::Walkthrough(
     const Character& character
   ) : m_game(seed,character)
 {
-  m_game.m_signal_request_option.connect(
-    boost::bind(&Walkthrough::SlotRequestOption,this,_1)
-  );
-  m_game.m_signal_wait.connect(
-    boost::bind(&Walkthrough::SlotWait,this)
-  );
-  m_game.m_signal_show_text.connect(
-    boost::bind(&Walkthrough::SlotShowText,this,_1)
-  );
+  m_game.SetObserver(this);
 }
 
 void Walkthrough::Start()
@@ -32,11 +23,11 @@ void Walkthrough::Start()
   assert(m_game.HasWon());
 }
 
-Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
+Option Walkthrough::RequestOption(const std::vector<Option>& options)
 {
   for (const auto option: options)
   {
-    SlotShowText(" * " + option.GetText() + "\n");
+    ShowText(" * " + option.GetText() + "\n");
   }
   assert(!options.empty());
   if (options.size() == 1) return options[0];
@@ -207,7 +198,7 @@ Option Walkthrough::SlotRequestOption(const std::vector<Option>& options)
   return options[1];
 }
 
-void Walkthrough::SlotShowText(const std::string& text)
+void Walkthrough::ShowText(const std::string& text)
 {
   const int n_chars{60};
   int pos = 0;
@@ -222,7 +213,7 @@ void Walkthrough::SlotShowText(const std::string& text)
   }
 }
 
-void Walkthrough::SlotWait()
+void Walkthrough::Wait()
 {
   //Continue
 }

@@ -2,12 +2,13 @@
 #define QTGAMEDIALOG_H
 
 #include <QDialog>
+#include "observer.h"
 #include "option.h"
 #include "character.h"
 
 namespace Ui { class QtGameDialog; }
 
-class QtGameDialog : public QDialog
+class QtGameDialog final : public QDialog, public Observer
 {
   Q_OBJECT
 
@@ -25,21 +26,17 @@ private slots:
 private:
   Ui::QtGameDialog *ui;
 
-  //Character m_character;
-  //bool m_has_lost;
-  //bool m_has_won;
-
   int m_key_pressed;
 
   std::vector<Option> m_options;
 
   void DoChapter();
 
-  void SlotCharacterChanged(const Character& character);
-  void SlotWait();
+  void CharacterChanged(const Character& character) override;
+  void Wait() override;
 
-  void SlotShowText(const std::string& text);
-  Option SlotRequestOption(const std::vector<Option>& options);
+  void ShowText(const std::string& text) override;
+  Option RequestOption(const std::vector<Option>& options) override;
 
   void UpdateStats();
 };

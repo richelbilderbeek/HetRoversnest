@@ -7,9 +7,10 @@
 #include <map>
 #include "option.h"
 #include "game.h"
+#include "observer.h"
 
 ///The articial intelligence
-struct Ai
+struct Ai final : public Observer
 {
   using Key = std::string;
   using Keys = std::vector<Key>;
@@ -58,9 +59,10 @@ struct Ai
 
   mutable std::map<Item,double> m_tally;
 
-  Option SlotRequestOption(const std::vector<Option>& options);
-  void SlotShowText(const std::string& text);
-  void SlotWait();
+  void CharacterChanged(const Character&) override {} //Ignore
+  Option RequestOption(const std::vector<Option>& options) override;
+  void ShowText(const std::string& text) override;
+  void Wait() override;
 
   #ifndef NDEBUG
   static void Test() noexcept;

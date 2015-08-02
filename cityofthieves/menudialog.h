@@ -1,9 +1,9 @@
 #ifndef MENUDIALOG_H
 #define MENUDIALOG_H
 
-#include <boost/signals2.hpp>
-
 #include "option.h"
+
+struct Observer;
 
 struct MenuDialog
 {
@@ -11,19 +11,11 @@ struct MenuDialog
 
   void Execute();
 
-  //If the MenuDialog changed the character
-  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
-
-  //If the MenuDialog wants an input
-  mutable boost::signals2::signal<Option(const std::vector<Option>& valid_option)> m_signal_request_option;
-
-  //If the MenuDialog want the dialog to display something
-  mutable boost::signals2::signal<void(const std::string& text)> m_signal_show_text;
-
-  //If the MenuDialog wants the dialog to wait
-  mutable boost::signals2::signal<void()> m_signal_wait;
+  void SetObserver(Observer * const observer) { m_observer = observer; }
 
   private:
+
+  Observer * m_observer;
 
   Character CreateCharacter() const noexcept;
 
@@ -44,10 +36,10 @@ struct MenuDialog
   void ShowTeaser();
   void ShowHints();
 
-  void SlotCharacterChanged(const Character& character);
-  Option SlotRequestOption(const std::vector<Option>& valid_inputs);
-  void SlotShowText(const std::string& text);
-  void SlotWait();
+  void CharacterChanged(const Character& character) const;
+  Option RequestOption(const std::vector<Option>& valid_inputs) const;
+  void ShowText(const std::string& text) const;
+  void Wait() const;
 
   void StartGame();
 

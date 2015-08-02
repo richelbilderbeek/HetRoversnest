@@ -1,5 +1,6 @@
 #include "menudialog.h"
 
+#include <cassert>
 #include <string>
 #include <ctime>
 #include <sstream>
@@ -17,11 +18,7 @@
 #include "walkthrough.h"
 
 MenuDialog::MenuDialog()
-  :
-    m_signal_character_has_changed{},
-    m_signal_request_option{},
-    m_signal_show_text{},
-    m_signal_wait{}
+  : m_observer{nullptr}
 {
   #ifndef NDEBUG
   Test();
@@ -30,8 +27,8 @@ MenuDialog::MenuDialog()
 
 Character MenuDialog::CreateCharacter() const noexcept
 {
-  m_signal_show_text("Character generation\n");
-  m_signal_show_text("\n");
+  ShowText("Character generation\n");
+  ShowText("\n");
 
   //Create stats
   int skill = -1;
@@ -59,17 +56,17 @@ Character MenuDialog::CreateCharacter() const noexcept
       << "Keep this character?\n"
       << "\n"
     ;
-    m_signal_show_text(text.str().c_str());
-    const auto chosen = *m_signal_request_option(CreateYesNoOptions());
+    ShowText(text.str().c_str());
+    const auto chosen = RequestOption(CreateYesNoOptions());
     assert(chosen.GetText() == "Yes" || chosen.GetText() == "No");
     if (chosen.GetText() == "Yes") break;
   }
-  m_signal_show_text("\n");
+  ShowText("\n");
   Item initial_potion = Item::shield;
   {
-    m_signal_show_text("Choose the potion you take with you\n");
-    m_signal_show_text("\n");
-    const auto chosen = *m_signal_request_option(CreateInitialPotionOptions());
+    ShowText("Choose the potion you take with you\n");
+    ShowText("\n");
+    const auto chosen = RequestOption(CreateInitialPotionOptions());
     assert(chosen.GetConsequence().GetItemsToAdd().size() == 1);
     initial_potion = chosen.GetConsequence().GetItemsToAdd()[0];
   }
@@ -79,22 +76,22 @@ Character MenuDialog::CreateCharacter() const noexcept
 
 void MenuDialog::Execute()
 {
-  m_signal_show_text("City Of Thieves\n");
+  ShowText("City Of Thieves\n");
   while (1)
   {
-    m_signal_show_text("\n");
-    const auto chosen = m_signal_request_option(GetMenuOptions());
-    m_signal_show_text("\n");
-    if (chosen->GetText() == GetStartGameText()) { StartGame(); }
-    else if (chosen->GetText() == GetTeaserText()) { ShowTeaser(); }
-    else if (chosen->GetText() == GetIntroductionText()) { ShowIntroduction(); }
-    else if (chosen->GetText() == GetManualText()) { ShowManual(); }
-    else if (chosen->GetText() == GetHintsText()) { ShowHints(); }
-    else if (chosen->GetText() == GetAboutText()) { ShowAbout(); }
-    else if (chosen->GetText() == GetCreateGraphText()) { CreateGraph(); }
-    else if (chosen->GetText() == GetSolveGameText()) { SolveGame(); }
-    else if (chosen->GetText() == GetQuitText()) { return; }
-    m_signal_show_text("\n");
+    ShowText("\n");
+    const auto chosen = RequestOption(GetMenuOptions());
+    ShowText("\n");
+    if (chosen.GetText() == GetStartGameText()) { StartGame(); }
+    else if (chosen.GetText() == GetTeaserText()) { ShowTeaser(); }
+    else if (chosen.GetText() == GetIntroductionText()) { ShowIntroduction(); }
+    else if (chosen.GetText() == GetManualText()) { ShowManual(); }
+    else if (chosen.GetText() == GetHintsText()) { ShowHints(); }
+    else if (chosen.GetText() == GetAboutText()) { ShowAbout(); }
+    else if (chosen.GetText() == GetCreateGraphText()) { CreateGraph(); }
+    else if (chosen.GetText() == GetSolveGameText()) { SolveGame(); }
+    else if (chosen.GetText() == GetQuitText()) { return; }
+    ShowText("\n");
   }
 }
 
@@ -124,10 +121,10 @@ void MenuDialog::ShowAbout()
       qfile.copy( filename.c_str() );
     }
     const std::string text{FileToString(filename)};
-    m_signal_show_text(text);
+    ShowText(text);
     std::remove(filename.c_str());
   }
-  m_signal_show_text("\n");
+  ShowText("\n");
   {
     const std::string filename{"Changelog.txt"};
     {
@@ -135,7 +132,7 @@ void MenuDialog::ShowAbout()
       qfile.copy( filename.c_str() );
     }
     const std::string text{FileToString(filename)};
-    m_signal_show_text(text);
+    ShowText(text);
     std::remove(filename.c_str());
   }
 }
@@ -148,7 +145,7 @@ void MenuDialog::ShowIntroduction()
     qfile.copy( filename.c_str() );
   }
   const std::string text{FileToString(filename)};
-  m_signal_show_text(text);
+  ShowText(text);
   std::remove(filename.c_str());
 }
 
@@ -160,7 +157,7 @@ void MenuDialog::ShowManual()
     qfile.copy( filename.c_str() );
   }
   const std::string text{FileToString(filename)};
-  m_signal_show_text(text);
+  ShowText(text);
   std::remove(filename.c_str());
 }
 
@@ -172,7 +169,7 @@ void MenuDialog::ShowTeaser()
     qfile.copy( filename.c_str() );
   }
   const std::string text{FileToString(filename)};
-  m_signal_show_text(text);
+  ShowText(text);
   std::remove(filename.c_str());
 }
 
@@ -184,7 +181,7 @@ void MenuDialog::ShowHints()
     qfile.copy( filename.c_str() );
   }
   const std::string text{FileToString(filename)};
-  m_signal_show_text(text);
+  ShowText(text);
   std::remove(filename.c_str());
 }
 
@@ -200,21 +197,9 @@ void MenuDialog::StartGame()
   const Character character = CreateCharacter();
 
   Game game(seed,character);
+  game.SetObserver(m_observer);
 
-  game.m_signal_character_has_changed.connect(
-    boost::bind(&MenuDialog::SlotCharacterChanged,this,_1)
-  );
-  game.m_signal_request_option.connect(
-    boost::bind(&MenuDialog::SlotRequestOption,this,_1)
-  );
-  game.m_signal_wait.connect(
-    boost::bind(&MenuDialog::SlotWait,this)
-  );
-  game.m_signal_show_text.connect(
-    boost::bind(&MenuDialog::SlotShowText,this,_1)
-  );
-
-  m_signal_character_has_changed(game.GetCharacter()); //Show initial status
+  m_observer->CharacterChanged(game.GetCharacter()); //Show initial status
 
   while (1)
   {
@@ -223,24 +208,28 @@ void MenuDialog::StartGame()
   }
 }
 
-void MenuDialog::SlotCharacterChanged(const Character& character)
+Option MenuDialog::RequestOption(const std::vector<Option>& options) const
 {
-  m_signal_character_has_changed(character);
+  assert(m_observer);
+  return m_observer->RequestOption(options);
 }
 
-Option MenuDialog::SlotRequestOption(const std::vector<Option>& valid_options)
+void MenuDialog::ShowText(const std::string& text) const
 {
-  return *m_signal_request_option(valid_options);
+  assert(m_observer);
+  m_observer->ShowText(text);
 }
 
-void MenuDialog::SlotShowText(const std::string& text)
+void MenuDialog::CharacterChanged(const Character& character) const
 {
-  m_signal_show_text(text);
+  assert(m_observer);
+  m_observer->CharacterChanged(character);
 }
 
-void MenuDialog::SlotWait()
+void MenuDialog::Wait() const
 {
-  m_signal_wait();
+  assert(m_observer);
+  m_observer->Wait();
 }
 
 #ifndef NDEBUG

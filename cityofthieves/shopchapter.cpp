@@ -27,7 +27,7 @@ void ShopChapter::Do(Character& character) const
   {
     if (items.empty())
     {
-      m_chapter->m_signal_show_text("There are no more items to buy, so you leave the shop.\n");
+      m_chapter->ShowText("There are no more items to buy, so you leave the shop.\n");
       break;
     }
     std::vector<Option> options;
@@ -51,13 +51,13 @@ void ShopChapter::Do(Character& character) const
     }
 
     //Shop
-    const Option chosen{*m_chapter->m_signal_request_option(options)};
+    const Option chosen{m_chapter->RequestOption(options)};
     if (chosen.GetConsequence().GetType() == ConsequenceType::leave) { break; }
 
     assert(!chosen.GetConsequence().GetItemsToAdd().empty());
     const Item item_bought{chosen.GetConsequence().GetItemsToAdd()[0]};
 
-    m_chapter->m_signal_show_text("You bough " + ToPrettyStr(item_bought) + "\n");
+    m_chapter->ShowText("You bough " + ToPrettyStr(item_bought) + "\n");
     chosen.GetConsequence().Apply(character);
   }
 }

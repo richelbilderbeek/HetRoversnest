@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include <cassert>
 #include <iostream>
 #include <iterator>
 #include <sstream>
@@ -20,13 +21,10 @@ Game::Game(
   const Character& character
 )
   :
-    m_signal_character_has_changed{},
-    m_signal_request_option{},
-    m_signal_show_text{},
-    m_signal_wait{},
     m_character{character},
     m_has_lost{false},
-    m_has_won{false}
+    m_has_won{false},
+    m_observer{nullptr}
 
 {
   #ifndef NDEBUG
@@ -37,8 +35,6 @@ Game::Game(
 
 void Game::DoChapter()
 {
-  assert(m_signal_request_option.num_slots() > 0);
-
   if (m_has_lost || m_has_won) return;
 
   const int chapter_number{GetCurrentChapterNumber()};
@@ -49,20 +45,8 @@ void Game::DoChapter()
   }
 
   const Chapter chapter(chapter_number);
+  chapter.SetObserver(m_observer);
 
-  chapter.m_signal_character_has_changed.connect(
-    boost::bind(&Game::SlotCharacterChanged,this,_1)
-  );
-
-  chapter.m_signal_request_option.connect(
-    boost::bind(&Game::SlotRequestOption,this,_1)
-  );
-  chapter.m_signal_wait.connect(
-    boost::bind(&Game::SlotWait,this)
-  );
-  chapter.m_signal_show_text.connect(
-    boost::bind(&Game::SlotShowText,this,_1)
-  );
   chapter.Do(m_character);
 
   if (m_character.IsDead()) { m_has_lost = true; }
@@ -82,22 +66,26 @@ void Game::SetChapter(const int chapter)
 
 void Game::SlotCharacterChanged(const Character& character)
 {
-  m_signal_character_has_changed(character);
+  assert(m_observer);
+  m_observer->CharacterChanged(character);
 }
 
 Option Game::SlotRequestOption(const std::vector<Option>& valid_options)
 {
-  return *m_signal_request_option(valid_options);
+  assert(m_observer);
+  return m_observer->RequestOption(valid_options);
 }
 
 void Game::SlotShowText(const std::string& text)
 {
-  m_signal_show_text(text);
+  assert(m_observer);
+  m_observer->ShowText(text);
 }
 
 void Game::SlotWait()
 {
-  m_signal_wait();
+  assert(m_observer);
+  m_observer->Wait();
 }
 
 #ifndef NDEBUG

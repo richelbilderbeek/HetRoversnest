@@ -44,13 +44,13 @@ void PawnShopChapter::Do(Character& character) const
       options.push_back(option);
     }
     //Pawn shop
-    const Option chosen{*m_chapter->m_signal_request_option(options)};
+    const Option chosen{m_chapter->RequestOption(options)};
     if (chosen.GetConsequence().GetType() == ConsequenceType::leave) { break; }
 
     assert(!chosen.GetConsequence().GetItemsToRemove().empty());
     const Item item_sold{chosen.GetConsequence().GetItemsToRemove()[0]};
 
-    m_chapter->m_signal_show_text("You sold " + ToPrettyStr(item_sold) + "\n");
+    m_chapter->ShowText("You sold " + ToPrettyStr(item_sold) + "\n");
     chosen.GetConsequence().Apply(character);
   }
 }

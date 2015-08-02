@@ -19,17 +19,17 @@ LuckChapter::LuckChapter(Chapter& chapter)
 
 void LuckChapter::Do(Character& character) const
 {
-  m_chapter.m_signal_show_text("You test your luck...\n");
-  m_chapter.m_signal_wait();
+  m_chapter.ShowText("You test your luck...\n");
+  m_chapter.Wait();
 
   if (character.TestLuck())
   {
-    m_chapter.m_signal_show_text("Luck!\n" + GetLuckText() + "\n");
+    m_chapter.ShowText("Luck!\n" + GetLuckText() + "\n");
     character.SetChapter(GetLuckChapter());
   }
   else
   {
-    m_chapter.m_signal_show_text("No luck!\n" + GetNoLuckText() + "\n");
+    m_chapter.ShowText("No luck!\n" + GetNoLuckText() + "\n");
     character.SetChapter(GetNoLuckChapter());
   }
 }

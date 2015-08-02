@@ -308,15 +308,8 @@ void Ai::Start()
     Game game(51,character);
     m_game = &game;
 
-    game.m_signal_request_option.connect(
-      boost::bind(&Ai::SlotRequestOption,this,_1)
-    );
-    game.m_signal_wait.connect(
-      boost::bind(&Ai::SlotWait,this)
-    );
-    game.m_signal_show_text.connect(
-      boost::bind(&Ai::SlotShowText,this,_1)
-    );
+    game.SetObserver(this);
+
     //game.SetChapter(259);
 
     while (1)
@@ -372,16 +365,7 @@ void Ai::Test() noexcept
     Ai ai;
     const Character character(6+6,12+6,6+6,Item::luck_potion);
     Game game(42,character);
-
-    game.m_signal_request_option.connect(
-      boost::bind(&Ai::SlotRequestOption,&ai,_1)
-    );
-    game.m_signal_wait.connect(
-      boost::bind(&Ai::SlotWait,&ai)
-    );
-    game.m_signal_show_text.connect(
-      boost::bind(&Ai::SlotShowText,&ai,_1)
-    );
+    game.SetObserver(&ai);
 
     while (1)
     {
@@ -403,11 +387,11 @@ std::ostream& operator<<(std::ostream& os, const Ai& ai)
   return os;
 }
 
-Option Ai::SlotRequestOption(const std::vector<Option>& options)
+Option Ai::RequestOption(const std::vector<Option>& options)
 {
   for (const auto option: options)
   {
-    SlotShowText(" * " + option.GetText() + "\n");
+    ShowText(" * " + option.GetText() + "\n");
   }
   assert(!options.empty());
   if (options.size() == 1) return options[0];
@@ -471,7 +455,7 @@ Option Ai::SlotRequestOption(const std::vector<Option>& options)
   return options[best_option];
 }
 
-void Ai::SlotShowText(const std::string& text)
+void Ai::ShowText(const std::string& text)
 {
   if (m_silent) { return; }
 
@@ -488,7 +472,7 @@ void Ai::SlotShowText(const std::string& text)
   }
 }
 
-void Ai::SlotWait()
+void Ai::Wait()
 {
   //Continue
 }

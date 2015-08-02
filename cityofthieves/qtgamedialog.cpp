@@ -55,7 +55,7 @@ void QtGameDialog::keyPressEvent(QKeyEvent * e)
   assert(m_options.size() < 19);
 }
 
-void QtGameDialog::SlotCharacterChanged(const Character &character)
+void QtGameDialog::CharacterChanged(const Character &character)
 {
   ui->label_condition->setText(
     (
@@ -110,7 +110,7 @@ void QtGameDialog::SlotCharacterChanged(const Character &character)
   }
 }
 
-Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
+Option QtGameDialog::RequestOption(const std::vector<Option>& options)
 {
   m_options = options;
   std::vector<int> valid_indices;
@@ -121,7 +121,7 @@ Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
     valid_indices.push_back(i);
     text << "[" << i << "] " << options[i].GetText() << '\n';
   }
-  SlotShowText(text.str());
+  ShowText(text.str());
   if (n_options == 1) { return options[0]; }
 
   while(1)
@@ -138,7 +138,7 @@ Option QtGameDialog::SlotRequestOption(const std::vector<Option>& options)
   }
 }
 
-void QtGameDialog::SlotShowText(const std::string& text)
+void QtGameDialog::ShowText(const std::string& text)
 {
   QTextCursor d(ui->plainTextEdit->textCursor());
   for (const char c: text)
@@ -153,7 +153,7 @@ void QtGameDialog::SlotShowText(const std::string& text)
   }
 }
 
-void QtGameDialog::SlotWait()
+void QtGameDialog::Wait()
 {
   #ifdef NDEBUG
   Wait(1.0); //Only have suspense in release mode
@@ -164,19 +164,7 @@ void QtGameDialog::Start()
 {
   MenuDialog menu;
 
-  menu.m_signal_character_has_changed.connect(
-    boost::bind(&QtGameDialog::SlotCharacterChanged,this,_1)
-  );
-
-  menu.m_signal_request_option.connect(
-    boost::bind(&QtGameDialog::SlotRequestOption,this,_1)
-  );
-  menu.m_signal_wait.connect(
-    boost::bind(&QtGameDialog::SlotWait,this)
-  );
-  menu.m_signal_show_text.connect(
-    boost::bind(&QtGameDialog::SlotShowText,this,_1)
-  );
+  menu.SetObserver(this);
 
   menu.Execute();
 

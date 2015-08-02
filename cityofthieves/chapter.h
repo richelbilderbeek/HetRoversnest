@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <boost/signals2.hpp>
+
 
 #include "chaptertype.h"
 #include "character.h"
@@ -21,9 +21,13 @@
 #include "dicegamechapter.h"
 #include "pillgamechapter.h"
 
+struct Observer;
+
 struct Chapter
 {
   Chapter(const int chapter_number);
+  Chapter(const Chapter&) = delete;
+  Chapter& operator=(const Chapter&) = delete;
 
   ///Let the player do this chapter
   void Do(Character& character) const;
@@ -43,6 +47,8 @@ struct Chapter
 
   int GetNextChapter() const noexcept { return m_consequence.GetNextChapter(); }
 
+  Observer * GetObserver() const noexcept { return m_observer; }
+
   const OptionsChapter& GetOptions() const noexcept { return m_options_chapter; }
   OptionsChapter& GetOptions() noexcept { return m_options_chapter; }
 
@@ -60,17 +66,12 @@ struct Chapter
   ChapterType GetType() const noexcept { return m_chapter_type; }
 
 
-  //If the Chapter changed the character
-  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
+  Option RequestOption(const std::vector<Option>& options) const;
 
-  //If the Chapter wants an input
-  mutable boost::signals2::signal<Option(const std::vector<Option>& valid_option)> m_signal_request_option;
+  void SetObserver(Observer * const observer) const noexcept { m_observer = observer; }
 
-  //If the Chapter want the dialog to display something
-  mutable boost::signals2::signal<void(const std::string& text)> m_signal_show_text;
-
-  //If the Chapter wants the dialog to wait
-  mutable boost::signals2::signal<void()> m_signal_wait;
+  void ShowText(const std::string& text) const;
+  void Wait() const;
 
   private:
 
@@ -96,6 +97,8 @@ struct Chapter
 
   LuckChapter m_luck_chapter;
 
+  mutable Observer * m_observer;
+
   OptionsChapter m_options_chapter;
 
   PawnShopChapter m_pawn_shop_chapter;
@@ -108,7 +111,7 @@ struct Chapter
 
   std::string m_text;
 
-  void SlotCharacterChanged(const Character& character) const;
+  void CharacterChanged(const Character& character) const;
 
   #ifndef NDEBUG
   static void Test() noexcept;

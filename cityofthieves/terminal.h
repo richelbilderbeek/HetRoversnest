@@ -5,12 +5,12 @@
 #include <vector>
 
 #include "option.h"
-
+#include "observer.h"
 struct Chapter;
 struct Game;
 
 ///Shows the Game
-struct Terminal
+struct Terminal final : public Observer
 {
   Terminal();
 
@@ -25,11 +25,11 @@ struct Terminal
   void SpeakText(const std::string& text);
 
 
-  void SlotCharacterChanged(const Character& character);
+  void CharacterChanged(const Character& character) override;
   int SlotRequestInput(const std::vector<int>& valid_inputs);
-  Option SlotRequestOption(const std::vector<Option>& valid_inputs);
-  void SlotShowText(const std::string& text);
-  void SlotWait();
+  Option RequestOption(const std::vector<Option>& valid_inputs) override;
+  void ShowText(const std::string& text) override;
+  void Wait() override;
 
   private:
 

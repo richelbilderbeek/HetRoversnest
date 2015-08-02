@@ -6,8 +6,9 @@
 
 #include "option.h"
 #include "game.h"
+#include "observer.h"
 
-struct Walkthrough
+struct Walkthrough final : public Observer
 {
   Walkthrough(
     const int seed,
@@ -20,9 +21,10 @@ struct Walkthrough
 
   Game m_game;
 
-  Option SlotRequestOption(const std::vector<Option>& options);
-  void SlotShowText(const std::string& text);
-  void SlotWait();
+  void CharacterChanged(const Character&) override {} //Ignore
+  Option RequestOption(const std::vector<Option>& options) override;
+  void ShowText(const std::string& text) override;
+  void Wait() override;
 };
 
 #endif // WALKTHROUGH_H

@@ -1,11 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <boost/signals2.hpp>
+
 
 #include "character.h"
 #include "option.h"
 
+struct Observer;
 
 struct Game
 {
@@ -13,6 +14,8 @@ struct Game
     const int rng_seed,
     const Character& character
   );
+  Game(const Game& game) = delete;
+  Game& operator=(const Game& game) = delete;
 
   void DoChapter();
   const Character& GetCharacter() const noexcept { return m_character; }
@@ -24,23 +27,14 @@ struct Game
   void SetChapter(const int chapter);
   #endif
 
-  //If the Game changed the character
-  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
-
-  //If the Game wants an Option
-  mutable boost::signals2::signal<Option(const std::vector<Option>& valid_options)> m_signal_request_option;
-
-  //If the Game want the dialog to display something
-  mutable boost::signals2::signal<void(const std::string text)> m_signal_show_text;
-
-  //If the Game wants the dialog to wait
-  mutable boost::signals2::signal<void()> m_signal_wait;
-
+  void SetObserver(Observer * const observer) const { m_observer = observer; }
 
   private:
   Character m_character;
   bool m_has_lost;
   bool m_has_won;
+
+  mutable Observer * m_observer;
 
   void SlotCharacterChanged(const Character& character);
   Option SlotRequestOption(const std::vector<Option>& valid_inputs);

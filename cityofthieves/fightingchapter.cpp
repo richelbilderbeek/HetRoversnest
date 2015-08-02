@@ -73,7 +73,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
     if (character.IsDead()) { return; }
     if (monsters[0].IsDead())
     {
-      m_chapter.m_signal_show_text("You defeated the " + monster_name_0 + "!\n");
+      m_chapter.ShowText("You defeated the " + monster_name_0 + "!\n");
       character.AddHasFought(monsters[0].GetName()); //Must be raw name
       break;
     }
@@ -97,7 +97,7 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
         << "Fight round #" << round
         << '\n'
       ;
-      m_chapter.m_signal_show_text(s.str());
+      m_chapter.ShowText(s.str());
     }
 
     {
@@ -105,11 +105,11 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack > monster_attack)
       {
-        m_chapter.m_signal_show_text("You hit the " + monster_name_0 + ".\n");
-        m_chapter.m_signal_show_text("Do you want to use luck?\n");
+        m_chapter.ShowText("You hit the " + monster_name_0 + ".\n");
+        m_chapter.ShowText("Do you want to use luck?\n");
 
         const auto options = CreateYesNoOptions();
-        const Option selected_option{*m_chapter.m_signal_request_option(options)};
+        const Option selected_option{m_chapter.RequestOption(options)};
         assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
           || selected_option.GetConsequence().GetType() == ConsequenceType::no
         );
@@ -120,18 +120,18 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           damage += (has_luck ? -1 : 1);
         }
         monsters[0].ChangeCondition(-damage);
-        m_chapter.m_signal_show_text(
+        m_chapter.ShowText(
           "You did the " + monster_name_0
           + " " + std::to_string(damage) + " points of damage \n"
         );
       }
       else if (player_attack < monster_attack)
       {
-        m_chapter.m_signal_show_text("You were hit by the " + monster_name_0 + ".\n");
-        m_chapter.m_signal_show_text("Do you want to use luck?\n");
+        m_chapter.ShowText("You were hit by the " + monster_name_0 + ".\n");
+        m_chapter.ShowText("Do you want to use luck?\n");
 
         const auto options = CreateYesNoOptions();
-        const Option selected_option{*m_chapter.m_signal_request_option(options)};
+        const Option selected_option{m_chapter.RequestOption(options)};
         assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
           || selected_option.GetConsequence().GetType() == ConsequenceType::no
         );
@@ -142,14 +142,14 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           damage += ( (damage/2) * (has_luck ? 1 : -1) );
         }
         character.ChangeCondition(-damage);
-        m_chapter.m_signal_show_text(
+        m_chapter.ShowText(
           "The " + monster_name_0
           + " hit you with " + std::to_string(damage) + " points of damage \n"
         );
       }
       else
       {
-        m_chapter.m_signal_show_text("No damage was dealt.\n");
+        m_chapter.ShowText("No damage was dealt.\n");
       }
     }
     //Second monster
@@ -158,15 +158,15 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
       const int player_attack{character.CalcAttackStrength()};
       if (player_attack >= monster_attack)
       {
-        m_chapter.m_signal_show_text("You resisted the " + monster_name_1 + ".\n");
+        m_chapter.ShowText("You resisted the " + monster_name_1 + ".\n");
       }
       else if (player_attack < monster_attack)
       {
-        m_chapter.m_signal_show_text("You were hit by the " + monster_name_1 + ".\n");
-        m_chapter.m_signal_show_text("Do you want to use luck?\n");
+        m_chapter.ShowText("You were hit by the " + monster_name_1 + ".\n");
+        m_chapter.ShowText("Do you want to use luck?\n");
 
         const auto options = CreateYesNoOptions();
-        const Option selected_option{*m_chapter.m_signal_request_option(options)};
+        const Option selected_option{m_chapter.RequestOption(options)};
         assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
           || selected_option.GetConsequence().GetType() == ConsequenceType::no
         );
@@ -178,25 +178,25 @@ void FightingChapter::DoFightTwoMonsters(std::vector<Monster> monsters,Character
           damage += ( (damage/2) * (has_luck ? -1 : 1) );
         }
         character.ChangeCondition(-damage);
-        m_chapter.m_signal_show_text(
+        m_chapter.ShowText(
           "The " + monster_name_1
           + " hit you with " + std::to_string(damage) + " points of damage \n"
         );
       }
     }
-    m_chapter.m_signal_wait();
+    m_chapter.Wait();
 
     if (round >= this->m_rounds_to_escape)
     {
-      m_chapter.m_signal_show_text("Do you want to escape?\n");
+      m_chapter.ShowText("Do you want to escape?\n");
       const auto options = CreateYesNoOptions();
-      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      const Option selected_option{m_chapter.RequestOption(options)};
       assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
         || selected_option.GetConsequence().GetType() == ConsequenceType::no
       );
       if (selected_option.GetConsequence().GetType() == ConsequenceType::yes)
       {
-        m_chapter.m_signal_show_text("You escaped and took 2 damage.\n");
+        m_chapter.ShowText("You escaped and took 2 damage.\n");
         assert(m_escape_chapter > -1);
         character.SetChapter(m_escape_chapter);
         character.ChangeCondition(-2);
@@ -237,7 +237,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         << monster.GetCondition() << "/"
         << monster.GetInitialCondition() << '\n'
       ;
-      m_chapter.m_signal_show_text(s.str());
+      m_chapter.ShowText(s.str());
     }
 
     const int monster_attack{monster.CalcAttackStrength()};
@@ -249,15 +249,15 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         << "You attack with strength " << player_attack << '\n'
         << monster_name << " attacks with strength " << monster_attack << '\n'
       ;
-      m_chapter.m_signal_show_text(s.str());
+      m_chapter.ShowText(s.str());
     }
 
     if (player_attack > monster_attack)
     {
-      m_chapter.m_signal_show_text("You hit the " + monster_name + ".\n");
-      m_chapter.m_signal_show_text("Do you want to use luck?\n");
+      m_chapter.ShowText("You hit the " + monster_name + ".\n");
+      m_chapter.ShowText("Do you want to use luck?\n");
       const auto options = CreateYesNoOptions();
-      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      const Option selected_option{m_chapter.RequestOption(options)};
       assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
         || selected_option.GetConsequence().GetType() == ConsequenceType::no
       );
@@ -268,17 +268,17 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         damage += has_luck ? 1 : -1;
       }
       monster.ChangeCondition(-damage);
-      m_chapter.m_signal_show_text("You did the " + monster_name
+      m_chapter.ShowText("You did the " + monster_name
         + " " + boost::lexical_cast<std::string>(damage) + " points of damage \n"
       );
     }
     else if (player_attack < monster_attack)
     {
-      m_chapter.m_signal_show_text("You were hit by the " + monster_name + ".\n");
-      m_chapter.m_signal_show_text("Do you want to use luck?\n");
+      m_chapter.ShowText("You were hit by the " + monster_name + ".\n");
+      m_chapter.ShowText("Do you want to use luck?\n");
 
       const auto options = CreateYesNoOptions();
-      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      const Option selected_option{m_chapter.RequestOption(options)};
       assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
         || selected_option.GetConsequence().GetType() == ConsequenceType::no
       );
@@ -290,41 +290,41 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
         damage += ( (damage / 2 ) * (has_luck ? -1 : 1) );
       };
       character.ChangeCondition(-damage);
-      m_chapter.m_signal_show_text("The " + monster_name
+      m_chapter.ShowText("The " + monster_name
         + " did " + std::to_string(damage) + " points of damage \n"
       );
     }
     else
     {
-      m_chapter.m_signal_show_text("No damage was dealt.\n");
+      m_chapter.ShowText("No damage was dealt.\n");
     }
 
-    m_chapter.m_signal_wait();
+    m_chapter.Wait();
 
     if (character.IsDead()) break;
 
     //Fire breath
     if (monster.HasFireBreath())
     {
-      m_chapter.m_signal_show_text("The monster uses its fiery breath....\n");
-      m_chapter.m_signal_wait();
+      m_chapter.ShowText("The monster uses its fiery breath....\n");
+      m_chapter.Wait();
       if (Dice::Get()->Throw() <= 3)
       {
-        m_chapter.m_signal_show_text("The fire hits you!\n");
-        m_chapter.m_signal_wait();
+        m_chapter.ShowText("The fire hits you!\n");
+        m_chapter.Wait();
         character.ChangeCondition(-2);
       }
       else
       {
-        m_chapter.m_signal_show_text("The fire missed you!\n");
-        m_chapter.m_signal_wait();
+        m_chapter.ShowText("The fire missed you!\n");
+        m_chapter.Wait();
       }
     }
     if (round >= this->m_rounds_to_escape)
     {
-      m_chapter.m_signal_show_text("Do you want to escape?\n");
+      m_chapter.ShowText("Do you want to escape?\n");
       const auto options = CreateYesNoOptions();
-      const Option selected_option{*m_chapter.m_signal_request_option(options)};
+      const Option selected_option{m_chapter.RequestOption(options)};
       assert(selected_option.GetConsequence().GetType() == ConsequenceType::yes
         || selected_option.GetConsequence().GetType() == ConsequenceType::no
       );
@@ -332,7 +332,7 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
       {
         assert(m_escape_chapter > -1);
         character.ChangeCondition(-2);
-        m_chapter.m_signal_show_text("You escaped and took 2 damage.\n");
+        m_chapter.ShowText("You escaped and took 2 damage.\n");
         character.SetChapter(m_escape_chapter);
         return;
       }
@@ -341,13 +341,13 @@ void FightingChapter::DoFight(Monster monster,Character& character) const
 
   if (character.IsDead())
   {
-    m_chapter.m_signal_show_text("The " + monster_name + " defeated you.\n");
-    m_chapter.m_signal_wait();
+    m_chapter.ShowText("The " + monster_name + " defeated you.\n");
+    m_chapter.Wait();
   }
   else
   {
-    m_chapter.m_signal_show_text("You defeated the " + monster_name + "!\n");
-    m_chapter.m_signal_wait();
+    m_chapter.ShowText("You defeated the " + monster_name + "!\n");
+    m_chapter.Wait();
   }
 }
 

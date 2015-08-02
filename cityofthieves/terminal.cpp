@@ -28,44 +28,22 @@ Terminal::Terminal()
 
 void Terminal::ConnectTo(const Chapter& chapter)
 {
-  chapter.m_signal_character_has_changed.connect(
-    boost::bind(&Terminal::SlotCharacterChanged,this,_1)
-  );
-  chapter.m_signal_request_option.connect(
-    boost::bind(&Terminal::SlotRequestOption,this,_1)
-  );
-  chapter.m_signal_wait.connect(
-    boost::bind(&Terminal::SlotWait,this)
-  );
-  chapter.m_signal_show_text.connect(
-    boost::bind(&Terminal::SlotShowText,this,_1)
-  );
+  chapter.SetObserver(this);
 }
 
 void Terminal::ConnectTo(const Game& game)
 {
-  game.m_signal_character_has_changed.connect(
-    boost::bind(&Terminal::SlotCharacterChanged,this,_1)
-  );
-  game.m_signal_request_option.connect(
-    boost::bind(&Terminal::SlotRequestOption,this,_1)
-  );
-  game.m_signal_wait.connect(
-    boost::bind(&Terminal::SlotWait,this)
-  );
-  game.m_signal_show_text.connect(
-    boost::bind(&Terminal::SlotShowText,this,_1)
-  );
+  game.SetObserver(this);
 }
 
-void Terminal::SlotCharacterChanged(const Character& /* character */)
+void Terminal::CharacterChanged(const Character& /* character */)
 {
   #ifndef NDEBUG
-  SlotShowText("Character has changed\n");
+  ShowText("Character has changed\n");
   #endif
 }
 
-Option Terminal::SlotRequestOption(const std::vector<Option>& options)
+Option Terminal::RequestOption(const std::vector<Option>& options)
 {
   assert(!options.empty());
   const int n_options{static_cast<int>(options.size())};
@@ -79,7 +57,7 @@ Option Terminal::SlotRequestOption(const std::vector<Option>& options)
       valid_indices.push_back(i);
       text << "[" << i << "] " << options[i].GetText() << '\n';
     }
-    SlotShowText(text.str());
+    ShowText(text.str());
     const int chosen_index{SlotRequestInput(valid_indices)};
     assert(chosen_index >= 0);
     assert(chosen_index < n_options);
@@ -103,7 +81,7 @@ int Terminal::SlotRequestInput(const std::vector<int>& valid_inputs)
       std::getline(std::cin,s);
       if (!IsInt(s))
       {
-        SlotShowText("Please enter an integer\n");
+        ShowText("Please enter an integer\n");
         continue;
       }
       const int i{std::stoi(s)};
@@ -114,7 +92,7 @@ int Terminal::SlotRequestInput(const std::vector<int>& valid_inputs)
         std::copy(std::begin(valid_inputs),std::end(valid_inputs),std::ostream_iterator<int>(t,", "));
         std::string u{t.str()};
         u.pop_back(); u.pop_back(); //Pop the tailing comma and space
-        SlotShowText("Please enter a valid input: " + u + "\n");
+        ShowText("Please enter a valid input: " + u + "\n");
         continue;
       }
       return *iter;
@@ -122,7 +100,7 @@ int Terminal::SlotRequestInput(const std::vector<int>& valid_inputs)
   }
 }
 
-void Terminal::SlotShowText(const std::string& text)
+void Terminal::ShowText(const std::string& text)
 {
   if (m_silent) return;
   int pos = 0;
@@ -133,13 +111,13 @@ void Terminal::SlotShowText(const std::string& text)
     std::cout << c;
     ++pos;
     std::cout.flush();
-    Wait(m_wait_character_msec);
+    ::Wait(m_wait_character_msec);
   }
 }
 
-void Terminal::SlotWait()
+void Terminal::Wait()
 {
-  Wait(m_wait_suspense);
+  ::Wait(m_wait_suspense);
 }
 
 void Terminal::SpeakText(const std::string& text)

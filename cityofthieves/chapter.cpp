@@ -15,10 +15,6 @@
 
 Chapter::Chapter(const int chapter_number)
   :
-    m_signal_character_has_changed{},
-    m_signal_request_option{},
-    m_signal_show_text{},
-    m_signal_wait{},
     m_ball_game_chapter{*this},
     m_bye_text{},
     m_consequence{},
@@ -29,6 +25,7 @@ Chapter::Chapter(const int chapter_number)
     m_game_lost_chapter{this},
     m_game_won_chapter{this},
     m_luck_chapter(*this),
+    m_observer{nullptr},
     m_options_chapter{},
     m_pawn_shop_chapter(this),
     m_pill_game_chapter{*this},
@@ -304,15 +301,13 @@ Chapter::Chapter(const int chapter_number)
 
 void Chapter::Do(Character& character) const
 {
-  character.m_signal_character_has_changed.connect(
-    boost::bind(&Chapter::SlotCharacterChanged,this,_1)
-  );
+  assert(m_observer);
+  character.SetObserver(m_observer);
 
-  assert(m_signal_request_option.num_slots() > 0);
-  m_signal_show_text("\n");
+  ShowText("\n");
 
   #ifndef NDEBUG
-  m_signal_show_text(
+  ShowText(
       std::string(60,'-') + "\n"
     + std::to_string(GetChapterNumber()) + "\n"
     + std::string(60,'-') + "\n"
@@ -320,7 +315,7 @@ void Chapter::Do(Character& character) const
   #endif
 
   //Display the text line by line
-  m_signal_show_text(m_text + "\n");
+  ShowText(m_text + "\n");
 
   if (GetType() == ChapterType::game_lost)
   {
@@ -375,12 +370,12 @@ void Chapter::Do(Character& character) const
         if (character.HasPotion()) { options.push_back(CreateDrinkPotionOption()); }
       }
 
-      const auto chosen = *m_signal_request_option(options);
-      m_signal_show_text("\n");
+      const auto chosen = m_observer->RequestOption(options);
+      ShowText("\n");
       if (chosen.GetConsequence().GetType() == ConsequenceType::show_inventory)
       {
         //Showing the inventory is trivial
-        this->m_signal_show_text(character.ShowInventory());
+        this->ShowText(character.ShowInventory());
         continue;
       }
       if (chosen.GetConsequence().GetType() == ConsequenceType::eat_provision)
@@ -467,12 +462,32 @@ void Chapter::Do(Character& character) const
     return;
   }
 
-  m_signal_show_text(m_bye_text);
+  ShowText(m_bye_text);
 }
 
-void Chapter::SlotCharacterChanged(const Character& character) const
+
+Option Chapter::RequestOption(const std::vector<Option>& options) const
 {
-  m_signal_character_has_changed(character);
+  assert(m_observer);
+  return m_observer->RequestOption(options);
+}
+
+void Chapter::ShowText(const std::string& text) const
+{
+  assert(m_observer);
+  m_observer->ShowText(text);
+}
+
+void Chapter::CharacterChanged(const Character& character) const
+{
+  assert(m_observer);
+  m_observer->CharacterChanged(character);
+}
+
+void Chapter::Wait() const
+{
+  assert(m_observer);
+  m_observer->Wait();
 }
 
 std::ostream& operator<<(std::ostream& os, const Chapter& chapter)

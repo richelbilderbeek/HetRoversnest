@@ -19,17 +19,17 @@ SkillChapter::SkillChapter(Chapter& chapter)
 
 void SkillChapter::Do(Character& character) const
 {
-  m_chapter.m_signal_show_text("You test your skill...\n");
-  m_chapter.m_signal_wait();
+  m_chapter.ShowText("You test your skill...\n");
+  m_chapter.Wait();
 
   if (character.TestSkill())
   {
-    m_chapter.m_signal_show_text("Skill!\n" + GetSkillText() + "\n");
+    m_chapter.ShowText("Skill!\n" + GetSkillText() + "\n");
     GetSkillConsequence().Apply(character);
   }
   else
   {
-    m_chapter.m_signal_show_text("No skill!\n" + GetNoSkillText() + "\n");
+    m_chapter.ShowText("No skill!\n" + GetNoSkillText() + "\n");
     GetNoSkillConsequence().Apply(character);
   }
 }

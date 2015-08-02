@@ -4,7 +4,7 @@
 #include <vector>
 #include "item.h"
 
-#include <boost/signals2.hpp>
+struct Observer;
 
 struct Character
 {
@@ -55,11 +55,10 @@ struct Character
   void RemoveItem(const Item item);
   void SetChapter(const int chapter);
   void SetIsDead() noexcept { m_condition = 0; }
+  void SetObserver(Observer * const observer) noexcept { m_observer = observer; }
   std::string ShowInventory();
   bool TestSkill() noexcept;
   bool TestLuck() noexcept;
-
-  mutable boost::signals2::signal<void(const Character&)> m_signal_character_has_changed;
 
   private:
 
@@ -75,6 +74,8 @@ struct Character
   const int m_initial_skill;
   Items m_items;
   int m_luck;
+
+  Observer * m_observer;
   int m_provisions;
   int m_skill;
 

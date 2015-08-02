@@ -1,6 +1,8 @@
 #ifndef NDEBUG
 #include <cassert>
 #include <fstream>
+#include <iostream>
+#include <stdexcept>
 
 #include "chapter.h"
 #include "terminal.h"

@@ -9,10 +9,9 @@
 
 #include "dice.h"
 #include "helper.h"
-
+#include "observer.h"
 Character::Character(const Character& other)
   :
-    m_signal_character_has_changed{},
     m_arrows{other.m_arrows},
     m_chapters{other.m_chapters},
     m_condition{other.m_condition},
@@ -23,6 +22,7 @@ Character::Character(const Character& other)
     m_initial_skill{other.m_initial_skill},
     m_items{other.m_items},
     m_luck{other.m_luck},
+    m_observer{nullptr},
     m_provisions{other.m_provisions},
     m_skill{other.m_skill}
 {
@@ -37,7 +37,6 @@ Character::Character(
   const Item initial_item
 )
   :
-    m_signal_character_has_changed{},
     m_arrows{0},
     m_chapters{std::vector<int>(1,1)},
     m_condition{condition},
@@ -48,6 +47,7 @@ Character::Character(
     m_initial_skill{skill},
     m_items{},
     m_luck{luck},
+    m_observer{nullptr},
     m_provisions{10},
     m_skill{skill}
 {
@@ -69,7 +69,7 @@ void Character::AddHasFought(const std::string& monster_name)
 {
   assert(!HasFought(monster_name));
   m_fought.push_back(monster_name);
-  m_signal_character_has_changed(*this);
+  m_observer->CharacterChanged(*this);
 }
 
 void Character::AddItem(const Item item)
@@ -83,7 +83,8 @@ void Character::AddItem(const Item item)
     assert(!"Should not get here");
   }
   m_items.push_back(item);
-  m_signal_character_has_changed(*this);
+  if (m_observer) { m_observer->CharacterChanged(*this); }
+
 }
 
 int Character::CalcAttackStrength() const noexcept
@@ -112,7 +113,8 @@ void Character::ChangeArrows(const int change)
   }
   if (change != 0)
   {
-    m_signal_character_has_changed(*this);
+    m_observer->CharacterChanged(*this);
+
   }
 }
 
@@ -125,7 +127,8 @@ void Character::ChangeSkill(const int change)
   const int skill_after{m_skill};
   if (skill_before != skill_after)
   {
-    m_signal_character_has_changed(*this);
+    m_observer->CharacterChanged(*this);
+
   }
 }
 
@@ -140,9 +143,10 @@ void Character::ChangeGold(const int change)
     m_gold = 0;
     //assert(m_gold >= 0);
   }
-  if (change != 0)
+  if (change != 0 && m_observer)
   {
-    m_signal_character_has_changed(*this);
+    m_observer->CharacterChanged(*this);
+
   }
 }
 
@@ -150,9 +154,10 @@ void Character::ChangeProvisions(const int change)
 {
   m_provisions += change;
   assert(m_provisions >= 0);
-  if (change != 0)
+  if (change != 0 && m_observer)
   {
-    m_signal_character_has_changed(*this);
+    m_observer->CharacterChanged(*this);
+
   }
 }
 
@@ -167,9 +172,10 @@ void Character::ChangeCondition(const int change)
     this->SetIsDead();
   }
   const int condition_after{m_condition};
-  if (condition_before != condition_after)
+  if (condition_before != condition_after && m_observer)
   {
-    m_signal_character_has_changed(*this);
+    m_observer->CharacterChanged(*this);
+
   }
 }
 
@@ -179,9 +185,10 @@ void Character::ChangeLuck(const int change)
   m_luck += change;
   m_luck = std::min(m_luck,m_initial_luck);
   const int luck_after{m_luck};
-  if (luck_before != luck_after)
+  if (luck_before != luck_after && m_observer)
   {
-    m_signal_character_has_changed(*this);
+    m_observer->CharacterChanged(*this);
+
   }
 }
 
@@ -320,7 +327,9 @@ void Character::RemoveItem(Item item)
   assert(iter != std::end(m_items));
   std::swap(*iter,m_items.back());
   m_items.pop_back();
-  m_signal_character_has_changed(*this);
+
+  if (m_observer) { m_observer->CharacterChanged(*this); }
+
 }
 
 void Character::SetChapter(const int chapter)
@@ -363,7 +372,8 @@ void Character::SetChapter(const int chapter)
 
   //assert(std::find(std::begin(m_chapters),std::end(m_chapters),chapter) == std::end(m_chapters));
   m_chapters.push_back(chapter);
-  m_signal_character_has_changed(*this);
+  m_observer->CharacterChanged(*this);
+
 }
 
 std::string Character::ShowInventory()
@@ -479,7 +489,8 @@ bool Character::TestLuck() noexcept
   };
   const bool has_luck{dice < GetLuck()};
   --m_luck;
-  m_signal_character_has_changed(*this);
+  m_observer->CharacterChanged(*this);
+
   return has_luck;
 }
 

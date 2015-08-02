@@ -27,7 +27,8 @@ SOURCES += \
     shopchapter.cpp \
     skillchapter.cpp \
     terminal.cpp \
-    walkthrough.cpp
+    walkthrough.cpp \
+    observer.cpp
 
 HEADERS += \
     ai.h \
@@ -56,7 +57,8 @@ HEADERS += \
     shopchapter.h \
     skillchapter.h \
     terminal.h \
-    walkthrough.h
+    walkthrough.h \
+    observer.h
 
 RESOURCES += \
     CityOfThieves.qrc
