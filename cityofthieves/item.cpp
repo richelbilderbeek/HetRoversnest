@@ -1,96 +1,103 @@
 #include "item.h"
 
-#include <boost/bimap.hpp>
+#include <algorithm>
+#include <cassert>
+#include <sstream>
 
 #include "helper.h"
 
-boost::bimap<Item,std::string> CreateItemBimap()
+std::vector<std::pair<Item,std::string>> CreateItemBimap()
 {
-  static boost::bimap<Item,std::string> m;
+  using Pair = std::pair<Item,std::string>;
+  static std::vector<Pair> m;
   {
     static bool is_done{false};
     if (is_done) return m;
     is_done = true;
   }
-  typedef boost::bimap<Item,std::string>::value_type Pair;
-  m.insert(Pair(Item::all_gold,"all_gold"));
-  m.insert(Pair(Item::all_needed_to_slay_zanbar_bone,"all_needed_to_slay_zanbar_bone"));
-  m.insert(Pair(Item::all_provisions,"all_provisions"));
-  m.insert(Pair(Item::all_silver_items,"all_silver_items"));
-  m.insert(Pair(Item::any_scorpion_brooch,"any_scorpion_brooch"));
-  m.insert(Pair(Item::black_pearls,"black_pearls"));
-  m.insert(Pair(Item::carralifs_sword,"carralifs_sword"));
-  m.insert(Pair(Item::chainmail_coat,"chainmail_coat"));
-  m.insert(Pair(Item::climbing_rope,"climbing_rope"));
-  m.insert(Pair(Item::coloured_candle,"coloured_candle"));
-  m.insert(Pair(Item::copper_scorpion_brooch,"copper_scorpion_brooch"));
-  m.insert(Pair(Item::cursed_white_silk_glove,"cursed_white_silk_glove"));
-  m.insert(Pair(Item::dexterity_potion,"dexterity_potion"));
-  m.insert(Pair(Item::eye_patch,"eye_patch"));
-  m.insert(Pair(Item::followed_sewer_north,"followed_sewer_north"));
-  m.insert(Pair(Item::followed_sewer_south,"followed_sewer_south"));
-  m.insert(Pair(Item::garlic,"garlic"));
-  m.insert(Pair(Item::glass_ball,"glass_ball"));
-  m.insert(Pair(Item::golden_owl,"golden_owl"));
-  m.insert(Pair(Item::golden_scorpion_brooch,"golden_scorpion_brooch"));
-  m.insert(Pair(Item::gold_flower,"gold_flower"));
-  m.insert(Pair(Item::hags_hair,"hags_hair"));
-  m.insert(Pair(Item::has_inspected_suit_of_armor,"has_inspected_suit_of_armor"));
-  m.insert(Pair(Item::invisibility_ring,"invisibility_ring"));
-  m.insert(Pair(Item::iron_key,"iron_key"));
-  m.insert(Pair(Item::iron_spike,"iron_spike"));
-  m.insert(Pair(Item::ivory_skull_on_a_silver_chain,"ivory_skull_on_a_silver_chain"));
-  m.insert(Pair(Item::seen_mummy,"seen_mummy"));
-  m.insert(Pair(Item::knucklebones,"knucklebones"));
-  m.insert(Pair(Item::lantern,"lantern"));
-  m.insert(Pair(Item::lifted_goblet_a,"lifted_goblet_a"));
-  m.insert(Pair(Item::lifted_goblet_b,"lifted_goblet_b"));
-  m.insert(Pair(Item::lifted_goblet_c,"lifted_goblet_c"));
-  m.insert(Pair(Item::lotus_flower,"lotus_flower"));
-  m.insert(Pair(Item::luck_potion,"luck_potion"));
-  m.insert(Pair(Item::magic_elven_boots,"magic_elven_boots"));
-  m.insert(Pair(Item::magic_helmet,"magic_helmet"));
-  m.insert(Pair(Item::magnificent_shield,"magnificent_shield"));
-  m.insert(Pair(Item::meat_hook,"meat_hook"));
-  m.insert(Pair(Item::merchant_pass,"merchant_pass"));
-  m.insert(Pair(Item::mirror,"mirror"));
-  m.insert(Pair(Item::opened_pirate_captain_door,"opened_pirate_captain_door"));
-  m.insert(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));
-  m.insert(Pair(Item::ordinary_sword,"ordinary_sword"));
-  m.insert(Pair(Item::picked_up_golden_scorpion,"picked_up_golden_scorpion"));
-  m.insert(Pair(Item::picked_up_silver_scorpion,"picked_up_silver_scorpion"));
-  m.insert(Pair(Item::piece_of_chalk,"piece_of_chalk"));
-  m.insert(Pair(Item::potion_of_mind_control,"potion_of_mind_control"));
-  m.insert(Pair(Item::random_item_or_one_gold,"random_item_or_one_gold"));
-  m.insert(Pair(Item::ring_of_fire,"ring_of_fire"));
-  m.insert(Pair(Item::ring_of_ice,"ring_of_ice"));
-  m.insert(Pair(Item::ring_of_the_golden_eye,"ring_of_the_golden_eye"));
-  m.insert(Pair(Item::set_of_keys,"set_of_keys"));
-  m.insert(Pair(Item::shield,"shield"));
-  m.insert(Pair(Item::shield_with_tower_crest,"shield_with_tower_crest"));
-  m.insert(Pair(Item::shield_with_unicorn_crest,"shield_with_unicorn_crest"));
-  m.insert(Pair(Item::silver_arrow,"silver_arrow"));
-  m.insert(Pair(Item::silver_chalice,"silver_chalice"));
-  m.insert(Pair(Item::silver_flute,"silver_flute"));
-  m.insert(Pair(Item::silver_insect_bracelet,"silver_insect_bracelet"));
-  m.insert(Pair(Item::silver_scorpion_brooch,"silver_scorpion_brooch"));
-  m.insert(Pair(Item::silver_spoon,"silver_spoon"));
-  m.insert(Pair(Item::skeleton_key,"skeleton_key"));
-  m.insert(Pair(Item::stale_brown_bread,"stale_brown_bread"));
-  m.insert(Pair(Item::stale_white_bread,"stale_white_bread"));
-  m.insert(Pair(Item::stamina_potion,"stamina_potion"));
-  m.insert(Pair(Item::tattoo,"tattoo"));
-  m.insert(Pair(Item::throwing_knife,"throwing_knife"));
-  m.insert(Pair(Item::two_gems,"two_gems"));
-  m.insert(Pair(Item::two_random_items,"two_random_items"));
-  m.insert(Pair(Item::two_silver_goblets,"two_silver_goblets"));
+  m.push_back(Pair(Item::all_gold,"all_gold"));
+  m.push_back(Pair(Item::all_needed_to_slay_zanbar_bone,"all_needed_to_slay_zanbar_bone"));
+  m.push_back(Pair(Item::all_provisions,"all_provisions"));
+  m.push_back(Pair(Item::all_silver_items,"all_silver_items"));
+  m.push_back(Pair(Item::any_scorpion_brooch,"any_scorpion_brooch"));
+  m.push_back(Pair(Item::black_pearls,"black_pearls"));
+  m.push_back(Pair(Item::carralifs_sword,"carralifs_sword"));
+  m.push_back(Pair(Item::chainmail_coat,"chainmail_coat"));
+  m.push_back(Pair(Item::climbing_rope,"climbing_rope"));
+  m.push_back(Pair(Item::coloured_candle,"coloured_candle"));
+  m.push_back(Pair(Item::copper_scorpion_brooch,"copper_scorpion_brooch"));
+  m.push_back(Pair(Item::cursed_white_silk_glove,"cursed_white_silk_glove"));
+  m.push_back(Pair(Item::dexterity_potion,"dexterity_potion"));
+  m.push_back(Pair(Item::eye_patch,"eye_patch"));
+  m.push_back(Pair(Item::followed_sewer_north,"followed_sewer_north"));
+  m.push_back(Pair(Item::followed_sewer_south,"followed_sewer_south"));
+  m.push_back(Pair(Item::garlic,"garlic"));
+  m.push_back(Pair(Item::glass_ball,"glass_ball"));
+  m.push_back(Pair(Item::golden_owl,"golden_owl"));
+  m.push_back(Pair(Item::golden_scorpion_brooch,"golden_scorpion_brooch"));
+  m.push_back(Pair(Item::gold_flower,"gold_flower"));
+  m.push_back(Pair(Item::hags_hair,"hags_hair"));
+  m.push_back(Pair(Item::has_inspected_suit_of_armor,"has_inspected_suit_of_armor"));
+  m.push_back(Pair(Item::invisibility_ring,"invisibility_ring"));
+  m.push_back(Pair(Item::iron_key,"iron_key"));
+  m.push_back(Pair(Item::iron_spike,"iron_spike"));
+  m.push_back(Pair(Item::ivory_skull_on_a_silver_chain,"ivory_skull_on_a_silver_chain"));
+  m.push_back(Pair(Item::seen_mummy,"seen_mummy"));
+  m.push_back(Pair(Item::knucklebones,"knucklebones"));
+  m.push_back(Pair(Item::lantern,"lantern"));
+  m.push_back(Pair(Item::lifted_goblet_a,"lifted_goblet_a"));
+  m.push_back(Pair(Item::lifted_goblet_b,"lifted_goblet_b"));
+  m.push_back(Pair(Item::lifted_goblet_c,"lifted_goblet_c"));
+  m.push_back(Pair(Item::lotus_flower,"lotus_flower"));
+  m.push_back(Pair(Item::luck_potion,"luck_potion"));
+  m.push_back(Pair(Item::magic_elven_boots,"magic_elven_boots"));
+  m.push_back(Pair(Item::magic_helmet,"magic_helmet"));
+  m.push_back(Pair(Item::magnificent_shield,"magnificent_shield"));
+  m.push_back(Pair(Item::meat_hook,"meat_hook"));
+  m.push_back(Pair(Item::merchant_pass,"merchant_pass"));
+  m.push_back(Pair(Item::mirror,"mirror"));
+  m.push_back(Pair(Item::opened_pirate_captain_door,"opened_pirate_captain_door"));
+  m.push_back(Pair(Item::opened_pirate_crew_door,"opened_pirate_crew_door"));
+  m.push_back(Pair(Item::ordinary_sword,"ordinary_sword"));
+  m.push_back(Pair(Item::picked_up_golden_scorpion,"picked_up_golden_scorpion"));
+  m.push_back(Pair(Item::picked_up_silver_scorpion,"picked_up_silver_scorpion"));
+  m.push_back(Pair(Item::piece_of_chalk,"piece_of_chalk"));
+  m.push_back(Pair(Item::potion_of_mind_control,"potion_of_mind_control"));
+  m.push_back(Pair(Item::random_item_or_one_gold,"random_item_or_one_gold"));
+  m.push_back(Pair(Item::ring_of_fire,"ring_of_fire"));
+  m.push_back(Pair(Item::ring_of_ice,"ring_of_ice"));
+  m.push_back(Pair(Item::ring_of_the_golden_eye,"ring_of_the_golden_eye"));
+  m.push_back(Pair(Item::set_of_keys,"set_of_keys"));
+  m.push_back(Pair(Item::shield,"shield"));
+  m.push_back(Pair(Item::shield_with_tower_crest,"shield_with_tower_crest"));
+  m.push_back(Pair(Item::shield_with_unicorn_crest,"shield_with_unicorn_crest"));
+  m.push_back(Pair(Item::silver_arrow,"silver_arrow"));
+  m.push_back(Pair(Item::silver_chalice,"silver_chalice"));
+  m.push_back(Pair(Item::silver_flute,"silver_flute"));
+  m.push_back(Pair(Item::silver_insect_bracelet,"silver_insect_bracelet"));
+  m.push_back(Pair(Item::silver_scorpion_brooch,"silver_scorpion_brooch"));
+  m.push_back(Pair(Item::silver_spoon,"silver_spoon"));
+  m.push_back(Pair(Item::skeleton_key,"skeleton_key"));
+  m.push_back(Pair(Item::stale_brown_bread,"stale_brown_bread"));
+  m.push_back(Pair(Item::stale_white_bread,"stale_white_bread"));
+  m.push_back(Pair(Item::stamina_potion,"stamina_potion"));
+  m.push_back(Pair(Item::tattoo,"tattoo"));
+  m.push_back(Pair(Item::throwing_knife,"throwing_knife"));
+  m.push_back(Pair(Item::two_gems,"two_gems"));
+  m.push_back(Pair(Item::two_random_items,"two_random_items"));
+  m.push_back(Pair(Item::two_silver_goblets,"two_silver_goblets"));
   return m;
 }
 
 bool IsItem(const std::string& item_name)
 {
+  using Pair = std::pair<Item,std::string>;
   const auto m = CreateItemBimap();
-  return m.right.find(item_name) != m.right.end();
+  return std::find_if(
+    std::begin(m),
+    std::end(m),
+    [item_name](const Pair& p) { return p.second == item_name; }
+  ) != std::end(m);
 }
 
 bool IsMagic(const Item item)
@@ -134,9 +141,16 @@ Item ReadItem(std::stringstream& s)
 
 Item ToItem(const std::string& item_name)
 {
-  const auto m = CreateItemBimap();
+
   assert(IsItem(item_name));
-  return m.right.find(item_name)->second;
+
+  using Pair = std::pair<Item,std::string>;
+  const auto m = CreateItemBimap();
+  return std::find_if(
+    std::begin(m),
+    std::end(m),
+    [item_name](const Pair& p) { return p.second == item_name; }
+  )->first;
 }
 
 std::string ToPrettyStr(const Item item)
@@ -146,9 +160,15 @@ std::string ToPrettyStr(const Item item)
 
 std::string ToStr(const Item item)
 {
+  using Pair = std::pair<Item,std::string>;
   const auto m = CreateItemBimap();
-  assert(m.left.find(item) != m.left.end());
-  return m.left.find(item)->second;
+  const auto iter = std::find_if(
+    std::begin(m),
+    std::end(m),
+    [item](const Pair& p) { return p.first == item; }
+  );
+  assert(iter != std::end(m));
+  return iter->second;
 }
 
 std::ostream& operator<<(std::ostream& os, const Item item)
