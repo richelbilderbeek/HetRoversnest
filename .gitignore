@@ -13,3 +13,6 @@ HetRoversnest
 ui_*.h
 GameCityOfThievesExe.zip
 GameCityOfThieves.zip
+build/
+*.elf
+*.nds
