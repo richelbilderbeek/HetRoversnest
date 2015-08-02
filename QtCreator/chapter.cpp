@@ -7,8 +7,6 @@
 #include <sstream>
 #include <stdexcept>
 
-#include <QFile>
-
 #include "ai.h"
 #include "dice.h"
 #include "helper.h"
@@ -37,12 +35,8 @@ Chapter::Chapter(const int chapter_number)
   Test();
   #endif
 
-  {
-    QFile qfile( (":/files/" + std::to_string(chapter_number) + ".txt").c_str() );
-    qfile.copy( (std::to_string(chapter_number) + ".txt").c_str() );
-  }
 
-  const std::string filename{std::to_string(chapter_number) + ".txt"};
+  const std::string filename{"../Files/" + std::to_string(chapter_number) + ".txt"};
   if (!IsRegularFile(filename))
   {
     std::stringstream msg;
@@ -296,7 +290,7 @@ Chapter::Chapter(const int chapter_number)
       assert(!"Should not get here");
     }
   }
-  std::remove(filename.c_str());
+
 }
 
 void Chapter::Do(Character& character) const

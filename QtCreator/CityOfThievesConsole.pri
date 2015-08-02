@@ -59,6 +59,3 @@ HEADERS += \
     terminal.h \
     walkthrough.h \
     observer.h
-
-RESOURCES += \
-    CityOfThieves.qrc

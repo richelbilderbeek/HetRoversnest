@@ -8,8 +8,6 @@
 #include <iterator>
 #include <memory>
 
-#include <QFile>
-
 #include "ai.h"
 #include "dice.h"
 #include "terminal.h"
@@ -115,74 +113,50 @@ std::vector<Option> MenuDialog::GetMenuOptions() const noexcept
 void MenuDialog::ShowAbout()
 {
   {
-    const std::string filename{"About.txt"};
-    {
-      QFile qfile( (":/files/" + filename).c_str() );
-      qfile.copy( filename.c_str() );
-    }
+    const std::string filename{"../Files/About.txt"};
     const std::string text{FileToString(filename)};
     ShowText(text);
-    std::remove(filename.c_str());
+    //
   }
   ShowText("\n");
   {
-    const std::string filename{"Changelog.txt"};
-    {
-      QFile qfile( (":/files/" + filename).c_str() );
-      qfile.copy( filename.c_str() );
-    }
+    const std::string filename{"../Files/Changelog.txt"};
     const std::string text{FileToString(filename)};
     ShowText(text);
-    std::remove(filename.c_str());
+
   }
 }
 
 void MenuDialog::ShowIntroduction()
 {
-  const std::string filename{"Introduction.txt"};
-  {
-    QFile qfile( (":/files/" + filename).c_str() );
-    qfile.copy( filename.c_str() );
-  }
+  const std::string filename{"../Files/Introduction.txt"};
   const std::string text{FileToString(filename)};
   ShowText(text);
-  std::remove(filename.c_str());
+
 }
 
 void MenuDialog::ShowManual()
 {
-  const std::string filename{"Manual.txt"};
-  {
-    QFile qfile( (":/files/" + filename).c_str() );
-    qfile.copy( filename.c_str() );
-  }
+  const std::string filename{"../Files/Manual.txt"};
   const std::string text{FileToString(filename)};
   ShowText(text);
-  std::remove(filename.c_str());
+
 }
 
 void MenuDialog::ShowTeaser()
 {
-  const std::string filename{"Teaser.txt"};
-  {
-    QFile qfile( (":/files/" + filename).c_str() );
-    qfile.copy( filename.c_str() );
-  }
+  const std::string filename{"../Files/Teaser.txt"};
   const std::string text{FileToString(filename)};
   ShowText(text);
-  std::remove(filename.c_str());
+
 }
 
 void MenuDialog::ShowHints()
 {
-  const std::string filename{"Hints.txt"};
-  {
-    QFile qfile( (":/files/" + filename).c_str() );
-    qfile.copy( filename.c_str() );
-  }
+  const std::string filename{"../Files/Hints.txt"};
   const std::string text{FileToString(filename)};
   ShowText(text);
-  std::remove(filename.c_str());
+
 }
 
 void MenuDialog::StartGame()
