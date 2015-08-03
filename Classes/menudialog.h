@@ -17,7 +17,7 @@ struct MenuDialog
 
   Observer * m_observer;
 
-  static const bool m_verbose{false};
+  static const bool m_verbose{true};
 
   Character CreateCharacter() const noexcept;
 

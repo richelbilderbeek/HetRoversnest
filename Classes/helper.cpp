@@ -23,6 +23,33 @@ Helper::Helper()
   #endif
 }
 
+void Helper::Cout(const char c) const
+{
+
+  #ifdef ARM9
+  char buffer[2];
+  buffer[0] = c;
+  buffer[1] = '\0';
+  iprintf(buffer);
+  #else
+  std::cout << c;
+  #endif
+}
+
+void Helper::Cout(const std::string& s) const
+{
+  #ifdef ARM9
+  iprintf(s.c_str());
+  #else
+  std::cout << s;
+  #endif
+}
+
+void Helper::CoutNl(const std::string& s) const
+{
+  Cout(s + "\n");
+}
+
 void Helper::CreateGraph() const
 {
   const std::string filename_base{"Graph"};
@@ -128,6 +155,7 @@ std::string Helper::FileToString(const std::string& filename) const
   {
     std::stringstream msg;
     msg << __func__ << ": ERROR: File " << filename << " does not exist";
+    Helper().CoutNl(msg.str());
     throw std::runtime_error(msg.str());
   }
   const std::vector<std::string> lines = FileToVector(filename);
@@ -318,7 +346,7 @@ std::string Helper::Trim(const std::string& s) const
 
 void Helper::Wait(const double n_secs) const noexcept
 {
-  const bool verbose{false};
+  const bool verbose{true};
   if (verbose) { std::clog << __func__ << std::endl; }
   #ifndef ARM9
   const auto t = std::chrono::high_resolution_clock::now();

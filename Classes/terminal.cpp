@@ -113,10 +113,12 @@ void Terminal::ShowText(const std::string& text)
   for (const char c: text)
   {
     if (c == '\n') pos = -1;
-    else if (c == ' ' && pos > m_n_chars) { pos = 0; std::cout << '\n'; continue; }
-    std::cout << c;
+    else if (c == ' ' && pos > m_n_chars) { pos = 0; Helper().Cout('\n'); continue; }
+    Helper().Cout(c);
     ++pos;
+    #ifndef ARM9
     std::cout.flush();
+    #endif
     Helper().Wait(m_wait_character_msec);
   }
 }

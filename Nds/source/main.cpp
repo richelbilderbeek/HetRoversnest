@@ -7,30 +7,37 @@
 #include <vector>
 #include <stdexcept>
 
-#include "ndsgamedialog.h"
-
 #include <nds.h>
-#include <dirent.h>
+#include <filesystem.h>
 
-int main()
+#include "ndsgamedialog.h"
+#include "helper.h"
+
+int main(int argc, char* argv[0])
 {
   #ifndef NDEBUG
   NO DEBUG MODE IN NDS
   #endif
+
+  videoSetMode(MODE_0_2D);
+  videoSetModeSub(MODE_0_2D);
+
+  vramSetBankA(VRAM_A_MAIN_BG);
+  vramSetBankC(VRAM_C_SUB_BG);
+
+
   try
   {
-    NdsGameDialog d;
+    NdsGameDialog d(argc,argv);
     d.Start();
   }
   catch (std::logic_error& e)
   {
-    std::cerr << e.what();
-    std::cout << e.what();
+    Helper().Cout(e.what());
   }
   catch (std::runtime_error& e)
   {
-    std::cerr << e.what();
-    std::cout << e.what();
+    Helper().Cout(e.what());
   }
   while (1)
   {

@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "game.h"
+#include "helper.h"
 
 Walkthrough::Walkthrough(
     const int seed,
@@ -205,11 +206,13 @@ void Walkthrough::ShowText(const std::string& text)
   for (const char c: text)
   {
     if (c == '\n') pos = -1;
-    else if (c == ' ' && pos > n_chars) { pos = 0; std::cout << '\n'; continue; }
+    else if (c == ' ' && pos > n_chars) { pos = 0; Helper().Cout('\n'); continue; }
     else if (c == ' ' && pos == 0) { continue; }
-    std::cout << c;
+    Helper().Cout(c);
     ++pos;
+    #ifndef ARM9
     std::cout.flush();
+    #endif
   }
 }
 

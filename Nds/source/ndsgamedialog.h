@@ -11,7 +11,7 @@ namespace Ui { class NdsGameDialog; }
 
 struct NdsGameDialog final : public Observer
 {
-  NdsGameDialog();
+  NdsGameDialog(const int argc, char* argv[]);
 
   void Start();
 
@@ -38,7 +38,7 @@ private:
 
   void UpdateStats();
 
-  static const bool m_verbose{false};
+  static const bool m_verbose{true};
 
 };
 

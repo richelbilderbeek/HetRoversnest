@@ -21,7 +21,7 @@ void Helper::Test() noexcept
     is_tested = true;
   }
   const Helper h;
-  const bool verbose{false};
+  const bool verbose{true};
   if (verbose) { std::clog << __func__ << std::endl; }
   if (verbose) { std::clog << "StripFirstChar" << std::endl; }
   {

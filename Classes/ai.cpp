@@ -243,7 +243,7 @@ double Ai::GetPayoff(const std::string& option_text) const noexcept
 
 void Ai::SetFinalPayoff(const Payoff& final_payoff)
 {
-  const bool verbose{false};
+  const bool verbose{true};
   assert(!m_keys.empty());
   double weight{1.0};
   for (int i=0; ; ++i)
@@ -288,7 +288,7 @@ void Ai::SetPayoff(const Key& key, const Payoff& payoff)
 
 void Ai::Start()
 {
-  std::cout << "SOLVING THE GAME" << std::endl;
+  Helper().CoutNl("SOLVING THE GAME");
 
   for (int i=1; ; ++i)
   {
@@ -296,10 +296,9 @@ void Ai::Start()
     if (i % 10000 == 0)
     //if (static_cast<int>(std::log10(i)) != static_cast<int>(std::log10(i-1)))
     {
-
-      std::cout << "i: " << i << std::endl;
+      { std::stringstream s; s << "i: " << i << std::endl; Helper().CoutNl(s.str()); }
       this->CreateGraph();
-      std::cout << "DONE\n";
+      Helper().CoutNl("DONE");
     }
 
     const int skill = 3 + Dice::Get()->Throw();

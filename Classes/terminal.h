@@ -40,7 +40,7 @@ struct Terminal final : public Observer
 
   bool m_silent;
 
-  static const bool m_verbose{false};
+  static const bool m_verbose{true};
 
   ///Waiting time between characters in millisecs
   double m_wait_character_msec;

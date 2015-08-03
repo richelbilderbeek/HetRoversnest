@@ -44,7 +44,7 @@ Chapter::Chapter(const int chapter_number)
   {
     std::stringstream msg;
     msg << __func__ << ": ERROR: File " << filename << " does not exist";
-    if (m_verbose) { std::cerr << msg.str(); }
+    Helper().Cout(msg.str());
     throw std::runtime_error(msg.str());
   }
   const std::vector<std::string> lines{h.FileToVector(filename)};
@@ -489,8 +489,7 @@ Option Chapter::RequestOption(const std::vector<Option>& options) const
 
 void Chapter::ShowText(const std::string& text) const
 {
-  if (m_verbose) { std::clog << __func__ << std::endl; }
-  if (m_verbose) { std::cout << __func__ << std::endl; }
+  if (m_verbose) { Helper().CoutNl(__func__); }
 
   assert(m_observer);
   m_observer->ShowText(text);

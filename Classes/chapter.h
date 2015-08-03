@@ -111,7 +111,7 @@ struct Chapter
 
   std::string m_text;
 
-  static const bool m_verbose{false};
+  static const bool m_verbose{true};
 
   void CharacterChanged(const Character& character) const;
 

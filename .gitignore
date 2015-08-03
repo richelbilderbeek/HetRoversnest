@@ -11,6 +11,8 @@ release/*
 *.o
 HetRoversnest
 ui_*.h
+Files/*.h
+Files/*.cpp
 GameCityOfThievesExe.zip
 GameCityOfThieves.zip
 build/

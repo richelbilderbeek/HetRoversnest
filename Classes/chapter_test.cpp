@@ -15,7 +15,7 @@ void Chapter::Test() noexcept
     is_tested = true;
   }
 
-  const bool verbose{false};
+  const bool verbose{true};
   if (verbose) { std::clog << __func__ << std::endl; }
 
   Terminal d;

@@ -9,6 +9,10 @@ struct Helper
 {
   Helper();
 
+  void Cout(const char c) const;
+  void Cout(const std::string& s) const;
+  void CoutNl(const std::string& s) const;
+
   void CreateGraph() const;
 
   ///FileToString reads a file and converts it to a std::string

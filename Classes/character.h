@@ -79,7 +79,7 @@ struct Character
   int m_provisions;
   int m_skill;
 
-  static const bool m_verbose{false};
+  static const bool m_verbose{true};
 
   #ifndef NDEBUG
   static void Test() noexcept;
