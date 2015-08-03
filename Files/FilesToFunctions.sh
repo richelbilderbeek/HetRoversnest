@@ -31,7 +31,7 @@ do
   echo "std::string Get$NUMBER()" >> $OUTPUT_CPP_FILENAME
   echo "{" >> $OUTPUT_CPP_FILENAME
   echo "  return" >> $OUTPUT_CPP_FILENAME
-  sed 's/.*/    "&"/' $INPUTFILENAME >> $OUTPUT_CPP_FILENAME
+  sed 's/.*/    "& "/' $INPUTFILENAME >> $OUTPUT_CPP_FILENAME
   echo "  ;" >> $OUTPUT_CPP_FILENAME
   echo "}" >> $OUTPUT_CPP_FILENAME
 
@@ -64,7 +64,7 @@ do
   echo "std::string Get$BASENAME()" >> $OUTPUT_CPP_FILENAME
   echo "{" >> $OUTPUT_CPP_FILENAME
   echo "  return" >> $OUTPUT_CPP_FILENAME
-  sed 's/.*/    "&"/' $INPUTFILENAME >> $OUTPUT_CPP_FILENAME
+  sed 's/.*/    "& "/' $INPUTFILENAME >> $OUTPUT_CPP_FILENAME
   echo "  ;" >> $OUTPUT_CPP_FILENAME
   echo "}" >> $OUTPUT_CPP_FILENAME
 

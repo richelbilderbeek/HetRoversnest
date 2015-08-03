@@ -36,7 +36,7 @@ struct Game
 
   mutable Observer * m_observer;
 
-  static const bool m_verbose{true};
+  static const bool m_verbose{false};
 
   void SlotCharacterChanged(const Character& character);
   Option SlotRequestOption(const std::vector<Option>& valid_inputs);

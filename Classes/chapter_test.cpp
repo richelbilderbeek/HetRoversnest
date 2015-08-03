@@ -15,7 +15,7 @@ void Chapter::Test() noexcept
     is_tested = true;
   }
 
-  const bool verbose{true};
+  const bool verbose{false};
   if (verbose) { std::clog << __func__ << std::endl; }
 
   Terminal d;
@@ -598,6 +598,10 @@ void Chapter::Test() noexcept
       chapter.Do(character);
     }
     catch (std::runtime_error& e)
+    {
+      std::cout << e.what() << std::endl;
+    }
+    catch (std::logic_error& e)
     {
       std::cout << e.what() << std::endl;
     }

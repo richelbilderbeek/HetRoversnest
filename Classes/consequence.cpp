@@ -57,9 +57,9 @@ void Consequence::AddItemToRemove(const Item& item)
 void Consequence::Apply(Character& character) const
 {
   #ifndef NDEBUG
-  const bool verbose{true};
+  const bool verbose{false};
   #else
-  const bool verbose{true};
+  const bool verbose{false};
   #endif
 
   if (GetNextChapter() != -1)

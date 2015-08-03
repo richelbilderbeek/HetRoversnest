@@ -9,6 +9,7 @@
 
 #include "ai.h"
 #include "dice.h"
+#include "getfile.h"
 #include "helper.h"
 
 Chapter::Chapter(const int chapter_number)
@@ -39,6 +40,7 @@ Chapter::Chapter(const int chapter_number)
 
   if (m_verbose) { std::clog << __func__ << std::endl; }
 
+  #ifdef USE_TEXT_FILES_FOR_INPUT
   const std::string filename{h.GetFilesFolder() + h.ToStr(chapter_number) + ".txt"};
   if (!h.IsRegularFile(filename))
   {
@@ -48,6 +50,9 @@ Chapter::Chapter(const int chapter_number)
     throw std::runtime_error(msg.str());
   }
   const std::vector<std::string> lines{h.FileToVector(filename)};
+  #else
+  const std::vector<std::string> lines(1,GetFile(h.ToStr(chapter_number)));
+  #endif
   std::stringstream s;
   std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s," "));
 
@@ -200,7 +205,7 @@ Chapter::Chapter(const int chapter_number)
         }
         else
         {
-          std::cerr << "Unknown item " << what << " in " << filename << std::endl;
+          std::cerr << "Unknown item " << what << " in chapter " << chapter_number << std::endl;
           assert(!"Should not get here");
         }
         const std::string str_goto{h.ReadString(s)};
@@ -220,7 +225,7 @@ Chapter::Chapter(const int chapter_number)
       }
       else if (h.IsInt(t))
       {
-        std::clog << "WARNING: goto omitted in file " << filename << std::endl;
+        std::clog << "WARNING: goto omitted in chapter " << chapter_number << std::endl;
         //If no goto, just parse the number
         Consequence consequence;
         consequence.SetNextChapter(h.ToInt(t));
@@ -229,7 +234,7 @@ Chapter::Chapter(const int chapter_number)
       }
       else
       {
-        std::cerr << "Unknown option " << t << " in file " << filename <<std::endl;
+        std::cerr << "Unknown option " << t << " in chapter " << chapter_number <<std::endl;
         assert(!"Should not get here");
       }
     }
@@ -288,7 +293,7 @@ Chapter::Chapter(const int chapter_number)
     else
     {
       std::cerr
-        << "Chapter cannot parse " << filename  << '\n'
+        << "Chapter cannot parse chapter " << chapter_number  << '\n'
         << "Unknown string: " << str << '\n'
       ;
       assert(!"Should not get here");

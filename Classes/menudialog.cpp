@@ -11,6 +11,7 @@
 
 #include "ai.h"
 #include "dice.h"
+#include "getfile.h"
 #include "terminal.h"
 #include "helper.h"
 #include "game.h"
@@ -115,6 +116,7 @@ std::vector<Option> MenuDialog::GetMenuOptions() const noexcept
 
 void MenuDialog::ShowAbout()
 {
+  #ifdef USE_TEXT_FILES_FOR_INPUT
   {
     const std::string filename{Helper().GetFilesFolder() + "About.txt"};
     const std::string text{Helper().FileToString(filename)};
@@ -128,38 +130,51 @@ void MenuDialog::ShowAbout()
     ShowText(text);
 
   }
+  #endif
+  ShowText(GetFile("About"));
+  ShowText("\n");
+  ShowText(GetFile("Changelog"));
 }
 
 void MenuDialog::ShowIntroduction()
 {
+  #ifdef USE_TEXT_FILES_FOR_INPUT
   const std::string filename{Helper().GetFilesFolder() + "Introduction.txt"};
   const std::string text{Helper().FileToString(filename)};
   ShowText(text);
+  #endif
+  ShowText(GetFile("Introduction"));
 
 }
 
 void MenuDialog::ShowManual()
 {
+  #ifdef USE_TEXT_FILES_FOR_INPUT
   const std::string filename{Helper().GetFilesFolder() + "Manual.txt"};
   const std::string text{Helper().FileToString(filename)};
   ShowText(text);
-
+  #endif
+  ShowText(GetFile("Manual"));
 }
 
 void MenuDialog::ShowTeaser()
 {
+  #ifdef USE_TEXT_FILES_FOR_INPUT
   const std::string filename{Helper().GetFilesFolder() + "Teaser.txt"};
   const std::string text{Helper().FileToString(filename)};
   ShowText(text);
-
+  #endif
+  ShowText(GetFile("Teaser"));
 }
 
 void MenuDialog::ShowHints()
 {
+  #ifdef USE_TEXT_FILES_FOR_INPUT
   const std::string filename{Helper().GetFilesFolder() + "Hints.txt"};
   const std::string text{Helper().FileToString(filename)};
   ShowText(text);
-
+  #endif
+  ShowText(GetFile("Hints"));
 }
 
 void MenuDialog::StartGame()
@@ -227,10 +242,17 @@ void MenuDialog::Test() noexcept
   if (m_verbose) { std::clog << "Create terminal" << std::endl; }
 
   Terminal dialog;
+  dialog.SetSilent(true);
 
   if (m_verbose) { std::clog << "Create menu dialog" << std::endl; }
 
   MenuDialog menu;
+  menu.SetObserver(&dialog);
+  menu.ShowAbout();
+  menu.ShowHints();
+  menu.ShowIntroduction();
+  menu.ShowManual();
+  menu.ShowTeaser();
 
   if (m_verbose) { std::clog << "Finished " << __func__ << std::endl; }
 }

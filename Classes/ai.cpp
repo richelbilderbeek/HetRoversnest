@@ -243,7 +243,7 @@ double Ai::GetPayoff(const std::string& option_text) const noexcept
 
 void Ai::SetFinalPayoff(const Payoff& final_payoff)
 {
-  const bool verbose{true};
+  const bool verbose{false};
   assert(!m_keys.empty());
   double weight{1.0};
   for (int i=0; ; ++i)

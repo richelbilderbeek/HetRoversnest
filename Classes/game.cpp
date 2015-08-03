@@ -94,7 +94,7 @@ void Game::Test() noexcept
     if (is_tested) return;
     is_tested = true;
   }
-  const bool verbose{true};
+  const bool verbose{false};
   if (verbose) { std::clog << __func__ << std::endl; }
 
   {

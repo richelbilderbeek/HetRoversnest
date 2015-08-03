@@ -346,7 +346,7 @@ std::string Helper::Trim(const std::string& s) const
 
 void Helper::Wait(const double n_secs) const noexcept
 {
-  const bool verbose{true};
+  const bool verbose{false};
   if (verbose) { std::clog << __func__ << std::endl; }
   #ifndef ARM9
   const auto t = std::chrono::high_resolution_clock::now();
