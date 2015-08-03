@@ -15,6 +15,7 @@ struct Helper
 
   void CreateGraph() const;
 
+  #ifndef ARM9 //No files with NDS
   ///FileToString reads a file and converts it to a std::string
   std::string FileToString(const std::string& filename) const;
 
@@ -24,6 +25,7 @@ struct Helper
 
   ///What is the path of the files?
   std::string GetFilesFolder() const;
+  #endif // ARM9
 
   ///Is x between a and b?
   bool IsBetween(const double x, const double a, const double b) const;

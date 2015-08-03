@@ -149,6 +149,7 @@ void Helper::CreateGraph() const
   }
 }
 
+#ifndef ARM9 //No files with NDS
 std::string Helper::FileToString(const std::string& filename) const
 {
   if (!IsRegularFile(filename))
@@ -186,6 +187,7 @@ std::string Helper::GetFilesFolder() const
   return "";
   #endif
 }
+#endif
 
 bool Helper::IsBetween(const double x, const double a, const double b) const
 {
@@ -360,7 +362,7 @@ void Helper::Wait(const double n_secs) const noexcept
   }
   #else
   //std::chrono::high_resolution_clock does not work on NDS
-  const int n{static_cast<int>(n_secs * 100.0)};
+  const int n{static_cast<int>(n_secs * 200.0)};
   for (int i=0; i!=n; ++i) { swiWaitForVBlank(); }
   #endif
 

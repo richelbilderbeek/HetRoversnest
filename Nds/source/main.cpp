@@ -8,7 +8,6 @@
 #include <stdexcept>
 
 #include <nds.h>
-#include <filesystem.h>
 
 #include "ndsgamedialog.h"
 #include "helper.h"

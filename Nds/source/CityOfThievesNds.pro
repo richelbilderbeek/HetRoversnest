@@ -1,6 +1,7 @@
 message("Compiling this will fail, use the Makefile instead")
 
 include(../../Classes/CityOfThievesNds.pri)
+include(../../Files/FilesNds.pri)
 INCLUDEPATH += /home/richel/devkitPro/libnds/include
 INCLUDEPATH += /home/richel/devkitPro/devkitARM/arm-none-eabi/include
 LIBS += -L/home/richel/devkitPro/devkitARM/arm-none-eabi/lib -lstdc++

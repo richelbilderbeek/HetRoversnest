@@ -48,4 +48,5 @@ CONFIG(release, debug|release) {
 SOURCES += qtmain.cpp
 
 include(../Classes/CityOfThievesConsole.pri)
+include(../Files/Files.pri)
 include(../QtClasses/CityOfThievesDesktop.pri)

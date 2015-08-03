@@ -123,7 +123,7 @@ QScrollBar::handle {
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="HetRoversnest.qrc">:/images/ZanbarBone.jpg</pixmap>
+         <pixmap resource="QtResources.qrc">:/images/ZanbarBone.jpg</pixmap>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -159,7 +159,7 @@ QScrollBar::handle {
   </layout>
  </widget>
  <resources>
-  <include location="HetRoversnest.qrc"/>
+  <include location="QtResources.qrc"/>
  </resources>
  <connections/>
 </ui>

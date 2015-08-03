@@ -8,3 +8,6 @@ FORMS += \
 
 HEADERS += \
     ../QtClasses/qtgamedialog.h
+
+RESOURCES += \
+    ../QtClasses/QtResources.qrc

@@ -146,7 +146,7 @@ void QtGameDialog::ShowText(const std::string& text)
     const std::string s{boost::lexical_cast<std::string>(c)};
     d.insertText(s.c_str());
     #ifdef NDEBUG
-    Wait(0.001); //Only have suspense in release mode
+    Helper().Wait(0.001); //Only have suspense in release mode
     #endif
     ui->plainTextEdit->moveCursor(QTextCursor::End);
     qApp->processEvents();
@@ -156,7 +156,7 @@ void QtGameDialog::ShowText(const std::string& text)
 void QtGameDialog::Wait()
 {
   #ifdef NDEBUG
-  Wait(1.0); //Only have suspense in release mode
+  Helper().Wait(1.0); //Only have suspense in release mode
   #endif
 }
 
