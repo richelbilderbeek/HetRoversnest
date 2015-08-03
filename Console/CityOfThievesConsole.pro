@@ -45,5 +45,6 @@ CONFIG(release, debug|release) {
 }
 
 include(../Classes/CityOfThievesConsole.pri)
+include(../Files/Files.pri)
 
 SOURCES += main.cpp
