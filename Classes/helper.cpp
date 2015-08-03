@@ -149,46 +149,6 @@ void Helper::CreateGraph() const
   }
 }
 
-#ifndef ARM9 //No files with NDS
-std::string Helper::FileToString(const std::string& filename) const
-{
-  if (!IsRegularFile(filename))
-  {
-    std::stringstream msg;
-    msg << __func__ << ": ERROR: File " << filename << " does not exist";
-    Helper().CoutNl(msg.str());
-    throw std::runtime_error(msg.str());
-  }
-  const std::vector<std::string> lines = FileToVector(filename);
-  std::stringstream s;
-  std::copy(std::begin(lines),std::end(lines),std::ostream_iterator<std::string>(s,"\n"));
-  return s.str();
-}
-
-std::vector<std::string> Helper::FileToVector(const std::string& filename) const
-{
-  assert(IsRegularFile(filename));
-  std::vector<std::string> v;
-  std::ifstream in(filename.c_str());
-  for (int i=0; !in.eof(); ++i)
-  {
-    std::string s;
-    std::getline(in,s);
-    v.push_back(s);
-  }
-  return v;
-}
-
-std::string Helper::GetFilesFolder() const
-{
-  #ifndef ARM9
-  return "../Files/";
-  #else
-  return "";
-  #endif
-}
-#endif
-
 bool Helper::IsBetween(const double x, const double a, const double b) const
 {
   // a < x < b

@@ -434,7 +434,7 @@ SOURCES += \
   ../../Files/ZanbarBone58.cpp \
   ../../Files/ZanbarBone59.cpp \
   ../../Files/ZanbarBone80.cpp \
-    ../../Files/getfile.cpp
+  ../../Files/getfile.cpp
 
 HEADERS += \
   ../../Files/100.h \
