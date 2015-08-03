@@ -73,6 +73,7 @@ City Of Thieves is a text adventure game after the English gamebook with the sam
 
 ![Console version]( GameCityOfThievesConsole.png)
 ![Desktop version]( GameCityOfThievesDesktop.png)
+![Nintendo DS version]( GameCityOfThievesNds.png)
 
 ## I want to help!
 

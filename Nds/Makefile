@@ -15,8 +15,7 @@ include $(DEVKITARM)/ds_rules
 # INCLUDES is a list of directories containing extra header files
 # MAXMOD_SOUNDBANK contains a directory of music and sound effect files
 #---------------------------------------------------------------------------------
-TARGET		 := CityOfThieves
-#TARGET		 := $(shell basename $(CURDIR))
+TARGET		 := GameCityOfThieves
 BUILD		 := build
 SOURCES		 := gfx source data ../Classes ../Files
 INCLUDES	 := include build ../Classes ../Files
