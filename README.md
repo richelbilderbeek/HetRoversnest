@@ -6,7 +6,7 @@ Het Roversnest is een Nederlands tekstavontuur boek, een vertaling van 'City of 
 
  * [Wikipedia](https://nl.wikipedia.org/wiki/Het_Roversnest)
 
-![Voorkant van Het Roversnest](BoekVoorkant.jpg)
+![Voorkant van Het Roversnest](BoekVoorkantKlein.jpg)
 
 ## Ik wil helpen!
 
@@ -54,17 +54,6 @@ Zie [nummers van de voorwerpen](Voorwerpnummers.md).
 
 Zie [Hoe gebruik ik git en GitHub?](HoeGebruikIkGitEnGitHub.md)
 
-
-## Zijn er ook kaarten van het spel?
-
-Hier:
-
- * [Mooie kaart van Graham Parker](KaartZwartzand.pdf)
- * [Simpele kaart van Nick Folley](Kaart.jpg)
-
-
-
-
 # City Of Thieves
 
 City Of Thieves is a text adventure game after the English gamebook with the same name by Ian Livingstone. 
@@ -74,6 +63,7 @@ City Of Thieves is a text adventure game after the English gamebook with the sam
 ![Console version]( GameCityOfThievesConsole.png)
 ![Desktop version]( GameCityOfThievesDesktop.png)
 ![Nintendo DS version]( GameCityOfThievesNds.png)
+![Nintendo DS version on emulator]( GameCityOfThievesNdsEmulator.png)
 
 ## I want to help!
 
@@ -81,11 +71,12 @@ Great!
 
 There is need for some testing and spelling corrections. Create a new Issue or email @richelbilderbeek.
 
-## Wat are all those files in the folder `Files`?
+## What are all those files in the folder `Files`?
 
-Those files contain the story of 'City Of Thieves'.
+The `.txt` files contain the story of 'City Of Thieves'. 
+These are converted to C++ headers and source files by the `FilesToFunctions.sh` scripts. 
+This was needed, because NitroFS (as part of libnds, as part of DevKitPro) does not support a filesystem on the NDS hardware.
 
 ## Why are all those files in the folder `Bestanden`?
 
 This game is intended to work on Arduino. An Arduino does not have enough memory to store an entire book. A mini-SD, however, will have no problem with that. Therefore, the idea is that the game text can be copied on an SD card, which itself will be put on an SD card shield, so the Arduino code will only have to do the game logic.
-
