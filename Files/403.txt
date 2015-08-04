@@ -1,6 +1,4 @@
-After the hard fight with Sourbelly you take on Fatnose.
-@
+After the hard fight with Sourbelly you take on Fatnose. @
 normal
-
 monster Fatnose 11 12 2
 goto 110

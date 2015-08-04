@@ -1,5 +1,5 @@
 City Of Thieves 
-version 1.3 
+version 1.4
 
 (C) 2015 Richel Bilderbeek.
 

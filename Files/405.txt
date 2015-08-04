@@ -1,7 +1,5 @@
-You must now fight the other two city guards as a pair.
-@
+You must now fight the other two city guards as a pair. @
 normal
-
 Fight_both
 monster second_city_guard 6 6 2
 monster third_city_guard 7 5 2

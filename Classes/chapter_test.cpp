@@ -470,11 +470,8 @@ void Chapter::Test() noexcept
     assert(chapter.GetType() == ChapterType::test_your_skill);
     assert(chapter.GetSkill().GetSkillConsequence().GetNextChapter() == 38);
     Character character(100,100,100,Item::luck_potion);
-
     d.ConnectTo(chapter);
     chapter.Do(character);
-
-
     assert(character.GetCurrentChapter() == 38);
   }
   //Chapter 190: test-your-skill for unskilled character
@@ -545,6 +542,17 @@ void Chapter::Test() noexcept
     assert(!character.HasItem(Item::ivory_skull_on_a_silver_chain));
   }
 
+  //Golden scorpion brooch must not revive
+  {
+    const Chapter chapter(403); //Fatnose fight
+    Character character(1,1,1,Item::luck_potion);
+
+    d.ConnectTo(chapter);
+    chapter.Do(character);
+
+    assert(character.IsDead());
+  }
+  assert(1==2);
   //Parse chapters using Chapter
   {
     std::ofstream f("TODO.txt");

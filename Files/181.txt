@@ -1,5 +1,3 @@
-The key fits the lock and the handle turns.
-@
+The key fits the lock and the handle turns. @
 normal
-
-Next_chapter 159
+goto 159

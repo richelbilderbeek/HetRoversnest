@@ -1,5 +1,4 @@
-You give Ben Borryman the first magic item.
-@
+You give Ben Borryman the first magic item. @
 normal
 option Pay with two magic items, second item is magic elven_boots @ if has magic_elven_boots change remove magic_elven_boots goto 85
 option Pay with two magic items, second item is magic helmet @ if has magic_helmet change remove magic_helmet goto 85
