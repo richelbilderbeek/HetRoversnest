@@ -17,10 +17,12 @@ struct Terminal final : public Observer
   void ConnectTo(const Chapter& chapter);
   void ConnectTo(const Game& chapter);
 
+  int GetNumberOfCharsPerLine() const noexcept override;
+
   void SetAutoPlay(const bool auto_play) { m_auto_play = auto_play; }
   void SetSilent(const bool silent) { m_silent = silent; }
 
-  void SetNumberOfCharsPerLine(const int n_chars) { m_n_chars = n_chars; }
+  //void SetNumberOfCharsPerLine(const int n_chars) { m_n_chars = n_chars; }
 
   void SpeakText(const std::string& text);
 
@@ -34,9 +36,6 @@ struct Terminal final : public Observer
   private:
 
   bool m_auto_play;
-
-  ///Number of characters per line
-  int m_n_chars;
 
   bool m_silent;
 

@@ -65,6 +65,17 @@ City Of Thieves is a text adventure game after the English gamebook with the sam
 ![Nintendo DS version]( GameCityOfThievesNds.png)
 ![Nintendo DS version on emulator]( GameCityOfThievesNdsEmulator.png)
 
+## Downloading
+
+ * [here](http://richelbilderbeek.nl/GameCityOfThieves.htm).
+
+## Building
+
+ * Console version: `cd Console`, `qmake`,`make`
+ * Desktop version: `cd Desktop`, `qmake`,`make`
+ * Nintendo DS version: `cd Nds`, `make`
+ * Crosscompile to Windows: `./crosscompile.sh`
+
 ## I want to help!
 
 Great!

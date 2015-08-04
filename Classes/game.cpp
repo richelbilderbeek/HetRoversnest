@@ -136,7 +136,7 @@ void Game::Test() noexcept
   {
     const int seed{0};
     //Use a maxed-out character
-    const Character character(9,12,12,Item::luck_potion);
+    const Character character(6,12,12,Item::luck_potion);
     Walkthrough walkthrough(seed,character);
     walkthrough.Start();
   }

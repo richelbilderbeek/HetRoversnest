@@ -33,6 +33,8 @@ private:
   void DoChapter();
 
   void CharacterChanged(const Character& character) override;
+  int GetNumberOfCharsPerLine() const noexcept override { return 2000000000; }
+
   void Wait() override;
 
   void ShowText(const std::string& text) override;

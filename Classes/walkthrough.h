@@ -15,6 +15,7 @@ struct Walkthrough final : public Observer
     const Character& character
   );
 
+  int GetNumberOfCharsPerLine() const noexcept override;
   void Start();
 
   private:

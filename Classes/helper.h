@@ -36,6 +36,11 @@ struct Helper
   ///Strip only the first character of the first line
   std::vector<std::string> StripFirstChar(std::vector<std::string> v) const;
 
+  ///From http//www.richelbilderbeek.nl/CppStrToLines.htm
+  ///Add newlines to a std::string so that
+  ///each line has length characters at most
+  std::string StrToLines(std::string s, const int length) const;
+
   #ifndef NDEBUG
   static void Test() noexcept;
   #endif // NDEBUG

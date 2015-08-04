@@ -14,11 +14,6 @@
 Terminal::Terminal()
   :
     m_auto_play{false},
-#ifndef ARM9
-    m_n_chars{60},
-#else
-    m_n_chars{31},
-#endif
     m_silent{false},
 #ifndef NDEBUG
     m_wait_character_msec{0.0},
@@ -48,6 +43,15 @@ void Terminal::CharacterChanged(const Character& /* character */)
   #endif
 }
 
+int Terminal::GetNumberOfCharsPerLine() const noexcept
+{
+#ifndef ARM9
+  return 80;
+#else
+  return 32;
+#endif
+}
+
 Option Terminal::RequestOption(const std::vector<Option>& options)
 {
   assert(!options.empty());
@@ -56,13 +60,14 @@ Option Terminal::RequestOption(const std::vector<Option>& options)
   while (1)
   {
     std::vector<int> valid_indices;
-    std::stringstream text;
     for (int i=0; i!=n_options; ++i)
     {
       valid_indices.push_back(i);
+      assert(options[i].GetText().back() != '\n');
+      std::stringstream text;
       text << "[" << i << "] " << options[i].GetText() << '\n';
+      ShowText(text.str());
     }
-    ShowText(text.str());
     const int chosen_index{SlotRequestInput(valid_indices)};
     assert(chosen_index >= 0);
     assert(chosen_index < n_options);
@@ -109,13 +114,11 @@ void Terminal::ShowText(const std::string& text)
 {
   if (m_verbose) { std::clog << "Terminal::ShowText: showing " << text << std::endl; }
   if (m_silent) return;
-  int pos = 0;
-  for (const char c: text)
+
+  const std::string lines = Helper().StrToLines(text,GetNumberOfCharsPerLine());
+  for (const char c: lines)
   {
-    if (c == '\n') pos = -1;
-    else if (c == ' ' && pos > m_n_chars) { pos = 0; Helper().Cout('\n'); continue; }
     Helper().Cout(c);
-    ++pos;
     #ifndef ARM9
     std::cout.flush();
     #endif

@@ -34,6 +34,8 @@ struct Ai final : public Observer
   //Payoff for each chapter
   const PayoffPairs& GetPayoffs() const noexcept { return m_payoffs; }
 
+  int GetNumberOfCharsPerLine() const noexcept override { return 80; }
+
   double GetPayoff(const std::string& option_text) const noexcept;
 
   void SetPayoff(const Key& chapter, const Payoff& payoff);

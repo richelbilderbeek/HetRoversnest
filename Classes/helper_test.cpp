@@ -58,6 +58,18 @@ void Helper::Test() noexcept
       }
     }
   }
+  if (verbose) { std::clog << "StrToLines" << std::endl; }
+  {
+    assert(h.StrToLines("Hello",5) == "Hello");
+    assert(h.StrToLines("Hello World",5) == "Hello\nWorld");
+    assert(h.StrToLines("Hi to you",5) == "Hi to\nyou");
+    assert(h.StrToLines("Hi to you again",5) == "Hi to\nyou\nagain");
+    assert(h.StrToLines("Toolong",4) == "Tool\nong");
+    assert(h.StrToLines("[7] Solve game",80) == "[7] Solve game");
+    assert(h.StrToLines("[6] Create graph",80) == "[6] Create graph");
+    assert(h.StrToLines("01\n23\n45",4) == "01\n23\n45");
+    assert(h.StrToLines("The walk to Port Blacksand takes you west some fifty miles",32) == "The walk to Port Blacksand takes\nyou west some fifty miles");
+  }
   if (verbose) { std::clog << "Finished " << __func__ << std::endl; }
 }
 #endif

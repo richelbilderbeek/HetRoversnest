@@ -34,6 +34,7 @@ void QtGameDialog::keyPressEvent(QKeyEvent * e)
 {
   int key_pressed = e->key();
   if (key_pressed == Qt::Key_Escape) close();
+  m_key_pressed = 999;
   if (m_options.size() > 0 && key_pressed == Qt::Key_0) { m_key_pressed = 0; return; }
   if (m_options.size() > 1 && key_pressed == Qt::Key_1) { m_key_pressed = 1; return; }
   if (m_options.size() > 2 && key_pressed == Qt::Key_2) { m_key_pressed = 2; return; }
@@ -114,15 +115,17 @@ Option QtGameDialog::RequestOption(const std::vector<Option>& options)
 {
   m_options = options;
   std::vector<int> valid_indices;
-  std::stringstream text;
   const int n_options{static_cast<int>(options.size())};
   for (int i=0; i!=n_options; ++i)
   {
     valid_indices.push_back(i);
+    std::stringstream text;
     text << "[" << i << "] " << options[i].GetText() << '\n';
+    ShowText(text.str());
   }
-  ShowText(text.str());
   if (n_options == 1) { return options[0]; }
+
+  m_key_pressed = -1;
 
   while(1)
   {
@@ -141,13 +144,25 @@ Option QtGameDialog::RequestOption(const std::vector<Option>& options)
 void QtGameDialog::ShowText(const std::string& text)
 {
   QTextCursor d(ui->plainTextEdit->textCursor());
+
+  #ifdef NDEBUG
+  double waiting_time{0.01}; //Only have suspense in release mode
+  #else
+  double waiting_time{0.00}; //No suspense in debug mode
+  #endif
+
   for (const char c: text)
   {
     const std::string s{boost::lexical_cast<std::string>(c)};
     d.insertText(s.c_str());
-    #ifdef NDEBUG
-    Helper().Wait(0.001); //Only have suspense in release mode
-    #endif
+    Helper().Wait(waiting_time);
+    //TODO: Speed up text display when user presses a key
+    //This approach does not work:
+    if (m_key_pressed != -1)
+    {
+      waiting_time = 0.0;
+      m_key_pressed = -1;
+    }
     ui->plainTextEdit->moveCursor(QTextCursor::End);
     qApp->processEvents();
   }

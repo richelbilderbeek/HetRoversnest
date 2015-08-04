@@ -315,11 +315,9 @@ void Chapter::Do(Character& character) const
   ShowText("\n");
 
   #ifndef NDEBUG
-  ShowText(
-      std::string(31,'-') + "\n"
-    + h.ToStr(GetChapterNumber()) + "\n"
-    + std::string(31,'-') + "\n"
-  );
+  ShowText(std::string(m_observer->GetNumberOfCharsPerLine(),'-'));
+  ShowText(h.ToStr(GetChapterNumber()) + "\n");
+  ShowText(std::string(m_observer->GetNumberOfCharsPerLine(),'-'));
   #endif
 
   //Display the text line by line

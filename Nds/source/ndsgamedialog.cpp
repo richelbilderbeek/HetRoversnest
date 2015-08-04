@@ -88,6 +88,26 @@ void NdsGameDialog::CharacterChanged(const Character &character)
   consoleSelect(&m_screen_bottom);
 }
 
+std::string NdsGameDialog::IntToKey(const int i) const
+{
+  switch (i)
+  {
+    case 0: return "^";
+    case 1: return ">";
+    case 2: return "V";
+    case 3: return "<";
+    case 4: return "X";
+    case 5: return "A";
+    case 6: return "B";
+    case 7: return "Y";
+    case 8: return "L";
+    case 9: return "R";
+    case 10: return "T";
+    case 11: return "E";
+    default: return " ";
+  }
+}
+
 Option NdsGameDialog::RequestOption(const std::vector<Option>& options)
 {
   if (m_verbose) { Helper().CoutNl(__func__); }
@@ -96,14 +116,14 @@ Option NdsGameDialog::RequestOption(const std::vector<Option>& options)
 
   m_options = options;
   std::vector<int> valid_indices;
-  std::stringstream text;
   const int n_options{static_cast<int>(options.size())};
   for (int i=0; i!=n_options; ++i)
   {
     valid_indices.push_back(i);
-    text << "[" << i << "] " << options[i].GetText() << '\n';
+    std::stringstream text;
+    text << "[" << IntToKey(i) << "] " << options[i].GetText() << '\n';
+    ShowText(text.str());
   }
-  ShowText(text.str());
   if (n_options == 1) { return options[0]; }
 
   while(1)
@@ -132,16 +152,16 @@ void NdsGameDialog::ShowText(const std::string& text)
 
   consoleSelect(&m_screen_bottom);
 
-  const int n_chars{22};
-  const double wait_character_msec{0.01};
-  int pos = 0;
-  for (const char c: text)
-  {
-    if (c == '\n') pos = -1;
-    else if (c == ' ' && pos > n_chars) { pos = 0; Helper().Cout(std::string(1,'\n')); continue; }
-    Helper().Cout(std::string(1,c));
-    ++pos;
+  double wait_character_msec{0.01};
 
+  const std::string lines = Helper().StrToLines(text,GetNumberOfCharsPerLine());
+  for (const char c: lines)
+  {
+    scanKeys(); //Don't forget!
+    const int keys_down = keysDown();
+    if (keys_down) { wait_character_msec = 0.0; }
+
+    Helper().Cout(c);
     Helper().Wait(wait_character_msec);
   }
 }
@@ -173,12 +193,18 @@ void NdsGameDialog::ProcessEvents()
   const int keys_down = keysDown();
   if (keys_down)
   {
-    if (     keys_down & KEY_UP   ) { m_key_pressed = 0; }
-    else if (keys_down & KEY_RIGHT) { m_key_pressed = 1; }
-    else if (keys_down & KEY_DOWN ) { m_key_pressed = 2; }
-    else if (keys_down & KEY_LEFT ) { m_key_pressed = 3; }
-    else if (keys_down & KEY_B    ) { m_key_pressed = 4; }
-    else if (keys_down & KEY_A    ) { m_key_pressed = 5; }
+    if (     keys_down & KEY_UP    ) { m_key_pressed =  0; }
+    else if (keys_down & KEY_RIGHT ) { m_key_pressed =  1; }
+    else if (keys_down & KEY_DOWN  ) { m_key_pressed =  2; }
+    else if (keys_down & KEY_LEFT  ) { m_key_pressed =  3; }
+    else if (keys_down & KEY_X     ) { m_key_pressed =  4; }
+    else if (keys_down & KEY_A     ) { m_key_pressed =  5; }
+    else if (keys_down & KEY_B     ) { m_key_pressed =  6; }
+    else if (keys_down & KEY_Y     ) { m_key_pressed =  7; }
+    else if (keys_down & KEY_L     ) { m_key_pressed =  8; }
+    else if (keys_down & KEY_R     ) { m_key_pressed =  9; }
+    else if (keys_down & KEY_START ) { m_key_pressed = 10; }
+    else if (keys_down & KEY_SELECT) { m_key_pressed = 11; }
   }
 
   swiWaitForVBlank();

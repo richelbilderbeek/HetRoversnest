@@ -25,9 +25,13 @@ private:
   PrintConsole m_screen_bottom;
   PrintConsole m_screen_top;
 
-  void DoChapter();
-
   void CharacterChanged(const Character& character) override;
+  void DoChapter();
+  int GetNumberOfCharsPerLine() const noexcept { return 31; }
+
+  //Which option belongs to which key?
+  std::string IntToKey(const int i) const;
+
   void Wait() override;
 
   void ShowText(const std::string& text) override;
@@ -39,7 +43,6 @@ private:
   void UpdateStats();
 
   static const bool m_verbose{false};
-
 };
 
 #endif // NDSGAMEDIALOG_H
