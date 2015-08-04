@@ -41,6 +41,7 @@ fi
 
 mkdir CityOfThieves
 
+cp LICENSE ./CityOfThieves/LICENSE
 cp $CONSOLE_EXE ./CityOfThieves/GameCityOfThievesConsole.exe
 cp $DESKTOP_EXE ./CityOfThieves/GameCityOfThievesDesktop.exe
 cp $CONSOLE_NDS ./CityOfThieves/GameCityOfThievesConsole.nds
