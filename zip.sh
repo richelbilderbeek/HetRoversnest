@@ -1,7 +1,8 @@
 #!/bin/sh
 
-CONSOLE_EXE=./cityofthieves/release/cityofthieves.exe
-DESKTOP_EXE=./cityofthieves/release/CityOfThievesDesktop.exe
+CONSOLE_EXE=GameCityOfThievesConsole.exe
+DESKTOP_EXE=GameCityOfThievesDesktop.exe
+CONSOLE_NDS=./Nds/GameCityOfThievesConsole.nds
 
 if [ ! -e $CONSOLE_EXE ]
 then
@@ -25,10 +26,24 @@ then
   exit
 fi
 
+if [ ! -e $CONSOLE_NDS ]
+then
+  cd Nds
+  make
+  cd ..
+fi
+
+if [ ! -e $CONSOLE_NDS ]
+then
+  echo "ERROR: Cannot find "$CONSOLE_NDS
+  exit
+fi
+
 mkdir CityOfThieves
 
-cp $CONSOLE_EXE ./CityOfThieves/CityOfThievesConsole.exe
-cp $DESKTOP_EXE ./CityOfThieves/CityOfThievesDesktop.exe
+cp $CONSOLE_EXE ./CityOfThieves/GameCityOfThievesConsole.exe
+cp $DESKTOP_EXE ./CityOfThieves/GameCityOfThievesDesktop.exe
+cp $CONSOLE_NDS ./CityOfThieves/GameCityOfThievesConsole.nds
 
 zip -9 -r GameCityOfThieves.zip CityOfThieves
 

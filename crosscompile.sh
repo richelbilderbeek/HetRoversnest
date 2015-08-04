@@ -1,18 +1,31 @@
 #!/bin/sh
 # Crosscompiles City Of Thieves to the Windows operating system
 
-cd cityofthieves
+CONSOLE_PRO=CityOfThievesConsole.pro
+DESKTOP_PRO=CityOfThievesDesktop.pro
 
-i686-w64-mingw32.static-qmake-qt5 cityofthieves.pro
+cd Console
+if [ ! -e $CONSOLE_PRO ]
+then
+  echo "ERROR: Cannot find "$CONSOLE_PRO
+  exit
+fi
+i686-w64-mingw32.static-qmake-qt5 $CONSOLE_PRO
 make
-
-i686-w64-mingw32.static-qmake-qt5 CityOfThievesDesktop.pro
-make
-
 cd ..
 
-CONSOLE_EXE=./cityofthieves/release/cityofthieves.exe
-DESKTOP_EXE=./cityofthieves/release/CityOfThievesDesktop.exe
+cd Desktop
+if [ ! -e $DESKTOP_PRO ]
+then
+  echo "ERROR: Cannot find "$DESKTOP_PRO
+  exit
+fi
+i686-w64-mingw32.static-qmake-qt5 $DESKTOP_PRO
+make
+cd ..
+
+CONSOLE_EXE=./Console/release/CityOfThievesConsole.exe
+DESKTOP_EXE=./Desktop/release/CityOfThievesDesktop.exe
 
 if [ ! -e $CONSOLE_EXE ]
 then
@@ -28,3 +41,7 @@ then
 else
   echo "OK: Can find "$DESKTOP_EXE
 fi
+
+
+mv $CONSOLE_EXE GameCityOfThievesConsole.exe
+mv $DESKTOP_EXE GameCityOfThievesDesktop.exe

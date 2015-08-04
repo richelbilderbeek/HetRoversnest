@@ -542,17 +542,18 @@ void Chapter::Test() noexcept
     assert(!character.HasItem(Item::ivory_skull_on_a_silver_chain));
   }
 
-  //Golden scorpion brooch must not revive
+  //Silver scorpion brooch must not revive
   {
     const Chapter chapter(403); //Fatnose fight
     Character character(1,1,1,Item::luck_potion);
+    character.AddItem(Item::silver_scorpion_brooch);
 
     d.ConnectTo(chapter);
     chapter.Do(character);
 
+    //Character is dead unless silver scorpion brooch resurrected him/her
     assert(character.IsDead());
   }
-  assert(1==2);
   //Parse chapters using Chapter
   {
     std::ofstream f("TODO.txt");

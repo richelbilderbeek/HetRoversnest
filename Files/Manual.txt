@@ -97,3 +97,4 @@ Cursed shield: in the book, you can get a cursed shield, that decreases your ski
 
 Less loops: in the book, some events could occur multiple times. For example, you could reach the roof of Zanbar Bone's tower multiple times and experience the consequences multiple times. In the computer game, this is prevented and all events can only occur once.
 
+Random losses: in some chapters the character loses a random object. In the book it was unclear if you could select which object you lost. In the game, a truly random object is chosen. This can have some major impact, as this can even be the mighty Carralif's sword.

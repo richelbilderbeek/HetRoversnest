@@ -1,5 +1,6 @@
 2015-08-04: Version 1.4
  * Works on Nintendo DS hardware
+ * Silver scorpion brooch does not resurrect character
  * Does not leak files anymore
 2015-07-29: Version 1.3
  * Actually pay for many things
