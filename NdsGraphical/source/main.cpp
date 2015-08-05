@@ -17,19 +17,11 @@ int main(int argc, char* argv[0])
   #ifndef NDEBUG
   NO DEBUG MODE IN NDS
   #endif
+  assert(1==2);
 
   consoleDemoInit();
   videoSetMode(MODE_FB0);
   vramSetBankA(VRAM_A_LCD);
-
-
-  /*
-  videoSetMode(MODE_0_2D);
-  videoSetModeSub(MODE_0_2D);
-
-  vramSetBankA(VRAM_A_MAIN_BG);
-  vramSetBankC(VRAM_C_SUB_BG);
-  */
 
   try
   {

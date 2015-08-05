@@ -18,3 +18,4 @@ GameCityOfThieves.zip
 build/
 *.elf
 *.nds
+NdsGraphical/source/ZanbarBoneBackground.h

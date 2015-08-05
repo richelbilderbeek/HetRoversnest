@@ -12,7 +12,7 @@
 #include "menudialog.h"
 #include "helper.h"
 #include "dice.h"
-
+#include "ZanbarBoneBackground.h"
 
 NdsGameDialog::NdsGameDialog(const int argc, char* argv[])
   : m_key_pressed{-1},
@@ -53,6 +53,8 @@ NdsGameDialog::NdsGameDialog(const int argc, char* argv[])
   }
 
   if (m_verbose) { h.CoutNl("Done initializing game"); }
+
+  ZanbarBoneBackground().Draw(VRAM_A,0,0);
 }
 
 
