@@ -5,6 +5,7 @@ include(../../Classes/CityOfThievesNds.pri)
 include(../../Files/FilesNds.pri)
 INCLUDEPATH += /home/richel/devkitPro/libnds/include
 INCLUDEPATH += /home/richel/devkitPro/devkitARM/arm-none-eabi/include
+INCLUDEPATH += ../build
 LIBS += -L/home/richel/devkitPro/devkitARM/arm-none-eabi/lib -lstdc++ -lm
 LIBS += -L/home/richel/devkitPro/libnds/lib -lnds9 -lmm9 -ldswifi9
 DEFINES += ARM9 NDEBUG
@@ -25,3 +26,6 @@ QMAKE_LINK = /home/richel/devkitPro/devkitARM/bin/arm-none-eabi-gcc
 HEADERS += \
     ndsgamedialog.h \
     ZanbarBoneBackground.h
+
+SOURCES += \
+    ZanbarBoneBackground.cpp

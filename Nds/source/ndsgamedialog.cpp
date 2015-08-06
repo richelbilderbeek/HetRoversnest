@@ -5,9 +5,15 @@
 #include <iostream>
 #include <stdexcept>
 
-#include <nds.h>
 #include <stdio.h>
 
+#include <nds.h>
+#include <maxmod9.h>
+#include "soundbank.h"
+#include "soundbank_bin.h"
+
+#include "ndsgamedialog.h"
+#include "helper.h"
 #include "chapter.h"
 #include "menudialog.h"
 #include "helper.h"
@@ -19,6 +25,11 @@ NdsGameDialog::NdsGameDialog(const int argc, char* argv[])
     m_options{},
     m_screen_bottom{}
 {
+  consoleDemoInit();
+  videoSetMode(MODE_FB0);
+  vramSetBankA(VRAM_A_LCD);
+
+  mmInitDefaultMem((mm_addr)soundbank_bin);
 
 
   consoleInit(&m_screen_bottom, 3,BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
@@ -164,6 +175,11 @@ void NdsGameDialog::ShowText(const std::string& text)
 
 void NdsGameDialog::Start()
 {
+
+
+  mmLoad(MOD_69008_EXPERIENCE);
+  mmStart(MOD_69008_EXPERIENCE,MM_PLAY_LOOP);
+
   if (m_verbose) { Helper().Cout(__func__); Helper().CoutNl(": 1"); }
 
   Dice::Get()->SetSeed(42);

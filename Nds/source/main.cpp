@@ -1,16 +1,8 @@
-#include <algorithm>
 #include <cassert>
-#include <iostream>
-#include <iterator>
-#include <fstream>
-#include <sstream>
-#include <vector>
 #include <stdexcept>
 
-#include <nds.h>
-
-#include "ndsgamedialog.h"
 #include "helper.h"
+#include "ndsgamedialog.h"
 
 int main(int argc, char* argv[0])
 {
@@ -19,9 +11,6 @@ int main(int argc, char* argv[0])
   #endif
   assert(1==2);
 
-  consoleDemoInit();
-  videoSetMode(MODE_FB0);
-  vramSetBankA(VRAM_A_LCD);
 
   try
   {
@@ -35,10 +24,5 @@ int main(int argc, char* argv[0])
   catch (std::runtime_error& e)
   {
     Helper().Cout(e.what());
-  }
-  while (1)
-  {
-    swiWaitForVBlank();
-
   }
 }
