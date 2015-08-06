@@ -70,6 +70,8 @@ struct Chapter
 
   void SetObserver(Observer * const observer) const noexcept { m_observer = observer; }
 
+  void SetVerbose(const bool verbose) const noexcept { m_verbose = verbose; }
+
   void ShowText(const std::string& text) const;
   void Wait() const;
 
@@ -111,7 +113,7 @@ struct Chapter
 
   std::string m_text;
 
-  static const bool m_verbose{false};
+  mutable bool m_verbose;
 
   void CharacterChanged(const Character& character) const;
 

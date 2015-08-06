@@ -30,7 +30,8 @@ Chapter::Chapter(const int chapter_number)
     m_pill_game_chapter{*this},
     m_shop_chapter{this},
     m_skill_chapter{*this},
-    m_text{}
+    m_text{},
+    m_verbose{false}
 {
   if (m_verbose) { std::clog << __func__ << std::endl; }
   #ifndef NDEBUG
@@ -315,9 +316,7 @@ void Chapter::Do(Character& character) const
   ShowText("\n");
 
   #ifndef NDEBUG
-  ShowText(std::string(m_observer->GetNumberOfCharsPerLine(),'-'));
-  ShowText(h.ToStr(GetChapterNumber()) + "\n");
-  ShowText(std::string(m_observer->GetNumberOfCharsPerLine(),'-'));
+  ShowText("CHAPTER " + h.ToStr(GetChapterNumber()) + "\n");
   #endif
 
   //Display the text line by line

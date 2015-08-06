@@ -1,4 +1,4 @@
-Once more you poke the wire inside the lock and finally it turns. Add 1 luck point. Raising the lid of the chest you see, to your delight, 25 gold pieces and a magnificent shield . This shield increase your attack strength by 1 during each attack round in battle. @
+Once more you poke the wire inside the lock and finally it turns. Add 1 luck point. Raising the lid of the chest you see, to your delight, 25 gold pieces and a magnificent shield. This shield increase your attack strength by 1 during each attack round in battle. @
 normal
 change add magnificent_shield
 change luck 1

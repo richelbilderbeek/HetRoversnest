@@ -12,21 +12,19 @@
 #include "menudialog.h"
 #include "helper.h"
 #include "dice.h"
-
+#include "ZanbarBoneBackground.h"
 
 NdsGameDialog::NdsGameDialog(const int argc, char* argv[])
   : m_key_pressed{-1},
     m_options{},
-    m_screen_bottom{},
-    m_screen_top{}
+    m_screen_bottom{}
 {
 
 
-  consoleInit(&m_screen_top,    3,BgType_Text4bpp, BgSize_T_256x256, 31, 0, true, true);
   consoleInit(&m_screen_bottom, 3,BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
 
 
-  consoleSelect(&m_screen_top);
+  consoleSelect(&m_screen_bottom);
 
   const Helper h;
 
@@ -55,37 +53,35 @@ NdsGameDialog::NdsGameDialog(const int argc, char* argv[])
   }
 
   if (m_verbose) { h.CoutNl("Done initializing game"); }
+
+  ZanbarBoneBackground().Draw(VRAM_A,0,0);
 }
 
 
 void NdsGameDialog::CharacterChanged(const Character &character)
 {
-  if (m_verbose) { Helper().CoutNl(__func__); }
-
-  consoleSelect(&m_screen_top);
-
-  consoleClear();
-
-  std::stringstream s;
-  s
-    << "Condition: " << character.GetCondition() << "/" << character.GetInitialCondition() << '\n'
-    << "Skill: " << character.GetSkill() << "/" << character.GetInitialSkill() << '\n'
-    << "Luck: " << character.GetLuck() << "/" << character.GetInitialLuck() << '\n'
-    << "Gold: " << character.GetGold() << '\n'
-    << "Provisions: " << character.GetProvisions() << '\n'
-    << "Items:\n"
-  ;
+  //Keep showing Zanbar Bone's head
+  /*
+  //The maximum x coordinat
+  const int maxx = 256;
+  //The maximum y coordinat
+  const int maxy = 192;
+  //The maximum R/G/B color value
+  const int max_color = 32;
+  //Counter for the scroll effect
+  int z = character.GetCondition();
+  for (int y=0; y!=maxy; ++y)
   {
-    for (const auto item: character.GetItems())
+    for (int x=0; x!=maxx; ++x)
     {
-      if (static_cast<int>(item) < 100)
-      {
-        s << " * " << ToPrettyStr(item) << '\n';
-      }
+      VRAM_A[(y*maxx)+x]
+        = RGB15(
+          (x+z  ) % max_color,
+          (y+z  ) % max_color,
+          (x+y+z) % max_color);
     }
   }
-  Helper().CoutNl(s.str());
-  consoleSelect(&m_screen_bottom);
+  */
 }
 
 std::string NdsGameDialog::IntToKey(const int i) const
@@ -214,8 +210,13 @@ void NdsGameDialog::ProcessEvents()
 void NdsGameDialog::Wait()
 {
   if (m_verbose) { Helper().CoutNl(__func__); }
+  const double n_secs{1.0};
+  const int n{static_cast<int>(n_secs * 200.0)};
+  for (int i=0; i!=n; ++i)
+  {
+    swiWaitForVBlank();
+    scanKeys(); //Don't forget!
+    if (keysDown()) break;
+  }
 
-  swiWaitForVBlank();
-
-  Helper().Wait(1.0);
 }

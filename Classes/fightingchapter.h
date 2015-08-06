@@ -35,6 +35,8 @@ struct FightingChapter
 
   void SetRoundsToEscape(const int rounds_to_escape);
 
+  void SetVerbose(const bool verbose) const noexcept;
+
   private:
 
   Chapter& m_chapter;
@@ -49,6 +51,7 @@ struct FightingChapter
 
   int m_rounds_to_escape;
 
+  mutable bool m_verbose;
 
   void DoFight(std::vector<Monster> monsters,Character& character) const;
   void DoFight(Monster monster,Character& character) const;

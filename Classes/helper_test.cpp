@@ -68,7 +68,18 @@ void Helper::Test() noexcept
     assert(h.StrToLines("[7] Solve game",80) == "[7] Solve game");
     assert(h.StrToLines("[6] Create graph",80) == "[6] Create graph");
     assert(h.StrToLines("01\n23\n45",4) == "01\n23\n45");
-    assert(h.StrToLines("The walk to Port Blacksand takes you west some fifty miles",32) == "The walk to Port Blacksand takes\nyou west some fifty miles");
+    {
+      const std::string s{"The walk to Port Blacksand takes you west some fifty miles"};
+      const std::string t{"The walk to Port Blacksand takes\nyou west some fifty miles"};
+      assert(h.StrToLines(s,32) == t);
+    }
+    {
+      const std::string s{
+        " * Can create graph (in debug mode)\n"
+        " * Graph shows vital items in double circle\n"
+      };
+      assert(h.StrToLines(s,78) == s);
+    }
   }
   if (verbose) { std::clog << "Finished " << __func__ << std::endl; }
 }

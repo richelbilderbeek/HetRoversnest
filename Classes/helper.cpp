@@ -259,11 +259,51 @@ int Helper::ToInt(const std::string& s) const
 
 std::string Helper::StrToLines(std::string s, const int length) const
 {
-  const bool verbose{false};
   assert(length > 0);
   const int sz{static_cast<int>(s.size())};
   int this_line_start = 0;
-  int pos = this_line_start + length;
+  while (1)
+  {
+    //Is there still work to do
+    if (this_line_start + length >= sz) { return s; }
+
+    bool done = false;
+
+    //Do a forward scan for a newline
+    for (int pos = this_line_start; pos != this_line_start + length; ++pos)
+    {
+      assert(pos < this_line_start + length);
+      if (s[pos] == '\n')
+      {
+        this_line_start = pos + 1;
+        done = true;
+        break;
+      }
+    }
+    if (done) continue;
+
+    //Do a backward scan for a space
+    for (int pos = this_line_start + length; pos != this_line_start; --pos)
+    {
+      assert(pos > this_line_start);
+      if (s[pos] == ' ')
+      {
+        s[pos] = '\n';
+        this_line_start = pos + 1;
+        done = true;
+        break;
+      }
+    }
+    if (done) continue;
+
+    //There is no space to be found, inserting it
+    s = s.substr(0,this_line_start+length)
+      + "\n"
+      + s.substr(this_line_start+length,sz-this_line_start-length)
+    ;
+    this_line_start = this_line_start + length + 1;
+  }
+  /*
 
   while (1)
   {
@@ -271,15 +311,24 @@ std::string Helper::StrToLines(std::string s, const int length) const
     assert(pos >= 0 && pos < sz);
     if (s[pos] == '\n')
     {
+      if (verbose) { std::clog << "Found newline at pos " << pos << std::endl; }
       this_line_start = pos + 1;
       pos = this_line_start + length;
+
+      if (verbose) { std::clog << "New pos: " << pos << std::endl; }
+      if (verbose) { std::clog << "New this_line_start: " << this_line_start << std::endl; }
       continue;
     }
     if (s[pos] == ' ')
     {
+      if (verbose) { std::clog << "Found space at pos " << pos << " which is replaced by a newline" << std::endl; }
+
       s[pos] = '\n';
       this_line_start = pos + 1;
       pos = this_line_start + length;
+
+      if (verbose) { std::clog << "New pos: " << pos << std::endl; }
+      if (verbose) { std::clog << "New this_line_start: " << this_line_start << std::endl; }
     }
     if (pos >= sz) break;
     --pos;
@@ -304,6 +353,7 @@ std::string Helper::StrToLines(std::string s, const int length) const
     }
   }
   return s;
+  */
 }
 
 std::string Helper::ToPretty(std::string s) const

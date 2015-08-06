@@ -9,6 +9,7 @@
 
 #include "chapter.h"
 #include "game.h"
+#include "getfile.h"
 #include "helper.h"
 
 Terminal::Terminal()
@@ -24,6 +25,9 @@ Terminal::Terminal()
 #endif
 {
   if (m_verbose) { std::clog << __func__ << std::endl; }
+  #ifndef NDEBUG
+  Test();
+  #endif
 }
 
 void Terminal::ConnectTo(const Chapter& chapter)
@@ -126,11 +130,6 @@ void Terminal::ShowText(const std::string& text)
   }
 }
 
-void Terminal::Wait()
-{
-  Helper().Wait(m_wait_suspense);
-}
-
 void Terminal::SpeakText(const std::string& text)
 {
   std::ofstream f("espeak.txt");
@@ -140,3 +139,23 @@ void Terminal::SpeakText(const std::string& text)
   assert(!error);
   if (error) {;}
 }
+
+#ifndef NDEBUG
+void Terminal::Test() noexcept
+{
+  {
+    static bool is_tested{false};
+    if (is_tested) return;
+    is_tested = true;
+  }
+  Terminal t;
+  t.SetSilent(true);
+  t.ShowText(GetFile("Changelog"));
+}
+#endif
+
+void Terminal::Wait()
+{
+  Helper().Wait(m_wait_suspense);
+}
+

@@ -46,6 +46,10 @@ struct Terminal final : public Observer
 
   ///Waiting time to increase the suspense
   double m_wait_suspense;
+
+  #ifndef NDEBUG
+  static void Test() noexcept;
+  #endif
 };
 
 #endif // TERMINAL_H

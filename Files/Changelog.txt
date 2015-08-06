@@ -1,3 +1,10 @@
+2015-08-06: Version 1.6
+ * A dead lizardine does not spew fire anymore
+ * If enemy has condition of 2 or lower, query to use luck is removed
+ * If player has condition of 1, query to use luck is removed
+ * A monster is killed, query to escape is removed
+ * Text of 'Changelog.txt' looked weird, due to bug in StrToLines function
+ * NDS version shows head of Zanbar Bone in top screen
 2015-08-04: Version 1.5
  * Can increase speed of text in NDS and desktop version
 2015-08-04: Version 1.4
