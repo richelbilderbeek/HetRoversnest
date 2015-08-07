@@ -5,4 +5,7 @@ De Wachter is nu werkelijk kwaad en doet een uitval naar je met zijn piek.
 @7
 @6
 @130
-@212
+@212The guard is really annoyed and charges at you with his pike. @
+fight
+monster city_guard 8 7 2
+goto 212

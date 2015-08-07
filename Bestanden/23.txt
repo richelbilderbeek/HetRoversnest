@@ -3,4 +3,7 @@ en maakt aanstalten je aan te vallen. Hij is sterk, maar geen
 goed vechter
 @7
 Monster zilversmid 4 6 2
-Next_chapter 146
+Next_chapter 146The man grabs a wooden club from behind a chair and prepares to fight you. He is strong but not a good fighter. @
+fight
+monster silversmith 4 8 2
+goto 146

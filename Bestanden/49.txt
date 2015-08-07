@@ -2,4 +2,7 @@ Als je je zwaard trekt, duikt de wachter naar rechts
 in een poging een kleine bel aan de muur van het wachthuis te luiden. Test je geluk!
 @1
 @0:Pecht! Hij slaagt erin de bel te pakken te krijgen en hem met veel kabaal te luiden, voor hij zich omdraait om je met zijn piek aan te vallen@311
-@1:Geluk! Hij grijpt naast de bel, vloekt en draait zich om om je met zijn fiek te lijf te gaan@10
+@1:Geluk! Hij grijpt naast de bel, vloekt en draait zich om om je met zijn fiek te lijf te gaan@10As you draw your sword the guard leaps to his right and attempts to ring a small bell on the wall of the guardhouse. @
+test_your_luck
+no_luck He manages to grab the bell and rings it loudly before turning to fight you with his pike. @ goto 311
+luck He misses the bell, curses, and turns to fight you with his pike. @ goto 10

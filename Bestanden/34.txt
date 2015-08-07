@@ -1,2 +1,4 @@
 Het rijtuig ratelt langs en je ziet hoe de koetsier de vier paarden aanspoort alsof zijn leven ervan afhangt.
-Als het lawaai van het rijtuig in de verte wegsterft stap je de straat weer op en vervolg je je tocht in westelijke richting.                                                                                                                
+Als het lawaai van het rijtuig in de verte wegsterft stap je de straat weer op en vervolg je je tocht in westelijke richting.                                                                                                                The carriage thunders by and you see its driver urging on the four horses as though his life depended on it. As the noise of the carriage fades into the distance, you step out on to the street and continue west. @
+normal
+goto 171

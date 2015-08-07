@@ -1,4 +1,7 @@
 Een van de mannen steekt zijn hand in een binnenzak van zijn groene jas en haalt een dunne zilveren armband te voorschijn. 
 Hij geeft hem aan jou en ziet dat er een insect in is gegraveerd. 
 De man legt uit dat de Insectenarmband de macht heeft zelfs Reuzeninsecten te doden. 
-Nadat je de armband om je pols hebt gedaan verlaat je de herberg en vervolg je je weg naar het noorden.
+Nadat je de armband om je pols hebt gedaan verlaat je de herberg en vervolg je je weg naar het noorden.One of the men teaches into a pocket inside his green jacket and produces a thin silver bracelet. He gives it to you and you see the outline of an insect etched into its surface. The man explains that the insect bracelet has the power to kill even giant insects. After placing the bracelet on your wrist you leave the tavern and head north again. @
+normal
+change add silver_insect_bracelet
+goto 296

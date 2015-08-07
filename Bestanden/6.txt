@@ -5,4 +5,7 @@ Wat doe je?
 [2] Als je achter de gordijnen wilt kijken wie je zo lomp bejegent
 @0
 @1:333
-@2:88
+@2:88Her tone becomes unpleasant and she tells you to get out of her house because there are certainly no rags in it, nor any other kind of jumble for that matter. @
+normal
+option Obey her by leaving the house and head further north along Stable Street @ goto 333
+option Go through the curtains and see who is being so rude to you @ goto 88

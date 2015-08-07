@@ -2,4 +2,7 @@ Je springt over de slangen heen en snelt naar de deur.
 Test je Geluk.
 @1
 @0:Pecht! Een van de slangen laat toe en bijt je in je been@15
-@1:Geluk! Je haalt ongedeerd de deur@75
+@1:Geluk! Je haalt ongedeerd de deur@75You leap over the snakes and run for the door. @
+test_your_luck
+luck One of the snakes strikes out and bites you in the leg @ goto 298
+no_luck You reach the door safely @ goto 75

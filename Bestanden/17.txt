@@ -5,4 +5,7 @@ Wat doe je?
 [2] Als je liever in oostelijk richting verder gaat
 @0
 @1:331
-@2:161
+@2:161Walking along the narrow street called Clock Street you see a man wearing faltered rags sitting in the gutter. His head rests on his hands and he looks thoroughly miserable. @
+normal
+option Talk to him@ goto 331
+option Continue walking east@ goto 161

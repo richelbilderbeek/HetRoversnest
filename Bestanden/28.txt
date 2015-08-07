@@ -3,4 +3,7 @@ Terwijl je met de Reuzenratten streed meende je iets of iemand te zien sluipen i
 [2] Wil je liever rechtsomkeert en terug wilt gaan naar de ingang
 @0
 @1:265
-@2:104
+@2:104While you were fighting the giant rats, you thought you saw someone or something skulking in the shadows ahead. @
+normal
+option Continue further north along the tunnel@ goto 265
+option Turn round and walk back to the entrance hole@ goto 104

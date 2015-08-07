@@ -1,9 +1,3 @@
-De twee wachters leiden je het wachthuis in slepen je onmiddellijk mee de trap af naar de cellen in de kelder. Er zijn vier cellen. Ze zijn alle leeg, op één na, waarin een magere oude man met wit haar zit opgesloten. De wachters maken de cel naast die van de oude man open en duwen je naar binnen. ze leggen je zwaard op een tafelin de gang. Het meubilair van cel bestaat uit niet meer dan een brits plus een emmer water. De wachters lopen de trap weer op. Als ze verdwenen zijn komt de oude man overeind van zijn brits en zegt: 'je komt zeker van buiten de stad? Geef maar geen antwoord, dat zie je zo. Wil je dat ik zorg  dat je vrijkomt? Geef me 10 Goudstukken en ik heb jer binnen 5 minuten uit.' De oude man houdt zijn hand op door de tralies van jouw cel.
-[1]Wil je de oude 10 goudstukken geven?
-[2]of hou je ze liever zelf?
-@0
-@1:351
-@2:29
 The two guards lead you into the guardhouse and take you immediately downstairs to the cells below. There are four cells and all are empty except for one which houses a frail, white-haired old man. The guards unlock the cell next to the old man's and throw you in, placing your sword and shield on a table outside. The only contents of the cell are a straw mattress and a pail of water. The guards go back upstairs and as they disappear the old man gets up off his bed and starts to speak. 'You're an outsider, aren't you? Don't reply, it's obvious. Do you want me to set you free? Give me 10 gold pieces and I'll have you out in five minutes.' The old man then puts his arm through the bars of your cell with the palm of his hand upturned. @
 normal
 option Give the old man 10 gold pieces@ if gold 10 change gold -10 goto 351 

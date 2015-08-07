@@ -11,4 +11,8 @@ Ze grijpen hun zwaard om zich te verdedigen en bevechtenje een voor een.
 @7
 Monster Eerste_stadswachter 6 6 2
 Monster Tweede_stadswachter 7 5 2
-Next_chapter 54
+Next_chapter 54You take 10 gold pieces out of your backpack and place them on the palm of the hand outstretched before you. The old man then reaches into his inner clothing and pulls out an iron key, telling you that it will unlock your cell. Almost in disbelief you take the key and place it in the lock. Incredibly, the lock turns. You look back at the old man and ask him if he wishes to escape with you. He smiles and shakes his head, saying that he is happy where he is. You leave the cell and, picking up your sword and shield, climb the stairs to the floor above. @
+normal
+change add carralifs_sword
+change add shield
+goto 406

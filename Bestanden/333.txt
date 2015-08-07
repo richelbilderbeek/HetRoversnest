@@ -2,3 +2,6 @@ Je komt even later bij een splitsing. De stalstraat loopt door naar het noorden 
 Je besluit je weg naar het noorden te vervolgen.
 @999
 Next_chapter 76
+You soon reach a junction in the street. Stable Street continues north and to your left you see Tower Street leading west. @
+normal
+goto 76

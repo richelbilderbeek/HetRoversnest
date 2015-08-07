@@ -1,2 +1,3 @@
 De afstand naar de grond is te groot, zelfs voor een geoefend krijgsman als jij. Je komt ongelukkig terecht en breekt je nek. Je avontuur is hier afgelopen.
-@5
+@5The distance to the ground is too great even for a great warrior like yourself. You land badly and break your neck. Your adventure ends here. @
+game_lost

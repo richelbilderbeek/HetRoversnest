@@ -1,4 +1,12 @@
 De man leunt op de toog en zegt dat een Onzichtbaarheidsring 10 Goudstukken kost, een Vuurring 8 Goudstukken en een IJsring 7 Goudstukken. 
 Als je een van de ringen wilt kopen trek dan de benodigde Goudstukken af op je Avonturenwijzer. 
 Je groet de man, schuift de ring aan je vinger en verlaat de winkel. 
-Je gaat naar het westen.
+Je gaat naar het westen.The man leans on the counter. He sells magical rings. @
+shop
+shop_items 
+  invisibility_ring 10 
+  ring_of_fire 8 
+  ring_of_ice 7 
+  @
+bye Bidding the man farewell, you leave the shop to head west. @
+goto 196

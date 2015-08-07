@@ -2,3 +2,7 @@ De koets rijd gewoon door! Plotseling zijn de paarden, met van angst wijdopenges
 @1
 @0:Pech! je komt onder de hoeven terecht@155
 @1:Geluk je belandt ongedeerd in de goot@275
+The carriage is not going to stop! Suddenly the four horses, their eyes wide with terror, are almost on top of you. You must dive to one side to avoid being run down. @
+test_your_luck
+no_luck You are trampled underfoot by one of the horses @ goto 155
+luck You escape injury from the horses as you land in the gutter @ goto 275
