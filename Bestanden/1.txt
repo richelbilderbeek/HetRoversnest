@@ -1,4 +1,4 @@
-De voettoch naar Zwartzand voert je zo'n vijfenzeventig kilometer 
+hoi De voettocht naar Zwartzand voert je zo'n vijfenzeventig kilometer 
 over vlakten en heuvels naar het Westen; 
 gelukkig zonder onaangename ontmoetingen. 
 Uiteindelijk bereik je de kust en zie je de hoge stadsmuur die zwartzand omgeeft 
@@ -16,7 +16,7 @@ en instinctief grijp je het gevest van je slagzwaard om jezelf gerust te stellen
 Bij de poort wordt je opgewacht door een lange wachter. Hij draagt een zwarte malienkolder en een ijzeren helm. 
 Hij treedt naar voren, je de doorgang belemmerend met zijn piek en zegt: 'Wie waagt het onuitgenodigd naar Zwartzand te komen? 
 Verklaar wat je hier te zoeken hebt of ga de weg terug die je gekomen bent.'. 
-Wat doen je? @
+Wat ga je doen? @
 normal
 option Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? @ goto 202
 option Tegen hem zeggen dat je gestolen waar wil verkopen? @ goto 33
