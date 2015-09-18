@@ -1,4 +1,4 @@
-hoi De voettocht naar Zwartzand voert je zo'n vijfenzeventig kilometer 
+ De voettocht naar Zwartzand voert je zo'n vijfenzeventig kilometer 
 over vlakten en heuvels naar het Westen; 
 gelukkig zonder onaangename ontmoetingen. 
 Uiteindelijk bereik je de kust en zie je de hoge stadsmuur die zwartzand omgeeft 
@@ -18,6 +18,6 @@ Hij treedt naar voren, je de doorgang belemmerend met zijn piek en zegt: 'Wie wa
 Verklaar wat je hier te zoeken hebt of ga de weg terug die je gekomen bent.'. 
 Wat ga je doen? @
 normal
-option Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? @ goto 202
-option Tegen hem zeggen dat je gestolen waar wil verkopen? @ goto 33
-option Hem snel aanvallen met je zwaard? @ goto 49
+option  [1] Tegen hem zeggen dat je naar Nicodemus gebracht wil worden? goto 202
+option [2] Tegen hem zeggen dat je gestolen waar wil verkopen? goto 33
+option [3] Hem snel aanvallen met je zwaard? goto 49 
