@@ -22,7 +22,11 @@ QtGameDialog::QtGameDialog(QWidget *parent) :
 
   Dice::Get()->SetSeed(42);
 
+  #ifdef QT5_TODO_FIND_CORRECT_DEFINE
   QTimer::singleShot(100,Qt::VeryCoarseTimer,this,SLOT(Start()));
+  #else
+  QTimer::singleShot(100,this,SLOT(Start()));
+  #endif
 }
 
 QtGameDialog::~QtGameDialog()
