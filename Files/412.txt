@@ -1,4 +1,0 @@
-You eat the food. Your condition is increased by 2 points.  @
-normal
-change condition 2
-goto 413

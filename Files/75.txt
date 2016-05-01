@@ -1,3 +1,0 @@
-Outside the rain has stopped and you set off north again. @
-normal
-goto 31

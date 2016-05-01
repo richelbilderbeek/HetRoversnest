@@ -1,3 +1,0 @@
-The key fits the lock and the handle turns. @
-normal
-goto 159

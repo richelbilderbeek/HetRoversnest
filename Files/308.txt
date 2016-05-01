@@ -1,3 +1,0 @@
-There is nothing to be found in the alleyway so you return to Harbour Street and turn left. @
-normal
-goto 180
